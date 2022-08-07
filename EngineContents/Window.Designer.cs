@@ -42,6 +42,8 @@ namespace SpriteX_Engine.EngineContents
             this.Name = "Window";
             this.Text = "Window";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Window_KeyDown);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Window_KeyUp);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Window_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Window_MouseMove);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Window_MouseUp);

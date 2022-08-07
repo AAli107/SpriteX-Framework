@@ -11,9 +11,10 @@ namespace SpriteX_Engine
     {
          // Insert static Variables here \\
         // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/ \\
-        public static Vector2 loc = new Vector2(0, 0);
+        public static Vector2 loc = new Vector2(100, 100);
         public static Vector2 width = new Vector2(100, 100);
-        public static Vector3 dir = new Vector3(20, 20, 1);
+        public static int dir = 1;
+        public static float speed = 10;
         public static byte blue = 0;
         // /\/\/\/\/\/\/\/\/\/\/\/\/\/\/\ \\
 
@@ -24,16 +25,17 @@ namespace SpriteX_Engine
 
         public static void OnGameUpdate() // Gets Executed every frame as long as the game is running
         {
-            loc.X += dir.X;
-            loc.Y += dir.Y;
-            blue += (byte)dir.Z;
-
-            if (loc.X >= gfx.drawWidth - width.X || loc.X <= 0)
-                dir.X *= -1;
-            if (loc.Y >= gfx.drawHeight - width.Y || loc.Y <= 0)
-                dir.Y *= -1;
+            blue += (byte)dir;
             if (blue >= 255 || blue <= 0)
-                dir.Z *= -1;
+                dir *= -1;
+
+            if (Controller.IsKeyPressed(Keys.W)) loc.Y -= speed;
+            if (Controller.IsKeyPressed(Keys.A)) loc.X -= speed;
+            if (Controller.IsKeyPressed(Keys.S)) loc.Y += speed;
+            if (Controller.IsKeyPressed(Keys.D)) loc.X += speed;
+
+            loc.X = loc.X < 0 ? 0 : (loc.X > gfx.drawWidth - width.X ? gfx.drawWidth - width.X : loc.X);
+            loc.Y = loc.Y < 0 ? 0 : (loc.Y > gfx.drawHeight - width.Y ? gfx.drawHeight - width.Y : loc.Y);
 
         }
 
@@ -51,6 +53,7 @@ namespace SpriteX_Engine
             gfx.GameUI.DrawProgressBar(10, 300, 100, 400, Color.Blue, Color.DarkBlue, blue/255.0f, false);
             gfx.GameUI.DrawText(10, 280, (blue / 255.0f).ToString(), new Font(FontFamily.GenericMonospace, 12), Color.Red);
             gfx.GameUI.DrawText(10, 20, Controller.mousePos.ToString(), new Font(FontFamily.GenericMonospace, 12), Color.Cyan);
+            gfx.GameUI.DrawText(10, 40, Controller.pressedkeys.Count.ToString(), new Font(FontFamily.GenericMonospace, 12), Color.Black);
         }
 
         public static void OnGameEnd() // Gets Executed when Engine.gameRunning = false which is basically when the game ends

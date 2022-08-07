@@ -60,5 +60,20 @@ namespace SpriteX_Engine.EngineContents
                     Controller.pressedMouseButtons.RemoveAt(i);
             }
         }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (!Controller.IsKeyPressed(e.KeyCode))
+                Controller.pressedkeys.Add(e.KeyCode);
+        }
+
+        private void Window_KeyUp(object sender, KeyEventArgs e)
+        {
+            for (int i = 0; i < Controller.pressedkeys.Count; i++)
+            {
+                if (Controller.pressedkeys[i] == e.KeyCode)
+                    Controller.pressedkeys.RemoveAt(i);
+            }
+        }
     }
 }
