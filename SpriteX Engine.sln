@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31515.178
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpriteX Engine", "SpriteX Engine.csproj", "{938FA247-A685-442A-90AC-8475FBBB6ECD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{938FA247-A685-442A-90AC-8475FBBB6ECD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{938FA247-A685-442A-90AC-8475FBBB6ECD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{938FA247-A685-442A-90AC-8475FBBB6ECD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{938FA247-A685-442A-90AC-8475FBBB6ECD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5A276E43-E98A-4F47-9560-54A404D6E1B1}
+	EndGlobalSection
+EndGlobal
