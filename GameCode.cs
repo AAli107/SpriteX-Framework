@@ -44,9 +44,9 @@ namespace SpriteX_Engine
             gfx.DrawRectangle(loc.X, loc.Y, width.X, width.Y, Color.FromArgb((int)loc.X / 5, (int)(loc.Y / 2.8125f), blue));
 
             if (Controller.IsMouseButtonPressed(MouseButtons.Left))
-                gfx.DrawCircle(Controller.mousePos.X, Controller.mousePos.Y, 50, Color.FromArgb((int)loc.X / 5, (int)(loc.Y / 2.8125f), blue));
+                gfx.DrawCircle(Controller.mousePos.X, Controller.mousePos.Y, 50, Color.FromArgb((int)Controller.mousePos.X / 5, (int)(Controller.mousePos.Y / 2.8125f), blue));
             if (Controller.IsMouseButtonPressed(MouseButtons.Right))
-                gfx.DrawRectangle(Controller.mousePos.X, Controller.mousePos.Y + 50, 50, 25, Color.FromArgb((int)loc.X / 5, (int)(loc.Y / 2.8125f), blue));
+                gfx.DrawRectangle(Controller.mousePos.X, Controller.mousePos.Y - 75, 50, 25, Color.FromArgb((int)Controller.mousePos.X / 5, (int)(Controller.mousePos.Y / 2.8125f), blue));
 
             gfx.GameUI.DrawProgressBar(10, 300, 100, 400, Color.Blue, Color.DarkBlue, blue/255.0f, false);
             gfx.GameUI.DrawText(10, 280, (blue / 255.0f).ToString(), new Font(FontFamily.GenericMonospace, 12), Color.Red);

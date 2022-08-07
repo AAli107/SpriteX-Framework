@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Numerics;
 using System.Diagnostics;
 
@@ -54,21 +55,31 @@ namespace SpriteX_Engine.EngineContents
                 stopwatch.Reset();
                 stopwatch.Start(); // starts a timer to measure the delta time of the current frame
 
-                gfx.graphics.Clear(Color.Black);
-
                 if (!gamePaused)
                 {
                     GameCode.OnGameUpdate(); // Updates the game
                 }
                 if (renderGraphics)
                 {
-                    GameCode.OnGraphicsUpdate();
-                    if (showFPS)
+                    GameCode.OnGraphicsUpdate(); // Executes all the graphics code
+                    if (showFPS) // If showFPS is true, it will display a text showing the current FPS
                         gfx.GameUI.DrawText(0, 0, ((int)currentFPS).ToString() + " FPS", new Font(FontFamily.GenericMonospace, 12), Color.Lime);
+
+                    
+                    gfx.imageOnScreen = gfx.frameBuffer.Clone(new RectangleF(0, 0, gfx.drawWidth, gfx.drawHeight), PixelFormat.Format24bppRgb);
+                    wnd.graphics.DrawImage(gfx.imageOnScreen, 0, 0); // Shows final rendered image on screen
+
+                    gfx.ResetBuffer(); // Blanks the frameBuffer with black background
+
+                    // Clears memory of the image on screen
+                    using (gfx.imageOnScreen)
+                        gfx.imageOnScreen.Dispose();
+                    gfx.imageOnScreen = null;
                 }
             }
             else 
             {
+                // Closes the game if gameRunning is set to false
                 GameCode.OnGameEnd();
                 wnd.timer.Stop();
                 wnd.Close();

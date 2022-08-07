@@ -15,7 +15,15 @@ namespace SpriteX_Engine.EngineContents
         public static int drawWidth = (int)Engine.resolution.X;
         public static int drawHeight = (int)Engine.resolution.Y;
 
-        public static Graphics graphics = Engine.wnd.graphics;
+        public static Bitmap frameBuffer = new Bitmap(drawWidth, drawHeight, PixelFormat.Format24bppRgb);
+        public static Bitmap imageOnScreen;
+
+        public static Graphics graphics = Graphics.FromImage(frameBuffer);
+
+        public static void ResetBuffer()
+        {
+            DrawRectangle(0, 0, drawWidth, drawHeight, Color.Black);
+        }
 
 
         public static void DrawPixel(int x, int y, Color color)

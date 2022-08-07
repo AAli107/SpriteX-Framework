@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,8 @@ namespace SpriteX_Engine.EngineContents
         private void Form1_Load(object sender, EventArgs e)
         {
             ClientSize = new Size((int)Engine.resolution.X, (int)Engine.resolution.Y); // Sets Window resolution
+
+            DoubleBuffered = true; // Enabled Double Buffering
 
             Text = Engine.gameTitle; // Sets the Window title
 
