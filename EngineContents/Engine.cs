@@ -15,6 +15,7 @@ namespace SpriteX_Engine.EngineContents
         public static Window wnd; // Creates the window
         public static Vector2 resolution = new Vector2(1280, 720); // Resolution of the Window
         public static string gameTitle = "SpriteX Engine"; // Title of the window
+        public static Color bgColor = Color.Black; // The Color of the background
 
         public static bool gameRunning = true; // If set to false, game loop will stop and the program will close
         public static bool renderGraphics = true; // Controls whether you want to render the graphics or not
@@ -69,7 +70,7 @@ namespace SpriteX_Engine.EngineContents
                     gfx.imageOnScreen = gfx.frameBuffer.Clone(new RectangleF(0, 0, gfx.drawWidth, gfx.drawHeight), PixelFormat.Format24bppRgb);
                     wnd.graphics.DrawImage(gfx.imageOnScreen, 0, 0); // Shows final rendered image on screen
 
-                    gfx.ResetBuffer(); // Blanks the frameBuffer with black background
+                    gfx.ResetBuffer(bgColor); // Blanks the frameBuffer with the background color
 
                     // Clears memory of the image on screen
                     using (gfx.imageOnScreen)

@@ -20,9 +20,9 @@ namespace SpriteX_Engine.EngineContents
 
         public static Graphics graphics = Graphics.FromImage(frameBuffer);
 
-        public static void ResetBuffer()
+        public static void ResetBuffer(Color backgroundColor)
         {
-            DrawRectangle(0, 0, drawWidth, drawHeight, Color.Black);
+            DrawRectangle(0, 0, drawWidth, drawHeight, backgroundColor);
         }
 
 
