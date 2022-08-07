@@ -17,6 +17,7 @@ namespace SpriteX_Engine
         public static float speed = 10;
         public static byte blue = 0;
         public static float deg = 0;
+        public static Texture texture = new Texture("yes.png");
         // /\/\/\/\/\/\/\/\/\/\/\/\/\/\/\ \\
 
         public static void OnGameStart() // Gets Executed when game starts running/when the game begins
@@ -58,6 +59,9 @@ namespace SpriteX_Engine
             Vector2 circleLoc = Utilities.Vec2D.RotateAroundPoint(Controller.mousePos + new Vector2(50, 0), Controller.mousePos, deg);
             gfx.DrawCircle(circleLoc.X, circleLoc.Y, 10, Color.Black);
 
+            texture.DrawCroppedImage(loc, new Vector2(800, 400), new Vector2(1280, 1000), 0.25f);
+
+            // GUI
             gfx.GameUI.DrawProgressBar(10, 300, 100, 400, Color.Blue, Color.DarkBlue, blue/255.0f, false);
             gfx.GameUI.DrawText(10, 280, (blue / 255.0f).ToString(), new Font(FontFamily.GenericMonospace, 12), Color.Red);
             gfx.GameUI.DrawText(10, 20, Controller.mousePos.ToString(), new Font(FontFamily.GenericMonospace, 12), Color.Cyan);

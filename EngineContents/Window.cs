@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
@@ -32,7 +33,9 @@ namespace SpriteX_Engine.EngineContents
 
             MaximizeBox = false; // Disables the maximize button
             
-            graphics = CreateGraphics();
+            graphics = CreateGraphics(); // Creates the graphics
+
+            gfx.graphics.InterpolationMode = InterpolationMode.NearestNeighbor; // Disables blurring of scaled textures
 
             GameCode.OnGameStart(); // Calls GameCode.OnGameStart() when the game begins to run
 
