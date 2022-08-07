@@ -28,10 +28,7 @@ namespace SpriteX_Engine.EngineContents
 
         public static void DrawPixel(int x, int y, Color color)
         {
-            if (x >= 0 && x < drawWidth && y >= 0 && y < drawHeight)
-            {
-                graphics.FillRectangle(new SolidBrush(color), x, y, 1, 1);
-            }
+            graphics.FillRectangle(new SolidBrush(color), x, y, 1, 1);
         }
 
         public static void DrawRectangle(float x, float y, float width, float height, Color color)
@@ -55,7 +52,7 @@ namespace SpriteX_Engine.EngineContents
                 DrawRectangle(x, y, width, height, emptyColor); // Draws the Progress bar background
 
                 // Limits the percentage fill between 0 to 1 so that the filled part of the progress bar doesn't get bigger than the background
-                percent = percent > 1 ? 1 : (percent < 0 ? 0 : percent);
+                percent = Utilities.Numbers.ClampN(percent, 0, 1);
 
                 if (horizontal) // Draws the fill background based on if the user wants vertical or horizontal bars
                     DrawRectangle(x, y, (int)(width * percent), height, fillColor);
