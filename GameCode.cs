@@ -19,6 +19,7 @@ namespace SpriteX_Engine
         public static float deg = 0;
         public static Texture texture = new Texture("yes.png");
         public static Audio audio = new Audio("audio.wav");
+        public static bool isPressingPause = false;
         // /\/\/\/\/\/\/\/\/\/\/\/\/\/\/\ \\
 
         public static void OnGameStart() // Gets Executed when game starts running/when the game begins
@@ -47,9 +48,6 @@ namespace SpriteX_Engine
 
         public static void OnGraphicsUpdate() // Will be used to draw graphics related items per frame
         {
-            gfx.DrawRectangle(0, 0, gfx.drawWidth, gfx.drawHeight, Color.White);
-            gfx.DrawCircle(gfx.drawWidth / 2, gfx.drawHeight / 2, 200, Color.Red);
-
             gfx.DrawRectangle(loc.X, loc.Y, width.X, width.Y, Color.FromArgb((int)loc.X / 5, (int)(loc.Y / 2.8125f), (byte)Utilities.Numbers.ClampN(255 / ((loc.X / 255.0f) + 1), 0, 255)));
 
             if (Controller.IsMouseButtonPressed(MouseButtons.Left))
@@ -58,15 +56,18 @@ namespace SpriteX_Engine
                 gfx.DrawRectangle(Controller.mousePos.X, Controller.mousePos.Y - 75, 50, 25, Color.FromArgb((byte)Utilities.Numbers.ClampN(Controller.mousePos.X / 5, 0, 255), (byte)Utilities.Numbers.ClampN(Controller.mousePos.Y / 2.8125f, 0, 255), (byte)Utilities.Numbers.ClampN(255 / ((Controller.mousePos.X / 255.0f) + 1), 0, 255)));
 
             Vector2 circleLoc = Utilities.Vec2D.RotateAroundPoint(Controller.mousePos + new Vector2(50, 0), Controller.mousePos, deg);
-            gfx.DrawCircle(circleLoc.X, circleLoc.Y, 10, Color.Black);
+            gfx.DrawCircle(circleLoc.X, circleLoc.Y, 10, Color.White);
 
             texture.DrawImage(loc.X, loc.Y, 10);
+
+            gfx.DrawLine(0, 75, gfx.drawWidth, gfx.drawHeight, Color.White, 10);
+            gfx.DrawLine(100, 700, 400, 300, Color.Red, 3);
 
             // GUI
             gfx.GameUI.DrawProgressBar(10, 300, 100, 400, Color.Blue, Color.DarkBlue, blue/255.0f, false);
             gfx.GameUI.DrawText(10, 280, (blue / 255.0f).ToString(), new Font(FontFamily.GenericMonospace, 12), Color.Red);
             gfx.GameUI.DrawText(10, 20, Controller.mousePos.ToString(), new Font(FontFamily.GenericMonospace, 12), Color.Cyan);
-            gfx.GameUI.DrawText(10, 40, Controller.pressedkeys.Count.ToString(), new Font(FontFamily.GenericMonospace, 12), Color.Black);
+            gfx.GameUI.DrawText(10, 40, Controller.pressedkeys.Count.ToString(), new Font(FontFamily.GenericMonospace, 12), Color.Orange);
         }
 
         public static void OnGameEnd() // Gets Executed when Engine.gameRunning = false which is basically when the game ends

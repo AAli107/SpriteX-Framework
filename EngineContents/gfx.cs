@@ -31,6 +31,11 @@ namespace SpriteX_Engine.EngineContents
             graphics.FillRectangle(new SolidBrush(color), x, y, 1, 1);
         }
 
+        public static void DrawLine(float x1, float y1, float x2, float y2, Color color, float thickness = 1)
+        {
+            graphics.DrawLine(new Pen(new SolidBrush(color), thickness), x1, y1, x2, y2);
+        }
+
         public static void DrawRectangle(float x, float y, float width, float height, Color color)
         {
             graphics.FillRectangle(new SolidBrush(color), x, y, width, height);
