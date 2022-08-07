@@ -14,7 +14,7 @@ namespace SpriteX_Engine.EngineContents
     {
         public static Window wnd; // Creates the window
         public static Vector2 resolution = new Vector2(1280, 720); // Resolution of the Window
-        public static string gameTitle = "SpriteX Engine"; // Title of the window
+        public static string gameTitle = "SpriteX Game"; // Title of the window
         public static Color bgColor = Color.Black; // The Color of the background
 
         public static bool gameRunning = true; // If set to false, game loop will stop and the program will close

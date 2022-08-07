@@ -63,7 +63,7 @@ namespace SpriteX_Engine
 
             texture.DrawImage(loc.X, loc.Y, 10);
 
-            gfx.DrawLine(0, 75, gfx.drawWidth, gfx.drawHeight, Color.White, 10);
+            gfx.DrawLine(0, 75, gfx.drawWidth, gfx.drawHeight, Color.White, 1);
             gfx.DrawLine(100, 700, 400, 300, Color.Red, 3);
 
             // GUI
