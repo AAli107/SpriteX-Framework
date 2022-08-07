@@ -48,6 +48,9 @@ namespace SpriteX_Engine
 
         public static void OnGraphicsUpdate() // Will be used to draw graphics related items per frame
         {
+            gfx.DrawPolygon(new Vector2(300, 200), new Vector2(400, 500), new Vector2(600, 225), Color.Green);
+            gfx.DrawQuad(new Vector2(200, 50), new Vector2(70, 180), new Vector2(260, 210), new Vector2(400, 50), Color.Blue);
+
             gfx.DrawRectangle(loc.X, loc.Y, width.X, width.Y, Color.FromArgb((int)loc.X / 5, (int)(loc.Y / 2.8125f), (byte)Utilities.Numbers.ClampN(255 / ((loc.X / 255.0f) + 1), 0, 255)));
 
             if (Controller.IsMouseButtonPressed(MouseButtons.Left))

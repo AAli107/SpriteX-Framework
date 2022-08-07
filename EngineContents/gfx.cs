@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Numerics;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
@@ -44,6 +45,27 @@ namespace SpriteX_Engine.EngineContents
         public static void DrawCircle(float x, float y, float radius, Color color) 
         {
             graphics.FillEllipse(new SolidBrush(color), x - radius, y - radius, radius + radius, radius + radius);
+        }
+
+        public static void DrawPolygon(Vector2 v1, Vector2 v2, Vector2 v3, Color color)
+        {
+            graphics.FillPolygon(new SolidBrush(color), 
+                new PointF[]{
+                    new PointF(v1.X, v1.Y),
+                    new PointF(v2.X, v2.Y),
+                    new PointF(v3.X, v3.Y)
+                });
+        }
+
+        public static void DrawQuad(Vector2 v1, Vector2 v2, Vector2 v3, Vector2 v4, Color color)
+        {
+            graphics.FillPolygon(new SolidBrush(color),
+                new PointF[]{
+                    new PointF(v1.X, v1.Y),
+                    new PointF(v2.X, v2.Y),
+                    new PointF(v3.X, v3.Y),
+                    new PointF(v4.X, v4.Y)
+                });
         }
 
         public class GameUI
