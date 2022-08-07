@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Numerics;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace SpriteX_Engine
 {
@@ -38,10 +39,18 @@ namespace SpriteX_Engine
 
         public static void OnGraphicsUpdate() // Will be used to draw graphics related items per frame
         {
+            gfx.DrawRectangle(0, 0, gfx.drawWidth, gfx.drawHeight, Color.White);
+            gfx.DrawCircle(gfx.drawWidth / 2, gfx.drawHeight / 2, 200, Color.Red);
             gfx.DrawRectangle(loc.X, loc.Y, width.X, width.Y, Color.FromArgb((int)loc.X / 5, (int)(loc.Y / 2.8125f), blue));
 
+            if (Controller.IsMouseButtonPressed(MouseButtons.Left))
+                gfx.DrawCircle(Controller.mousePos.X, Controller.mousePos.Y, 50, Color.FromArgb((int)loc.X / 5, (int)(loc.Y / 2.8125f), blue));
+            if (Controller.IsMouseButtonPressed(MouseButtons.Right))
+                gfx.DrawRectangle(Controller.mousePos.X, Controller.mousePos.Y + 50, 50, 25, Color.FromArgb((int)loc.X / 5, (int)(loc.Y / 2.8125f), blue));
+
             gfx.GameUI.DrawProgressBar(10, 300, 100, 400, Color.Blue, Color.DarkBlue, blue/255.0f, false);
-            gfx.GameUI.DrawText(10, 280, (blue/255.0f).ToString(), new Font(FontFamily.GenericMonospace, 12), Color.Red);
+            gfx.GameUI.DrawText(10, 280, (blue / 255.0f).ToString(), new Font(FontFamily.GenericMonospace, 12), Color.Red);
+            gfx.GameUI.DrawText(10, 20, Controller.mousePos.ToString(), new Font(FontFamily.GenericMonospace, 12), Color.Cyan);
         }
 
         public static void OnGameEnd() // Gets Executed when Engine.gameRunning = false which is basically when the game ends

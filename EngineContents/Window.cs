@@ -38,5 +38,24 @@ namespace SpriteX_Engine.EngineContents
             timer.Tick += new EventHandler(Engine.Tick);
             timer.Start();
         }
+
+        private void Window_MouseMove(object sender, MouseEventArgs e)
+        {
+            Controller.mousePos = new Vector2(e.X, e.Y);
+        }
+
+        private void Window_MouseDown(object sender, MouseEventArgs e)
+        {
+            Controller.pressedMouseButtons.Add(e.Button);
+        }
+
+        private void Window_MouseUp(object sender, MouseEventArgs e)
+        {
+            for (int i = 0; i < Controller.pressedMouseButtons.Count; i++)
+            {
+                if (Controller.pressedMouseButtons[i] == e.Button)
+                    Controller.pressedMouseButtons.RemoveAt(i);
+            }
+        }
     }
 }

@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EngineContents\Controller.cs" />
     <Compile Include="EngineContents\gfx.cs" />
     <Compile Include="EngineContents\Window.cs">
       <SubType>Form</SubType>
