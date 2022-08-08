@@ -10,9 +10,12 @@ namespace SpriteX_Engine.EngineContents
 {
     public static class Controller
     {
+        public static Vector2 oldMousePos = new Vector2(0, 0);
         public static Vector2 mousePos = new Vector2(0, 0);
         public static List<MouseButtons> pressedMouseButtons = new List<MouseButtons>();
         public static List<Keys> pressedkeys = new List<Keys>();
+
+        public static Vector2 mouseDir { get { return mousePos - oldMousePos; } }
 
         /// <summary>
         /// Checks whether if the specified mouse button is being pressed

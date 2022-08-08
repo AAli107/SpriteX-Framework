@@ -65,7 +65,6 @@ namespace SpriteX_Engine.EngineContents
                     GameCode.OnGraphicsUpdate(); // Executes all the graphics code
                     if (showFPS) // If showFPS is true, it will display a text showing the current FPS
                         gfx.GameUI.DrawText(0, 0, ((int)currentFPS).ToString() + " FPS", new Font(FontFamily.GenericMonospace, 12), Color.Lime);
-
                     
                     gfx.imageOnScreen = gfx.frameBuffer.Clone(new RectangleF(0, 0, gfx.drawWidth, gfx.drawHeight), PixelFormat.Format24bppRgb);
                     wnd.graphics.DrawImage(gfx.imageOnScreen, 0, 0); // Shows final rendered image on screen
@@ -77,6 +76,7 @@ namespace SpriteX_Engine.EngineContents
                         gfx.imageOnScreen.Dispose();
                     gfx.imageOnScreen = null;
                 }
+                Controller.oldMousePos = Controller.mousePos;
             }
             else 
             {
