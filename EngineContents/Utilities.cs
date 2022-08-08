@@ -141,7 +141,7 @@ namespace SpriteX_Engine.EngineContents
             /// <param name="vec3D"></param>
             /// <param name="depth"></param>
             /// <returns></returns>
-            public static Vector2 Vec3DToVec2D(Vector3 vec3D, float depth = 100)
+            public static Vector2 Vec3DToVec2D(Vector3 vec3D, float depth = 360)
             {
                 return new Vector2((vec3D.X * (depth / vec3D.Z)) + (gfx.drawWidth / 2), (vec3D.Y * (depth / vec3D.Z)) + (gfx.drawHeight / 2));
             }
