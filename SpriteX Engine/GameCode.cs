@@ -48,20 +48,21 @@ namespace SpriteX_Engine
 
         public static void OnGraphicsUpdate(MainWindow gfx) // Used to put everything related to rendering stuff
         {
-            gfx.DrawTri(new Vector2(1280, 720), new Vector2(0.0f, 0.0f), new Vector2(1000, 100), Color4.SteelBlue);
-            gfx.DrawRect(new Vector2(250, 250), new Vector2(200, 100), Color4.Gold);
-            gfx.DrawQuad(pos + new Vector2(0, -100), pos + new Vector2(100, 0), pos + new Vector2(0, 100), pos + new Vector2(-100, 0), Color4.Red);
+            Random rng = new Random();
 
-            // Draws large crosshair
-            gfx.DrawLine(pos + new Vector2(-100, 0), pos + new Vector2(100, 0), Color4.White);
-            gfx.DrawLine(pos + new Vector2(0, -100), pos + new Vector2(0, 100), Color4.White);
-            gfx.DrawPixel(pos, Color4.White);
-            for (float i = 1; i <= 100; i += 0.1f)
+            gfx.DrawTri(new Vector2(1280, 720), new Vector2(0.0f, 0.0f), new Vector2(1000, 100), Color4.SteelBlue);
+            gfx.DrawRect(new Vector2(250, 250), new Vector2(400, 100), Color4.Gold);
+            gfx.DrawQuad(pos + new Vector2(0, -100), pos + new Vector2(100, 0), pos + new Vector2(0, 100), pos + new Vector2(-100, 0), new Color4((float)rng.NextDouble(), (float)rng.NextDouble(), (float)rng.NextDouble(), 1));
+
+            gfx.DrawLine(pos + new Vector2(-100, 0), pos + new Vector2(100, 0), Color4.Blue);
+            gfx.DrawLine(pos + new Vector2(0, -100), pos + new Vector2(0, 100), Color4.Blue);
+            gfx.DrawPixel(pos, Color4.Red);
+            for (float i = 1; i <= 16; i += 0.1f)
             {
-                gfx.DrawPixel(pos + new Vector2(0, i), Color4.White);
-                gfx.DrawPixel(pos + new Vector2(i, 0), Color4.White);
-                gfx.DrawPixel(pos + new Vector2(0, -i), Color4.White);
-                gfx.DrawPixel(pos + new Vector2(-i, 0), Color4.White);
+                gfx.DrawPixel(pos + new Vector2(0, i), Color4.Red);
+                gfx.DrawPixel(pos + new Vector2(i, 0), Color4.Red);
+                gfx.DrawPixel(pos + new Vector2(0, -i), Color4.Red);
+                gfx.DrawPixel(pos + new Vector2(-i, 0), Color4.Red);
             }
             gfx.DrawLine(new Vector2(1280/2, 720/2), pos, Color4.Magenta);
         }
