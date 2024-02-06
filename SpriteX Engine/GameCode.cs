@@ -64,7 +64,7 @@ namespace SpriteX_Engine
                 gfx.DrawPixel(pos + new Vector2(0, -i), Color4.Red);
                 gfx.DrawPixel(pos + new Vector2(-i, 0), Color4.Red);
             }
-            gfx.DrawLine(new Vector2(1280/2, 720/2), pos, Color4.Magenta);
+            gfx.DrawLine(new Vector2(1920/2, 1080/2), pos, Color4.Magenta);
         }
 
         public static void OnGameEnd() // Gets Executed after Game Window Closes
