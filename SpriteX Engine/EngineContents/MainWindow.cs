@@ -19,9 +19,9 @@ namespace SpriteX_Engine.EngineContents
             AspectRatio = (16, 9); // Window Aspect Ratio
             WindowBorder = WindowBorder.Resizable; // Window Border type
             WindowState = WindowState.Normal; // Decides window state (can be used to set fullscreen) 
-            UpdateFrequency = 0; // Window Framerate
+            UpdateFrequency = 120; // Window Framerate (setting to 0 and turning off VSync will unlock FPS)
             fixedFrameTime = 60; // How many times per second OnFixedGameUpdate() is Called
-            VSync = VSyncMode.Off; // Control the window's VSync
+            VSync = VSyncMode.On; // Control the window's VSync
             CenterWindow(); // Will center the window in the middle of the screen
             allowAltEnter = true; // Controls whether you can toggle fullscreen when pressing Alt+Enter
         }
@@ -32,15 +32,23 @@ namespace SpriteX_Engine.EngineContents
         private int shaderProgram;
 
         private bool allowAltEnter; // Alt+Enter Control
-        private double TargetFrameTime; // fixed time for OnFixedGameUpdate
+        private double targetFrameTime; // fixed time for OnFixedGameUpdate()
         private double time = 0; // Hold time in seconds since Window was created
         private GameCode gameCode = new GameCode();
         private double accumulatedTime = 0.0;
 
-        private double fixedFrameTime { get { return 1 / TargetFrameTime; } set { TargetFrameTime = 1 / value; } }
-
-        public double FPS { get { return 1 / UpdateTime; } } // Returns the Window's current FPS
-        public bool isGamePaused = false; // Will not execute OnGameUpdate() if true
+        /// <summary>
+        /// Controls whether the game is paused or not.
+        /// </summary>
+        public bool isGamePaused = false;
+        /// <summary>
+        /// Returns the Window's current FPS.
+        /// </summary>
+        public double FPS { get { return 1 / UpdateTime; } } 
+        /// <summary>
+        /// controls how many times OnFixedGameUpdate() method is executed per second.
+        /// </summary>
+        public double fixedFrameTime { get { return 1 / targetFrameTime; } set { targetFrameTime = 1 / (value < 0 ? 0 : value); } }
 
         protected override void OnLoad()
         {
@@ -118,10 +126,10 @@ namespace SpriteX_Engine.EngineContents
 
             // Will execute OnFixedGameUpdate() in a fixed rate based on fixedFrameTime
             accumulatedTime += UpdateTime;
-            while (accumulatedTime >= TargetFrameTime)
+            while (accumulatedTime >= targetFrameTime)
             {
                 if (!isGamePaused) gameCode.OnFixedGameUpdate(this); 
-                accumulatedTime -= TargetFrameTime;
+                accumulatedTime -= targetFrameTime;
             }
 
             time += UpdateTime; // Counts up time since game has been launched
