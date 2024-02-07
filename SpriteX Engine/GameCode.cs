@@ -39,6 +39,7 @@ namespace SpriteX_Engine
 
             velocity *= 0.95f;
 
+            Console.WriteLine(Math.Round(win.FPS, 2) + " FPS                                       ");
             Console.WriteLine("Position = (" + Math.Round(pos.X, 2) + ", " + Math.Round(pos.Y, 2) + ")                                       ");
             Console.WriteLine("Speed = " + Math.Round(velocity.Length, 2) + "                                       ");
             Console.CursorLeft = 0;

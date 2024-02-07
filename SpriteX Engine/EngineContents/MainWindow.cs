@@ -32,6 +32,8 @@ namespace SpriteX_Engine.EngineContents
 
         private bool allowAltEnter; // Alt+Enter Control
 
+        public double FPS { get { return 1 / UpdateTime; } }
+
         protected override void OnLoad()
         {
             base.OnLoad();
