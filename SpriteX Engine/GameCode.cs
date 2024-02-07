@@ -39,10 +39,14 @@ namespace SpriteX_Engine
             velocity *= 0.95f;
         }
 
-        public override void OnGraphicsUpdate(MainWindow win)
+        public override void OnGameUpdateNoPause(MainWindow win)
         {
             if (win.IsKeyPressed(Keys.Escape)) win.Close();
             if (win.IsKeyPressed(Keys.P)) win.isGamePaused = !win.isGamePaused;
+        }
+
+        public override void OnGraphicsUpdate(MainWindow win)
+        {
 
             win.DrawTri(new Vector2(1280, 720), new Vector2(0.0f, 0.0f), new Vector2(1000, 100), Color4.SteelBlue);
             win.DrawRect(new Vector2(250, 250), new Vector2(400, 100), Color4.Gold);
