@@ -26,6 +26,7 @@ namespace SpriteX_Engine
 
         public static void OnGameUpdate(MainWindow win) // Gets Executed every frame, used for Game related actions
         {
+
             if (win.IsKeyPressed(Keys.Escape)) win.Close();
 
             s = win.IsKeyDown(Keys.LeftControl) ? 0.1f : (win.IsKeyDown(Keys.LeftShift) ? 0.4f : 0.2f);
@@ -40,6 +41,8 @@ namespace SpriteX_Engine
             velocity *= 0.95f;
 
             Console.WriteLine(Math.Round(win.FPS, 2) + " FPS                                       ");
+            Console.WriteLine("time since start = " + Math.Round(win.GetTimeSinceStart(), 2) + " s                                       ");
+            Console.WriteLine("-------------------------------------------");
             Console.WriteLine("Position = (" + Math.Round(pos.X, 2) + ", " + Math.Round(pos.Y, 2) + ")                                       ");
             Console.WriteLine("Speed = " + Math.Round(velocity.Length, 2) + "                                       ");
             Console.CursorLeft = 0;

@@ -31,6 +31,7 @@ namespace SpriteX_Engine.EngineContents
         private int shaderProgram;
 
         private bool allowAltEnter; // Alt+Enter Control
+        private double time = 0; // Hold time in seconds since Window was created
 
         public double FPS { get { return 1 / UpdateTime; } }
 
@@ -107,11 +108,16 @@ namespace SpriteX_Engine.EngineContents
         protected override void OnUpdateFrame(FrameEventArgs args)
         {
             base.OnUpdateFrame(args);
+
+            time += UpdateTime; // Counts up time since game has been launched
+
+            // Does Alt+Enter Fullscreen toggle if enabled
             if ((IsKeyDown(Keys.LeftAlt) || IsKeyDown(Keys.RightAlt)) && IsKeyPressed(Keys.Enter) && allowAltEnter)
             {
                 WindowState = IsFullscreen ? WindowState.Normal : WindowState.Fullscreen;
             }
-            GameCode.OnGameUpdate(this);
+
+            GameCode.OnGameUpdate(this); // OnGameUpdate() from GameCode is executed here
         }
 
         protected override void OnRenderFrame(FrameEventArgs e)
@@ -139,6 +145,15 @@ namespace SpriteX_Engine.EngineContents
             GL.DeleteProgram(shaderProgram);
 
             base.OnUnload();
+        }
+
+        /// <summary>
+        /// Returns time in seconds since the creation of this window
+        /// </summary>
+        /// <returns></returns>
+        public double GetTimeSinceStart()
+        {
+            return time;
         }
 
         /// <summary>
