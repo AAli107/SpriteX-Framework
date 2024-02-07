@@ -13,7 +13,7 @@
         /// <param name="win"></param>
         public virtual void OnGameUpdate(MainWindow win) { }
         /// <summary>
-        /// Gets Executed every frame, used for Game related actions (cannot be paused)
+        /// Gets Executed every frame, used for Game related actions (cannot be paused; executed right after OnGameUpdate())
         /// </summary>
         /// <param name="win"></param>
         public virtual void OnGameUpdateNoPause(MainWindow win) { }
