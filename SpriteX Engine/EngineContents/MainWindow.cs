@@ -19,8 +19,9 @@ namespace SpriteX_Engine.EngineContents
             AspectRatio = (16, 9); // Window Aspect Ratio
             WindowBorder = WindowBorder.Resizable; // Window Border type
             WindowState = WindowState.Normal; // Decides window state (can be used to set fullscreen) 
-            UpdateFrequency = 120; // Window Framerate
-            VSync = VSyncMode.On; // Control the window's VSync
+            UpdateFrequency = 0; // Window Framerate
+            fixedFrameTime = 60; // How many times per second OnFixedGameUpdate() is Called
+            VSync = VSyncMode.Off; // Control the window's VSync
             CenterWindow(); // Will center the window in the middle of the screen
             allowAltEnter = true; // Controls whether you can toggle fullscreen when pressing Alt+Enter
         }
@@ -31,11 +32,15 @@ namespace SpriteX_Engine.EngineContents
         private int shaderProgram;
 
         private bool allowAltEnter; // Alt+Enter Control
+        private double TargetFrameTime; // fixed time for OnFixedGameUpdate
         private double time = 0; // Hold time in seconds since Window was created
         private GameCode gameCode = new GameCode();
+        private double accumulatedTime = 0.0;
+
+        private double fixedFrameTime { get { return 1 / TargetFrameTime; } set { TargetFrameTime = 1 / value; } }
 
         public double FPS { get { return 1 / UpdateTime; } } // Returns the Window's current FPS
-        public bool isGamePaused = false; // Will not execute GameCode.OnGameUpdate() if true
+        public bool isGamePaused = false; // Will not execute OnGameUpdate() if true
 
         protected override void OnLoad()
         {
@@ -110,6 +115,14 @@ namespace SpriteX_Engine.EngineContents
         protected override void OnUpdateFrame(FrameEventArgs args)
         {
             base.OnUpdateFrame(args);
+
+            // Will execute OnFixedGameUpdate() in a fixed rate based on fixedFrameTime
+            accumulatedTime += UpdateTime;
+            while (accumulatedTime >= TargetFrameTime)
+            {
+                gameCode.OnFixedGameUpdate(this); 
+                accumulatedTime -= TargetFrameTime;
+            }
 
             time += UpdateTime; // Counts up time since game has been launched
 

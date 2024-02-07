@@ -25,9 +25,8 @@ namespace SpriteX_Engine
 
         }
 
-        public override void OnGameUpdate(MainWindow win)
+        public override void OnFixedGameUpdate(MainWindow win)
         {
-            s = win.IsKeyDown(Keys.LeftControl) ? 0.1f : (win.IsKeyDown(Keys.LeftShift) ? 0.4f : 0.2f);
             if (win.IsKeyDown(Keys.W)) velocity.Y -= s;
             if (win.IsKeyDown(Keys.A)) velocity.X -= s;
             if (win.IsKeyDown(Keys.S)) velocity.Y += s;
@@ -36,7 +35,12 @@ namespace SpriteX_Engine
             pos.X += velocity.X;
             pos.Y += velocity.Y;
 
-            velocity *= 0.95f;
+            velocity *= 0.9f;
+        }
+
+        public override void OnGameUpdate(MainWindow win)
+        {
+            s = win.IsKeyDown(Keys.LeftControl) ? 0.4f : (win.IsKeyDown(Keys.LeftShift) ? 1.6f : 0.8f);
         }
 
         public override void OnGameUpdateNoPause(MainWindow win)

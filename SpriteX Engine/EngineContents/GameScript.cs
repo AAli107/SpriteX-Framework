@@ -8,6 +8,11 @@
         /// <param name="win"></param>
         public virtual void OnGameStart(MainWindow win) { }
         /// <summary>
+        /// Gets Executed fixed amount of time per second
+        /// </summary>
+        /// <param name="win"></param>
+        public virtual void OnFixedGameUpdate(MainWindow win) { }
+        /// <summary>
         /// Gets Executed every frame, used for Game related actions
         /// </summary>
         /// <param name="win"></param>
