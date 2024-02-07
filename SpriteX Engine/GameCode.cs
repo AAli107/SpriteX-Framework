@@ -16,7 +16,7 @@ namespace SpriteX_Engine
         // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/ \\
         static Vector2 pos = new Vector2(100, 100);
         static Vector2 velocity = new Vector2(0, 0);
-        static float s = 0.2f;
+        static float s;
         // /\/\/\/\/\/\/\/\/\/\/\/\/\/\/\ \\
 
         public static void OnGameStart(MainWindow win) // Gets Executed when game starts running, after the main Window loads
@@ -26,9 +26,6 @@ namespace SpriteX_Engine
 
         public static void OnGameUpdate(MainWindow win) // Gets Executed every frame, used for Game related actions
         {
-
-            //if (win.IsKeyPressed(Keys.Escape)) win.Close();
-
             s = win.IsKeyDown(Keys.LeftControl) ? 0.1f : (win.IsKeyDown(Keys.LeftShift) ? 0.4f : 0.2f);
             if (win.IsKeyDown(Keys.W)) velocity.Y -= s;
             if (win.IsKeyDown(Keys.A)) velocity.X -= s;
@@ -43,7 +40,8 @@ namespace SpriteX_Engine
 
         public static void OnGraphicsUpdate(MainWindow win) // Used to put everything related to rendering stuff
         {
-            if (win.IsKeyPressed(Keys.Escape)) win.isGamePaused = !win.isGamePaused;
+            if (win.IsKeyPressed(Keys.Escape)) win.Close();
+            if (win.IsKeyPressed(Keys.P)) win.isGamePaused = !win.isGamePaused;
 
             Random rng = new Random();
 
