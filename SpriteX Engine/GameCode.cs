@@ -43,22 +43,12 @@ namespace SpriteX_Engine
             if (win.IsKeyPressed(Keys.Escape)) win.Close();
             if (win.IsKeyPressed(Keys.P)) win.isGamePaused = !win.isGamePaused;
 
-            Random rng = new Random();
-
             win.DrawTri(new Vector2(1280, 720), new Vector2(0.0f, 0.0f), new Vector2(1000, 100), Color4.SteelBlue);
             win.DrawRect(new Vector2(250, 250), new Vector2(400, 100), Color4.Gold);
-            win.DrawQuad(pos + new Vector2(0, -100), pos + new Vector2(100, 0), pos + new Vector2(0, 100), pos + new Vector2(-100, 0), new Color4((float)rng.NextDouble(), (float)rng.NextDouble(), (float)rng.NextDouble(), 1));
+            win.DrawQuad(pos + new Vector2(0, -100), pos + new Vector2(100, 0), pos + new Vector2(0, 100), pos + new Vector2(-100, 0), Color4.Lime);
 
             win.DrawLine(pos + new Vector2(-100, 0), pos + new Vector2(100, 0), Color4.Blue);
             win.DrawLine(pos + new Vector2(0, -100), pos + new Vector2(0, 100), Color4.Blue);
-            win.DrawPixel(pos, Color4.Red);
-            for (float i = 1; i <= 16; i += 0.1f)
-            {
-                win.DrawPixel(pos + new Vector2(0, i), Color4.Red);
-                win.DrawPixel(pos + new Vector2(i, 0), Color4.Red);
-                win.DrawPixel(pos + new Vector2(0, -i), Color4.Red);
-                win.DrawPixel(pos + new Vector2(-i, 0), Color4.Red);
-            }
             win.DrawLine(new Vector2(1920/2, 1080/2), pos, Color4.Magenta);
 
             Console.WriteLine(Math.Round(win.FPS, 2) + " FPS                                       ");
