@@ -224,8 +224,23 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="color"></param>
         public void DrawQuad(Vector2 a, Vector2 b, Vector2 c, Vector2 d, Color4 color)
         {
-            DrawTri(a, b, c, color);
-            DrawTri(a, d, c, color);
+            // Set the ucolor in the shader
+            int colorUniformLocation = GL.GetUniformLocation(shaderProgram, "uColor");
+            GL.Uniform4(colorUniformLocation, color);
+
+            // Specify the vertex data for quad
+            float[] vertices = {
+                b.X / (1920 * 0.5f) - 1f, -b.Y / (1080 * 0.5f) + 1f,
+                a.X / (1920 * 0.5f) - 1f, -a.Y / (1080 * 0.5f) + 1f,
+                c.X / (1920 * 0.5f) - 1f, -c.Y / (1080 * 0.5f) + 1f,
+                d.X / (1920 * 0.5f) - 1f, -d.Y / (1080 * 0.5f) + 1f
+            };
+
+            GL.BindBuffer(BufferTarget.ArrayBuffer, vertexBufferObject);
+            GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * vertices.Length, vertices, BufferUsageHint.DynamicDraw);
+
+            // Draw the quad
+            GL.DrawArrays(PrimitiveType.TriangleStrip, 0, 4);
         }
 
         /// <summary>
