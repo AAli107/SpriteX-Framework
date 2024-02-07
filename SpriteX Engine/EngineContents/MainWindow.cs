@@ -120,7 +120,7 @@ namespace SpriteX_Engine.EngineContents
             accumulatedTime += UpdateTime;
             while (accumulatedTime >= TargetFrameTime)
             {
-                gameCode.OnFixedGameUpdate(this); 
+                if (!isGamePaused) gameCode.OnFixedGameUpdate(this); 
                 accumulatedTime -= TargetFrameTime;
             }
 
