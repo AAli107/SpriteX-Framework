@@ -25,7 +25,7 @@ namespace SpriteX_Engine.EngineContents
             allowAltEnter = true; // Controls whether you can toggle fullscreen when pressing Alt+Enter
         }
 
-        // Shader stuff
+        // Shader stuff (DO NOT TOUCH)
         private int vertexArrayObject;
         private int vertexBufferObject;
         private int shaderProgram;
@@ -33,7 +33,8 @@ namespace SpriteX_Engine.EngineContents
         private bool allowAltEnter; // Alt+Enter Control
         private double time = 0; // Hold time in seconds since Window was created
 
-        public double FPS { get { return 1 / UpdateTime; } }
+        public double FPS { get { return 1 / UpdateTime; } } // Returns the Window's current FPS
+        public bool isGamePaused = false; // Will not execute GameCode.OnGameUpdate() if true
 
         protected override void OnLoad()
         {
@@ -117,7 +118,7 @@ namespace SpriteX_Engine.EngineContents
                 WindowState = IsFullscreen ? WindowState.Normal : WindowState.Fullscreen;
             }
 
-            GameCode.OnGameUpdate(this); // OnGameUpdate() from GameCode is executed here
+            if (!isGamePaused) GameCode.OnGameUpdate(this); // OnGameUpdate() from GameCode is executed here
         }
 
         protected override void OnRenderFrame(FrameEventArgs e)

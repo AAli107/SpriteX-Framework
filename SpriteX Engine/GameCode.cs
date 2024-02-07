@@ -27,7 +27,7 @@ namespace SpriteX_Engine
         public static void OnGameUpdate(MainWindow win) // Gets Executed every frame, used for Game related actions
         {
 
-            if (win.IsKeyPressed(Keys.Escape)) win.Close();
+            //if (win.IsKeyPressed(Keys.Escape)) win.Close();
 
             s = win.IsKeyDown(Keys.LeftControl) ? 0.1f : (win.IsKeyDown(Keys.LeftShift) ? 0.4f : 0.2f);
             if (win.IsKeyDown(Keys.W)) velocity.Y -= s;
@@ -39,6 +39,29 @@ namespace SpriteX_Engine
             pos.Y += velocity.Y;
 
             velocity *= 0.95f;
+        }
+
+        public static void OnGraphicsUpdate(MainWindow win) // Used to put everything related to rendering stuff
+        {
+            if (win.IsKeyPressed(Keys.Escape)) win.isGamePaused = !win.isGamePaused;
+
+            Random rng = new Random();
+
+            win.DrawTri(new Vector2(1280, 720), new Vector2(0.0f, 0.0f), new Vector2(1000, 100), Color4.SteelBlue);
+            win.DrawRect(new Vector2(250, 250), new Vector2(400, 100), Color4.Gold);
+            win.DrawQuad(pos + new Vector2(0, -100), pos + new Vector2(100, 0), pos + new Vector2(0, 100), pos + new Vector2(-100, 0), new Color4((float)rng.NextDouble(), (float)rng.NextDouble(), (float)rng.NextDouble(), 1));
+
+            win.DrawLine(pos + new Vector2(-100, 0), pos + new Vector2(100, 0), Color4.Blue);
+            win.DrawLine(pos + new Vector2(0, -100), pos + new Vector2(0, 100), Color4.Blue);
+            win.DrawPixel(pos, Color4.Red);
+            for (float i = 1; i <= 16; i += 0.1f)
+            {
+                win.DrawPixel(pos + new Vector2(0, i), Color4.Red);
+                win.DrawPixel(pos + new Vector2(i, 0), Color4.Red);
+                win.DrawPixel(pos + new Vector2(0, -i), Color4.Red);
+                win.DrawPixel(pos + new Vector2(-i, 0), Color4.Red);
+            }
+            win.DrawLine(new Vector2(1920/2, 1080/2), pos, Color4.Magenta);
 
             Console.WriteLine(Math.Round(win.FPS, 2) + " FPS                                       ");
             Console.WriteLine("time since start = " + Math.Round(win.GetTimeSinceStart(), 2) + " s                                       ");
@@ -48,27 +71,6 @@ namespace SpriteX_Engine
             Console.CursorLeft = 0;
             Console.CursorTop = 0;
             Console.CursorVisible = false;
-        }
-
-        public static void OnGraphicsUpdate(MainWindow gfx) // Used to put everything related to rendering stuff
-        {
-            Random rng = new Random();
-
-            gfx.DrawTri(new Vector2(1280, 720), new Vector2(0.0f, 0.0f), new Vector2(1000, 100), Color4.SteelBlue);
-            gfx.DrawRect(new Vector2(250, 250), new Vector2(400, 100), Color4.Gold);
-            gfx.DrawQuad(pos + new Vector2(0, -100), pos + new Vector2(100, 0), pos + new Vector2(0, 100), pos + new Vector2(-100, 0), new Color4((float)rng.NextDouble(), (float)rng.NextDouble(), (float)rng.NextDouble(), 1));
-
-            gfx.DrawLine(pos + new Vector2(-100, 0), pos + new Vector2(100, 0), Color4.Blue);
-            gfx.DrawLine(pos + new Vector2(0, -100), pos + new Vector2(0, 100), Color4.Blue);
-            gfx.DrawPixel(pos, Color4.Red);
-            for (float i = 1; i <= 16; i += 0.1f)
-            {
-                gfx.DrawPixel(pos + new Vector2(0, i), Color4.Red);
-                gfx.DrawPixel(pos + new Vector2(i, 0), Color4.Red);
-                gfx.DrawPixel(pos + new Vector2(0, -i), Color4.Red);
-                gfx.DrawPixel(pos + new Vector2(-i, 0), Color4.Red);
-            }
-            gfx.DrawLine(new Vector2(1920/2, 1080/2), pos, Color4.Magenta);
         }
 
         public static void OnGameEnd() // Gets Executed after Game Window Closes
