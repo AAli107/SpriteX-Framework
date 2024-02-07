@@ -41,8 +41,6 @@ namespace SpriteX_Engine.EngineContents
         {
             base.OnLoad();
 
-
-
             // Create the vertex array object (VAO)
             vertexArrayObject = GL.GenVertexArray();
             GL.BindVertexArray(vertexArrayObject);
@@ -122,6 +120,7 @@ namespace SpriteX_Engine.EngineContents
             }
 
             if (!isGamePaused) gameCode.OnGameUpdate(this); // OnGameUpdate() from GameCode is executed here
+            gameCode.OnGameUpdateNoPause(this);
         }
 
         protected override void OnRenderFrame(FrameEventArgs e)
