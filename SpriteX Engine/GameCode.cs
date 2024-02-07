@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using static OpenTK.Audio.OpenAL.ALC;
 using SpriteX_Engine.EngineContents;
+using System.Runtime.CompilerServices;
 
 namespace SpriteX_Engine
 {
-    static class GameCode
+    class GameCode : GameScript
     {
         // Insert static Variables here \\
         // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/ \\
@@ -19,12 +20,12 @@ namespace SpriteX_Engine
         static float s;
         // /\/\/\/\/\/\/\/\/\/\/\/\/\/\/\ \\
 
-        public static void OnGameStart(MainWindow win) // Gets Executed when game starts running, after the main Window loads
+        public override void OnGameStart(MainWindow win)
         {
 
         }
 
-        public static void OnGameUpdate(MainWindow win) // Gets Executed every frame, used for Game related actions
+        public override void OnGameUpdate(MainWindow win)
         {
             s = win.IsKeyDown(Keys.LeftControl) ? 0.1f : (win.IsKeyDown(Keys.LeftShift) ? 0.4f : 0.2f);
             if (win.IsKeyDown(Keys.W)) velocity.Y -= s;
@@ -38,7 +39,7 @@ namespace SpriteX_Engine
             velocity *= 0.95f;
         }
 
-        public static void OnGraphicsUpdate(MainWindow win) // Used to put everything related to rendering stuff
+        public override void OnGraphicsUpdate(MainWindow win)
         {
             if (win.IsKeyPressed(Keys.Escape)) win.Close();
             if (win.IsKeyPressed(Keys.P)) win.isGamePaused = !win.isGamePaused;
@@ -61,7 +62,7 @@ namespace SpriteX_Engine
             Console.CursorVisible = false;
         }
 
-        public static void OnGameEnd() // Gets Executed after Game Window Closes
+        public override void OnGameEnd(MainWindow win)
         {
 
         }

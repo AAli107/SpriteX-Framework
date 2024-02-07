@@ -32,6 +32,7 @@ namespace SpriteX_Engine.EngineContents
 
         private bool allowAltEnter; // Alt+Enter Control
         private double time = 0; // Hold time in seconds since Window was created
+        private GameCode gameCode = new GameCode();
 
         public double FPS { get { return 1 / UpdateTime; } } // Returns the Window's current FPS
         public bool isGamePaused = false; // Will not execute GameCode.OnGameUpdate() if true
@@ -39,6 +40,8 @@ namespace SpriteX_Engine.EngineContents
         protected override void OnLoad()
         {
             base.OnLoad();
+
+
 
             // Create the vertex array object (VAO)
             vertexArrayObject = GL.GenVertexArray();
@@ -95,7 +98,7 @@ namespace SpriteX_Engine.EngineContents
             GL.DeleteShader(fragmentShader);
 
             // OnGameStart() gets executed from GameCode
-            GameCode.OnGameStart(this);
+            gameCode.OnGameStart(this);
         }
 
         protected override void OnResize(ResizeEventArgs e)
@@ -118,7 +121,7 @@ namespace SpriteX_Engine.EngineContents
                 WindowState = IsFullscreen ? WindowState.Normal : WindowState.Fullscreen;
             }
 
-            if (!isGamePaused) GameCode.OnGameUpdate(this); // OnGameUpdate() from GameCode is executed here
+            if (!isGamePaused) gameCode.OnGameUpdate(this); // OnGameUpdate() from GameCode is executed here
         }
 
         protected override void OnRenderFrame(FrameEventArgs e)
@@ -132,7 +135,7 @@ namespace SpriteX_Engine.EngineContents
             GL.EnableVertexAttribArray(0);
             GL.VertexAttribPointer(0, 2, VertexAttribPointerType.Float, false, 0, 0);
 
-            GameCode.OnGraphicsUpdate(this); // OnGraphicsUpdate() in GameCode gets executed here
+            gameCode.OnGraphicsUpdate(this); // OnGraphicsUpdate() in GameCode gets executed here
 
             GL.DisableVertexAttribArray(0);
             SwapBuffers(); // Switches buffer
@@ -140,6 +143,8 @@ namespace SpriteX_Engine.EngineContents
 
         protected override void OnUnload()
         {
+            gameCode.OnGameEnd(this); // OnGameEnd method will get executed when game is about to close
+
             // Clean up resources
             GL.DeleteBuffer(vertexBufferObject);
             GL.DeleteVertexArray(vertexArrayObject);

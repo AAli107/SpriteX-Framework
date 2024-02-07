@@ -22,7 +22,6 @@ namespace SpriteX_Engine.EngineContents
                 window.Run();
             }
 
-            GameCode.OnGameEnd(); // OnGameEnd method will get executed after the Main Window closes
         }
     }
 }
