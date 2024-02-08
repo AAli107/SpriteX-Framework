@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices.Marshalling;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -147,6 +148,12 @@ namespace SpriteX_Engine.EngineContents
         /// </summary>
         /// <returns></returns>
         public float GetFriction() { return friction; }
+
+        /// <summary>
+        /// Returns the GameObject's Hitbox
+        /// </summary>
+        /// <returns></returns>
+        public RectangleF GetHitbox() { return new RectangleF(new PointF(position.X, position.Y), new SizeF(size.X, size.Y)); }
 
         /// <summary>
         /// Returns whether GameObject is Simulating physics or not
