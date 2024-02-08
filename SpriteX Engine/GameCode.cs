@@ -20,7 +20,7 @@ namespace SpriteX_Engine
 
         public override void OnGameStart(MainWindow win)
         {
-
+            new GameObject(new Vector2(500, 400), new Vector2(40, 200));
         }
 
         public override void OnFixedGameUpdate(MainWindow win)

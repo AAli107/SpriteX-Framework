@@ -51,6 +51,20 @@ namespace SpriteX_Engine.EngineContents
         }
 
         /// <summary>
+        /// Returns GameObject's position
+        /// </summary>
+        /// <returns></returns>
+        public Vector2 GetPosition() { return position; }
+
+        /// <summary>
+        /// Returns GameObject's size
+        /// </summary>
+        /// <returns></returns>
+        public Vector2 GetSize() { return size; }
+
+
+
+        /// <summary>
         /// Removes a GameObject by id
         /// </summary>
         /// <param name="id"></param>

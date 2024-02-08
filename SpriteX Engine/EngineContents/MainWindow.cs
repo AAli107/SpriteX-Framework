@@ -27,6 +27,7 @@ namespace SpriteX_Engine.EngineContents
             VSync = VSyncMode.On; // Control the window's VSync
             CenterWindow(); // Will center the window in the middle of the screen
             allowAltEnter = true; // Controls whether you can toggle fullscreen when pressing Alt+Enter
+            showDebugHitbox = true; // Controls whether to show all GameObjects' hitboxes
         }
 
         /*
@@ -57,6 +58,10 @@ namespace SpriteX_Engine.EngineContents
         /// controls how many times OnFixedGameUpdate() method is executed per second.
         /// </summary>
         public double fixedFrameTime { get { return 1 / targetFrameTime; } set { targetFrameTime = 1 / (value < 0 ? 0 : value); } }
+        /// <summary>
+        /// controls whether to render the GameObject hitboxes.
+        /// </summary>
+        public bool showDebugHitbox { get; set; }
 
         protected override void OnLoad()
         {
@@ -168,6 +173,10 @@ namespace SpriteX_Engine.EngineContents
             GL.VertexAttribPointer(0, 2, VertexAttribPointerType.Float, false, 0, 0);
 
             gameCode.OnGraphicsUpdate(this); // OnGraphicsUpdate() in GameCode gets executed here
+
+            // Will render the Rectangles representing the hitbox of the GameObject
+            if (showDebugHitbox) foreach (GameObject obj in GameObject.GetAllGameObjects())
+                if (obj.GetSize().X > 0 && obj.GetSize().Y > 0) DrawRect(obj.GetPosition(), obj.GetSize(), Color4.White, DrawType.Outline);
 
             GL.DisableVertexAttribArray(0);
             SwapBuffers(); // Switches buffer
