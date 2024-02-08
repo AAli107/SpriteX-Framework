@@ -92,6 +92,13 @@ namespace SpriteX_Engine.EngineContents
         /// <returns></returns>
         public Vector2 GetSize() { return size; }
 
+        /// <summary>
+        /// Returns GameObject's Velocity
+        /// </summary>
+        /// <returns></returns>
+        public Vector2 GetVelocity() { return velocity; }
+
+
 
 
         /// <summary>
