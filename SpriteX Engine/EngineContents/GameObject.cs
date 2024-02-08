@@ -25,7 +25,7 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="size"></param>
         /// <param name="simulatePhysics"></param>
         /// <param name="friction"></param>
-        public GameObject(Vector2 position, Vector2 size, bool simulatePhysics = false, float friction = 1f)
+        public GameObject(Vector2 position, Vector2 size, bool simulatePhysics = false, float friction = 0.1f)
         {
             uint id = 0;
             while (gameObjects.Any(o => o.id == id))
@@ -46,8 +46,17 @@ namespace SpriteX_Engine.EngineContents
             if (simulatePhysics)
             {
                 position += velocity;
-                velocity *= 0.9f / friction;
+                velocity *= 1 / (((friction + 1) >= 1) ? (friction + 1) : 1);
             }
+        }
+
+        /// <summary>
+        /// Sets GameObject's Friction
+        /// </summary>
+        /// <param name="friction"></param>
+        public void SetFriction(float friction)
+        {
+            this.friction = friction;
         }
 
         /// <summary>

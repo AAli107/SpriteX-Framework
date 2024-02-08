@@ -14,10 +14,10 @@ namespace SpriteX_Engine
     class GameCode : GameScript
     {
         /* Insert Variables here */
-        Vector2 pos = new Vector2(100, 100);
-        Vector2 velocity = new Vector2(0, 0);
-        float s;
+
         GameObject g = new GameObject(new Vector2(500, 400), new Vector2(40, 200), true);
+        Vector2 pos;
+        float s;
 
         public override void OnGameStart(MainWindow win)
         {
@@ -26,18 +26,15 @@ namespace SpriteX_Engine
 
         public override void OnFixedGameUpdate(MainWindow win)
         {
-            if (win.IsKeyDown(Keys.W)) velocity.Y -= s;
-            if (win.IsKeyDown(Keys.A)) velocity.X -= s;
-            if (win.IsKeyDown(Keys.S)) velocity.Y += s;
-            if (win.IsKeyDown(Keys.D)) velocity.X += s;
 
 
             if (win.IsKeyDown(Keys.W)) g.AddVelocity(new Vector2(0, -s));
+            if (win.IsKeyDown(Keys.A)) g.AddVelocity(new Vector2(-s, 0));
+            if (win.IsKeyDown(Keys.S)) g.AddVelocity(new Vector2(0, +s));
+            if (win.IsKeyDown(Keys.D)) g.AddVelocity(new Vector2(+s, 0));
 
-            pos.X += velocity.X;
-            pos.Y += velocity.Y;
 
-            velocity *= 0.9f;
+            pos = g.GetPosition();
         }
 
         public override void OnGameUpdate(MainWindow win)
@@ -60,14 +57,14 @@ namespace SpriteX_Engine
             win.DrawQuad(pos + new Vector2(0, -100), pos + new Vector2(100, 0), pos + new Vector2(0, 100), pos + new Vector2(-100, 0), Color4.Magenta, Utilities.DrawType.Outline);
             win.DrawLine(new Vector2(1920/2, 1080/2), pos, Color4.Magenta, 5);
 
-            Console.WriteLine(Math.Round(win.FPS, 2) + " FPS                                       ");
-            Console.WriteLine("time since start = " + Math.Round(win.GetTimeSinceStart(), 2) + " s                                       ");
-            Console.WriteLine("-------------------------------------------");
-            Console.WriteLine("Position = (" + Math.Round(pos.X, 2) + ", " + Math.Round(pos.Y, 2) + ")                                       ");
-            Console.WriteLine("Speed = " + Math.Round(velocity.Length, 2) + "                                       ");
-            Console.CursorLeft = 0;
-            Console.CursorTop = 0;
-            Console.CursorVisible = false;
+            //Console.WriteLine(Math.Round(win.FPS, 2) + " FPS                                       ");
+            //Console.WriteLine("time since start = " + Math.Round(win.GetTimeSinceStart(), 2) + " s                                       ");
+            //Console.WriteLine("-------------------------------------------");
+            //Console.WriteLine("Position = (" + Math.Round(pos.X, 2) + ", " + Math.Round(pos.Y, 2) + ")                                       ");
+            //Console.WriteLine("Speed = " + Math.Round(velocity.Length, 2) + "                                       ");
+            //Console.CursorLeft = 0;
+            //Console.CursorTop = 0;
+            //Console.CursorVisible = false;
         }
 
         public override void OnGameEnd(MainWindow win)
