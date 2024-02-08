@@ -60,6 +60,15 @@ namespace SpriteX_Engine.EngineContents
         }
 
         /// <summary>
+        /// Controls if GameObject will have physics or not
+        /// </summary>
+        /// <param name="simulatePhysics"></param>
+        public void SetSimulatePhysics(bool simulatePhysics) 
+        {
+            this.simulatePhysics = simulatePhysics;
+        }
+
+        /// <summary>
         /// Adds directional velocity in the GameObject's current Velocity
         /// </summary>
         /// <param name="velocity"></param>
