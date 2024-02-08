@@ -35,6 +35,6 @@
         /// Gets Executed when game is about to close
         /// </summary>
         /// <param name="win"></param>
-        public virtual void OnGameEnd(MainWindow win) { } 
+        public virtual void OnGameEnd(MainWindow win) { }
     }
 }
