@@ -28,18 +28,7 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="friction"></param>
         public GameObject(Vector2 position, Vector2 size, bool simulatePhysics = false, float friction = 0.1f)
         {
-            uint id = 0;
-            while (gameObjects.Any(o => o.id == id))
-            {
-                id++;
-            }
-            this.id = id;
-            this.position = position;
-            this.size = size;
-            this.friction = friction;
-            this.simulatePhysics = simulatePhysics;
-
-            gameObjects.Add(this);
+            Construct(position, size, simulatePhysics, friction);
         }
 
         /// <summary>
@@ -50,14 +39,19 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="friction"></param>
         public GameObject(RectangleF hitbox, bool simulatePhysics = false, float friction = 0.1f) 
         {
+            Construct(new Vector2(hitbox.X, hitbox.Y), new Vector2(hitbox.Width, hitbox.Height), simulatePhysics, friction);
+        }
+
+        void Construct(Vector2 position, Vector2 size, bool simulatePhysics = false, float friction = 0.1f)
+        {
             uint id = 0;
             while (gameObjects.Any(o => o.id == id))
             {
                 id++;
             }
             this.id = id;
-            position = new Vector2(hitbox.X, hitbox.Y);
-            size = new Vector2(hitbox.Width, hitbox.Height);
+            this.position = position;
+            this.size = size;
             this.friction = friction;
             this.simulatePhysics = simulatePhysics;
 
