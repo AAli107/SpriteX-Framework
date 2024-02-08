@@ -296,9 +296,9 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="pos"></param>
         /// <param name="dimension"></param>
         /// <param name="color"></param>
-        public void DrawRect(Vector2 pos, Vector2 dimension, Color4 color)
+        public void DrawRect(Vector2 pos, Vector2 dimension, Color4 color, DrawType drawType)
         {
-            DrawQuad(pos + new Vector2(0, dimension.Y), pos + new Vector2(dimension.X, dimension.Y), pos + new Vector2(dimension.X, 0), pos, color);
+            DrawQuad(pos + new Vector2(0, dimension.Y), pos + new Vector2(dimension.X, dimension.Y), pos + new Vector2(dimension.X, 0), pos, color, drawType);
         }
 
         /// <summary>
