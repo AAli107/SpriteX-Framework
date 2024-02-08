@@ -13,7 +13,7 @@ namespace SpriteX_Engine.EngineContents
         {
             /*
             If you wanna use the engine properly, go to GameCode, not here!
-                                                            See ya! :3
+            *                                               See ya! :3
             */
 
             // Will create and run the Main Window
