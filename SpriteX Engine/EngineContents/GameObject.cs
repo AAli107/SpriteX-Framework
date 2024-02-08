@@ -1,6 +1,7 @@
 ﻿using OpenTK.Mathematics;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,6 +36,28 @@ namespace SpriteX_Engine.EngineContents
             this.id = id;
             this.position = position;
             this.size = size;
+            this.friction = friction;
+            this.simulatePhysics = simulatePhysics;
+
+            gameObjects.Add(this);
+        }
+
+        /// <summary>
+        /// Creates a GameObject
+        /// </summary>
+        /// <param name="hitbox"></param>
+        /// <param name="simulatePhysics"></param>
+        /// <param name="friction"></param>
+        public GameObject(RectangleF hitbox, bool simulatePhysics = false, float friction = 0.1f) 
+        {
+            uint id = 0;
+            while (gameObjects.Any(o => o.id == id))
+            {
+                id++;
+            }
+            this.id = id;
+            position = new Vector2(hitbox.X, hitbox.Y);
+            size = new Vector2(hitbox.Width, hitbox.Height);
             this.friction = friction;
             this.simulatePhysics = simulatePhysics;
 
