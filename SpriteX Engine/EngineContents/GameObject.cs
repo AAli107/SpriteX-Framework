@@ -77,6 +77,10 @@ namespace SpriteX_Engine.EngineContents
             this.simulatePhysics = simulatePhysics;
         }
 
+        /// <summary>
+        /// Will override current GameObject's Velocity
+        /// </summary>
+        /// <param name="velocity"></param>
         public void OverrideVelocity(Vector2 velocity)
         {
             this.velocity = velocity;
@@ -120,6 +124,12 @@ namespace SpriteX_Engine.EngineContents
         /// </summary>
         /// <returns></returns>
         public Vector2 GetVelocity() { return velocity; }
+
+        /// <summary>
+        /// Returns GameObject's Friction
+        /// </summary>
+        /// <returns></returns>
+        public float GetFriction() { return friction; }
 
         /// <summary>
         /// Returns whether GameObject is Simulating physics or not
