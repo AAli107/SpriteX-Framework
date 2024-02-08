@@ -69,6 +69,12 @@ namespace SpriteX_Engine.EngineContents
         }
 
         /// <summary>
+        /// Returns Center Position of the GameObject's Hitbox
+        /// </summary>
+        /// <returns></returns>
+        public Vector2 GetCenterPosition() { return new Vector2(position.X + (size.X / 2), position.Y + (size.Y / 2)); }
+
+        /// <summary>
         /// Returns GameObject's ID
         /// </summary>
         /// <returns></returns>
