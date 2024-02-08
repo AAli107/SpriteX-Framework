@@ -49,7 +49,7 @@ namespace SpriteX_Engine.EngineContents
         /// <summary>
         /// Controls whether the game is paused or not.
         /// </summary>
-        public bool isGamePaused = false;
+        public bool isGamePaused { get; set; }
         /// <summary>
         /// Returns the Window's current FPS.
         /// </summary>
