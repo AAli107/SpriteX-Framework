@@ -74,6 +74,16 @@ namespace SpriteX_Engine.EngineContents
         }
 
         /// <summary>
+        /// Returns true if GameObject with the same ID exists
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static bool DoesGameObjectExist(uint id)
+        {
+            return gameObjects.Any(o => o.id == id);
+        }
+
+        /// <summary>
         /// Returns the List of all GameObjects
         /// </summary>
         /// <returns></returns>
