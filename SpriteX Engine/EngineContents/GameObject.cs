@@ -51,6 +51,15 @@ namespace SpriteX_Engine.EngineContents
         }
 
         /// <summary>
+        /// Sets GameObject's Position
+        /// </summary>
+        /// <param name="position"></param>
+        public void SetPosition(Vector2 position)
+        {
+            this.position = position;
+        }
+
+        /// <summary>
         /// Sets GameObject's Friction
         /// </summary>
         /// <param name="friction"></param>
@@ -66,6 +75,11 @@ namespace SpriteX_Engine.EngineContents
         public void SetSimulatePhysics(bool simulatePhysics) 
         {
             this.simulatePhysics = simulatePhysics;
+        }
+
+        public void OverrideVelocity(Vector2 velocity)
+        {
+            this.velocity = velocity;
         }
 
         /// <summary>
