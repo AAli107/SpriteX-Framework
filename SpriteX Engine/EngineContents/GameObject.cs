@@ -107,6 +107,12 @@ namespace SpriteX_Engine.EngineContents
         /// <returns></returns>
         public Vector2 GetVelocity() { return velocity; }
 
+        /// <summary>
+        /// Returns whether GameObject is Simulating physics or not
+        /// </summary>
+        /// <returns></returns>
+        public bool IsSimulatingPhysics() { return simulatePhysics; }
+
 
 
 
