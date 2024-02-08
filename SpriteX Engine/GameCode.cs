@@ -56,6 +56,7 @@ namespace SpriteX_Engine
             Console.WriteLine("-------------------------------------------");
             Console.WriteLine("Position = (" + Math.Round(g.GetCenterPosition().X, 2) + ", " + Math.Round(g.GetCenterPosition().Y, 2) + ")                                       ");
             Console.WriteLine("Speed = " + Math.Round(g.GetVelocity().Length, 2) + "                                       ");
+            Console.WriteLine("intersecting = " + g.IsIntersectingWith(otherG) + "                                       ");
             Console.CursorLeft = 0;
             Console.CursorTop = 0;
             Console.CursorVisible = false;

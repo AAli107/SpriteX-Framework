@@ -161,6 +161,14 @@ namespace SpriteX_Engine.EngineContents
         /// <returns></returns>
         public bool IsSimulatingPhysics() { return simulatePhysics; }
 
+        /// <summary>
+        /// Returns true when GameObject hitbox intersects with another one
+        /// </summary>
+        /// <param name="gameObject"></param>
+        /// <returns></returns>
+        public bool IsIntersectingWith(GameObject gameObject) { return GetHitbox().IntersectsWith(gameObject.GetHitbox()); }
+
+
 
 
 
