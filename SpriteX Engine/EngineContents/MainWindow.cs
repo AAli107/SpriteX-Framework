@@ -14,6 +14,8 @@ namespace SpriteX_Engine.EngineContents
         public MainWindow(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings)
         : base(gameWindowSettings, nativeWindowSettings)
         {
+            /* --- Initial Window Parameters --- */
+
             Title = "SpriteX Game"; // Window Title
             ClientSize = new Vector2i(1280, 720); // Window Resolution
             AspectRatio = (16, 9); // Window Aspect Ratio
@@ -26,7 +28,12 @@ namespace SpriteX_Engine.EngineContents
             allowAltEnter = true; // Controls whether you can toggle fullscreen when pressing Alt+Enter
         }
 
-        // Shader stuff (DO NOT TOUCH)
+        /*
+         * DO NOT TOUCH ANYTHING BELOW!
+         * well unless if you know what you're doing
+         */
+
+        // Shader stuff
         private int vertexArrayObject;
         private int vertexBufferObject;
         private int shaderProgram;
@@ -34,8 +41,8 @@ namespace SpriteX_Engine.EngineContents
         private bool allowAltEnter; // Alt+Enter Control
         private double targetFrameTime; // fixed time for OnFixedGameUpdate()
         private double time = 0; // Hold time in seconds since Window was created
-        private GameCode gameCode = new GameCode();
-        private double accumulatedTime = 0.0;
+        private GameCode gameCode = new GameCode(); // Declares and instantiate GameCode
+        private double accumulatedTime = 0.0; // Used for OnFixedGameUpdate()
 
         /// <summary>
         /// Controls whether the game is paused or not.
@@ -114,12 +121,10 @@ namespace SpriteX_Engine.EngineContents
 
         protected override void OnResize(ResizeEventArgs e)
         {
-            // Fixes viewport whenever the window changes size
             base.OnResize(e);
-            GL.Viewport(0, 0, ClientSize.X, ClientSize.Y);
+            GL.Viewport(0, 0, ClientSize.X, ClientSize.Y); // Fixes viewport whenever the window changes size
         }
 
-        // Game Update per frame 
         protected override void OnUpdateFrame(FrameEventArgs args)
         {
             base.OnUpdateFrame(args);
@@ -165,7 +170,6 @@ namespace SpriteX_Engine.EngineContents
         {
             gameCode.OnGameEnd(this); // OnGameEnd method will get executed when game is about to close
 
-            // Clean up resources
             GL.DeleteBuffer(vertexBufferObject);
             GL.DeleteVertexArray(vertexArrayObject);
             GL.DeleteProgram(shaderProgram);
