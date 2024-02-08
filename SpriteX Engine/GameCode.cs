@@ -53,9 +53,7 @@ namespace SpriteX_Engine
             win.DrawTri(new Vector2(1280, 720), new Vector2(0.0f, 0.0f), new Vector2(1000, 100), Color4.Red, Utilities.DrawType.Outline);
             win.DrawRect(new Vector2(250, 250), new Vector2(400, 100), Color4.Gold);
             win.DrawQuad(pos + new Vector2(0, -100), pos + new Vector2(100, 0), pos + new Vector2(0, 100), pos + new Vector2(-100, 0), Color4.Lime);
-
-            win.DrawLine(pos + new Vector2(-100, 0), pos + new Vector2(100, 0), Color4.Blue);
-            win.DrawLine(pos + new Vector2(0, -100), pos + new Vector2(0, 100), Color4.Blue);
+            win.DrawQuad(pos + new Vector2(0, -100), pos + new Vector2(100, 0), pos + new Vector2(0, 100), pos + new Vector2(-100, 0), Color4.Magenta, Utilities.DrawType.Outline);
             win.DrawLine(new Vector2(1920/2, 1080/2), pos, Color4.Magenta);
 
             Console.WriteLine(Math.Round(win.FPS, 2) + " FPS                                       ");

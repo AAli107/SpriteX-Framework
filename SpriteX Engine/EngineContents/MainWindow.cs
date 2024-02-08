@@ -261,8 +261,16 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="c"></param>
         /// <param name="d"></param>
         /// <param name="color"></param>
-        public void DrawQuad(Vector2 a, Vector2 b, Vector2 c, Vector2 d, Color4 color)
+        public void DrawQuad(Vector2 a, Vector2 b, Vector2 c, Vector2 d, Color4 color, DrawType drawType = DrawType.Filled)
         {
+            if (drawType == DrawType.Outline) // Will draw the quad as an outline
+            {
+                DrawLine(a, b, color);
+                DrawLine(b, c, color);
+                DrawLine(c, d, color);
+                DrawLine(d, a, color);
+                return;
+            }
             // Set the ucolor in the shader
             int colorUniformLocation = GL.GetUniformLocation(shaderProgram, "uColor");
             GL.Uniform4(colorUniformLocation, color);
