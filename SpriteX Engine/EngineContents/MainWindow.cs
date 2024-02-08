@@ -136,7 +136,11 @@ namespace SpriteX_Engine.EngineContents
             accumulatedTime += UpdateTime;
             while (accumulatedTime >= targetFrameTime)
             {
-                if (!isGamePaused) gameCode.OnFixedGameUpdate(this); 
+                if (!isGamePaused)
+                {
+                    GameObject.TickAllGameObjects();
+                    gameCode.OnFixedGameUpdate(this);
+                }
                 accumulatedTime -= targetFrameTime;
             }
 
