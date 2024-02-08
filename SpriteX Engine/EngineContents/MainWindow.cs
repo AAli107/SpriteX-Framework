@@ -59,6 +59,8 @@ namespace SpriteX_Engine.EngineContents
 
         protected override void OnLoad()
         {
+            gameCode.Awake(this); // Awake() from GameCode gets executed here
+
             base.OnLoad();
 
             // Create the vertex array object (VAO)

@@ -3,7 +3,11 @@
     internal class GameScript
     {
         /// <summary>
-        /// Gets Executed when game starts running, after the main Window loads
+        /// Gets Executed right after the Game Window starts loading
+        /// </summary>
+        public virtual void Awake(MainWindow win) { }
+        /// <summary>
+        /// Gets Executed when game starts running, after the game Window finishes loading
         /// </summary>
         /// <param name="win"></param>
         public virtual void OnGameStart(MainWindow win) { }
