@@ -307,22 +307,46 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <param name="color"></param>
-        public void DrawLine(Vector2 a, Vector2 b, Color4 color)
+        public void DrawLine(Vector2 a, Vector2 b, Color4 color, double width = 1)
         {
-            // Line vertices, point a and point b
-            float[] vertices = {
-                a.X / (1920 * 0.5f) - 1f, -a.Y / (1080 * 0.5f) + 1f,
-                b.X / (1920 * 0.5f) - 1f, -b.Y / (1080 * 0.5f) + 1f
-            };
+            if (width <= 1)
+            {
+                // Line vertices, point a and point b
+                float[] vertices = {
+                    a.X / (1920 * 0.5f) - 1f, -a.Y / (1080 * 0.5f) + 1f,
+                    b.X / (1920 * 0.5f) - 1f, -b.Y / (1080 * 0.5f) + 1f
+                };
 
-            // Set the ucolor in the shader
-            int colorUniformLocation = GL.GetUniformLocation(shaderProgram, "uColor");
-            GL.Uniform4(colorUniformLocation, color);
+                // Set the ucolor in the shader
+                int colorUniformLocation = GL.GetUniformLocation(shaderProgram, "uColor");
+                GL.Uniform4(colorUniformLocation, color);
 
-            GL.BindBuffer(BufferTarget.ArrayBuffer, vertexBufferObject);
-            GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * vertices.Length, vertices, BufferUsageHint.DynamicDraw);
+                GL.BindBuffer(BufferTarget.ArrayBuffer, vertexBufferObject);
+                GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * vertices.Length, vertices, BufferUsageHint.DynamicDraw);
 
-            GL.DrawArrays(PrimitiveType.Lines, 0, 2);
+                GL.DrawArrays(PrimitiveType.Lines, 0, 2);
+            }
+            else
+            {
+                // Calculate the normalized direction between two sides of the line
+                Vector2 direction = b - a;
+                direction.Normalize();
+
+                // Calculate the perpendicular vector
+                Vector2 perpendicular = new Vector2(-direction.Y, direction.X);
+
+                // Calculate the half-width offset
+                Vector2 offset = (float)width * 0.5f * perpendicular;
+
+                // Calculate the four corners of the quad
+                Vector2 topLeft = a - offset;
+                Vector2 topRight = a + offset;
+                Vector2 bottomLeft = b - offset;
+                Vector2 bottomRight = b + offset;
+
+                // Draws Line as a Quad to have thickness
+                DrawQuad(topRight, topLeft, bottomLeft, bottomRight, color, DrawType.Filled);
+            }
         }
     }
 }
