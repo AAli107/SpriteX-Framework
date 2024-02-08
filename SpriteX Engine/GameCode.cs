@@ -50,6 +50,7 @@ namespace SpriteX_Engine
         public override void OnGraphicsUpdate(MainWindow win)
         {
             win.DrawTri(new Vector2(1280, 720), new Vector2(0.0f, 0.0f), new Vector2(1000, 100), Color4.SteelBlue);
+            win.DrawTri(new Vector2(1280, 720), new Vector2(0.0f, 0.0f), new Vector2(1000, 100), Color4.Red, Utilities.DrawType.Outline);
             win.DrawRect(new Vector2(250, 250), new Vector2(400, 100), Color4.Gold);
             win.DrawQuad(pos + new Vector2(0, -100), pos + new Vector2(100, 0), pos + new Vector2(0, 100), pos + new Vector2(-100, 0), Color4.Lime);
 

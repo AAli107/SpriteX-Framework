@@ -6,6 +6,7 @@ using OpenTK.Windowing.Desktop;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using System.ComponentModel;
+using static SpriteX_Engine.EngineContents.Utilities;
 
 namespace SpriteX_Engine.EngineContents
 {
@@ -226,13 +227,20 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="b"></param>
         /// <param name="c"></param>
         /// <param name="color"></param>
-        public void DrawTri(Vector2 a, Vector2 b, Vector2 c, Color4 color)
+        public void DrawTri(Vector2 a, Vector2 b, Vector2 c, Color4 color, DrawType drawType = DrawType.Filled)
         {
+            if (drawType == DrawType.Outline) // Will draw the triangle as an outline
+            {
+                DrawLine(a, b, color);
+                DrawLine(b, c, color);
+                DrawLine(c, a, color);
+                return;
+            }
             // Triangle verticies
             float[] vertices = {
-                a.X / (1920 * 0.5f) - 1f, -a.Y / (1080 * 0.5f) + 1f,
-                b.X / (1920 * 0.5f) - 1f, -b.Y / (1080 * 0.5f) + 1f,
-                c.X / (1920 * 0.5f) - 1f, -c.Y / (1080 * 0.5f) + 1f
+            a.X / (1920 * 0.5f) - 1f, -a.Y / (1080 * 0.5f) + 1f,
+            b.X / (1920 * 0.5f) - 1f, -b.Y / (1080 * 0.5f) + 1f,
+            c.X / (1920 * 0.5f) - 1f, -c.Y / (1080 * 0.5f) + 1f
             };
 
             // Set the ucolor in the shader
