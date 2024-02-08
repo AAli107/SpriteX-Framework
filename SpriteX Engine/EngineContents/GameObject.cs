@@ -88,6 +88,12 @@ namespace SpriteX_Engine.EngineContents
             gameObjects.RemoveAll(o => o.id == id);
         }
 
+        public static GameObject GetGameObjectByID(uint id)
+        {
+            try { return gameObjects.Single(o => o.id == id); }
+            catch { return null; }
+        }
+
         /// <summary>
         /// Returns true if GameObject with the same ID exists
         /// </summary>
