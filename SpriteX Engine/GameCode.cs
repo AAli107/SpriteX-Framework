@@ -13,12 +13,10 @@ namespace SpriteX_Engine
 {
     class GameCode : GameScript
     {
-        // Insert Variables here \\
-        // \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/ \\
+        /* Insert Variables here */
         Vector2 pos = new Vector2(100, 100);
         Vector2 velocity = new Vector2(0, 0);
         float s;
-        // /\/\/\/\/\/\/\/\/\/\/\/\/\/\/\ \\
 
         public override void OnGameStart(MainWindow win)
         {
