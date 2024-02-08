@@ -15,6 +15,7 @@ namespace SpriteX_Engine
     {
         /* Insert Variables here */
         GameObject g = new GameObject(new Vector2(500, 400), new Vector2(200, 200), true);
+        GameObject otherG = new GameObject(new Vector2(800, 300), new Vector2(300, 100), true);
         float s;
 
         public override void OnGameStart(MainWindow win)
