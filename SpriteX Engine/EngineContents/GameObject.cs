@@ -51,6 +51,21 @@ namespace SpriteX_Engine.EngineContents
         }
 
         /// <summary>
+        /// Adds directional velocity in the GameObject's current Velocity
+        /// </summary>
+        /// <param name="velocity"></param>
+        public void AddVelocity(Vector2 velocity) 
+        {
+            this.velocity += velocity;
+        }
+
+        /// <summary>
+        /// Returns GameObject's ID
+        /// </summary>
+        /// <returns></returns>
+        public uint GetID() { return id; }
+
+        /// <summary>
         /// Returns GameObject's position
         /// </summary>
         /// <returns></returns>

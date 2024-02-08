@@ -17,10 +17,11 @@ namespace SpriteX_Engine
         Vector2 pos = new Vector2(100, 100);
         Vector2 velocity = new Vector2(0, 0);
         float s;
+        GameObject g = new GameObject(new Vector2(500, 400), new Vector2(40, 200), true);
 
         public override void OnGameStart(MainWindow win)
         {
-            new GameObject(new Vector2(500, 400), new Vector2(40, 200));
+
         }
 
         public override void OnFixedGameUpdate(MainWindow win)
@@ -29,6 +30,9 @@ namespace SpriteX_Engine
             if (win.IsKeyDown(Keys.A)) velocity.X -= s;
             if (win.IsKeyDown(Keys.S)) velocity.Y += s;
             if (win.IsKeyDown(Keys.D)) velocity.X += s;
+
+
+            if (win.IsKeyDown(Keys.W)) g.AddVelocity(new Vector2(0, -s));
 
             pos.X += velocity.X;
             pos.Y += velocity.Y;
