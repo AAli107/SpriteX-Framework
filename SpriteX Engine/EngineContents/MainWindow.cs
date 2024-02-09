@@ -146,6 +146,7 @@ namespace SpriteX_Engine.EngineContents
             {
                 if (!isGamePaused)
                 {
+                    gameCode.OnPrePhysicsUpdate(this);
                     GameObject.TickAllGameObjects();
                     gameCode.OnFixedGameUpdate(this);
                 }

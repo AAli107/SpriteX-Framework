@@ -12,6 +12,11 @@
         /// <param name="win"></param>
         public virtual void OnGameStart(MainWindow win) { }
         /// <summary>
+        /// Gets Executed before Physics and collision updates for fixed amount of time per second
+        /// </summary>
+        /// <param name="win"></param>
+        public virtual void OnPrePhysicsUpdate(MainWindow win) { }
+        /// <summary>
         /// Gets Executed fixed amount of time per second
         /// </summary>
         /// <param name="win"></param>
