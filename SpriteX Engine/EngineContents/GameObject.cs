@@ -116,6 +116,15 @@ namespace SpriteX_Engine.EngineContents
         }
 
         /// <summary>
+        /// Controls whether GameObject collision is enabled or not
+        /// </summary>
+        /// <param name="collisionEnabled"></param>
+        public void SetCollisionEnabled(bool collisionEnabled)
+        {
+            this.collisionEnabled = collisionEnabled;
+        }
+
+        /// <summary>
         /// Returns Center Position of the GameObject's Hitbox
         /// </summary>
         /// <returns></returns>
@@ -170,6 +179,12 @@ namespace SpriteX_Engine.EngineContents
         /// <returns></returns>
         public bool IsIntersectingWith(GameObject gameObject) { return GetHitbox().IntersectsWith(gameObject.GetHitbox()); }
 
+        /// <summary>
+        /// Returns true when GameObject collision is enabled
+        /// </summary>
+        /// <returns></returns>
+        public bool IsCollisionEnabled() { return collisionEnabled; }
+
 
 
 
@@ -183,6 +198,11 @@ namespace SpriteX_Engine.EngineContents
             gameObjects.RemoveAll(o => o.id == id);
         }
 
+        /// <summary>
+        /// Returns GameObject by the inputted ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public static GameObject GetGameObjectByID(uint id)
         {
             try { return gameObjects.Single(o => o.id == id); }
@@ -227,11 +247,11 @@ namespace SpriteX_Engine.EngineContents
                             Vector2 cv = CalculateCollisionVector(obj, obj2);
 
                             // Move the objects apart along the MTV to prevent overlapping
-                            obj.SetPosition(obj.GetPosition() + cv);
+                            if (obj.IsSimulatingPhysics()) obj.SetPosition(obj.GetPosition() + cv);
 
                             // Cancels out speed when colliding
-                            if (obj.simulatePhysics) obj.OverrideVelocity(obj.GetVelocity() + cv);
-                            if (obj2.simulatePhysics) obj2.OverrideVelocity(obj2.GetVelocity() - cv);
+                            if (obj.IsSimulatingPhysics()) obj.OverrideVelocity(obj.GetVelocity() + cv);
+                            if (obj2.IsSimulatingPhysics()) obj2.OverrideVelocity(obj2.GetVelocity() - cv);
                         }
                     }
                 }
