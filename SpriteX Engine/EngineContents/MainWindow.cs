@@ -228,9 +228,14 @@ namespace SpriteX_Engine.EngineContents
             DrawPixel(position.X, position.Y, color);
         }
 
+        public void DrawScaledPixel(Vector2 position, Color4 color)
+        {
+            DrawRect(position, new Vector2(1, 1), color, DrawType.Filled);
+        }
+
         public void DrawScaledPixel(double x, double y, Color4 color)
         {
-            DrawRect(new Vector2((float)x, (float)y), new Vector2(1, 1), color, DrawType.Filled);
+            DrawScaledPixel(new Vector2((float)x, (float)y), color);
         }
 
         /// <summary>
