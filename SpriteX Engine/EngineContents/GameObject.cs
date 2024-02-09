@@ -258,7 +258,7 @@ namespace SpriteX_Engine.EngineContents
                             // Move the objects apart along the MTV to prevent overlapping
                             if (obj.IsSimulatingPhysics()) obj.SetPosition(obj.GetPosition() + cv);
 
-                            // Cancels out speed when colliding
+                            // Pushes Colliding GameObjects if simulating physics
                             if (obj.IsSimulatingPhysics()) obj.OverrideVelocity(obj.GetVelocity() + cv);
                             if (obj2.IsSimulatingPhysics()) obj2.OverrideVelocity(obj2.GetVelocity() - cv);
                         }
