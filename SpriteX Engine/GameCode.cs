@@ -34,6 +34,10 @@ namespace SpriteX_Engine
             if (win.IsKeyDown(Keys.A)) g.AddVelocity(new Vector2(-s, 0));
             if (win.IsKeyDown(Keys.S)) g.AddVelocity(new Vector2(0, +s));
             if (win.IsKeyDown(Keys.D)) g.AddVelocity(new Vector2(+s, 0));
+
+
+            Random rng = new Random();
+            new GameObject(new Vector2(rng.Next(0, 1870), rng.Next(0, 1030)), new Vector2(50, 50), false, false);
         }
 
         public override void OnGameUpdate(MainWindow win)
@@ -61,7 +65,7 @@ namespace SpriteX_Engine
             Console.WriteLine("-------------------------------------------");
             Console.WriteLine("Position = (" + Math.Round(g.GetCenterPosition().X, 2) + ", " + Math.Round(g.GetCenterPosition().Y, 2) + ")                                       ");
             Console.WriteLine("Speed = " + Math.Round(g.GetVelocity().Length, 2) + "                                       ");
-            Console.WriteLine("intersecting = " + g.IsIntersectingWith(otherG) + "                                       ");
+            Console.WriteLine("Count = " + GameObject.GetAllGameObjects().Count + "                                       ");
             Console.CursorLeft = 0;
             Console.CursorTop = 0;
             Console.CursorVisible = false;
