@@ -42,7 +42,6 @@ namespace SpriteX_Engine.EngineContents
 
         private bool allowAltEnter; // Alt+Enter Control
         private double targetFrameTime; // fixed time for OnFixedGameUpdate()
-        private double time = 0; // Hold time in seconds since Window was created
         private GameCode gameCode = new GameCode(); // Declares and instantiate GameCode
         private double accumulatedTime = 0.0; // Used for OnFixedGameUpdate()
 
@@ -62,6 +61,10 @@ namespace SpriteX_Engine.EngineContents
         /// controls whether to render the GameObject hitboxes.
         /// </summary>
         public bool showDebugHitbox { get; set; }
+        /// <summary>
+        /// Hold time in seconds since Window was created
+        /// </summary>
+        public double time { get; private set; }
 
         protected override void OnLoad()
         {
@@ -191,15 +194,6 @@ namespace SpriteX_Engine.EngineContents
             GL.DeleteProgram(shaderProgram);
 
             base.OnUnload();
-        }
-
-        /// <summary>
-        /// Returns time in seconds since the creation of this window
-        /// </summary>
-        /// <returns></returns>
-        public double GetTimeSinceStart()
-        {
-            return time;
         }
 
         /// <summary>

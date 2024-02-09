@@ -52,7 +52,7 @@ namespace SpriteX_Engine
             win.DrawLine(new Vector2(1920/2, 1080/2), g.GetCenterPosition(), Color4.Magenta, 5);
 
             Console.WriteLine(Math.Round(win.FPS, 2) + " FPS                                       ");
-            Console.WriteLine("time since start = " + Math.Round(win.GetTimeSinceStart(), 2) + " s                                       ");
+            Console.WriteLine("time since start = " + Math.Round(win.time, 2) + " s                                       ");
             Console.WriteLine("-------------------------------------------");
             Console.WriteLine("Position = (" + Math.Round(g.GetCenterPosition().X, 2) + ", " + Math.Round(g.GetCenterPosition().Y, 2) + ")                                       ");
             Console.WriteLine("Speed = " + Math.Round(g.GetVelocity().Length, 2) + "                                       ");
