@@ -20,7 +20,6 @@ namespace SpriteX_Engine.EngineContents
         float friction;
         bool simulatePhysics;
         bool collisionEnabled;
-        bool isPushable;
 
         /// <summary>
         /// Creates a GameObject
@@ -29,9 +28,9 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="size"></param>
         /// <param name="simulatePhysics"></param>
         /// <param name="friction"></param>
-        public GameObject(Vector2 position, Vector2 size, bool collisionEnabled = true, bool isPushable = false, bool simulatePhysics = false, float friction = 0.1f)
+        public GameObject(Vector2 position, Vector2 size, bool collisionEnabled = true, bool simulatePhysics = false, float friction = 0.1f)
         {
-            Construct(position, size, collisionEnabled, isPushable, simulatePhysics, friction);
+            Construct(position, size, collisionEnabled, simulatePhysics, friction);
         }
 
         /// <summary>
@@ -40,12 +39,12 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="hitbox"></param>
         /// <param name="simulatePhysics"></param>
         /// <param name="friction"></param>
-        public GameObject(RectangleF hitbox, bool collisionEnabled = true, bool isPushable = false, bool simulatePhysics = false, float friction = 0.1f) 
+        public GameObject(RectangleF hitbox, bool collisionEnabled = true, bool simulatePhysics = false, float friction = 0.1f) 
         {
-            Construct(new Vector2(hitbox.X, hitbox.Y), new Vector2(hitbox.Width, hitbox.Height), collisionEnabled, isPushable, simulatePhysics, friction);
+            Construct(new Vector2(hitbox.X, hitbox.Y), new Vector2(hitbox.Width, hitbox.Height), collisionEnabled, simulatePhysics, friction);
         }
 
-        void Construct(Vector2 position, Vector2 size, bool collisionEnabled = true, bool isPushable = false, bool simulatePhysics = false, float friction = 0.1f)
+        void Construct(Vector2 position, Vector2 size, bool collisionEnabled = true, bool simulatePhysics = false, float friction = 0.1f)
         {
             uint id = 0;
             while (gameObjects.Any(o => o.id == id))
@@ -58,7 +57,6 @@ namespace SpriteX_Engine.EngineContents
             this.friction = friction;
             this.simulatePhysics = simulatePhysics;
             this.collisionEnabled = collisionEnabled;
-            this.isPushable = isPushable;
 
             gameObjects.Add(this);
         }
@@ -220,7 +218,7 @@ namespace SpriteX_Engine.EngineContents
                 obj.UpdateTick();
                 foreach (GameObject obj2 in gameObjects)
                 {
-                    if (obj != obj2)
+                    if (obj != obj2 && obj.collisionEnabled && obj2.collisionEnabled)
                     {
                         // Check if the objects are intersecting
                         if (obj.IsIntersectingWith(obj2))
@@ -232,8 +230,8 @@ namespace SpriteX_Engine.EngineContents
                             obj.SetPosition(obj.GetPosition() + cv);
 
                             // Cancels out speed when colliding
-                            if (obj.isPushable) obj.OverrideVelocity(obj.GetVelocity() + cv);
-                            if (obj2.isPushable) obj2.OverrideVelocity(obj2.GetVelocity() - cv);
+                            if (obj.simulatePhysics) obj.OverrideVelocity(obj.GetVelocity() + cv);
+                            if (obj2.simulatePhysics) obj2.OverrideVelocity(obj2.GetVelocity() - cv);
                         }
                     }
                 }

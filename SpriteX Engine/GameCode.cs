@@ -14,8 +14,12 @@ namespace SpriteX_Engine
     class GameCode : GameScript
     {
         /* Insert Variables here */
-        GameObject g = new GameObject(new Vector2(500, 400), new Vector2(200, 200), true, true, true);
-        GameObject otherG = new GameObject(new Vector2(800, 300), new Vector2(300, 100), true, false, true);
+        GameObject g = new GameObject(new Vector2(500, 400), new Vector2(200, 200), true, true);
+        GameObject otherG = new GameObject(new Vector2(800, 300), new Vector2(300, 100), true, false);
+        GameObject otherG2 = new GameObject(new Vector2(0, 0), new Vector2(10, 1080), true, false);
+        GameObject otherG3 = new GameObject(new Vector2(0, 1070), new Vector2(1920, 10), true, false);
+        GameObject otherG4 = new GameObject(new Vector2(1910, 0), new Vector2(10, 1080), true, false);
+        GameObject otherG5 = new GameObject(new Vector2(100, 1070), new Vector2(1920, 10), true, false);
         float s;
 
         public override void OnGameStart(MainWindow win)
