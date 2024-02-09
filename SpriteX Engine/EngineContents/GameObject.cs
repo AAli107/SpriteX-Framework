@@ -19,6 +19,8 @@ namespace SpriteX_Engine.EngineContents
         Vector2 velocity;
         float friction;
         bool simulatePhysics;
+        bool collisionEnabled;
+        bool isPushable;
 
         /// <summary>
         /// Creates a GameObject
@@ -27,9 +29,9 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="size"></param>
         /// <param name="simulatePhysics"></param>
         /// <param name="friction"></param>
-        public GameObject(Vector2 position, Vector2 size, bool simulatePhysics = false, float friction = 0.1f)
+        public GameObject(Vector2 position, Vector2 size, bool collisionEnabled = true, bool isPushable = false, bool simulatePhysics = false, float friction = 0.1f)
         {
-            Construct(position, size, simulatePhysics, friction);
+            Construct(position, size, collisionEnabled, isPushable, simulatePhysics, friction);
         }
 
         /// <summary>
@@ -38,12 +40,12 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="hitbox"></param>
         /// <param name="simulatePhysics"></param>
         /// <param name="friction"></param>
-        public GameObject(RectangleF hitbox, bool simulatePhysics = false, float friction = 0.1f) 
+        public GameObject(RectangleF hitbox, bool collisionEnabled = true, bool isPushable = false, bool simulatePhysics = false, float friction = 0.1f) 
         {
-            Construct(new Vector2(hitbox.X, hitbox.Y), new Vector2(hitbox.Width, hitbox.Height), simulatePhysics, friction);
+            Construct(new Vector2(hitbox.X, hitbox.Y), new Vector2(hitbox.Width, hitbox.Height), collisionEnabled, isPushable, simulatePhysics, friction);
         }
 
-        void Construct(Vector2 position, Vector2 size, bool simulatePhysics = false, float friction = 0.1f)
+        void Construct(Vector2 position, Vector2 size, bool collisionEnabled = true, bool isPushable = false, bool simulatePhysics = false, float friction = 0.1f)
         {
             uint id = 0;
             while (gameObjects.Any(o => o.id == id))
@@ -55,6 +57,8 @@ namespace SpriteX_Engine.EngineContents
             this.size = size;
             this.friction = friction;
             this.simulatePhysics = simulatePhysics;
+            this.collisionEnabled = collisionEnabled;
+            this.isPushable = isPushable;
 
             gameObjects.Add(this);
         }
@@ -207,14 +211,53 @@ namespace SpriteX_Engine.EngineContents
         }
 
         /// <summary>
-        /// Will update tick all existing GameObjects
+        /// Will update tick all existing GameObjects and does the collision between them
         /// </summary>
         public static void TickAllGameObjects()
         {
             foreach (GameObject obj in gameObjects)
             {
                 obj.UpdateTick();
+                foreach (GameObject obj2 in gameObjects)
+                {
+                    if (obj != obj2)
+                    {
+                        // Check if the objects are intersecting
+                        if (obj.IsIntersectingWith(obj2))
+                        {
+                            // Calculate the collision vector based on the GameObjects' size and position
+                            Vector2 cv = CalculateCollisionVector(obj, obj2);
+
+                            // Move the objects apart along the MTV to prevent overlapping
+                            obj.SetPosition(obj.GetPosition() + cv);
+
+                            // Cancels out speed when colliding
+                            if (obj.isPushable) obj.OverrideVelocity(obj.GetVelocity() + cv);
+                            if (obj2.isPushable) obj2.OverrideVelocity(obj2.GetVelocity() - cv);
+                        }
+                    }
+                }
             }
+        }
+        
+        // collision vector code
+        private static Vector2 CalculateCollisionVector(GameObject obj1, GameObject obj2)
+        {
+            // This'll store the center positions of the GameObjects
+            Vector2 center1 = obj1.GetCenterPosition();
+            Vector2 center2 = obj2.GetCenterPosition();
+
+            // Calculate the half sizes of the objects
+            Vector2 halfSize1 = obj1.GetSize() * 0.5f;
+            Vector2 halfSize2 = obj2.GetSize() * 0.5f;
+
+            // Calculate the overlap on each axis
+            float overlapX = halfSize1.X + halfSize2.X - Math.Abs(center1.X - center2.X);
+            float overlapY = halfSize1.Y + halfSize2.Y - Math.Abs(center1.Y - center2.Y);
+
+            // Determine the axis of the collision and just return the collision vectors
+            if (overlapX < overlapY) return center1.X < center2.X ? new Vector2(-overlapX, 0) : new Vector2(overlapX, 0);
+            else return center1.Y < center2.Y ? new Vector2(0, -overlapY) : new Vector2(0, overlapY);
         }
 
     }
