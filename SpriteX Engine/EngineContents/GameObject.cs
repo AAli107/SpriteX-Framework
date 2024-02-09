@@ -199,6 +199,15 @@ namespace SpriteX_Engine.EngineContents
         }
 
         /// <summary>
+        /// Removes a GameObject
+        /// </summary>
+        /// <param name="obj"></param>
+        public static void RemoveGameObject(GameObject obj) 
+        {
+            gameObjects.Remove(obj);
+        }
+
+        /// <summary>
         /// Returns GameObject by the inputted ID
         /// </summary>
         /// <param name="id"></param>
