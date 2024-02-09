@@ -228,6 +228,11 @@ namespace SpriteX_Engine.EngineContents
             DrawPixel(position.X, position.Y, color);
         }
 
+        public void DrawScaledPixel(double x, double y, Color4 color)
+        {
+            DrawRect(new Vector2((float)x, (float)y), new Vector2(1, 1), color, DrawType.Filled);
+        }
+
         /// <summary>
         /// Draws a triangle on the game window
         /// </summary>
