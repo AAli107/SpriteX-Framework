@@ -219,7 +219,7 @@ namespace SpriteX_Engine.EngineContents
         }
 
         /// <summary>
-        /// Draws a single pixel on the game window with Vector2 as parameter (exact pixel position)
+        /// Draws a single pixel on the game window (exact pixel position)
         /// </summary>
         /// <param name="position"></param>
         /// <param name="color"></param>
@@ -228,11 +228,22 @@ namespace SpriteX_Engine.EngineContents
             DrawPixel(position.X, position.Y, color);
         }
 
+        /// <summary>
+        /// Draws a single pixel that scales with Game Window
+        /// </summary>
+        /// <param name="position"></param>
+        /// <param name="color"></param>
         public void DrawScaledPixel(Vector2 position, Color4 color)
         {
             DrawRect(position, new Vector2(1, 1), color, DrawType.Filled);
         }
 
+        /// <summary>
+        /// Draws a single pixel that scales with Game Window
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="color"></param>
         public void DrawScaledPixel(double x, double y, Color4 color)
         {
             DrawScaledPixel(new Vector2((float)x, (float)y), color);
