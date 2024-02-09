@@ -140,7 +140,7 @@ namespace SpriteX_Engine.EngineContents
         {
             base.OnUpdateFrame(args);
 
-            // Will execute OnFixedGameUpdate() in a fixed rate based on fixedFrameTime
+            // Will execute Physics/collision code, OnPrePhysicsUpdate(), and OnFixedGameUpdate()
             accumulatedTime += UpdateTime;
             while (accumulatedTime >= targetFrameTime)
             {
