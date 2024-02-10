@@ -27,7 +27,7 @@ namespace SpriteX_Engine
         public override void OnGameStart(MainWindow win)
         {
             img1 = new Texture("img.png");
-            img2 = new Texture("afton.png");
+            img2 = new Texture("img2.png");
         }
 
         public override void OnFixedGameUpdate(MainWindow win)
@@ -56,7 +56,7 @@ namespace SpriteX_Engine
             win.DrawTri(new Vector2(1280, 720), new Vector2(0.0f, 0.0f), new Vector2(1000, 100), Color4.SteelBlue);
             win.DrawTri(new Vector2(1280, 720), new Vector2(0.0f, 0.0f), new Vector2(1000, 100), Color4.Red, Utilities.DrawType.Outline);
             win.DrawRect(new Vector2(250, 250), new Vector2(400, 100), Color4.Gold);
-            win.DrawLine(new Vector2(1920/2, 1080/2), g.GetCenterPosition(), Color4.Magenta, 5);
+            win.DrawLine(g.GetCenterPosition(), otherGG.GetCenterPosition(), Color4.Red, 5);
 
             win.DrawImage(g.GetPosition(), g.GetSize(), img2);
 
