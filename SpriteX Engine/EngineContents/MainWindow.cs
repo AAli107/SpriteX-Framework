@@ -110,7 +110,7 @@ namespace SpriteX_Engine.EngineContents
                 
                 void main()
                 {
-                    FragColor = texture(uTexture, texCoords) + uColor;
+                    FragColor = texture(uTexture, texCoords) * uColor;
                 }
             ";
 
@@ -216,10 +216,17 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="color"></param>
         public void DrawPixel(double x, double y, Color4 color)
         {
-            // Set the color uniform in the shader
+
+            Texture tex = new Texture();
+            // Set the ucolor in the shader
             int colorUniformLocation = GL.GetUniformLocation(shaderProgram, "uColor");
             GL.Uniform4(colorUniformLocation, color);
 
+            // Set the texture uniform in the shader
+            int textureUniformLocation = GL.GetUniformLocation(shaderProgram, "uTexture");
+            GL.Uniform1(textureUniformLocation, 0);
+
+            tex.Bind();
             // Specify the vertex data for pixel
             float[] position = { (float)x / (ClientSize.X * 0.5f) - 1f, (float)-y / (ClientSize.Y * 0.5f) + 1f, 0, 0 };
             GL.BindBuffer(BufferTarget.ArrayBuffer, vertexBufferObject);
@@ -227,6 +234,8 @@ namespace SpriteX_Engine.EngineContents
 
             // Draws the pixel
             GL.DrawArrays(PrimitiveType.Points, 0, 1);
+
+            tex.Unbind();
         }
 
         /// <summary>
@@ -283,14 +292,22 @@ namespace SpriteX_Engine.EngineContents
             c.X / (1920 * 0.5f) - 1f, -c.Y / (1080 * 0.5f) + 1f, 1.0f, 0.0f
             };
 
+            Texture tex = new Texture();
             // Set the ucolor in the shader
             int colorUniformLocation = GL.GetUniformLocation(shaderProgram, "uColor");
             GL.Uniform4(colorUniformLocation, color);
+
+            // Set the texture uniform in the shader
+            int textureUniformLocation = GL.GetUniformLocation(shaderProgram, "uTexture");
+            GL.Uniform1(textureUniformLocation, 0);
+
+            tex.Bind();
 
             GL.BindBuffer(BufferTarget.ArrayBuffer, vertexBufferObject);
             GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * vertices.Length, vertices, BufferUsageHint.DynamicDraw);
 
             GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
+            tex.Unbind();
         }
 
         /// <summary>
@@ -311,9 +328,16 @@ namespace SpriteX_Engine.EngineContents
                 DrawLine(d, a, color);
                 return;
             }
+            Texture tex = new Texture();
             // Set the ucolor in the shader
             int colorUniformLocation = GL.GetUniformLocation(shaderProgram, "uColor");
             GL.Uniform4(colorUniformLocation, color);
+
+            // Set the texture uniform in the shader
+            int textureUniformLocation = GL.GetUniformLocation(shaderProgram, "uTexture");
+            GL.Uniform1(textureUniformLocation, 0);
+
+            tex.Bind();
 
             // Specify the vertex data for quad
             float[] vertices = {
@@ -326,8 +350,9 @@ namespace SpriteX_Engine.EngineContents
             GL.BindBuffer(BufferTarget.ArrayBuffer, vertexBufferObject);
             GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * vertices.Length, vertices, BufferUsageHint.DynamicDraw);
 
-            // Draw the quad
             GL.DrawArrays(PrimitiveType.TriangleStrip, 0, 4);
+
+            tex.Unbind();
         }
 
         /// <summary>
@@ -348,7 +373,7 @@ namespace SpriteX_Engine.EngineContents
 
             // Set the texture uniform in the shader
             int textureUniformLocation = GL.GetUniformLocation(shaderProgram, "uTexture");
-            GL.Uniform1(textureUniformLocation, 0); // Use texture unit 0
+            GL.Uniform1(textureUniformLocation, 0);
 
             // Bind the texture
             if (texture != null) texture.Bind();
@@ -364,7 +389,6 @@ namespace SpriteX_Engine.EngineContents
             GL.BindBuffer(BufferTarget.ArrayBuffer, vertexBufferObject);
             GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * vertices.Length, vertices, BufferUsageHint.DynamicDraw);
 
-            // Draw the quad
             GL.DrawArrays(PrimitiveType.TriangleStrip, 0, 4);
 
             // Unbind the texture
@@ -381,7 +405,7 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="texture"></param>
         public void DrawTexturedQuad(Vector2 a, Vector2 b, Vector2 c, Vector2 d, Texture texture)
         {
-            DrawTexturedQuad(a, b, c, d, texture, Color4.Black);
+            DrawTexturedQuad(a, b, c, d, texture, Color4.White);
         }
 
         /// <summary>
@@ -415,7 +439,7 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="texture"></param>
         public void DrawImage(Vector2 pos, Vector2 dimension, Texture texture)
         {
-            DrawImage(pos, dimension, texture, Color4.Black);
+            DrawImage(pos, dimension, texture, Color4.White);
         }
 
         /// <summary>
@@ -434,14 +458,23 @@ namespace SpriteX_Engine.EngineContents
                     b.X / (1920 * 0.5f) - 1f, -b.Y / (1080 * 0.5f) + 1f, 0, 0
                 };
 
+                Texture tex = new Texture();
                 // Set the ucolor in the shader
                 int colorUniformLocation = GL.GetUniformLocation(shaderProgram, "uColor");
                 GL.Uniform4(colorUniformLocation, color);
+
+                // Set the texture uniform in the shader
+                int textureUniformLocation = GL.GetUniformLocation(shaderProgram, "uTexture");
+                GL.Uniform1(textureUniformLocation, 0);
+
+                tex.Bind();
 
                 GL.BindBuffer(BufferTarget.ArrayBuffer, vertexBufferObject);
                 GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * vertices.Length, vertices, BufferUsageHint.DynamicDraw);
 
                 GL.DrawArrays(PrimitiveType.Lines, 0, 2);
+                
+                tex.Unbind();
             }
             else
             {

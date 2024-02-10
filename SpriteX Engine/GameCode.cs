@@ -51,7 +51,6 @@ namespace SpriteX_Engine
 
         public override void OnGraphicsUpdate(MainWindow win)
         {
-            //win.DrawTexturedQuad(new Vector2(100, 100), new Vector2(1380, 400), new Vector2(1380, 1120), new Vector2(100, 820), img1);
             win.DrawTexturedQuad(new Vector2(100, 820), new Vector2(1380, 1120), new Vector2(1380, 400), new Vector2(100, 100), img1);
 
             win.DrawTri(new Vector2(1280, 720), new Vector2(0.0f, 0.0f), new Vector2(1000, 100), Color4.SteelBlue);
