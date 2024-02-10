@@ -145,6 +145,10 @@ namespace SpriteX_Engine.EngineContents
             GL.DeleteShader(vertexShader);
             GL.DeleteShader(fragmentShader);
 
+            // Allows Transparency for textures
+            GL.Enable(EnableCap.Blend);
+            GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
+
             // OnGameStart() gets executed from GameCode
             gameCode.OnGameStart(this);
         }

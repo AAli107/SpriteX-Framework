@@ -27,7 +27,7 @@ namespace SpriteX_Engine
         public override void OnGameStart(MainWindow win)
         {
             img1 = Texture.GetMissingTexture();
-            img2 = Texture.GetMissingTexture();
+            img2 = new Texture("img.png");
         }
 
         public override void OnFixedGameUpdate(MainWindow win)
@@ -59,6 +59,9 @@ namespace SpriteX_Engine
             win.DrawLine(g.GetCenterPosition(), otherGG.GetCenterPosition(), Color4.Red, 5);
 
             win.DrawImage(g.GetPosition(), g.GetSize(), img2);
+
+
+            win.DrawRect(new Vector2(1200, 200), new Vector2(500, 500), new Color4(1f, 0.25f, 0.5f, 0.5f));
 
             Console.WriteLine(Math.Round(win.FPS, 2) + " FPS                                       ");
             Console.WriteLine("time since start = " + Math.Round(win.time, 2) + " s                                       ");
