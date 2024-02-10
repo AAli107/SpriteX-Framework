@@ -10,7 +10,7 @@ using OpenTK.Mathematics;
 
 namespace SpriteX_Engine.EngineContents
 {
-    public class Texture
+    public struct Texture
     {
         private int textureId;
 

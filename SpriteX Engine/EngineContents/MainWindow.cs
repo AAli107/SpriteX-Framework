@@ -386,7 +386,7 @@ namespace SpriteX_Engine.EngineContents
             GL.Uniform1(textureUniformLocation, 0);
 
             // Bind the texture
-            if (texture != null) texture.Bind();
+            texture.Bind();
 
             // Specify the vertex data for the quad
             float[] vertices = {
@@ -402,7 +402,7 @@ namespace SpriteX_Engine.EngineContents
             GL.DrawArrays(PrimitiveType.TriangleStrip, 0, 4);
 
             // Unbind the texture
-            if (texture != null) texture.Unbind();
+            texture.Unbind();
         }
 
         /// <summary>
