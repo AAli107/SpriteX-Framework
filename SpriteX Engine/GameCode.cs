@@ -8,6 +8,8 @@ using OpenTK.Windowing.GraphicsLibraryFramework;
 using static OpenTK.Audio.OpenAL.ALC;
 using SpriteX_Engine.EngineContents;
 using System.Runtime.CompilerServices;
+using static SpriteX_Engine.EngineContents.Utilities;
+using System.Drawing;
 
 namespace SpriteX_Engine
 {
@@ -19,9 +21,13 @@ namespace SpriteX_Engine
         GameObject otherGG = new GameObject(new Vector2(1000, 600), new Vector2(300, 100), true, true);
         float s;
 
+        Texture img1;
+        Texture img2;
+
         public override void OnGameStart(MainWindow win)
         {
-
+            img1 = new Texture("img.png");
+            img2 = new Texture("afton.png");
         }
 
         public override void OnFixedGameUpdate(MainWindow win)
@@ -52,6 +58,8 @@ namespace SpriteX_Engine
             win.DrawQuad(g.GetCenterPosition() + new Vector2(0, -100), g.GetCenterPosition() + new Vector2(100, 0), g.GetCenterPosition() + new Vector2(0, 100), g.GetCenterPosition() + new Vector2(-100, 0), Color4.Magenta, Utilities.DrawType.Outline);
             win.DrawLine(new Vector2(1920/2, 1080/2), g.GetCenterPosition(), Color4.Magenta, 5);
 
+            win.DrawQuad(g.GetCenterPosition() + new Vector2(0, -100), g.GetCenterPosition() + new Vector2(100, 0), g.GetCenterPosition() + new Vector2(0, 100), g.GetCenterPosition() + new Vector2(-100, 0), Color4.Blue, img1);
+            win.DrawQuad(g.GetCenterPosition() + new Vector2(0, 200), g.GetCenterPosition() + new Vector2(200, 200), g.GetCenterPosition() + new Vector2(200, 0), g.GetCenterPosition(), Color.Black, img2);
             Console.WriteLine(Math.Round(win.FPS, 2) + " FPS                                       ");
             Console.WriteLine("time since start = " + Math.Round(win.time, 2) + " s                                       ");
             Console.WriteLine("-------------------------------------------");

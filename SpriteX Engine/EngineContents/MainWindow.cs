@@ -7,6 +7,7 @@ using OpenTK.Mathematics;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using System.ComponentModel;
 using static SpriteX_Engine.EngineContents.Utilities;
+using System.Drawing;
 
 namespace SpriteX_Engine.EngineContents
 {
@@ -83,12 +84,16 @@ namespace SpriteX_Engine.EngineContents
             // The Vertex shader code
             string vertexShaderSource = @"
                 #version 330 core
-
+            
                 layout (location = 0) in vec2 aPosition;
-
+                layout (location = 1) in vec2 aTexCoord;
+            
+                out vec2 texCoords;
+            
                 void main()
                 {
                     gl_Position = vec4(aPosition, 0.0, 1.0);
+                    texCoords = aTexCoord;
                 }
             ";
 
@@ -97,12 +102,15 @@ namespace SpriteX_Engine.EngineContents
                 #version 330 core
 
                 uniform vec4 uColor;
-
+                uniform sampler2D uTexture;
+                
+                in vec2 texCoords;
+                
                 out vec4 FragColor;
-
+                
                 void main()
                 {
-                    FragColor = uColor;
+                    FragColor = texture(uTexture, texCoords) + uColor;
                 }
             ";
 
@@ -174,7 +182,9 @@ namespace SpriteX_Engine.EngineContents
             GL.UseProgram(shaderProgram);
             GL.BindVertexArray(vertexArrayObject);
             GL.EnableVertexAttribArray(0);
-            GL.VertexAttribPointer(0, 2, VertexAttribPointerType.Float, false, 0, 0);
+            GL.VertexAttribPointer(0, 2, VertexAttribPointerType.Float, false, sizeof(float) * 4, 0);
+            GL.EnableVertexAttribArray(1);
+            GL.VertexAttribPointer(1, 2, VertexAttribPointerType.Float, false, sizeof(float) * 4, sizeof(float) * 2);
 
             gameCode.OnGraphicsUpdate(this); // OnGraphicsUpdate() in GameCode gets executed here
 
@@ -183,6 +193,7 @@ namespace SpriteX_Engine.EngineContents
                 if (obj.GetSize().X > 0 && obj.GetSize().Y > 0) DrawRect(obj.GetPosition(), obj.GetSize(), Color4.White, DrawType.Outline);
 
             GL.DisableVertexAttribArray(0);
+            GL.DisableVertexAttribArray(1);
             SwapBuffers(); // Switches buffer
         }
 
@@ -210,7 +221,7 @@ namespace SpriteX_Engine.EngineContents
             GL.Uniform4(colorUniformLocation, color);
 
             // Specify the vertex data for pixel
-            float[] position = { (float)x / (ClientSize.X * 0.5f) - 1f, (float)-y / (ClientSize.Y * 0.5f) + 1f };
+            float[] position = { (float)x / (ClientSize.X * 0.5f) - 1f, (float)-y / (ClientSize.Y * 0.5f) + 1f, 0, 0 };
             GL.BindBuffer(BufferTarget.ArrayBuffer, vertexBufferObject);
             GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * position.Length, position, BufferUsageHint.DynamicDraw);
 
@@ -267,9 +278,9 @@ namespace SpriteX_Engine.EngineContents
             }
             // Triangle verticies
             float[] vertices = {
-            a.X / (1920 * 0.5f) - 1f, -a.Y / (1080 * 0.5f) + 1f,
-            b.X / (1920 * 0.5f) - 1f, -b.Y / (1080 * 0.5f) + 1f,
-            c.X / (1920 * 0.5f) - 1f, -c.Y / (1080 * 0.5f) + 1f
+            a.X / (1920 * 0.5f) - 1f, -a.Y / (1080 * 0.5f) + 1f, 1.0f, 1.0f,
+            b.X / (1920 * 0.5f) - 1f, -b.Y / (1080 * 0.5f) + 1f, 0.0f, 1.0f,
+            c.X / (1920 * 0.5f) - 1f, -c.Y / (1080 * 0.5f) + 1f, 1.0f, 0.0f
             };
 
             // Set the ucolor in the shader
@@ -306,10 +317,10 @@ namespace SpriteX_Engine.EngineContents
 
             // Specify the vertex data for quad
             float[] vertices = {
-                b.X / (1920 * 0.5f) - 1f, -b.Y / (1080 * 0.5f) + 1f,
-                a.X / (1920 * 0.5f) - 1f, -a.Y / (1080 * 0.5f) + 1f,
-                c.X / (1920 * 0.5f) - 1f, -c.Y / (1080 * 0.5f) + 1f,
-                d.X / (1920 * 0.5f) - 1f, -d.Y / (1080 * 0.5f) + 1f
+                b.X / (1920 * 0.5f) - 1f, -b.Y / (1080 * 0.5f) + 1f, 1.0f, 1.0f,
+                a.X / (1920 * 0.5f) - 1f, -a.Y / (1080 * 0.5f) + 1f, 0.0f, 1.0f,
+                c.X / (1920 * 0.5f) - 1f, -c.Y / (1080 * 0.5f) + 1f, 1.0f, 0.0f,
+                d.X / (1920 * 0.5f) - 1f, -d.Y / (1080 * 0.5f) + 1f, 0.0f, 0.0f 
             };
 
             GL.BindBuffer(BufferTarget.ArrayBuffer, vertexBufferObject);
@@ -317,6 +328,38 @@ namespace SpriteX_Engine.EngineContents
 
             // Draw the quad
             GL.DrawArrays(PrimitiveType.TriangleStrip, 0, 4);
+        }
+
+        public void DrawQuad(Vector2 a, Vector2 b, Vector2 c, Vector2 d, Color4 color, Texture texture)
+        {
+
+            // Set the ucolor in the shader
+            int colorUniformLocation = GL.GetUniformLocation(shaderProgram, "uColor");
+            GL.Uniform4(colorUniformLocation, color);
+
+            // Set the texture uniform in the shader
+            int textureUniformLocation = GL.GetUniformLocation(shaderProgram, "uTexture");
+            GL.Uniform1(textureUniformLocation, 0); // Use texture unit 0
+
+            // Bind the texture
+            texture.Bind();
+
+            // Specify the vertex data for the quad
+            float[] vertices = {
+                b.X / (1920 * 0.5f) - 1f, -b.Y / (1080 * 0.5f) + 1f, 1.0f, 1.0f,                                         
+                a.X / (1920 * 0.5f) - 1f, -a.Y / (1080 * 0.5f) + 1f, 0.0f, 1.0f,                                         
+                c.X / (1920 * 0.5f) - 1f, -c.Y / (1080 * 0.5f) + 1f, 1.0f, 0.0f,                                         
+                d.X / (1920 * 0.5f) - 1f, -d.Y / (1080 * 0.5f) + 1f, 0.0f, 0.0f                                          
+            };
+
+            GL.BindBuffer(BufferTarget.ArrayBuffer, vertexBufferObject);
+            GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * vertices.Length, vertices, BufferUsageHint.DynamicDraw);
+
+            // Draw the quad
+            GL.DrawArrays(PrimitiveType.TriangleStrip, 0, 4);
+
+            // Unbind the texture
+            texture.Unbind();
         }
 
         /// <summary>
@@ -342,8 +385,8 @@ namespace SpriteX_Engine.EngineContents
             {
                 // Line vertices, point a and point b
                 float[] vertices = {
-                    a.X / (1920 * 0.5f) - 1f, -a.Y / (1080 * 0.5f) + 1f,
-                    b.X / (1920 * 0.5f) - 1f, -b.Y / (1080 * 0.5f) + 1f
+                    a.X / (1920 * 0.5f) - 1f, -a.Y / (1080 * 0.5f) + 1f, 0, 0,
+                    b.X / (1920 * 0.5f) - 1f, -b.Y / (1080 * 0.5f) + 1f, 0, 0
                 };
 
                 // Set the ucolor in the shader
