@@ -24,11 +24,7 @@ namespace SpriteX_Engine.EngineContents
             } 
             catch 
             {   // If Texture is missing, put this instead
-                image = new Bitmap(2, 2);
-                image.SetPixel(0, 0, Color.Magenta);
-                image.SetPixel(1, 0, Color.Black);
-                image.SetPixel(0, 1, Color.Black);
-                image.SetPixel(1, 1, Color.Magenta);
+                image = GetMissingTexture();
             }
 
             // Generate a new texture ID
@@ -96,6 +92,16 @@ namespace SpriteX_Engine.EngineContents
         public int getTextureID()
         {
             return textureId;
+        }
+
+        public static Bitmap GetMissingBitmap()
+        {
+            Bitmap image = new Bitmap(2, 2);
+            image.SetPixel(0, 0, Color.Magenta);
+            image.SetPixel(1, 0, Color.Black);
+            image.SetPixel(0, 1, Color.Black);
+            image.SetPixel(1, 1, Color.Magenta);
+            return image;
         }
     }
 }
