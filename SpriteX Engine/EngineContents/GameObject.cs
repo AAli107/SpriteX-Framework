@@ -212,7 +212,7 @@ namespace SpriteX_Engine.EngineContents
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public static GameObject GetGameObjectByID(uint id)
+        public static GameObject? GetGameObjectByID(uint id)
         {
             try { return gameObjects.Single(o => o.id == id); }
             catch { return null; }
