@@ -17,6 +17,7 @@ namespace SpriteX_Engine.EngineContents
         Vector2 size;
         Vector2 velocity;
         float friction;
+        float mass;
         bool simulatePhysics;
         bool collisionEnabled;
 
@@ -27,9 +28,9 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="size"></param>
         /// <param name="simulatePhysics"></param>
         /// <param name="friction"></param>
-        public GameObject(Vector2 position, Vector2 size, bool collisionEnabled = true, bool simulatePhysics = false, float friction = 0.1f)
+        public GameObject(Vector2 position, Vector2 size, bool collisionEnabled = true, bool simulatePhysics = false, float friction = 0.1f, float mass = 1f)
         {
-            Construct(position, size, collisionEnabled, simulatePhysics, friction);
+            Construct(position, size, collisionEnabled, simulatePhysics, friction, mass);
         }
 
         /// <summary>
@@ -38,12 +39,12 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="hitbox"></param>
         /// <param name="simulatePhysics"></param>
         /// <param name="friction"></param>
-        public GameObject(RectangleF hitbox, bool collisionEnabled = true, bool simulatePhysics = false, float friction = 0.1f) 
+        public GameObject(RectangleF hitbox, bool collisionEnabled = true, bool simulatePhysics = false, float friction = 0.1f, float mass = 1f) 
         {
-            Construct(new Vector2(hitbox.X, hitbox.Y), new Vector2(hitbox.Width, hitbox.Height), collisionEnabled, simulatePhysics, friction);
+            Construct(new Vector2(hitbox.X, hitbox.Y), new Vector2(hitbox.Width, hitbox.Height), collisionEnabled, simulatePhysics, friction, mass);
         }
 
-        void Construct(Vector2 position, Vector2 size, bool collisionEnabled = true, bool simulatePhysics = false, float friction = 0.1f)
+        void Construct(Vector2 position, Vector2 size, bool collisionEnabled = true, bool simulatePhysics = false, float friction = 0.1f, float mass = 1f)
         {
             uint id = 0;
             while (gameObjects.Any(o => o.id == id))
@@ -53,6 +54,7 @@ namespace SpriteX_Engine.EngineContents
             this.id = id;
             this.position = position;
             this.size = size;
+            this.mass = mass;
             this.friction = friction;
             this.simulatePhysics = simulatePhysics;
             this.collisionEnabled = collisionEnabled;
@@ -76,6 +78,15 @@ namespace SpriteX_Engine.EngineContents
         public void SetPosition(Vector2 position)
         {
             this.position = position;
+        }
+
+        /// <summary>
+        /// Sets GameObject's Mass
+        /// </summary>
+        /// <param name="mass"></param>
+        public void SetMass(float mass) 
+        {
+            this.mass = mass;
         }
 
         /// <summary>
@@ -152,6 +163,12 @@ namespace SpriteX_Engine.EngineContents
         /// </summary>
         /// <returns></returns>
         public Vector2 GetVelocity() { return velocity; }
+
+        /// <summary>
+        /// Returns GameObject's mass
+        /// </summary>
+        /// <returns></returns>
+        public float GetMass() { return mass; }
 
         /// <summary>
         /// Returns GameObject's Friction
@@ -259,9 +276,9 @@ namespace SpriteX_Engine.EngineContents
                             // Move the objects apart along the MTV to prevent overlapping
                             if (obj.IsSimulatingPhysics()) obj.SetPosition(obj.GetPosition() + cv);
 
-                            // Pushes Colliding GameObjects if simulating physics
-                            if (obj.IsSimulatingPhysics()) obj.OverrideVelocity(obj.GetVelocity() + cv);
-                            if (obj2.IsSimulatingPhysics()) obj2.OverrideVelocity(obj2.GetVelocity() - cv);
+                            // Pushes Colliding GameObjects if simulating physics, pushing force depending on their mass
+                            if (obj.IsSimulatingPhysics()) obj.OverrideVelocity(obj.GetVelocity() + (cv / (obj2.IsSimulatingPhysics() ? obj.mass : 1f)));
+                            if (obj2.IsSimulatingPhysics()) obj2.OverrideVelocity(obj2.GetVelocity() - (cv / (obj.IsSimulatingPhysics() ? obj2.mass : 1f)));
                         }
                     }
                 }

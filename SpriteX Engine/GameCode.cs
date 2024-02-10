@@ -16,9 +16,10 @@ namespace SpriteX_Engine
     class GameCode : GameScript
     {
         /* Insert Variables here */
-        GameObject g = new GameObject(new Vector2(500, 400), new Vector2(200, 200), true, true);
+        GameObject g = new GameObject(new Vector2(500, 400), new Vector2(200, 200), true, true, 0.1f, 1);
         GameObject otherG = new GameObject(new Vector2(800, 300), new Vector2(300, 100), true, false);
-        GameObject otherGG = new GameObject(new Vector2(1000, 600), new Vector2(300, 100), true, true);
+        GameObject otherGG = new GameObject(new Vector2(1000, 600), new Vector2(300, 100), true, true, 0.1f);
+        GameObject otherGGG = new GameObject(new Vector2(1400, 600), new Vector2(200, 200), true, true, 0.1f, 10);
         float s;
 
         Texture img1;
@@ -59,7 +60,6 @@ namespace SpriteX_Engine
             win.DrawLine(g.GetCenterPosition(), otherGG.GetCenterPosition(), Color4.Red, 5);
 
             win.DrawImage(g.GetPosition(), g.GetSize(), img2);
-
 
             win.DrawRect(new Vector2(1200, 200), new Vector2(500, 500), new Color4(1f, 0.25f, 0.5f, 0.5f));
 
