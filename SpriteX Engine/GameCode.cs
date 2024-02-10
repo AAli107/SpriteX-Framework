@@ -21,8 +21,8 @@ namespace SpriteX_Engine
         GameObject otherGG = new GameObject(new Vector2(1000, 600), new Vector2(300, 100), true, true);
         float s;
 
-        Texture img1;
-        Texture img2;
+        Texture? img1;
+        Texture? img2;
 
         public override void OnGameStart(MainWindow win)
         {
