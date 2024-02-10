@@ -27,6 +27,7 @@ namespace SpriteX_Engine.EngineContents
             fixedFrameTime = 60; // How many times per second OnFixedGameUpdate() is Called
             VSync = VSyncMode.On; // Control the window's VSync
             CenterWindow(); // Will center the window in the middle of the screen
+            bgColor = Color.Black; // Controls the windows background color
             allowAltEnter = true; // Controls whether you can toggle fullscreen when pressing Alt+Enter
             showDebugHitbox = true; // Controls whether to show all GameObjects' hitboxes
         }
@@ -66,9 +67,17 @@ namespace SpriteX_Engine.EngineContents
         /// Hold time in seconds since Window was created
         /// </summary>
         public double time { get; private set; }
+        /// <summary>
+        /// Controls the background Color of the window
+        /// </summary>
+        public Color4 bgColor { get; set; }
 
         protected override void OnLoad()
         {
+            GL.ClearColor(bgColor); // Sets Background Color
+            SwapBuffers(); // Refreshes the screen on load
+            GL.Viewport(0, 0, ClientSize.X, ClientSize.Y);
+
             gameCode.Awake(this); // Awake() from GameCode gets executed here
 
             base.OnLoad();
@@ -193,7 +202,8 @@ namespace SpriteX_Engine.EngineContents
                 if (obj.GetSize().X > 0 && obj.GetSize().Y > 0) DrawRect(obj.GetPosition(), obj.GetSize(), Color4.White, DrawType.Outline);
 
             GL.DisableVertexAttribArray(0);
-            GL.DisableVertexAttribArray(1);
+            GL.DisableVertexAttribArray(1); 
+            GL.ClearColor(bgColor);
             SwapBuffers(); // Switches buffer
         }
 
