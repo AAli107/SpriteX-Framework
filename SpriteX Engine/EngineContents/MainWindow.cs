@@ -330,7 +330,16 @@ namespace SpriteX_Engine.EngineContents
             GL.DrawArrays(PrimitiveType.TriangleStrip, 0, 4);
         }
 
-        public void DrawQuad(Vector2 a, Vector2 b, Vector2 c, Vector2 d, Color4 color, Texture texture)
+        /// <summary>
+        /// Draws a Quad with texture
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <param name="color"></param>
+        /// <param name="texture"></param>
+        public void DrawTexturedQuad(Vector2 a, Vector2 b, Vector2 c, Vector2 d, Texture texture, Color4 color)
         {
 
             // Set the ucolor in the shader
@@ -342,7 +351,7 @@ namespace SpriteX_Engine.EngineContents
             GL.Uniform1(textureUniformLocation, 0); // Use texture unit 0
 
             // Bind the texture
-            texture.Bind();
+            if (texture != null) texture.Bind();
 
             // Specify the vertex data for the quad
             float[] vertices = {
@@ -359,7 +368,20 @@ namespace SpriteX_Engine.EngineContents
             GL.DrawArrays(PrimitiveType.TriangleStrip, 0, 4);
 
             // Unbind the texture
-            texture.Unbind();
+            if (texture != null) texture.Unbind();
+        }
+
+        /// <summary>
+        /// Draws a Quad with texture
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="c"></param>
+        /// <param name="d"></param>
+        /// <param name="texture"></param>
+        public void DrawTexturedQuad(Vector2 a, Vector2 b, Vector2 c, Vector2 d, Texture texture)
+        {
+            DrawTexturedQuad(a, b, c, d, texture, Color4.Black);
         }
 
         /// <summary>
@@ -371,6 +393,29 @@ namespace SpriteX_Engine.EngineContents
         public void DrawRect(Vector2 pos, Vector2 dimension, Color4 color, DrawType drawType = DrawType.Filled)
         {
             DrawQuad(pos + new Vector2(0, dimension.Y), pos + new Vector2(dimension.X, dimension.Y), pos + new Vector2(dimension.X, 0), pos, color, drawType);
+        }
+
+        /// <summary>
+        /// Draws an image texture on screen
+        /// </summary>
+        /// <param name="pos"></param>
+        /// <param name="dimension"></param>
+        /// <param name="texture"></param>
+        /// <param name="color"></param>
+        public void DrawImage(Vector2 pos, Vector2 dimension, Texture texture, Color4 color)
+        {
+            DrawTexturedQuad(pos + new Vector2(0, dimension.Y), pos + new Vector2(dimension.X, dimension.Y), pos + new Vector2(dimension.X, 0), pos, texture, color);
+        }
+
+        /// <summary>
+        /// Draws an image texture on screen
+        /// </summary>
+        /// <param name="pos"></param>
+        /// <param name="dimension"></param>
+        /// <param name="texture"></param>
+        public void DrawImage(Vector2 pos, Vector2 dimension, Texture texture)
+        {
+            DrawImage(pos, dimension, texture, Color4.Black);
         }
 
         /// <summary>

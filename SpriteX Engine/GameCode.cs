@@ -51,15 +51,16 @@ namespace SpriteX_Engine
 
         public override void OnGraphicsUpdate(MainWindow win)
         {
+            //win.DrawTexturedQuad(new Vector2(100, 100), new Vector2(1380, 400), new Vector2(1380, 1120), new Vector2(100, 820), img1);
+            win.DrawTexturedQuad(new Vector2(100, 820), new Vector2(1380, 1120), new Vector2(1380, 400), new Vector2(100, 100), img1);
+
             win.DrawTri(new Vector2(1280, 720), new Vector2(0.0f, 0.0f), new Vector2(1000, 100), Color4.SteelBlue);
             win.DrawTri(new Vector2(1280, 720), new Vector2(0.0f, 0.0f), new Vector2(1000, 100), Color4.Red, Utilities.DrawType.Outline);
             win.DrawRect(new Vector2(250, 250), new Vector2(400, 100), Color4.Gold);
-            win.DrawQuad(g.GetCenterPosition() + new Vector2(0, -100), g.GetCenterPosition() + new Vector2(100, 0), g.GetCenterPosition() + new Vector2(0, 100), g.GetCenterPosition() + new Vector2(-100, 0), Color4.Lime);
-            win.DrawQuad(g.GetCenterPosition() + new Vector2(0, -100), g.GetCenterPosition() + new Vector2(100, 0), g.GetCenterPosition() + new Vector2(0, 100), g.GetCenterPosition() + new Vector2(-100, 0), Color4.Magenta, Utilities.DrawType.Outline);
             win.DrawLine(new Vector2(1920/2, 1080/2), g.GetCenterPosition(), Color4.Magenta, 5);
 
-            win.DrawQuad(g.GetCenterPosition() + new Vector2(0, -100), g.GetCenterPosition() + new Vector2(100, 0), g.GetCenterPosition() + new Vector2(0, 100), g.GetCenterPosition() + new Vector2(-100, 0), Color4.Blue, img1);
-            win.DrawQuad(g.GetCenterPosition() + new Vector2(0, 200), g.GetCenterPosition() + new Vector2(200, 200), g.GetCenterPosition() + new Vector2(200, 0), g.GetCenterPosition(), Color.Black, img2);
+            win.DrawImage(g.GetPosition(), g.GetSize(), img2);
+
             Console.WriteLine(Math.Round(win.FPS, 2) + " FPS                                       ");
             Console.WriteLine("time since start = " + Math.Round(win.time, 2) + " s                                       ");
             Console.WriteLine("-------------------------------------------");
