@@ -24,7 +24,7 @@ namespace SpriteX_Engine.EngineContents
             } 
             catch 
             {   // If Texture is missing, put this instead
-                image = GetMissingTexture();
+                image = GetMissingBitmap();
             }
 
             // Generate a new texture ID
