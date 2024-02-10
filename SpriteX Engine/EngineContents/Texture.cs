@@ -16,8 +16,20 @@ namespace SpriteX_Engine.EngineContents
 
         public Texture(string filePath)
         {
-            // Load the image using Bitmap
-            Bitmap image = new Bitmap(filePath);
+            Bitmap image;
+            try
+            {
+                // Loads the image using Bitmap
+                image = new Bitmap(filePath);
+            } 
+            catch 
+            {   // If Texture is missing, put this instead
+                image = new Bitmap(2, 2);
+                image.SetPixel(0, 0, Color.Magenta);
+                image.SetPixel(1, 0, Color.Black);
+                image.SetPixel(0, 1, Color.Black);
+                image.SetPixel(1, 1, Color.Magenta);
+            }
 
             // Generate a new texture ID
             textureId = GL.GenTexture();
