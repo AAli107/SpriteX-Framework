@@ -46,6 +46,7 @@ namespace SpriteX_Engine.EngineContents
         private double targetFrameTime; // fixed time for OnFixedGameUpdate()
         private GameCode gameCode = new GameCode(); // Declares and instantiate GameCode
         private double accumulatedTime = 0.0; // Used for OnFixedGameUpdate()
+        private Texture tex; // Used for general rendering
 
         /// <summary>
         /// Controls whether the game is paused or not.
@@ -77,6 +78,7 @@ namespace SpriteX_Engine.EngineContents
             GL.ClearColor(bgColor); // Sets Background Color
             SwapBuffers(); // Refreshes the screen on load
             GL.Viewport(0, 0, ClientSize.X, ClientSize.Y);
+            tex = new Texture();
 
             gameCode.Awake(this); // Awake() from GameCode gets executed here
 
@@ -226,8 +228,6 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="color"></param>
         public void DrawPixel(double x, double y, Color4 color)
         {
-
-            Texture tex = new Texture();
             // Set the ucolor in the shader
             int colorUniformLocation = GL.GetUniformLocation(shaderProgram, "uColor");
             GL.Uniform4(colorUniformLocation, color);
@@ -302,7 +302,6 @@ namespace SpriteX_Engine.EngineContents
             c.X / (1920 * 0.5f) - 1f, -c.Y / (1080 * 0.5f) + 1f, 1.0f, 0.0f
             };
 
-            Texture tex = new Texture();
             // Set the ucolor in the shader
             int colorUniformLocation = GL.GetUniformLocation(shaderProgram, "uColor");
             GL.Uniform4(colorUniformLocation, color);
@@ -338,7 +337,7 @@ namespace SpriteX_Engine.EngineContents
                 DrawLine(d, a, color);
                 return;
             }
-            Texture tex = new Texture();
+
             // Set the ucolor in the shader
             int colorUniformLocation = GL.GetUniformLocation(shaderProgram, "uColor");
             GL.Uniform4(colorUniformLocation, color);
@@ -468,7 +467,7 @@ namespace SpriteX_Engine.EngineContents
                     b.X / (1920 * 0.5f) - 1f, -b.Y / (1080 * 0.5f) + 1f, 0, 0
                 };
 
-                Texture tex = new Texture();
+                
                 // Set the ucolor in the shader
                 int colorUniformLocation = GL.GetUniformLocation(shaderProgram, "uColor");
                 GL.Uniform4(colorUniformLocation, color);
