@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 
+#pragma warning disable CA1416
+
 namespace SpriteX_Engine.EngineContents
 {
     public struct Texture
