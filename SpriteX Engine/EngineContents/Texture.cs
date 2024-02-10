@@ -103,5 +103,10 @@ namespace SpriteX_Engine.EngineContents
             image.SetPixel(1, 1, Color.Magenta);
             return image;
         }
+
+        public static Texture GetMissingTexture() 
+        {
+            return new Texture("");
+        }
     }
 }

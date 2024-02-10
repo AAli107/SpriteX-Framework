@@ -26,8 +26,8 @@ namespace SpriteX_Engine
 
         public override void OnGameStart(MainWindow win)
         {
-            img1 = new Texture("img.png");
-            img2 = new Texture("img2.png");
+            img1 = Texture.GetMissingTexture();
+            img2 = Texture.GetMissingTexture();
         }
 
         public override void OnFixedGameUpdate(MainWindow win)
@@ -54,7 +54,7 @@ namespace SpriteX_Engine
             win.DrawTexturedQuad(new Vector2(100, 820), new Vector2(1380, 1120), new Vector2(1380, 400), new Vector2(100, 100), img1);
 
             win.DrawTri(new Vector2(1280, 720), new Vector2(0.0f, 0.0f), new Vector2(1000, 100), Color4.SteelBlue);
-            win.DrawTri(new Vector2(1280, 720), new Vector2(0.0f, 0.0f), new Vector2(1000, 100), Color4.Red, Utilities.DrawType.Outline);
+            win.DrawTri(new Vector2(1280, 720), new Vector2(0.0f, 0.0f), new Vector2(1000, 100), Color4.Red, DrawType.Outline);
             win.DrawRect(new Vector2(250, 250), new Vector2(400, 100), Color4.Gold);
             win.DrawLine(g.GetCenterPosition(), otherGG.GetCenterPosition(), Color4.Red, 5);
 
