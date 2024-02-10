@@ -374,7 +374,7 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="d"></param>
         /// <param name="color"></param>
         /// <param name="texture"></param>
-        public void DrawTexturedQuad(Vector2 a, Vector2 b, Vector2 c, Vector2 d, Texture? texture, Color4 color)
+        public void DrawTexturedQuad(Vector2 a, Vector2 b, Vector2 c, Vector2 d, Texture texture, Color4 color)
         {
 
             // Set the ucolor in the shader
@@ -413,7 +413,7 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="c"></param>
         /// <param name="d"></param>
         /// <param name="texture"></param>
-        public void DrawTexturedQuad(Vector2 a, Vector2 b, Vector2 c, Vector2 d, Texture? texture)
+        public void DrawTexturedQuad(Vector2 a, Vector2 b, Vector2 c, Vector2 d, Texture texture)
         {
             DrawTexturedQuad(a, b, c, d, texture, Color4.White);
         }
@@ -436,7 +436,7 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="dimension"></param>
         /// <param name="texture"></param>
         /// <param name="color"></param>
-        public void DrawImage(Vector2 pos, Vector2 dimension, Texture? texture, Color4 color)
+        public void DrawImage(Vector2 pos, Vector2 dimension, Texture texture, Color4 color)
         {
             DrawTexturedQuad(pos + new Vector2(0, dimension.Y), pos + new Vector2(dimension.X, dimension.Y), pos + new Vector2(dimension.X, 0), pos, texture, color);
         }
@@ -447,7 +447,7 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="pos"></param>
         /// <param name="dimension"></param>
         /// <param name="texture"></param>
-        public void DrawImage(Vector2 pos, Vector2 dimension, Texture? texture)
+        public void DrawImage(Vector2 pos, Vector2 dimension, Texture texture)
         {
             DrawImage(pos, dimension, texture, Color4.White);
         }
