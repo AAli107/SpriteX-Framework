@@ -52,7 +52,7 @@ namespace SpriteX_Engine
 
         public override void OnGraphicsUpdate(MainWindow win)
         {
-            for (int i = 0; i < 18; i++)
+            for (int i = 0; i < 16; i++)
             {
                 for (int j = 0; j < 9; j++)
                 {
