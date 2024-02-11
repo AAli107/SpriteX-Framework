@@ -205,7 +205,7 @@ namespace SpriteX_Engine.EngineContents
 
             // Will render the Rectangles representing the hitbox of the GameObject
             if (showDebugHitbox) foreach (GameObject obj in GameObject.GetAllGameObjects())
-                if (obj.GetSize().X > 0 && obj.GetSize().Y > 0) DrawRect(obj.GetPosition(), obj.GetSize(), Color4.White, DrawType.Outline);
+                if (obj.GetSize().X > 0 && obj.GetSize().Y > 0) DrawRect(obj.GetPosition(), obj.GetSize(), Color4.White, Enums.DrawType.Outline);
 
             GL.DisableVertexAttribArray(0);
             GL.DisableVertexAttribArray(1); 
@@ -272,7 +272,7 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="color"></param>
         public void DrawScaledPixel(Vector2 position, Color4 color)
         {
-            DrawRect(position, new Vector2(1, 1), color, DrawType.Filled);
+            DrawRect(position, new Vector2(1, 1), color, Enums.DrawType.Filled);
         }
 
         /// <summary>
@@ -293,7 +293,7 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="b"></param>
         /// <param name="c"></param>
         /// <param name="color"></param>
-        public void DrawTri(Vector2 a, Vector2 b, Vector2 c, Color4 color, DrawType drawType = DrawType.Filled)
+        public void DrawTri(Vector2 a, Vector2 b, Vector2 c, Color4 color, Enums.DrawType drawType = Enums.DrawType.Filled)
         {
             if (
                 (a.X < 0 && b.X < 0 && c.X < 0)             ||
@@ -302,7 +302,7 @@ namespace SpriteX_Engine.EngineContents
                 (a.Y > 1080 && b.Y > 1080 && c.Y > 1080)
                 ) return;
 
-            if (drawType == DrawType.Outline) // Will draw the triangle as an outline
+            if (drawType == Enums.DrawType.Outline) // Will draw the triangle as an outline
             {
                 DrawLine(a, b, color);
                 DrawLine(b, c, color);
@@ -341,7 +341,7 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="c"></param>
         /// <param name="d"></param>
         /// <param name="color"></param>
-        public void DrawQuad(Vector2 a, Vector2 b, Vector2 c, Vector2 d, Color4 color, DrawType drawType = DrawType.Filled)
+        public void DrawQuad(Vector2 a, Vector2 b, Vector2 c, Vector2 d, Color4 color, Enums.DrawType drawType = Enums.DrawType.Filled)
         {
             if (
                 (a.X < 0 && b.X < 0 && c.X < 0 && d.X < 0)              ||
@@ -350,7 +350,7 @@ namespace SpriteX_Engine.EngineContents
                 (a.Y > 1080 && b.Y > 1080 && c.Y > 1080 && d.Y > 1080)
                 ) return;
 
-            if (drawType == DrawType.Outline) // Will draw the quad as an outline
+            if (drawType == Enums.DrawType.Outline) // Will draw the quad as an outline
             {
                 DrawLine(a, b, color);
                 DrawLine(b, c, color);
@@ -450,7 +450,7 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="pos"></param>
         /// <param name="dimension"></param>
         /// <param name="color"></param>
-        public void DrawRect(Vector2 pos, Vector2 dimension, Color4 color, DrawType drawType = DrawType.Filled)
+        public void DrawRect(Vector2 pos, Vector2 dimension, Color4 color, Enums.DrawType drawType = Enums.DrawType.Filled)
         {
             DrawQuad(pos + new Vector2(0, dimension.Y), pos + new Vector2(dimension.X, dimension.Y), pos + new Vector2(dimension.X, 0), pos, color, drawType);
         }
@@ -538,7 +538,7 @@ namespace SpriteX_Engine.EngineContents
                 Vector2 bottomRight = b + offset;
 
                 // Draws Line as a Quad to have thickness
-                DrawQuad(topRight, topLeft, bottomLeft, bottomRight, color, DrawType.Filled);
+                DrawQuad(topRight, topLeft, bottomLeft, bottomRight, color, Enums.DrawType.Filled);
             }
         }
     }
