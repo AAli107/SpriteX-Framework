@@ -232,6 +232,9 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="color"></param>
         public void DrawPixel(double x, double y, Color4 color)
         {
+            if ((x < 0) || (y < 0) || (x > 1920) || (y > 1080))
+                return;
+
             // Set the ucolor in the shader
             int colorUniformLocation = GL.GetUniformLocation(shaderProgram, "uColor");
             GL.Uniform4(colorUniformLocation, color);
@@ -292,6 +295,13 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="color"></param>
         public void DrawTri(Vector2 a, Vector2 b, Vector2 c, Color4 color, DrawType drawType = DrawType.Filled)
         {
+            if (
+                (a.X < 0 && b.X < 0 && c.X < 0)             ||
+                (a.Y < 0 && b.Y < 0 && c.Y < 0)             ||
+                (a.X > 1920 && b.X > 1920 && c.X > 1920)    ||
+                (a.Y > 1080 && b.Y > 1080 && c.Y > 1080)
+                ) return;
+
             if (drawType == DrawType.Outline) // Will draw the triangle as an outline
             {
                 DrawLine(a, b, color);
@@ -333,6 +343,13 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="color"></param>
         public void DrawQuad(Vector2 a, Vector2 b, Vector2 c, Vector2 d, Color4 color, DrawType drawType = DrawType.Filled)
         {
+            if (
+                (a.X < 0 && b.X < 0 && c.X < 0 && d.X < 0)              ||
+                (a.Y < 0 && b.Y < 0 && c.Y < 0 && d.Y < 0)              ||
+                (a.X > 1920 && b.X > 1920 && c.X > 1920 && d.X > 1920)  ||
+                (a.Y > 1080 && b.Y > 1080 && c.Y > 1080 && d.Y > 1080)
+                ) return;
+
             if (drawType == DrawType.Outline) // Will draw the quad as an outline
             {
                 DrawLine(a, b, color);
@@ -379,6 +396,12 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="texture"></param>
         public void DrawTexturedQuad(Vector2 a, Vector2 b, Vector2 c, Vector2 d, Texture texture, Color4 color)
         {
+            if (
+                (a.X < 0 && b.X < 0 && c.X < 0 && d.X < 0) ||
+                (a.Y < 0 && b.Y < 0 && c.Y < 0 && d.Y < 0) ||
+                (a.X > 1920 && b.X > 1920 && c.X > 1920 && d.X > 1920) ||
+                (a.Y > 1080 && b.Y > 1080 && c.Y > 1080 && d.Y > 1080)
+                ) return;
 
             // Set the ucolor in the shader
             int colorUniformLocation = GL.GetUniformLocation(shaderProgram, "uColor");
@@ -463,6 +486,13 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="color"></param>
         public void DrawLine(Vector2 a, Vector2 b, Color4 color, double width = 1)
         {
+            if (
+                (a.X < 0 && b.X < 0)        ||
+                (a.Y < 0 && b.Y < 0)        ||
+                (a.X > 1920 && b.X > 1920)  ||
+                (a.Y > 1080 && b.Y > 1080)
+                ) return;
+
             if (width <= 1)
             {
                 // Line vertices, point a and point b
