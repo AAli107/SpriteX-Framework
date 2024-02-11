@@ -65,7 +65,7 @@ namespace SpriteX_Engine.EngineContents
             /// <returns></returns>
             public static bool RandBoolByChance(float chance = 0.5f)
             {
-                return chance >= RangeFloat(0.0f, 1.0f);
+                return chance >= rng.NextDouble();
             }
 
             /// <summary>
