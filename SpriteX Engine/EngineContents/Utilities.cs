@@ -35,7 +35,18 @@ namespace SpriteX_Engine.EngineContents
             /// <returns></returns>
             public static float RangeFloat(float min, float max)
             {
-                return (float)rng.NextDouble() * (max - min) + min;
+                return (float)RangeDouble(min, max);
+            }
+
+            /// <summary>
+            /// Returns random double in range
+            /// </summary>
+            /// <param name="min"></param>
+            /// <param name="max"></param>
+            /// <returns></returns>
+            public static double RangeDouble(double min, double max)
+            {
+                return rng.NextDouble() * (max - min) + min;
             }
 
             /// <summary>
