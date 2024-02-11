@@ -52,18 +52,18 @@ namespace SpriteX_Engine
 
         public override void OnGraphicsUpdate(MainWindow win)
         {
-            for (int i = 0; i < 16; i++)
+            for (int i = -16; i < 16; i++)
             {
-                for (int j = 0; j < 9; j++)
+                for (int j = -9; j < 9; j++)
                 {
-                    float brightness = MathF.Sqrt(MathF.Pow(i - (g.GetCenterPosition().X / 120), 2) + MathF.Pow(j - (g.GetCenterPosition().Y / 120), 2)) / 15;
+                    float brightness = MathF.Sqrt(MathF.Pow(i - ((1920/2) / 120) - (g.GetCenterPosition().X / 120), 2) + MathF.Pow(j - ((1080/2) / 120) - (g.GetCenterPosition().Y / 120), 2)) / 5;
                     brightness = 1 - brightness; 
                     brightness = brightness > 1 ? 1 : brightness;
-                    brightness = brightness <= 0.15f ? 0.15f : brightness;
+                    brightness = brightness <= 0.1f ? 0.1f : brightness;
 
                     Color4 c = new Color4(1f, 0.75f, 0.25f, 1f);
 
-                    win.DrawImage(new Vector2(i*120, j*120), new Vector2(120, 120), img2, new Color4(brightness * c.R, brightness * c.G, brightness * c.B, 1));
+                    win.DrawImage(new Vector2(i*120, j*120)-g.GetCenterPosition(), new Vector2(120, 120), img2, new Color4(brightness * c.R, brightness * c.G, brightness * c.B, 1));
                 }
             }
             //win.DrawTexturedQuad(new Vector2(150, 510), new Vector2(790, 660), new Vector2(790, 300), new Vector2(150, 150), img1);
@@ -73,7 +73,7 @@ namespace SpriteX_Engine
             //win.DrawRect(new Vector2(250, 250), new Vector2(400, 100), Color4.Gold);
             //win.DrawLine(g.GetCenterPosition(), otherGG.GetCenterPosition(), Color4.Red, 5);
 
-            win.DrawImage(g.GetPosition(), g.GetSize(), img2);
+            win.DrawImage(new Vector2((1920/2)-(g.GetSize().X/2), (1080/2) - (g.GetSize().Y/2)), g.GetSize(), img2);
 
             //win.DrawRect(new Vector2(1200, 200), new Vector2(500, 500), new Color4(1f, 0.25f, 0.5f, 0.5f));
 
