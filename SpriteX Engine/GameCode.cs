@@ -28,7 +28,7 @@ namespace SpriteX_Engine
         public override void OnGameStart(MainWindow win)
         {
             img1 = Texture.GetMissingTexture();
-            img2 = new Texture("img.png");
+            img2 = new Texture("Resources/Textures/img.png");
         }
 
         public override void OnFixedGameUpdate(MainWindow win)

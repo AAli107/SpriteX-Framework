@@ -26,4 +26,12 @@
     <PackageReference Include="System.Drawing.Common" Version="8.0.1" />
   </ItemGroup>
 
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="mkdir &quot;$(OutDir)Resources&quot;&#xD;&#xA;xcopy &quot;$(ProjectDir)Resources&quot; &quot;$(OutDir)Resources&quot; /e /y /i" />
+  </Target>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="RD /S /Q &quot;$(OutDir)&quot;" />
+  </Target>
+
 </Project>
