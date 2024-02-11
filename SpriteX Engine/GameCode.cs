@@ -57,8 +57,8 @@ namespace SpriteX_Engine
                 for (int j = 0; j < 9; j++)
                 {
                     float brightness = MathF.Sqrt(MathF.Pow(i - (g.GetCenterPosition().X / 120), 2) + MathF.Pow(j - (g.GetCenterPosition().Y / 120), 2)) / 15;
+                    brightness = 1 - brightness; 
                     brightness = brightness > 1 ? 1 : brightness;
-                    brightness = 1 - brightness;
                     brightness = brightness <= 0.15f ? 0.15f : brightness;
 
                     Color4 c = new Color4(1f, 0.75f, 0.25f, 1f);
