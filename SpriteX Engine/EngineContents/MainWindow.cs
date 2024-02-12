@@ -30,6 +30,7 @@ namespace SpriteX_Engine.EngineContents
             bgColor = Color.Black; // Controls the windows background color
             allowAltEnter = true; // Controls whether you can toggle fullscreen when pressing Alt+Enter
             showDebugHitbox = true; // Controls whether to show all GameObjects' hitboxes
+            font = Font.GetDefaultFont(); // Contains game font
         }
 
         /*
@@ -48,6 +49,7 @@ namespace SpriteX_Engine.EngineContents
         private double accumulatedTime = 0.0; // Used for OnFixedGameUpdate()
         private Texture tex; // Used for general rendering
         private Texture fontTex; // used for rendering text
+        private Font font; // Game's font
 
         /// <summary>
         /// Controls whether the game is paused or not.
@@ -551,12 +553,8 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="character"></param>
         /// <param name="color"></param>
         /// <param name="size"></param>
-        /// <param name="font"></param>
-        public void DrawChar(Vector2 pos, char character, Color4 color, float size = 1, Font font = null)
+        public void DrawChar(Vector2 pos, char character, Color4 color, float size = 1)
         {
-            if (font == null) 
-                font = Font.GetDefaultFont();
-
             Vector2 charVec = (font.charSize * size);
             if (
                 (pos.X < 0 && pos.X < 0 && pos.X < 0 && pos.X < 0) ||
@@ -601,20 +599,33 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="text"></param>
         /// <param name="color"></param>
         /// <param name="size"></param>
-        /// <param name="font"></param>
-        public void DrawText(Vector2 pos, string text, Color4 color, float size = 1, Font font = null)
+        public void DrawText(Vector2 pos, string text, Color4 color, float size = 1)
         {
-            if (font == null) font = Font.GetDefaultFont();
-
             for (int i = 0; i < text.Length; i++) 
             {
                 if (text[i].Equals('\n') && i+1 < text.Length) 
                 {
-                    DrawText(pos + new Vector2(0, font.charSize.Y * size), text.Substring(i+1), color, size, font);
+                    DrawText(pos + new Vector2(0, font.charSize.Y * size), text.Substring(i+1), color, size);
                     return;
                 }
-                DrawChar(pos + new Vector2(font.charSize.X * i * size, 0), text[i], color, size, font);
+                DrawChar(pos + new Vector2(font.charSize.X * i * size, 0), text[i], color, size);
             }
         }
+
+        /// <summary>
+        /// Sets the Game's font
+        /// </summary>
+        /// <param name="font"></param>
+        public void SetGameFont(Font font)
+        {
+            this.font = font;
+            fontTex = new Texture(font.fontPath);
+        }
+
+        /// <summary>
+        /// Returns the game's font
+        /// </summary>
+        /// <returns></returns>
+        public Font GetGameFont() { return font; }
     }
 }

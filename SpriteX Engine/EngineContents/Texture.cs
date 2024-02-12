@@ -15,9 +15,11 @@ namespace SpriteX_Engine.EngineContents
     public struct Texture
     {
         private int textureId;
+        public string path { get; private set; }
 
         public Texture(string filePath)
         {
+            path = filePath;
             Bitmap image;
             try
             {
@@ -49,6 +51,7 @@ namespace SpriteX_Engine.EngineContents
 
         public Texture()
         {
+            path = "";
             // Load the image using Bitmap
             Bitmap image = new Bitmap(1, 1);
             image.SetPixel(0, 0, Color.White);
