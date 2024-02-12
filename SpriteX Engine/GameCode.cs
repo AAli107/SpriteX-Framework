@@ -51,9 +51,9 @@ namespace SpriteX_Engine
 
         public override void OnGraphicsUpdate(MainWindow win)
         {
-            for (int i = -16; i < 16; i++)
+            for (int i = 0; i < 32; i++)
             {
-                for (int j = -9; j < 9; j++)
+                for (int j = 0; j < 18; j++)
                 {
                     float brightness = Vec2D.Distance2D(new Vector2(i - ((1920 / 2) / 120), j - ((1080 / 2) / 120)), new Vector2((g.GetCenterPosition().X / 120), (g.GetCenterPosition().Y / 120))) / 5;
                     brightness = 1 - brightness; 
