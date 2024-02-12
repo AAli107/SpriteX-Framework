@@ -47,6 +47,7 @@ namespace SpriteX_Engine.EngineContents
         private GameCode gameCode = new GameCode(); // Declares and instantiate GameCode
         private double accumulatedTime = 0.0; // Used for OnFixedGameUpdate()
         private Texture tex; // Used for general rendering
+        private Texture fontTex; // used for rendering text
 
         /// <summary>
         /// Controls whether the game is paused or not.
@@ -79,6 +80,7 @@ namespace SpriteX_Engine.EngineContents
             SwapBuffers(); // Refreshes the screen on load
             GL.Viewport(0, 0, ClientSize.X, ClientSize.Y);
             tex = new Texture();
+            fontTex = new Texture(Font.GetDefaultFont().fontPath);
 
             gameCode.Awake(this); // Awake() from GameCode gets executed here
 
@@ -543,44 +545,44 @@ namespace SpriteX_Engine.EngineContents
         }
 
         /// <summary>
-        /// Draws a single character on screen
+        /// Draws a Single character on screen
         /// </summary>
         /// <param name="pos"></param>
         /// <param name="character"></param>
         /// <param name="color"></param>
         /// <param name="size"></param>
         /// <param name="font"></param>
-        public float DrawChar(Vector2 pos, char character, Color4 color, float size = 1, string font = "Resources/Engine/SpriteX_Font.png")
+        public void DrawChar(Vector2 pos, char character, Color4 color, float size = 1, Font font = null)
         {
-            Vector2 charVec = new Vector2(16, 32) * size;
+            if (font == null) 
+                font = Font.GetDefaultFont();
+
+            Vector2 charVec = (font.charSize * size);
             if (
                 (pos.X < 0 && pos.X < 0 && pos.X < 0 && pos.X < 0) ||
                 (pos.Y < 0 && pos.Y < 0 && pos.Y < 0 && pos.Y < 0) ||
                 (pos.X > 1920 && pos.X > 1920 && pos.X > 1920 && pos.X > 1920) ||
                 (pos.Y > 1080 && pos.Y > 1080 && pos.Y > 1080 && pos.Y > 1080)
-                ) return charVec.X;
-
-            char[] charSheet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()-=_+[]{}\\|;:'\".,<>/?`~ ".ToCharArray();
-            Texture texture = new Texture(font);
-            int charIndex = charSheet.ToList().IndexOf(character);
+                ) return;
 
             // Set the ucolor in the shader
-            int colorUniformLocation = GL.GetUniformLocation(shaderProgram, "uColor");
-            GL.Uniform4(colorUniformLocation, color);
+            GL.Uniform4(GL.GetUniformLocation(shaderProgram, "uColor"), color);
 
             // Set the texture uniform in the shader
-            int textureUniformLocation = GL.GetUniformLocation(shaderProgram, "uTexture");
-            GL.Uniform1(textureUniformLocation, 0);
+            GL.Uniform1(GL.GetUniformLocation(shaderProgram, "uTexture"), 0);
 
             // Bind the texture
-            texture.Bind();
+            fontTex.Bind();
+
+            int charCount = Font.charSheet.Count;
+            int charIndex = Font.charSheet.IndexOf(character);
 
             // Specify the vertex data for the quad
             float[] vertices = {
-                (pos.X) / (1920 * 0.5f) - 1f, -(pos.Y) / (1080 * 0.5f) + 1f,                                (1.0f / charSheet.Length) * charIndex, 0.0f,
-                (pos.X + charVec.X) / (1920 * 0.5f) - 1f, -(pos.Y) / (1080 * 0.5f) + 1f,                    (1.0f / charSheet.Length) * charIndex + (1.0f / charSheet.Length), 0.0f,
-                (pos.X) / (1920 * 0.5f) - 1f, -(pos.Y + charVec.Y) / (1080 * 0.5f) + 1f,                    (1.0f / charSheet.Length) * charIndex, 1.0f,
-                (pos.X + charVec.X) / (1920 * 0.5f) - 1f, -(pos.Y + charVec.Y ) / (1080 * 0.5f) + 1f,       (1.0f / charSheet.Length) * charIndex + (1.0f / charSheet.Length), 1.0f
+                (pos.X) / (1920 * 0.5f) - 1f, -(pos.Y) / (1080 * 0.5f) + 1f,                                (1.0f / charCount) * charIndex, 0.0f,
+                (pos.X + charVec.X) / (1920 * 0.5f) - 1f, -(pos.Y) / (1080 * 0.5f) + 1f,                    (1.0f / charCount) * charIndex + (1.0f / charCount), 0.0f,
+                (pos.X) / (1920 * 0.5f) - 1f, -(pos.Y + charVec.Y) / (1080 * 0.5f) + 1f,                    (1.0f / charCount) * charIndex, 1.0f,
+                (pos.X + charVec.X) / (1920 * 0.5f) - 1f, -(pos.Y + charVec.Y ) / (1080 * 0.5f) + 1f,       (1.0f / charCount) * charIndex + (1.0f / charCount), 1.0f
             };
 
             GL.BindBuffer(BufferTarget.ArrayBuffer, vertexBufferObject);
@@ -589,9 +591,22 @@ namespace SpriteX_Engine.EngineContents
             GL.DrawArrays(PrimitiveType.TriangleStrip, 0, 4);
 
             // Unbind the texture
-            texture.Unbind();
+            fontTex.Unbind();
+        }
 
-            return charVec.X;
+        public void DrawText(Vector2 pos, string text, Color4 color, float size = 1, Font font = null)
+        {
+            if (font == null) font = Font.GetDefaultFont();
+
+            for (int i = 0; i < text.Length; i++) 
+            {
+                if (text[i].Equals('\n') && i+1 < text.Length) 
+                {
+                    DrawText(pos + new Vector2(0, font.charSize.Y * size), text.Substring(i+1), color, size, font);
+                    return;
+                }
+                DrawChar(pos + new Vector2(font.charSize.X * i * size, 0), text[i], color, size, font);
+            }
         }
     }
 }

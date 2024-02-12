@@ -9,7 +9,6 @@ using static OpenTK.Audio.OpenAL.ALC;
 using SpriteX_Engine.EngineContents;
 using System.Runtime.CompilerServices;
 using static SpriteX_Engine.EngineContents.Utilities;
-using System.Drawing;
 
 namespace SpriteX_Engine
 {
@@ -77,15 +76,12 @@ namespace SpriteX_Engine
 
             //win.DrawRect(new Vector2(1200, 200), new Vector2(500, 500), new Color4(1f, 0.25f, 0.5f, 0.5f));
 
-            Console.WriteLine(Math.Round(win.FPS, 2) + " FPS                                       ");
-            Console.WriteLine("time since start = " + Math.Round(win.time, 2) + " s                                       ");
-            Console.WriteLine("-------------------------------------------");
-            Console.WriteLine("Position = (" + Math.Round(g.GetCenterPosition().X, 2) + ", " + Math.Round(g.GetCenterPosition().Y, 2) + ")                                       ");
-            Console.WriteLine("Speed = " + Math.Round(g.GetVelocity().Length, 2) + "                                       ");
-            Console.WriteLine("Count = " + GameObject.GetAllGameObjects().Count + "                                       ");
-            Console.CursorLeft = 0;
-            Console.CursorTop = 0;
-            Console.CursorVisible = false;
+            win.DrawText(new Vector2(10, 10), Math.Round(win.FPS) + " FPS", Color4.Lime, 1);
+            win.DrawText(new Vector2(10, 42), "time since start = " + Math.Round(win.time, 2) + " s", Color4.Cyan, 1);
+            win.DrawText(new Vector2(10, 74), "-------------------------------------------", Color4.Yellow, 1);
+            win.DrawText(new Vector2(10, 106), "Position = (" + Math.Round(g.GetCenterPosition().X, 2) + ", " + Math.Round(g.GetCenterPosition().Y, 2) + ")", Color4.White, 1);
+            win.DrawText(new Vector2(10, 138), "Speed = " + Math.Round(g.GetVelocity().Length, 2), Color4.White, 1);
+            win.DrawText(new Vector2(10, 170), "Count = " + GameObject.GetAllGameObjects().Count, Color4.White, 1);
         }
 
         public override void OnGameEnd(MainWindow win)
