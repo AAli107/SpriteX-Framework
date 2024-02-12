@@ -594,6 +594,14 @@ namespace SpriteX_Engine.EngineContents
             fontTex.Unbind();
         }
 
+        /// <summary>
+        /// Draws Text on screen
+        /// </summary>
+        /// <param name="pos"></param>
+        /// <param name="text"></param>
+        /// <param name="color"></param>
+        /// <param name="size"></param>
+        /// <param name="font"></param>
         public void DrawText(Vector2 pos, string text, Color4 color, float size = 1, Font font = null)
         {
             if (font == null) font = Font.GetDefaultFont();
