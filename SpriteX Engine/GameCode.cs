@@ -16,9 +16,13 @@ namespace SpriteX_Engine
     {
         /* Insert Variables here */
         GameObject g = new GameObject(new Vector2(500, 400), new Vector2(200, 200), true, true, 0.1f, 1);
-        GameObject otherG = new GameObject(new Vector2(800, 300), new Vector2(300, 100), true, false);
-        GameObject otherGG = new GameObject(new Vector2(1000, 600), new Vector2(300, 100), true, true, 0.1f);
-        GameObject otherGGG = new GameObject(new Vector2(1400, 600), new Vector2(200, 200), true, true, 0.1f, 10);
+        GameObject otherG = new GameObject(new Vector2(-1920 / 2, -1080 / 2), new Vector2(1920 * 2, 100), true, false);
+        GameObject otherG2 = new GameObject(new Vector2(-1920 / 2, 1080 * 1.5f), new Vector2(1920 * 2, 100), true, false);
+        GameObject otherG3 = new GameObject(new Vector2(-1920 / 2, (-1080 / 2) + 100), new Vector2(100, (1080 * 2) - 100), true, false);
+        GameObject otherG4 = new GameObject(new Vector2(1920 * 1.5f, (-1080 / 2)), new Vector2(100, (1080 * 2) + 100), true, false);
+        GameObject otherGG = new GameObject(new Vector2(800, 600), new Vector2(300, 100), true, true, 0.1f);
+        GameObject otherGG2 = new GameObject(new Vector2(200, 300), new Vector2(100, 100), true, true, 0.1f, 0.5f);
+        GameObject otherGGG = new GameObject(new Vector2(1200, 600), new Vector2(200, 200), true, true, 0.1f, 10);
         float s;
 
         Texture img1;
@@ -73,8 +77,12 @@ namespace SpriteX_Engine
             //win.DrawLine(g.GetCenterPosition(), otherGG.GetCenterPosition(), Color4.Red, 5);
             //
 
-            win.DrawImage(otherG.GetPosition() - g.GetCenterPosition() + new Vector2(1920 / 2, 1080 / 2), otherG.GetSize(), img2);
+            win.DrawImage(otherG.GetPosition() - g.GetCenterPosition() + new Vector2(1920 / 2, 1080 / 2), otherG.GetSize(), img2, Color4.Blue);
+            win.DrawImage(otherG2.GetPosition() - g.GetCenterPosition() + new Vector2(1920 / 2, 1080 / 2), otherG2.GetSize(), img2, Color4.Blue);
+            win.DrawImage(otherG3.GetPosition() - g.GetCenterPosition() + new Vector2(1920 / 2, 1080 / 2), otherG3.GetSize(), img2, Color4.Blue);
+            win.DrawImage(otherG4.GetPosition() - g.GetCenterPosition() + new Vector2(1920 / 2, 1080 / 2), otherG4.GetSize(), img2, Color4.Blue);
             win.DrawImage(otherGG.GetPosition() - g.GetCenterPosition() + new Vector2(1920 / 2, 1080 / 2), otherGG.GetSize(), img2);
+            win.DrawImage(otherGG2.GetPosition() - g.GetCenterPosition() + new Vector2(1920 / 2, 1080 / 2), otherGG2.GetSize(), img2);
             win.DrawImage(otherGGG.GetPosition() - g.GetCenterPosition() + new Vector2(1920 / 2, 1080 / 2), otherGGG.GetSize(), img2);
             win.DrawImage(new Vector2((1920/2)-(g.GetSize().X/2), (1080/2) - (g.GetSize().Y/2)), g.GetSize(), img2);
 
