@@ -541,5 +541,57 @@ namespace SpriteX_Engine.EngineContents
                 DrawQuad(topRight, topLeft, bottomLeft, bottomRight, color, Enums.DrawType.Filled);
             }
         }
+
+        /// <summary>
+        /// Draws a single character on screen
+        /// </summary>
+        /// <param name="pos"></param>
+        /// <param name="character"></param>
+        /// <param name="color"></param>
+        /// <param name="size"></param>
+        /// <param name="font"></param>
+        public float DrawChar(Vector2 pos, char character, Color4 color, float size = 1, string font = "Resources/Engine/SpriteX_Font.png")
+        {
+            Vector2 charVec = new Vector2(16, 32) * size;
+            if (
+                (pos.X < 0 && pos.X < 0 && pos.X < 0 && pos.X < 0) ||
+                (pos.Y < 0 && pos.Y < 0 && pos.Y < 0 && pos.Y < 0) ||
+                (pos.X > 1920 && pos.X > 1920 && pos.X > 1920 && pos.X > 1920) ||
+                (pos.Y > 1080 && pos.Y > 1080 && pos.Y > 1080 && pos.Y > 1080)
+                ) return charVec.X;
+
+            char[] charSheet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()-=_+[]{}\\|;:'\".,<>/?`~ ".ToCharArray();
+            Texture texture = new Texture(font);
+            int charIndex = charSheet.ToList().IndexOf(character);
+
+            // Set the ucolor in the shader
+            int colorUniformLocation = GL.GetUniformLocation(shaderProgram, "uColor");
+            GL.Uniform4(colorUniformLocation, color);
+
+            // Set the texture uniform in the shader
+            int textureUniformLocation = GL.GetUniformLocation(shaderProgram, "uTexture");
+            GL.Uniform1(textureUniformLocation, 0);
+
+            // Bind the texture
+            texture.Bind();
+
+            // Specify the vertex data for the quad
+            float[] vertices = {
+                (pos.X) / (1920 * 0.5f) - 1f, -(pos.Y) / (1080 * 0.5f) + 1f,                                (1.0f / charSheet.Length) * charIndex, 0.0f,
+                (pos.X + charVec.X) / (1920 * 0.5f) - 1f, -(pos.Y) / (1080 * 0.5f) + 1f,                    (1.0f / charSheet.Length) * charIndex + (1.0f / charSheet.Length), 0.0f,
+                (pos.X) / (1920 * 0.5f) - 1f, -(pos.Y + charVec.Y) / (1080 * 0.5f) + 1f,                    (1.0f / charSheet.Length) * charIndex, 1.0f,
+                (pos.X + charVec.X) / (1920 * 0.5f) - 1f, -(pos.Y + charVec.Y ) / (1080 * 0.5f) + 1f,       (1.0f / charSheet.Length) * charIndex + (1.0f / charSheet.Length), 1.0f
+            };
+
+            GL.BindBuffer(BufferTarget.ArrayBuffer, vertexBufferObject);
+            GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * vertices.Length, vertices, BufferUsageHint.DynamicDraw);
+
+            GL.DrawArrays(PrimitiveType.TriangleStrip, 0, 4);
+
+            // Unbind the texture
+            texture.Unbind();
+
+            return charVec.X;
+        }
     }
 }
