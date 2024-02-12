@@ -62,7 +62,7 @@ namespace SpriteX_Engine
 
                     Color4 c = new Color4(1f, 0.75f, 0.25f, 1f);
 
-                    win.DrawImage(new Vector2(i*120, j*120)-g.GetCenterPosition(), new Vector2(120, 120), img2, new Color4(brightness * c.R, brightness * c.G, brightness * c.B, 1));
+                    win.DrawImage(new Vector2(i * 120, j * 120) - g.GetCenterPosition(), new Vector2(120, 120), img2, new Color4(brightness * c.R, brightness * c.G, brightness * c.B, 1));
                 }
             }
             //win.DrawTexturedQuad(new Vector2(150, 510), new Vector2(790, 660), new Vector2(790, 300), new Vector2(150, 150), img1);
@@ -72,6 +72,10 @@ namespace SpriteX_Engine
             //win.DrawRect(new Vector2(250, 250), new Vector2(400, 100), Color4.Gold);
             //win.DrawLine(g.GetCenterPosition(), otherGG.GetCenterPosition(), Color4.Red, 5);
             //
+
+            win.DrawImage(otherG.GetPosition() - g.GetCenterPosition() + new Vector2(1920 / 2, 1080 / 2), otherG.GetSize(), img2);
+            win.DrawImage(otherGG.GetPosition() - g.GetCenterPosition() + new Vector2(1920 / 2, 1080 / 2), otherGG.GetSize(), img2);
+            win.DrawImage(otherGGG.GetPosition() - g.GetCenterPosition() + new Vector2(1920 / 2, 1080 / 2), otherGGG.GetSize(), img2);
             win.DrawImage(new Vector2((1920/2)-(g.GetSize().X/2), (1080/2) - (g.GetSize().Y/2)), g.GetSize(), img2);
 
             //win.DrawRect(new Vector2(1200, 200), new Vector2(500, 500), new Color4(1f, 0.25f, 0.5f, 0.5f));
