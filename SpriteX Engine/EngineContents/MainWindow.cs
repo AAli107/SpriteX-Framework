@@ -49,7 +49,6 @@ namespace SpriteX_Engine.EngineContents
         private double accumulatedTime = 0.0; // Used for OnFixedGameUpdate()
         private Texture tex; // Used for general rendering
         private Texture fontTex; // used for rendering text
-        private Font font; // Game's font
 
         /// <summary>
         /// Controls whether the game is paused or not.
@@ -75,6 +74,10 @@ namespace SpriteX_Engine.EngineContents
         /// Controls the background Color of the window
         /// </summary>
         public Color4 bgColor { get; set; }
+        /// <summary>
+        /// Stores the Game's Font
+        /// </summary>
+        public Font font {  get; private set; }
 
         protected override void OnLoad()
         {
@@ -621,11 +624,5 @@ namespace SpriteX_Engine.EngineContents
             this.font = font;
             fontTex = new Texture(font.fontPath);
         }
-
-        /// <summary>
-        /// Returns the game's font
-        /// </summary>
-        /// <returns></returns>
-        public Font GetGameFont() { return font; }
     }
 }
