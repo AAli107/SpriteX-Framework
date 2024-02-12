@@ -1,13 +1,9 @@
 ﻿using OpenTK.Mathematics;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using OpenTK.Windowing.GraphicsLibraryFramework;
-using static OpenTK.Audio.OpenAL.ALC;
 using SpriteX_Engine.EngineContents;
-using System.Runtime.CompilerServices;
 using static SpriteX_Engine.EngineContents.Utilities;
 
 namespace SpriteX_Engine

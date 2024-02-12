@@ -1,9 +1,4 @@
-﻿using OpenTK.Mathematics;
-using OpenTK.Windowing.Common;
-using OpenTK.Windowing.Desktop;
-using OpenTK.Windowing.GraphicsLibraryFramework;
-using System;
-using System.Drawing;
+﻿using OpenTK.Windowing.Desktop;
 
 namespace SpriteX_Engine.EngineContents
 {
