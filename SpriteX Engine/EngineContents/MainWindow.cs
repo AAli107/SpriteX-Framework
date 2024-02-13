@@ -16,7 +16,7 @@ namespace SpriteX_Engine.EngineContents
             /* --- Initial Window Parameters --- */
 
             Title = "SpriteX Game"; // Window Title
-            ClientSize = new Vector2i(1280, 720); // Window Resolution
+            ClientSize = new Vector2i(1280, 720); // Default Window Resolution when not in fullscreen
             AspectRatio = (16, 9); // Window Aspect Ratio
             WindowBorder = WindowBorder.Resizable; // Window Border type
             WindowState = WindowState.Fullscreen; // Decides window state (can be used to set fullscreen) 
