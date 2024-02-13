@@ -28,7 +28,7 @@ namespace SpriteX_Engine
 
         public static void btn_ButtonPressed(object sender, MouseButtonEventArgs e)
         {
-            new GameObject(new Vector2(Rand.RangeFloat(-500, 500), Rand.RangeFloat(-500, 500)), new Vector2(100, 100), true, true, 0.1f, 2.5f);
+            new GameObject(new Vector2(Rand.RangeFloat(-500, 500), Rand.RangeFloat(-500, 500)), new Vector2(100, 100), true, true, 0.1f, 1f);
         }
 
         public static void btn2_ButtonPressed(object sender, MouseButtonEventArgs e)
