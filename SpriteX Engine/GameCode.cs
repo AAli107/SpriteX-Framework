@@ -85,7 +85,7 @@ namespace SpriteX_Engine
 
                     Color4 c = new Color4(1f, 0.75f, 0.25f, 1f);
 
-                    win.DrawImage(new Vector2(i * 120, j * 120) - g.GetCenterPosition(), new Vector2(120, 120), img2, new Color4(brightness * c.R, brightness * c.G, brightness * c.B, 1));
+                    win.DrawImage(new Vector2(i * 120, j * 120) - g.GetCenterPosition(), new Vector2(120, 120), img1, new Color4(brightness * c.R, brightness * c.G, brightness * c.B, 1));
                 }
             }
 
