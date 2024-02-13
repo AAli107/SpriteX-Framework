@@ -43,8 +43,8 @@ namespace SpriteX_Engine
 
         public override void OnGameStart(MainWindow win)
         {
-            img1 = Texture.GetMissingTexture();
-            img2 = new Texture("Resources/Textures/img.png");
+            img1 = new Texture("Resources/Textures/img.png");
+            img2 = Texture.GetMissingTexture();
             btn = new Button(new Vector2(1920 / 1.25f, 50), new Vector2(300, 100), Color4.Red);
             btn2 = new Button(new Vector2(1920 / 1.25f, 200), new Vector2(300, 100), Color4.Lime);
             btn3 = new Button(new Vector2(1920 / 1.25f, 350), new Vector2(300, 100), Color4.Blue);
