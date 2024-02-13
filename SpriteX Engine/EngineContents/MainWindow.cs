@@ -246,6 +246,8 @@ namespace SpriteX_Engine.EngineContents
                         btn.isPressed = false;
                         btn.InvokeButtonPress(this, e);
                     }
+
+                    btn.isPressed = false;
                 }
             }
         }
