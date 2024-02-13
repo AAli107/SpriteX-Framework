@@ -78,7 +78,8 @@ namespace SpriteX_Engine.EngineContents
 
         public World world { get; set; }
 
-        public Vector2 mouseGamePos { get { return MousePosition / (ClientSize / new Vector2(1920, 1080)); } }
+        public Vector2 mouseScreenPos { get { return MousePosition / (ClientSize / new Vector2(1920, 1080)); } }
+        public Vector2 mouseWorldPos { get { return (MousePosition / (ClientSize / new Vector2(1920, 1080))) + new Vector2(GetWorldCamera().camPos.X - (1920 * 0.5f), GetWorldCamera().camPos.Y - (1080 * 0.5f)); } }
 
         protected override void OnLoad()
         {
@@ -244,7 +245,7 @@ namespace SpriteX_Engine.EngineContents
             {
                 foreach (Button btn in Button.buttons)
                 {
-                    if (btn.buttonRect.IntersectsWith(new RectangleF(mouseGamePos.X, mouseGamePos.Y, 0, 0)))
+                    if (btn.buttonRect.IntersectsWith(new RectangleF(mouseScreenPos.X, mouseScreenPos.Y, 0, 0))) // Will invoke OnButtonPress event
                     {
                         btn.isPressed = false;
                         btn.InvokeButtonPress(this, e);
@@ -258,11 +259,11 @@ namespace SpriteX_Engine.EngineContents
         protected override void OnMouseDown(MouseButtonEventArgs e)
         {
             base.OnMouseDown(e);
-            if (e.Button == MouseButton.Left)
+            if (e.Button == MouseButton.Left) // Will determine whether button is being held
             {
                 foreach (Button btn in Button.buttons)
                 {
-                    if (btn.buttonRect.IntersectsWith(new RectangleF(mouseGamePos.X, mouseGamePos.Y, 0, 0)))
+                    if (btn.buttonRect.IntersectsWith(new RectangleF(mouseScreenPos.X, mouseScreenPos.Y, 0, 0)))
                     {
                         btn.isPressed = true;
                     }
@@ -273,9 +274,9 @@ namespace SpriteX_Engine.EngineContents
         protected override void OnMouseMove(MouseMoveEventArgs e)
         {
             base.OnMouseMove(e);
-            foreach (Button btn in Button.buttons)
+            foreach (Button btn in Button.buttons) // Will determine whether button is being hovered on or not
             {
-                btn.isHovered = btn.buttonRect.IntersectsWith(new RectangleF(mouseGamePos.X, mouseGamePos.Y, 0, 0));
+                btn.isHovered = btn.buttonRect.IntersectsWith(new RectangleF(mouseScreenPos.X, mouseScreenPos.Y, 0, 0));
             }
         }
 
@@ -354,14 +355,14 @@ namespace SpriteX_Engine.EngineContents
         public void DrawTri(Vector2 a, Vector2 b, Vector2 c, Color4 color, Enums.DrawType drawType = Enums.DrawType.Filled, bool isStatic = false)
         {
             if (
-                ((a.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) < 0 && (b.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) < 0 &&
-                (c.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) < 0) ||
-                ((a.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) < 0 && (b.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) < 0 &&
-                (c.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) < 0) ||
-                ((a.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) > 1920 && (b.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) > 1920 &&
-                (c.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) > 1920) ||
-                ((a.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) > 1080 && (b.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) > 1080 &&
-                (c.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) > 1080)
+                ((a.X - (isStatic ? 0 : GetWorldCamera().camPos.X - (1920 * 0.5f))) < 0 && (b.X - (isStatic ? 0 : GetWorldCamera().camPos.X - (1920 * 0.5f))) < 0 &&
+                (c.X - (isStatic ? 0 : GetWorldCamera().camPos.X - (1920 * 0.5f))) < 0) ||
+                ((a.Y - (isStatic ? 0 : GetWorldCamera().camPos.Y - (1080 * 0.5f))) < 0 && (b.Y - (isStatic ? 0 : GetWorldCamera().camPos.Y - (1080 * 0.5f))) < 0 &&
+                (c.Y - (isStatic ? 0 : GetWorldCamera().camPos.Y - (1080 * 0.5f))) < 0) ||
+                ((a.X - (isStatic ? 0 : GetWorldCamera().camPos.X - (1920 * 0.5f))) > 1920 && (b.X - (isStatic ? 0 : GetWorldCamera().camPos.X - (1920 * 0.5f))) > 1920 &&
+                (c.X - (isStatic ? 0 : GetWorldCamera().camPos.X - (1920 * 0.5f))) > 1920) ||
+                ((a.Y - (isStatic ? 0 : GetWorldCamera().camPos.Y - (1080 * 0.5f))) > 1080 && (b.Y - (isStatic ? 0 : GetWorldCamera().camPos.Y - (1080 * 0.5f))) > 1080 &&
+                (c.Y - (isStatic ? 0 : GetWorldCamera().camPos.Y - (1080 * 0.5f))) > 1080)
                 ) return;
 
             if (drawType == Enums.DrawType.Outline) // Will draw the triangle as an outline
@@ -373,9 +374,9 @@ namespace SpriteX_Engine.EngineContents
             }
             // Triangle verticies
             float[] vertices = {
-                (b.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -(b.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f, 1.0f, 1.0f,
-                (a.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -(a.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f, 0.0f, 1.0f,
-                (c.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -(c.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f, 1.0f, 0.0f
+                (b.X - (isStatic ? 0 : GetWorldCamera().camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -(b.Y - (isStatic ? 0 : GetWorldCamera().camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f, 1.0f, 1.0f,
+                (a.X - (isStatic ? 0 : GetWorldCamera().camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -(a.Y - (isStatic ? 0 : GetWorldCamera().camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f, 0.0f, 1.0f,
+                (c.X - (isStatic ? 0 : GetWorldCamera().camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -(c.Y - (isStatic ? 0 : GetWorldCamera().camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f, 1.0f, 0.0f
             };
 
             // Set the ucolor in the shader
@@ -407,14 +408,14 @@ namespace SpriteX_Engine.EngineContents
         public void DrawQuad(Vector2 a, Vector2 b, Vector2 c, Vector2 d, Color4 color, Enums.DrawType drawType = Enums.DrawType.Filled, bool isStatic = false)
         {
             if (
-                ((a.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) < 0 && (b.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) < 0 &&
-                (c.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) < 0 && (d.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) < 0) ||
-                ((a.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) < 0 && (b.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) < 0 &&
-                (c.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) < 0 && (d.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) < 0) ||
-                ((a.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) > 1920 && (b.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) > 1920 &&
-                (c.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) > 1920 && (d.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) > 1920) ||
-                ((a.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) > 1080 && (b.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) > 1080 &&
-                (c.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) > 1080 && (d.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) > 1080)
+                ((a.X - (isStatic ? 0 : GetWorldCamera().camPos.X - (1920 * 0.5f))) < 0 && (b.X - (isStatic ? 0 : GetWorldCamera().camPos.X - (1920 * 0.5f))) < 0 &&
+                (c.X - (isStatic ? 0 : GetWorldCamera().camPos.X - (1920 * 0.5f))) < 0 && (d.X - (isStatic ? 0 : GetWorldCamera().camPos.X - (1920 * 0.5f))) < 0) ||
+                ((a.Y - (isStatic ? 0 : GetWorldCamera().camPos.Y - (1080 * 0.5f))) < 0 && (b.Y - (isStatic ? 0 : GetWorldCamera().camPos.Y - (1080 * 0.5f))) < 0 &&
+                (c.Y - (isStatic ? 0 : GetWorldCamera().camPos.Y - (1080 * 0.5f))) < 0 && (d.Y - (isStatic ? 0 : GetWorldCamera().camPos.Y - (1080 * 0.5f))) < 0) ||
+                ((a.X - (isStatic ? 0 : GetWorldCamera().camPos.X - (1920 * 0.5f))) > 1920 && (b.X - (isStatic ? 0 : GetWorldCamera().camPos.X - (1920 * 0.5f))) > 1920 &&
+                (c.X - (isStatic ? 0 : GetWorldCamera().camPos.X - (1920 * 0.5f))) > 1920 && (d.X - (isStatic ? 0 : GetWorldCamera().camPos.X - (1920 * 0.5f))) > 1920) ||
+                ((a.Y - (isStatic ? 0 : GetWorldCamera().camPos.Y - (1080 * 0.5f))) > 1080 && (b.Y - (isStatic ? 0 : GetWorldCamera().camPos.Y - (1080 * 0.5f))) > 1080 &&
+                (c.Y - (isStatic ? 0 : GetWorldCamera().camPos.Y - (1080 * 0.5f))) > 1080 && (d.Y - (isStatic ? 0 : GetWorldCamera().camPos.Y - (1080 * 0.5f))) > 1080)
                 ) return;
 
             if (drawType == Enums.DrawType.Outline) // Will draw the quad as an outline
@@ -438,10 +439,10 @@ namespace SpriteX_Engine.EngineContents
 
             // Specify the vertex data for quad
             float[] vertices = {
-                (b.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -(b.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f, 1.0f, 1.0f,
-                (a.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -(a.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f, 0.0f, 1.0f,
-                (c.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -(c.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f, 1.0f, 0.0f,
-                (d.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -(d.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f, 0.0f, 0.0f
+                (b.X - (isStatic ? 0 : GetWorldCamera().camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -(b.Y - (isStatic ? 0 : GetWorldCamera().camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f, 1.0f, 1.0f,
+                (a.X - (isStatic ? 0 : GetWorldCamera().camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -(a.Y - (isStatic ? 0 : GetWorldCamera().camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f, 0.0f, 1.0f,
+                (c.X - (isStatic ? 0 : GetWorldCamera().camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -(c.Y - (isStatic ? 0 : GetWorldCamera().camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f, 1.0f, 0.0f,
+                (d.X - (isStatic ? 0 : GetWorldCamera().camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -(d.Y - (isStatic ? 0 : GetWorldCamera().camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f, 0.0f, 0.0f
             };
 
             GL.BindBuffer(BufferTarget.ArrayBuffer, vertexBufferObject);
@@ -465,14 +466,14 @@ namespace SpriteX_Engine.EngineContents
         public void DrawTexturedQuad(Vector2 a, Vector2 b, Vector2 c, Vector2 d, Texture texture, Color4 color, bool isStatic = false)
         {
             if (
-                ((a.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) < 0 && (b.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) < 0 &&
-                (c.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) < 0 && (d.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) < 0) ||
-                ((a.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) < 0 && (b.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) < 0 &&
-                (c.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) < 0 && (d.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) < 0) ||
-                ((a.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) > 1920 && (b.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) > 1920 &&
-                (c.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) > 1920 && (d.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) > 1920) ||
-                ((a.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) > 1080 && (b.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) > 1080 &&
-                (c.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) > 1080 && (d.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) > 1080)
+                ((a.X - (isStatic ? 0 : GetWorldCamera().camPos.X - (1920 * 0.5f))) < 0 && (b.X - (isStatic ? 0 : GetWorldCamera().camPos.X - (1920 * 0.5f))) < 0 &&
+                (c.X - (isStatic ? 0 : GetWorldCamera().camPos.X - (1920 * 0.5f))) < 0 && (d.X - (isStatic ? 0 : GetWorldCamera().camPos.X - (1920 * 0.5f))) < 0) ||
+                ((a.Y - (isStatic ? 0 : GetWorldCamera().camPos.Y - (1080 * 0.5f))) < 0 && (b.Y - (isStatic ? 0 : GetWorldCamera().camPos.Y - (1080 * 0.5f))) < 0 &&
+                (c.Y - (isStatic ? 0 : GetWorldCamera().camPos.Y - (1080 * 0.5f))) < 0 && (d.Y - (isStatic ? 0 : GetWorldCamera().camPos.Y - (1080 * 0.5f))) < 0) ||
+                ((a.X - (isStatic ? 0 : GetWorldCamera().camPos.X - (1920 * 0.5f))) > 1920 && (b.X - (isStatic ? 0 : GetWorldCamera().camPos.X - (1920 * 0.5f))) > 1920 &&
+                (c.X - (isStatic ? 0 : GetWorldCamera().camPos.X - (1920 * 0.5f))) > 1920 && (d.X - (isStatic ? 0 : GetWorldCamera().camPos.X - (1920 * 0.5f))) > 1920) ||
+                ((a.Y - (isStatic ? 0 : GetWorldCamera().camPos.Y - (1080 * 0.5f))) > 1080 && (b.Y - (isStatic ? 0 : GetWorldCamera().camPos.Y - (1080 * 0.5f))) > 1080 &&
+                (c.Y - (isStatic ? 0 : GetWorldCamera().camPos.Y - (1080 * 0.5f))) > 1080 && (d.Y - (isStatic ? 0 : GetWorldCamera().camPos.Y - (1080 * 0.5f))) > 1080)
                 ) return;
 
             // Set the ucolor in the shader
@@ -488,10 +489,10 @@ namespace SpriteX_Engine.EngineContents
 
             // Specify the vertex data for the quad
             float[] vertices = {
-                (b.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -(b.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f, 1.0f, 1.0f,                                         
-                (a.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -(a.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f, 0.0f, 1.0f,                                         
-                (c.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -(c.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f, 1.0f, 0.0f,
-                (d.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -(d.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f, 0.0f, 0.0f                                          
+                (b.X - (isStatic ? 0 : GetWorldCamera().camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -(b.Y - (isStatic ? 0 : GetWorldCamera().camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f, 1.0f, 1.0f,                                         
+                (a.X - (isStatic ? 0 : GetWorldCamera().camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -(a.Y - (isStatic ? 0 : GetWorldCamera().camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f, 0.0f, 1.0f,                                         
+                (c.X - (isStatic ? 0 : GetWorldCamera().camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -(c.Y - (isStatic ? 0 : GetWorldCamera().camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f, 1.0f, 0.0f,
+                (d.X - (isStatic ? 0 : GetWorldCamera().camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -(d.Y - (isStatic ? 0 : GetWorldCamera().camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f, 0.0f, 0.0f                                          
             };
 
             GL.BindBuffer(BufferTarget.ArrayBuffer, vertexBufferObject);
@@ -563,18 +564,18 @@ namespace SpriteX_Engine.EngineContents
         public void DrawLine(Vector2 a, Vector2 b, Color4 color, double width = 1, bool isStatic = false)
         {
             if (
-                ((a.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) < 0 && (b.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) < 0) ||
-                ((a.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) < 0 && (b.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) < 0) ||
-                ((a.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) > 1920 && (b.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) > 1920) ||
-                ((a.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) > 1080 && (b.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) > 1080)
+                ((a.X - (isStatic ? 0 : GetWorldCamera().camPos.X - (1920 * 0.5f))) < 0 && (b.X - (isStatic ? 0 : GetWorldCamera().camPos.X - (1920 * 0.5f))) < 0) ||
+                ((a.Y - (isStatic ? 0 : GetWorldCamera().camPos.Y - (1080 * 0.5f))) < 0 && (b.Y - (isStatic ? 0 : GetWorldCamera().camPos.Y - (1080 * 0.5f))) < 0) ||
+                ((a.X - (isStatic ? 0 : GetWorldCamera().camPos.X - (1920 * 0.5f))) > 1920 && (b.X - (isStatic ? 0 : GetWorldCamera().camPos.X - (1920 * 0.5f))) > 1920) ||
+                ((a.Y - (isStatic ? 0 : GetWorldCamera().camPos.Y - (1080 * 0.5f))) > 1080 && (b.Y - (isStatic ? 0 : GetWorldCamera().camPos.Y - (1080 * 0.5f))) > 1080)
                 ) return;
 
             if (width <= 1)
             {
                 // Line vertices, point a and point b
                 float[] vertices = {
-                    (b.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -(b.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f, 0f, 0f,
-                    (a.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -(a.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f, 0f, 0f
+                    (b.X - (isStatic ? 0 : GetWorldCamera().camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -(b.Y - (isStatic ? 0 : GetWorldCamera().camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f, 0f, 0f,
+                    (a.X - (isStatic ? 0 : GetWorldCamera().camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -(a.Y - (isStatic ? 0 : GetWorldCamera().camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f, 0f, 0f
                 };
 
 
@@ -629,10 +630,10 @@ namespace SpriteX_Engine.EngineContents
         public void DrawChar(Vector2 pos, char character, Color4 color, float size = 1, bool isStatic = true)
         {
             if (
-                (pos.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) < 0 ||
-                (pos.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) < 0 ||
-                (pos.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) > 1920 ||
-                (pos.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) > 1080
+                (pos.X - (isStatic ? 0 : GetWorldCamera().camPos.X - (1920 * 0.5f))) < 0 ||
+                (pos.Y - (isStatic ? 0 : GetWorldCamera().camPos.Y - (1080 * 0.5f))) < 0 ||
+                (pos.X - (isStatic ? 0 : GetWorldCamera().camPos.X - (1920 * 0.5f))) > 1920 ||
+                (pos.Y - (isStatic ? 0 : GetWorldCamera().camPos.Y - (1080 * 0.5f))) > 1080
                 ) return;
 
             Vector2 charVec = (font.charSize * size);
@@ -651,13 +652,13 @@ namespace SpriteX_Engine.EngineContents
 
             // Specify the vertex data for the quad
             float[] vertices = {
-                (pos.X  - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -((pos.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f)))) / (1080 * 0.5f) + 1f,                                 
+                (pos.X  - (isStatic ? 0 : GetWorldCamera().camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -((pos.Y - (isStatic ? 0 : GetWorldCamera().camPos.Y - (1080 * 0.5f)))) / (1080 * 0.5f) + 1f,                                 
                 (1.0f / charCount) * charIndex, 0.0f,
-                ((pos.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) + charVec.X) / (1920 * 0.5f) - 1f, -(pos.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f,                      
+                ((pos.X - (isStatic ? 0 : GetWorldCamera().camPos.X - (1920 * 0.5f))) + charVec.X) / (1920 * 0.5f) - 1f, -(pos.Y - (isStatic ? 0 : GetWorldCamera().camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f,                      
                 (1.0f / charCount) * charIndex + (1.0f / charCount), 0.0f,
-                (pos.X  - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -((pos.Y) + charVec.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f,                     
+                (pos.X  - (isStatic ? 0 : GetWorldCamera().camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -((pos.Y) + charVec.Y - (isStatic ? 0 : GetWorldCamera().camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f,                     
                 (1.0f / charCount) * charIndex, 1.0f,
-                ((pos.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) + charVec.X) / (1920 * 0.5f) - 1f, -((pos.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) + charVec.Y ) / (1080 * 0.5f) + 1f,       
+                ((pos.X - (isStatic ? 0 : GetWorldCamera().camPos.X - (1920 * 0.5f))) + charVec.X) / (1920 * 0.5f) - 1f, -((pos.Y - (isStatic ? 0 : GetWorldCamera().camPos.Y - (1080 * 0.5f))) + charVec.Y ) / (1080 * 0.5f) + 1f,       
                 (1.0f / charCount) * charIndex + (1.0f / charCount), 1.0f
             };
 

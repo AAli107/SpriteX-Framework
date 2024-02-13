@@ -100,7 +100,7 @@ namespace SpriteX_Engine
             win.DrawText(new Vector2(10, 74), "-------------------------------------------", Color4.Yellow, 1);
             win.DrawText(new Vector2(10, 106), "Cam Pos = (" + Math.Round(win.world.cam.camPos.X, 2) + ", " + Math.Round(win.world.cam.camPos.Y, 2) + ")", Color4.White, 1);
             win.DrawText(new Vector2(10, 138), "Obj Pos = (" + Math.Round(g.GetCenterPosition().X, 2) + ", " + Math.Round(g.GetCenterPosition().Y, 2) + ")", Color4.White, 1);
-            win.DrawText(new Vector2(10, 170), "Game Pos = (" + Math.Round(win.mouseGamePos.X, 2) + ", " + Math.Round(win.mouseGamePos.Y, 2) + ")", Color4.White, 1);
+            win.DrawText(new Vector2(10, 170), "World Mouse Pos = (" + Math.Round(win.mouseWorldPos.X, 2) + ", " + Math.Round(win.mouseWorldPos.Y, 2) + ")", Color4.White, 1);
             win.DrawText(new Vector2(10, 202), "Count = " + win.world.GetAllGameObjects().Count, Color4.White, 1);
         }
 
