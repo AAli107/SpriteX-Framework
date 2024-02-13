@@ -1,14 +1,14 @@
 ﻿using OpenTK.Graphics.OpenGL4;
+using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
-using OpenTK.Mathematics;
 using OpenTK.Windowing.GraphicsLibraryFramework;
-using static SpriteX_Engine.EngineContents.Utilities;
 using System.Drawing;
+using static SpriteX_Engine.EngineContents.Utilities;
 
 namespace SpriteX_Engine.EngineContents
 {
-    class MainWindow : GameWindow
+    public class MainWindow : GameWindow
     {
         public MainWindow(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings)
         : base(gameWindowSettings, nativeWindowSettings)
@@ -209,6 +209,10 @@ namespace SpriteX_Engine.EngineContents
 
             gameCode.OnGraphicsUpdate(this); // OnGraphicsUpdate() in GameCode gets executed here
 
+            foreach (Button btn in Button.buttons) // Will render all the visible buttons
+                if (btn.isVisible) DrawImage(new Vector2(btn.buttonRect.Location.X, btn.buttonRect.Location.Y), 
+                    new Vector2(btn.buttonRect.Size.Width, btn.buttonRect.Size.Height), btn.tex, btn.currentColor);
+
             // Will render the Rectangles representing the hitbox of the GameObject
             if (showDebugHitbox) foreach (GameObject obj in GameObject.GetAllGameObjects())
                 if (obj.GetSize().X > 0 && obj.GetSize().Y > 0) DrawRect(obj.GetPosition(), obj.GetSize(), Color4.White, Enums.DrawType.Outline);
@@ -228,6 +232,46 @@ namespace SpriteX_Engine.EngineContents
             GL.DeleteProgram(shaderProgram);
 
             base.OnUnload();
+        }
+
+        protected override void OnMouseUp(MouseButtonEventArgs e)
+        {
+            base.OnMouseUp(e);
+            if (e.Button == MouseButton.Left)
+            {
+                foreach (Button btn in Button.buttons)
+                {
+                    if (btn.buttonRect.IntersectsWith(new RectangleF(mouseGamePos.X, mouseGamePos.Y, 0, 0)))
+                    {
+                        btn.isPressed = false;
+                        btn.InvokeButtonPress(this, e);
+                    }
+                }
+            }
+        }
+
+        protected override void OnMouseDown(MouseButtonEventArgs e)
+        {
+            base.OnMouseDown(e);
+            if (e.Button == MouseButton.Left)
+            {
+                foreach (Button btn in Button.buttons)
+                {
+                    if (btn.buttonRect.IntersectsWith(new RectangleF(mouseGamePos.X, mouseGamePos.Y, 0, 0)))
+                    {
+                        btn.isPressed = true;
+                    }
+                }
+            }
+        }
+
+        protected override void OnMouseMove(MouseMoveEventArgs e)
+        {
+            base.OnMouseMove(e);
+            foreach (Button btn in Button.buttons)
+            {
+                btn.isHovered = btn.buttonRect.IntersectsWith(new RectangleF(mouseGamePos.X, mouseGamePos.Y, 0, 0));
+            }
         }
 
         /// <summary>

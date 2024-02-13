@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using SpriteX_Engine.EngineContents;
 using static SpriteX_Engine.EngineContents.Utilities;
+using OpenTK.Windowing.Common;
 
 namespace SpriteX_Engine
 {
@@ -16,18 +17,40 @@ namespace SpriteX_Engine
         GameObject otherG2 = new GameObject(new Vector2(-1920 / 2, 1080 * 1.5f), new Vector2(1920 * 2, 100), true, false);
         GameObject otherG3 = new GameObject(new Vector2(-1920 / 2, (-1080 / 2) + 100), new Vector2(100, (1080 * 2) - 100), true, false);
         GameObject otherG4 = new GameObject(new Vector2(1920 * 1.5f, (-1080 / 2)), new Vector2(100, (1080 * 2) + 100), true, false);
-        GameObject otherGG = new GameObject(new Vector2(800, 600), new Vector2(300, 100), true, true, 0.1f);
-        GameObject otherGG2 = new GameObject(new Vector2(200, 300), new Vector2(100, 100), true, true, 0.1f, 0.5f);
-        GameObject otherGGG = new GameObject(new Vector2(1200, 600), new Vector2(200, 200), true, true, 0.1f, 10);
         float s;
 
         Texture img1;
         Texture img2;
 
+        Button btn;
+        Button btn2;
+        Button btn3;
+
+        public static void btn_ButtonPressed(object sender, MouseButtonEventArgs e)
+        {
+            new GameObject(new Vector2(Rand.RangeFloat(-500, 500), Rand.RangeFloat(-500, 500)), new Vector2(100, 100), true, true, 0.1f, 0.5f);
+        }
+
+        public static void btn2_ButtonPressed(object sender, MouseButtonEventArgs e)
+        {
+            new GameObject(new Vector2(Rand.RangeFloat(-500, 500), Rand.RangeFloat(-500, 500)), new Vector2(300, 100), true, true, 0.1f);
+        }
+
+        public static void btn3_ButtonPressed(object sender, MouseButtonEventArgs e)
+        {
+            new GameObject(new Vector2(Rand.RangeFloat(-500, 500), Rand.RangeFloat(-500, 500)), new Vector2(200, 200), true, true, 0.1f, 10f);
+        }
+
         public override void OnGameStart(MainWindow win)
         {
             img1 = Texture.GetMissingTexture();
             img2 = new Texture("Resources/Textures/img.png");
+            btn = new Button(new Vector2(1920 / 1.25f, 50), new Vector2(300, 100), Color4.Red);
+            btn2 = new Button(new Vector2(1920 / 1.25f, 200), new Vector2(300, 100), Color4.Lime);
+            btn3 = new Button(new Vector2(1920 / 1.25f, 350), new Vector2(300, 100), Color4.Blue);
+            btn.OnButtonPressed += btn_ButtonPressed;
+            btn2.OnButtonPressed += btn2_ButtonPressed;
+            btn3.OnButtonPressed += btn3_ButtonPressed;
         }
 
         public override void OnFixedGameUpdate(MainWindow win)
@@ -65,24 +88,11 @@ namespace SpriteX_Engine
                     win.DrawImage(new Vector2(i * 120, j * 120) - g.GetCenterPosition(), new Vector2(120, 120), img2, new Color4(brightness * c.R, brightness * c.G, brightness * c.B, 1));
                 }
             }
-            //win.DrawTexturedQuad(new Vector2(150, 510), new Vector2(790, 660), new Vector2(790, 300), new Vector2(150, 150), img1);
-            //
-            //win.DrawTri(new Vector2(1280, 720), new Vector2(0.0f, 0.0f), new Vector2(1000, 100), Color4.SteelBlue);
-            //win.DrawTri(new Vector2(1280, 720), new Vector2(0.0f, 0.0f), new Vector2(1000, 100), Color4.Red, Enums.DrawType.Outline);
-            //win.DrawRect(new Vector2(250, 250), new Vector2(400, 100), Color4.Gold);
-            //win.DrawLine(otherGG.GetCenterPosition() - g.GetCenterPosition() + new Vector2(1920 / 2, 1080 / 2), win.mouseGamePos, Color4.Red, 5);
-            //
 
-            win.DrawImage(otherG.GetPosition() - g.GetCenterPosition() + new Vector2(1920 / 2, 1080 / 2), otherG.GetSize(), img2, Color4.Blue);
-            win.DrawImage(otherG2.GetPosition() - g.GetCenterPosition() + new Vector2(1920 / 2, 1080 / 2), otherG2.GetSize(), img2, Color4.Blue);
-            win.DrawImage(otherG3.GetPosition() - g.GetCenterPosition() + new Vector2(1920 / 2, 1080 / 2), otherG3.GetSize(), img2, Color4.Blue);
-            win.DrawImage(otherG4.GetPosition() - g.GetCenterPosition() + new Vector2(1920 / 2, 1080 / 2), otherG4.GetSize(), img2, Color4.Blue);
-            win.DrawImage(otherGG.GetPosition() - g.GetCenterPosition() + new Vector2(1920 / 2, 1080 / 2), otherGG.GetSize(), img2);
-            win.DrawImage(otherGG2.GetPosition() - g.GetCenterPosition() + new Vector2(1920 / 2, 1080 / 2), otherGG2.GetSize(), img2);
-            win.DrawImage(otherGGG.GetPosition() - g.GetCenterPosition() + new Vector2(1920 / 2, 1080 / 2), otherGGG.GetSize(), img2);
-            win.DrawImage(new Vector2((1920/2)-(g.GetSize().X/2), (1080/2) - (g.GetSize().Y/2)), g.GetSize(), img2);
-
-            //win.DrawRect(new Vector2(1200, 200), new Vector2(500, 500), new Color4(1f, 0.25f, 0.5f, 0.5f));
+            foreach (GameObject obj in GameObject.GetAllGameObjects())
+            {
+                win.DrawImage(obj.GetPosition() - g.GetCenterPosition() + new Vector2(1920 / 2, 1080 / 2), obj.GetSize(), img2, obj.IsSimulatingPhysics() ? Color4.White : Color4.Blue);
+            }
 
             win.DrawText(new Vector2(10, 10), Math.Round(win.FPS) + " FPS", Color4.Lime, 1);
             win.DrawText(new Vector2(10, 42), "time since start = " + Math.Round(win.time, 2) + " s", Color4.Cyan, 1);

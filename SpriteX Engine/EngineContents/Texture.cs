@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 using System.Runtime.InteropServices;
 using OpenTK.Graphics.OpenGL4;
+using OpenTK.Mathematics;
 
 #pragma warning disable CA1416
 
@@ -68,6 +69,31 @@ namespace SpriteX_Engine.EngineContents
             GL.BindTexture(TextureTarget.Texture2D, 0);
         }
 
+        public Texture(Color4 color)
+        {
+            path = "";
+            // Load the image using Bitmap
+            Bitmap image = new Bitmap(1, 1);
+            image.SetPixel(0, 0, Color.FromArgb((int)color.A * 255, (int)color.R * 255, (int)color.G * 255, (int)color.B * 255));
+
+            // Generate a new texture ID
+            textureId = GL.GenTexture();
+
+            // Bind the texture and set its parameters
+            GL.BindTexture(TextureTarget.Texture2D, textureId);
+            GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, image.Width, image.Height, 0, PixelFormat.Bgra, PixelType.Float, IntPtr.Zero);
+            GL.TexSubImage2D(TextureTarget.Texture2D, 0, 0, 0, image.Width, image.Height, PixelFormat.Bgra, PixelType.UnsignedByte, BitmapData(image));
+
+            // Set texture parameters
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Nearest);
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Nearest);
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)TextureWrapMode.Repeat);
+            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)TextureWrapMode.Repeat);
+
+            // Unbind the texture
+            GL.BindTexture(TextureTarget.Texture2D, 0);
+        }
+
         // Helper method to convert Bitmap to byte array
         private byte[] BitmapData(Bitmap image)
         {
@@ -76,6 +102,15 @@ namespace SpriteX_Engine.EngineContents
             Marshal.Copy(bmpData.Scan0, data, 0, data.Length);
             image.UnlockBits(bmpData);
             return data;
+        }
+        private static Bitmap GetMissingBitmap()
+        {
+            Bitmap image = new Bitmap(2, 2);
+            image.SetPixel(0, 0, Color.Magenta);
+            image.SetPixel(1, 0, Color.Black);
+            image.SetPixel(0, 1, Color.Black);
+            image.SetPixel(1, 1, Color.Magenta);
+            return image;
         }
 
         public void Bind()
@@ -93,19 +128,19 @@ namespace SpriteX_Engine.EngineContents
             return textureId;
         }
 
-        public static Bitmap GetMissingBitmap()
-        {
-            Bitmap image = new Bitmap(2, 2);
-            image.SetPixel(0, 0, Color.Magenta);
-            image.SetPixel(1, 0, Color.Black);
-            image.SetPixel(0, 1, Color.Black);
-            image.SetPixel(1, 1, Color.Magenta);
-            return image;
-        }
-
         public static Texture GetMissingTexture() 
         {
             return new Texture("");
+        }
+
+        public static Texture GetPlainWhiteTexture() 
+        {
+            return new Texture();
+        }
+
+        public static Texture GetColorPlainTexture(Color4 color)
+        {
+            return new Texture(color);
         }
     }
 }
