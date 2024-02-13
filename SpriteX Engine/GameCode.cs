@@ -70,7 +70,7 @@ namespace SpriteX_Engine
             //win.DrawTri(new Vector2(1280, 720), new Vector2(0.0f, 0.0f), new Vector2(1000, 100), Color4.SteelBlue);
             //win.DrawTri(new Vector2(1280, 720), new Vector2(0.0f, 0.0f), new Vector2(1000, 100), Color4.Red, Enums.DrawType.Outline);
             //win.DrawRect(new Vector2(250, 250), new Vector2(400, 100), Color4.Gold);
-            //win.DrawLine(g.GetCenterPosition(), otherGG.GetCenterPosition(), Color4.Red, 5);
+            //win.DrawLine(otherGG.GetCenterPosition() - g.GetCenterPosition() + new Vector2(1920 / 2, 1080 / 2), win.mouseGamePos, Color4.Red, 5);
             //
 
             win.DrawImage(otherG.GetPosition() - g.GetCenterPosition() + new Vector2(1920 / 2, 1080 / 2), otherG.GetSize(), img2, Color4.Blue);
@@ -87,9 +87,8 @@ namespace SpriteX_Engine
             win.DrawText(new Vector2(10, 10), Math.Round(win.FPS) + " FPS", Color4.Lime, 1);
             win.DrawText(new Vector2(10, 42), "time since start = " + Math.Round(win.time, 2) + " s", Color4.Cyan, 1);
             win.DrawText(new Vector2(10, 74), "-------------------------------------------", Color4.Yellow, 1);
-            win.DrawText(new Vector2(10, 106), "Position = (" + Math.Round(g.GetCenterPosition().X, 2) + ", " + Math.Round(g.GetCenterPosition().Y, 2) + ")", Color4.White, 1);
-            win.DrawText(new Vector2(10, 138), "Speed = " + Math.Round(g.GetVelocity().Length, 2), Color4.White, 1);
-            win.DrawText(new Vector2(10, 170), "Count = " + GameObject.GetAllGameObjects().Count, Color4.White, 1);
+            win.DrawText(new Vector2(10, 106), "Mouse Pos = (" + Math.Round(win.MousePosition.X, 2) + ", " + Math.Round(win.MousePosition.Y, 2) + ")", Color4.White, 1);
+            win.DrawText(new Vector2(10, 138), "Game Pos = (" + Math.Round(win.mouseGamePos.X, 2) + ", " + Math.Round(win.mouseGamePos.Y, 2) + ")", Color4.White, 1);
         }
 
         public override void OnGameEnd(MainWindow win)

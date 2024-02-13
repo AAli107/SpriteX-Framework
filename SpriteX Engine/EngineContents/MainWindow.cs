@@ -76,6 +76,8 @@ namespace SpriteX_Engine.EngineContents
         /// </summary>
         public Font font {  get; private set; }
 
+        public Vector2 mouseGamePos { get { return MousePosition / (ClientSize / new Vector2(1920, 1080)); } }
+
         protected override void OnLoad()
         {
             GL.ClearColor(bgColor); // Sets Background Color
