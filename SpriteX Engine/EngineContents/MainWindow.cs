@@ -76,6 +76,8 @@ namespace SpriteX_Engine.EngineContents
         /// </summary>
         public Font font {  get; private set; }
 
+        public World world { get; set; }
+
         public Vector2 mouseGamePos { get { return MousePosition / (ClientSize / new Vector2(1920, 1080)); } }
 
         protected override void OnLoad()
@@ -85,6 +87,7 @@ namespace SpriteX_Engine.EngineContents
             GL.Viewport(0, 0, ClientSize.X, ClientSize.Y);
             tex = new Texture();
             fontTex = new Texture(Font.GetDefaultFont().fontPath);
+            world = new World(); // Instantiate the world
 
             gameCode.Awake(this); // Awake() from GameCode gets executed here
 
@@ -176,7 +179,7 @@ namespace SpriteX_Engine.EngineContents
                 if (!isGamePaused)
                 {
                     gameCode.OnPrePhysicsUpdate(this);
-                    GameObject.TickAllGameObjects();
+                    world.TickAllGameObjects();
                     gameCode.OnFixedGameUpdate(this);
                 }
                 accumulatedTime -= targetFrameTime;
@@ -211,10 +214,10 @@ namespace SpriteX_Engine.EngineContents
 
             foreach (Button btn in Button.buttons) // Will render all the visible buttons
                 if (btn.isVisible) DrawImage(new Vector2(btn.buttonRect.Location.X, btn.buttonRect.Location.Y), 
-                    new Vector2(btn.buttonRect.Size.Width, btn.buttonRect.Size.Height), btn.tex, btn.currentColor);
+                    new Vector2(btn.buttonRect.Size.Width, btn.buttonRect.Size.Height), btn.tex, btn.currentColor, true);
 
             // Will render the Rectangles representing the hitbox of the GameObject
-            if (showDebugHitbox) foreach (GameObject obj in GameObject.GetAllGameObjects())
+            if (showDebugHitbox) foreach (GameObject obj in world.GetAllGameObjects())
                 if (obj.GetSize().X > 0 && obj.GetSize().Y > 0) DrawRect(obj.GetPosition(), obj.GetSize(), Color4.White, Enums.DrawType.Outline);
 
             GL.DisableVertexAttribArray(0);
@@ -446,13 +449,17 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="d"></param>
         /// <param name="color"></param>
         /// <param name="texture"></param>
-        public void DrawTexturedQuad(Vector2 a, Vector2 b, Vector2 c, Vector2 d, Texture texture, Color4 color)
+        public void DrawTexturedQuad(Vector2 a, Vector2 b, Vector2 c, Vector2 d, Texture texture, Color4 color, bool isStatic = false)
         {
             if (
-                (a.X < 0 && b.X < 0 && c.X < 0 && d.X < 0) ||
-                (a.Y < 0 && b.Y < 0 && c.Y < 0 && d.Y < 0) ||
-                (a.X > 1920 && b.X > 1920 && c.X > 1920 && d.X > 1920) ||
-                (a.Y > 1080 && b.Y > 1080 && c.Y > 1080 && d.Y > 1080)
+                ((a.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) < 0 && (b.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) < 0 &&
+                (c.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) < 0 && (d.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) < 0) ||
+                ((a.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) < 0 && (b.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) < 0 &&
+                (c.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) < 0 && (d.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) < 0) ||
+                ((a.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) > 1920 && (b.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) > 1920 &&
+                (c.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) > 1920 && (d.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) > 1920) ||
+                ((a.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) > 1080 && (b.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) > 1080 &&
+                (c.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) > 1080 && (d.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) > 1080)
                 ) return;
 
             // Set the ucolor in the shader
@@ -468,10 +475,10 @@ namespace SpriteX_Engine.EngineContents
 
             // Specify the vertex data for the quad
             float[] vertices = {
-                b.X / (1920 * 0.5f) - 1f, -b.Y / (1080 * 0.5f) + 1f, 1.0f, 1.0f,                                         
-                a.X / (1920 * 0.5f) - 1f, -a.Y / (1080 * 0.5f) + 1f, 0.0f, 1.0f,                                         
-                c.X / (1920 * 0.5f) - 1f, -c.Y / (1080 * 0.5f) + 1f, 1.0f, 0.0f,                                         
-                d.X / (1920 * 0.5f) - 1f, -d.Y / (1080 * 0.5f) + 1f, 0.0f, 0.0f                                          
+                (b.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -(b.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f, 1.0f, 1.0f,                                         
+                (a.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -(a.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f, 0.0f, 1.0f,                                         
+                (c.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -(c.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f, 1.0f, 0.0f,
+                (d.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -(d.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f, 0.0f, 0.0f                                          
             };
 
             GL.BindBuffer(BufferTarget.ArrayBuffer, vertexBufferObject);
@@ -491,9 +498,9 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="c"></param>
         /// <param name="d"></param>
         /// <param name="texture"></param>
-        public void DrawTexturedQuad(Vector2 a, Vector2 b, Vector2 c, Vector2 d, Texture texture)
+        public void DrawTexturedQuad(Vector2 a, Vector2 b, Vector2 c, Vector2 d, Texture texture, bool isStatic = false)
         {
-            DrawTexturedQuad(a, b, c, d, texture, Color4.White);
+            DrawTexturedQuad(a, b, c, d, texture, Color4.White, isStatic);
         }
 
         /// <summary>
@@ -514,9 +521,9 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="dimension"></param>
         /// <param name="texture"></param>
         /// <param name="color"></param>
-        public void DrawImage(Vector2 pos, Vector2 dimension, Texture texture, Color4 color)
+        public void DrawImage(Vector2 pos, Vector2 dimension, Texture texture, Color4 color, bool isStatic = false)
         {
-            DrawTexturedQuad(pos + new Vector2(0, dimension.Y), pos + new Vector2(dimension.X, dimension.Y), pos + new Vector2(dimension.X, 0), pos, texture, color);
+            DrawTexturedQuad(pos + new Vector2(0, dimension.Y), pos + new Vector2(dimension.X, dimension.Y), pos + new Vector2(dimension.X, 0), pos, texture, color, isStatic);
         }
 
         /// <summary>
@@ -525,9 +532,9 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="pos"></param>
         /// <param name="dimension"></param>
         /// <param name="texture"></param>
-        public void DrawImage(Vector2 pos, Vector2 dimension, Texture texture)
+        public void DrawImage(Vector2 pos, Vector2 dimension, Texture texture, bool isStatic = false)
         {
-            DrawImage(pos, dimension, texture, Color4.White);
+            DrawImage(pos, dimension, texture, Color4.White, isStatic);
         }
 
         /// <summary>
@@ -668,6 +675,24 @@ namespace SpriteX_Engine.EngineContents
         {
             this.font = font;
             fontTex = new Texture(font.fontPath);
+        }
+
+        /// <summary>
+        /// Returns the camera the world is using
+        /// </summary>
+        /// <returns></returns>
+        public Camera GetWorldCamera()
+        {
+            return world.cam;
+        }
+
+        /// <summary>
+        /// Switches the world's Camera
+        /// </summary>
+        /// <param name="cam"></param>
+        public void SetWorldCamera(Camera cam)
+        {
+            world.cam = cam;
         }
     }
 }
