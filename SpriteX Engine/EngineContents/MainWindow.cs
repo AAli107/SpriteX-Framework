@@ -325,9 +325,10 @@ namespace SpriteX_Engine.EngineContents
         /// </summary>
         /// <param name="position"></param>
         /// <param name="color"></param>
-        public void DrawScaledPixel(Vector2 position, Color4 color)
+        /// <param name="isStatic"></param>
+        public void DrawScaledPixel(Vector2 position, Color4 color, bool isStatic = false)
         {
-            DrawRect(position, new Vector2(1, 1), color, Enums.DrawType.Filled);
+            DrawRect(position, new Vector2(1, 1), color, Enums.DrawType.Filled, isStatic);
         }
 
         /// <summary>
@@ -336,9 +337,10 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <param name="color"></param>
-        public void DrawScaledPixel(double x, double y, Color4 color)
+        /// <param name="isStatic"></param>
+        public void DrawScaledPixel(double x, double y, Color4 color, bool isStatic = false)
         {
-            DrawScaledPixel(new Vector2((float)x, (float)y), color);
+            DrawScaledPixel(new Vector2((float)x, (float)y), color, isStatic);
         }
 
         /// <summary>
@@ -348,6 +350,7 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="b"></param>
         /// <param name="c"></param>
         /// <param name="color"></param>
+        /// <param name="isStatic"></param>
         public void DrawTri(Vector2 a, Vector2 b, Vector2 c, Color4 color, Enums.DrawType drawType = Enums.DrawType.Filled, bool isStatic = false)
         {
             if (
