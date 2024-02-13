@@ -63,7 +63,7 @@ namespace SpriteX_Engine
         public override void OnGameUpdate(MainWindow win)
         {
             s = win.IsKeyDown(Keys.LeftControl) ? 0.4f : (win.IsKeyDown(Keys.LeftShift) ? 1.6f : 0.8f);
-            //win.world.cam.SetCameraPosition(g.GetCenterPosition());
+            win.world.cam.SetCameraPosition(g.GetCenterPosition());
         }
 
         public override void OnGameUpdateNoPause(MainWindow win)
@@ -95,7 +95,7 @@ namespace SpriteX_Engine
                 win.DrawImage(obj.GetPosition(), obj.GetSize(), img2, obj.IsSimulatingPhysics() ? Color4.White : Color4.Blue);
             }
 
-            win.DrawRect(new Vector2(100,100),new Vector2(100, 100), Color4.Aqua);
+            win.DrawTri(new Vector2(100, 100), new Vector2(150, 150), new Vector2(200, 100), Color4.Red, Enums.DrawType.Filled);
 
             win.DrawText(new Vector2(10, 10), Math.Round(win.FPS) + " FPS", Color4.Lime, 1);
             win.DrawText(new Vector2(10, 42), "time since start = " + Math.Round(win.time, 2) + " s", Color4.Cyan, 1);

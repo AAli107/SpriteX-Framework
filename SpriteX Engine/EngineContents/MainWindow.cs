@@ -348,13 +348,17 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="b"></param>
         /// <param name="c"></param>
         /// <param name="color"></param>
-        public void DrawTri(Vector2 a, Vector2 b, Vector2 c, Color4 color, Enums.DrawType drawType = Enums.DrawType.Filled)
+        public void DrawTri(Vector2 a, Vector2 b, Vector2 c, Color4 color, Enums.DrawType drawType = Enums.DrawType.Filled, bool isStatic = false)
         {
             if (
-                (a.X < 0 && b.X < 0 && c.X < 0)             ||
-                (a.Y < 0 && b.Y < 0 && c.Y < 0)             ||
-                (a.X > 1920 && b.X > 1920 && c.X > 1920)    ||
-                (a.Y > 1080 && b.Y > 1080 && c.Y > 1080)
+                ((a.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) < 0 && (b.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) < 0 &&
+                (c.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) < 0) ||
+                ((a.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) < 0 && (b.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) < 0 &&
+                (c.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) < 0) ||
+                ((a.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) > 1920 && (b.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) > 1920 &&
+                (c.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) > 1920) ||
+                ((a.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) > 1080 && (b.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) > 1080 &&
+                (c.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) > 1080)
                 ) return;
 
             if (drawType == Enums.DrawType.Outline) // Will draw the triangle as an outline
@@ -366,9 +370,9 @@ namespace SpriteX_Engine.EngineContents
             }
             // Triangle verticies
             float[] vertices = {
-            a.X / (1920 * 0.5f) - 1f, -a.Y / (1080 * 0.5f) + 1f, 1.0f, 1.0f,
-            b.X / (1920 * 0.5f) - 1f, -b.Y / (1080 * 0.5f) + 1f, 0.0f, 1.0f,
-            c.X / (1920 * 0.5f) - 1f, -c.Y / (1080 * 0.5f) + 1f, 1.0f, 0.0f
+                (b.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -(b.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f, 1.0f, 1.0f,
+                (a.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -(a.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f, 0.0f, 1.0f,
+                (c.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -(c.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f, 1.0f, 0.0f
             };
 
             // Set the ucolor in the shader
