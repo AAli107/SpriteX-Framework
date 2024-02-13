@@ -1,11 +1,6 @@
 ﻿using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
-using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpriteX_Engine.EngineContents
 {
@@ -19,10 +14,11 @@ namespace SpriteX_Engine.EngineContents
         public Color4 colorHover { get; set; }
         public Color4 colorPressed { get; set; }
         public Texture tex { get; set; }
-        public event EventHandler<MouseButtonEventArgs> OnButtonPressed;
         public bool isHovered { get; set; }
         public bool isPressed { get; set; }
         public bool isVisible { get; set; }
+
+        public event EventHandler<MouseButtonEventArgs> OnButtonPressed;
 
         public Button(Vector2 pos, Vector2 size, Color4 color, Texture tex, bool isVisible = true)
         {
