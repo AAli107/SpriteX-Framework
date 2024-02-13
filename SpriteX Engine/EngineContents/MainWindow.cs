@@ -21,7 +21,7 @@ namespace SpriteX_Engine.EngineContents
             WindowBorder = WindowBorder.Resizable; // Window Border type
             WindowState = WindowState.Fullscreen; // Decides window state (can be used to set fullscreen) 
             UpdateFrequency = 120; // Window Framerate (setting to 0 and turning off VSync will unlock FPS)
-            fixedFrameTime = 60; // How many times per second OnFixedGameUpdate() is Called
+            fixedFrameTime = 60; // How many times per second the game updates
             VSync = VSyncMode.On; // Control the window's VSync
             CenterWindow(); // Will center the window in the middle of the screen
             bgColor = Color.Black; // Controls the windows background color
