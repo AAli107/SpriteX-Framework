@@ -608,14 +608,18 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="character"></param>
         /// <param name="color"></param>
         /// <param name="size"></param>
-        public void DrawChar(Vector2 pos, char character, Color4 color, float size = 1)
+        public void DrawChar(Vector2 pos, char character, Color4 color, float size = 1, bool isStatic = true)
         {
             Vector2 charVec = (font.charSize * size);
             if (
-                (pos.X < 0 && pos.X < 0 && pos.X < 0 && pos.X < 0) ||
-                (pos.Y < 0 && pos.Y < 0 && pos.Y < 0 && pos.Y < 0) ||
-                (pos.X > 1920 && pos.X > 1920 && pos.X > 1920 && pos.X > 1920) ||
-                (pos.Y > 1080 && pos.Y > 1080 && pos.Y > 1080 && pos.Y > 1080)
+                ((pos.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) < 0 && (pos.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) < 0 &&
+                (pos.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) < 0 && (pos.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) < 0) ||
+                ((pos.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) < 0 && (pos.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) < 0 &&
+                (pos.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) < 0 && (pos.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) < 0) ||
+                ((pos.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) > 1920 && (pos.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) > 1920 &&
+                (pos.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) > 1920 && (pos.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) > 1920) ||
+                ((pos.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) > 1080 && (pos.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) > 1080 &&
+                (pos.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) > 1080 && (pos.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) > 1080)
                 ) return;
 
             // Set the ucolor in the shader
@@ -632,10 +636,14 @@ namespace SpriteX_Engine.EngineContents
 
             // Specify the vertex data for the quad
             float[] vertices = {
-                (pos.X) / (1920 * 0.5f) - 1f, -(pos.Y) / (1080 * 0.5f) + 1f,                                (1.0f / charCount) * charIndex, 0.0f,
-                (pos.X + charVec.X) / (1920 * 0.5f) - 1f, -(pos.Y) / (1080 * 0.5f) + 1f,                    (1.0f / charCount) * charIndex + (1.0f / charCount), 0.0f,
-                (pos.X) / (1920 * 0.5f) - 1f, -(pos.Y + charVec.Y) / (1080 * 0.5f) + 1f,                    (1.0f / charCount) * charIndex, 1.0f,
-                (pos.X + charVec.X) / (1920 * 0.5f) - 1f, -(pos.Y + charVec.Y ) / (1080 * 0.5f) + 1f,       (1.0f / charCount) * charIndex + (1.0f / charCount), 1.0f
+                (pos.X  - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -((pos.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f)))) / (1080 * 0.5f) + 1f,                                 
+                (1.0f / charCount) * charIndex, 0.0f,
+                ((pos.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) + charVec.X) / (1920 * 0.5f) - 1f, -(pos.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f,                      
+                (1.0f / charCount) * charIndex + (1.0f / charCount), 0.0f,
+                (pos.X  - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -((pos.Y) + charVec.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f,                     
+                (1.0f / charCount) * charIndex, 1.0f,
+                ((pos.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) + charVec.X) / (1920 * 0.5f) - 1f, -((pos.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) + charVec.Y ) / (1080 * 0.5f) + 1f,       
+                (1.0f / charCount) * charIndex + (1.0f / charCount), 1.0f
             };
 
             GL.BindBuffer(BufferTarget.ArrayBuffer, vertexBufferObject);
@@ -654,16 +662,16 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="text"></param>
         /// <param name="color"></param>
         /// <param name="size"></param>
-        public void DrawText(Vector2 pos, string text, Color4 color, float size = 1)
+        public void DrawText(Vector2 pos, string text, Color4 color, float size = 1, bool isStatic = true)
         {
             for (int i = 0; i < text.Length; i++) 
             {
                 if (text[i].Equals('\n') && i+1 < text.Length) 
                 {
-                    DrawText(pos + new Vector2(0, font.charSize.Y * size), text.Substring(i+1), color, size);
+                    DrawText(pos + new Vector2(0, font.charSize.Y * size), text.Substring(i+1), color, size, isStatic);
                     return;
                 }
-                DrawChar(pos + new Vector2(font.charSize.X * i * size, 0), text[i], color, size);
+                DrawChar(pos + new Vector2(font.charSize.X * i * size, 0), text[i], color, size, isStatic);
             }
         }
 
