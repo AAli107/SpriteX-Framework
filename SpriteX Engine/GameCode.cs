@@ -12,7 +12,7 @@ namespace SpriteX_Engine
     class GameCode : GameScript
     {
         /* Insert Variables here */
-        GameObject g = new GameObject(new Vector2(500, 400), new Vector2(200, 200), true, true, 0.1f, 1);
+        GameObject g = new GameObject(new Vector2(500, 400), new Vector2(150, 150), true, true, 0.1f);
         GameObject otherG = new GameObject(new Vector2(-1920 / 2, -1080 / 2), new Vector2(1920 * 2, 100), true, false);
         GameObject otherG2 = new GameObject(new Vector2(-1920 / 2, 1080 * 1.5f), new Vector2(1920 * 2, 100), true, false);
         GameObject otherG3 = new GameObject(new Vector2(-1920 / 2, (-1080 / 2) + 100), new Vector2(100, (1080 * 2) - 100), true, false);
@@ -28,17 +28,17 @@ namespace SpriteX_Engine
 
         public static void btn_ButtonPressed(object sender, MouseButtonEventArgs e)
         {
-            new GameObject(new Vector2(Rand.RangeFloat(-500, 500), Rand.RangeFloat(-500, 500)), new Vector2(100, 100), true, true, 0.1f, 0.5f);
+            new GameObject(new Vector2(Rand.RangeFloat(-500, 500), Rand.RangeFloat(-500, 500)), new Vector2(100, 100), true, true, 0.1f, 2.5f);
         }
 
         public static void btn2_ButtonPressed(object sender, MouseButtonEventArgs e)
         {
-            new GameObject(new Vector2(Rand.RangeFloat(-500, 500), Rand.RangeFloat(-500, 500)), new Vector2(300, 100), true, true, 0.1f);
+            new GameObject(new Vector2(Rand.RangeFloat(-500, 500), Rand.RangeFloat(-500, 500)), new Vector2(150, 150), true, true, 0.1f);
         }
 
         public static void btn3_ButtonPressed(object sender, MouseButtonEventArgs e)
         {
-            new GameObject(new Vector2(Rand.RangeFloat(-500, 500), Rand.RangeFloat(-500, 500)), new Vector2(200, 200), true, true, 0.1f, 10f);
+            new GameObject(new Vector2(Rand.RangeFloat(-500, 500), Rand.RangeFloat(-500, 500)), new Vector2(200, 200), true, true, 0.1f, 20f);
         }
 
         public override void OnGameStart(MainWindow win)

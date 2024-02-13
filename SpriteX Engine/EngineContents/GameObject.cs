@@ -23,7 +23,7 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="size"></param>
         /// <param name="simulatePhysics"></param>
         /// <param name="friction"></param>
-        public GameObject(Vector2 position, Vector2 size, bool collisionEnabled = true, bool simulatePhysics = false, float friction = 0.1f, float mass = 1f)
+        public GameObject(Vector2 position, Vector2 size, bool collisionEnabled = true, bool simulatePhysics = false, float friction = 0.1f, float mass = 10f)
         {
             Construct(position, size, collisionEnabled, simulatePhysics, friction, mass);
         }
@@ -39,7 +39,7 @@ namespace SpriteX_Engine.EngineContents
             Construct(new Vector2(hitbox.X, hitbox.Y), new Vector2(hitbox.Width, hitbox.Height), collisionEnabled, simulatePhysics, friction, mass);
         }
 
-        void Construct(Vector2 position, Vector2 size, bool collisionEnabled = true, bool simulatePhysics = false, float friction = 0.1f, float mass = 1f)
+        void Construct(Vector2 position, Vector2 size, bool collisionEnabled = true, bool simulatePhysics = false, float friction = 0.1f, float mass = 10f)
         {
             uint id = 0;
             while (gameObjects.Any(o => o.id == id))
