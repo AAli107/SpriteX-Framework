@@ -260,21 +260,17 @@ namespace SpriteX_Engine.EngineContents
 
                 foreach (GameObject obj2 in collidableGameObjects)
                 {
-                    if (obj != obj2 && obj.collisionEnabled && obj2.collisionEnabled)
+                    if (obj != obj2 && obj.collisionEnabled && obj2.collisionEnabled && obj.velocity.Length + obj2.velocity.Length > 0 && obj.IsIntersectingWith(obj2))
                     {
-                        // Check if the objects are intersecting
-                        if (obj.IsIntersectingWith(obj2))
-                        {
-                            // Calculate the collision vector based on the GameObjects' size and position
-                            Vector2 cv = CalculateCollisionVector(obj, obj2);
+                        // Calculate the collision vector based on the GameObjects' size and position
+                        Vector2 cv = CalculateCollisionVector(obj, obj2);
 
-                            // Move the objects apart along the MTV to prevent overlapping
-                            if (obj.IsSimulatingPhysics()) obj.SetPosition(obj.GetPosition() + cv);
+                        // Move the objects apart along the MTV to prevent overlapping
+                        if (obj.IsSimulatingPhysics()) obj.SetPosition(obj.GetPosition() + cv);
 
-                            // Pushes Colliding GameObjects if simulating physics, pushing force depending on their mass
-                            if (obj.IsSimulatingPhysics()) obj.OverrideVelocity(obj.GetVelocity() + (cv / (obj2.IsSimulatingPhysics() ? obj.mass : 1f)));
-                            if (obj2.IsSimulatingPhysics()) obj2.OverrideVelocity(obj2.GetVelocity() - (cv / (obj.IsSimulatingPhysics() ? obj2.mass : 1f)));
-                        }
+                        // Pushes Colliding GameObjects if simulating physics, pushing force depending on their mass
+                        if (obj.IsSimulatingPhysics()) obj.OverrideVelocity(obj.GetVelocity() + (cv / (obj2.IsSimulatingPhysics() ? obj.mass : 1f)));
+                        if (obj2.IsSimulatingPhysics()) obj2.OverrideVelocity(obj2.GetVelocity() - (cv / (obj.IsSimulatingPhysics() ? obj2.mass : 1f)));
                     }
                 }
             }

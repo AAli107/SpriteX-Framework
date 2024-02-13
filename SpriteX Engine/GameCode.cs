@@ -99,6 +99,7 @@ namespace SpriteX_Engine
             win.DrawText(new Vector2(10, 74), "-------------------------------------------", Color4.Yellow, 1);
             win.DrawText(new Vector2(10, 106), "Mouse Pos = (" + Math.Round(win.MousePosition.X, 2) + ", " + Math.Round(win.MousePosition.Y, 2) + ")", Color4.White, 1);
             win.DrawText(new Vector2(10, 138), "Game Pos = (" + Math.Round(win.mouseGamePos.X, 2) + ", " + Math.Round(win.mouseGamePos.Y, 2) + ")", Color4.White, 1);
+            win.DrawText(new Vector2(10, 170), "Count = " + GameObject.GetAllGameObjects().Count, Color4.White, 1);
         }
 
         public override void OnGameEnd(MainWindow win)
