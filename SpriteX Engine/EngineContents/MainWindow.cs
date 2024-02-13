@@ -26,7 +26,7 @@ namespace SpriteX_Engine.EngineContents
             CenterWindow(); // Will center the window in the middle of the screen
             bgColor = Color.Black; // Controls the windows background color
             allowAltEnter = true; // Controls whether you can toggle fullscreen when pressing Alt+Enter
-            showDebugHitbox = false; // Controls whether to show all GameObjects' hitboxes
+            showDebugHitbox = true; // Controls whether to show all GameObjects' hitboxes
             font = Font.GetDefaultFont(); // Contains game font
         }
 
@@ -218,7 +218,7 @@ namespace SpriteX_Engine.EngineContents
 
             // Will render the Rectangles representing the hitbox of the GameObject
             if (showDebugHitbox) foreach (GameObject obj in world.GetAllGameObjects())
-                if (obj.GetSize().X > 0 && obj.GetSize().Y > 0) DrawRect(obj.GetPosition(), obj.GetSize(), Color4.White, Enums.DrawType.Outline);
+                if (obj.GetSize().X > 0 && obj.GetSize().Y > 0) DrawRect(obj.GetPosition(), obj.GetSize(), Color4.White, Enums.DrawType.Outline, false);
 
             GL.DisableVertexAttribArray(0);
             GL.DisableVertexAttribArray(1); 
@@ -396,13 +396,18 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="c"></param>
         /// <param name="d"></param>
         /// <param name="color"></param>
-        public void DrawQuad(Vector2 a, Vector2 b, Vector2 c, Vector2 d, Color4 color, Enums.DrawType drawType = Enums.DrawType.Filled)
+        /// <param name="isStatic"></param>
+        public void DrawQuad(Vector2 a, Vector2 b, Vector2 c, Vector2 d, Color4 color, Enums.DrawType drawType = Enums.DrawType.Filled, bool isStatic = false)
         {
             if (
-                (a.X < 0 && b.X < 0 && c.X < 0 && d.X < 0)              ||
-                (a.Y < 0 && b.Y < 0 && c.Y < 0 && d.Y < 0)              ||
-                (a.X > 1920 && b.X > 1920 && c.X > 1920 && d.X > 1920)  ||
-                (a.Y > 1080 && b.Y > 1080 && c.Y > 1080 && d.Y > 1080)
+                ((a.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) < 0 && (b.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) < 0 &&
+                (c.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) < 0 && (d.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) < 0) ||
+                ((a.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) < 0 && (b.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) < 0 &&
+                (c.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) < 0 && (d.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) < 0) ||
+                ((a.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) > 1920 && (b.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) > 1920 &&
+                (c.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) > 1920 && (d.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) > 1920) ||
+                ((a.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) > 1080 && (b.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) > 1080 &&
+                (c.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) > 1080 && (d.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) > 1080)
                 ) return;
 
             if (drawType == Enums.DrawType.Outline) // Will draw the quad as an outline
@@ -426,10 +431,10 @@ namespace SpriteX_Engine.EngineContents
 
             // Specify the vertex data for quad
             float[] vertices = {
-                b.X / (1920 * 0.5f) - 1f, -b.Y / (1080 * 0.5f) + 1f, 1.0f, 1.0f,
-                a.X / (1920 * 0.5f) - 1f, -a.Y / (1080 * 0.5f) + 1f, 0.0f, 1.0f,
-                c.X / (1920 * 0.5f) - 1f, -c.Y / (1080 * 0.5f) + 1f, 1.0f, 0.0f,
-                d.X / (1920 * 0.5f) - 1f, -d.Y / (1080 * 0.5f) + 1f, 0.0f, 0.0f 
+                (b.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -(b.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f, 1.0f, 1.0f,
+                (a.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -(a.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f, 0.0f, 1.0f,
+                (c.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -(c.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f, 1.0f, 0.0f,
+                (d.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -(d.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f, 0.0f, 0.0f
             };
 
             GL.BindBuffer(BufferTarget.ArrayBuffer, vertexBufferObject);
@@ -449,6 +454,7 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="d"></param>
         /// <param name="color"></param>
         /// <param name="texture"></param>
+        /// <param name="isStatic"></param>
         public void DrawTexturedQuad(Vector2 a, Vector2 b, Vector2 c, Vector2 d, Texture texture, Color4 color, bool isStatic = false)
         {
             if (
@@ -498,6 +504,7 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="c"></param>
         /// <param name="d"></param>
         /// <param name="texture"></param>
+        /// <param name="isStatic"></param>
         public void DrawTexturedQuad(Vector2 a, Vector2 b, Vector2 c, Vector2 d, Texture texture, bool isStatic = false)
         {
             DrawTexturedQuad(a, b, c, d, texture, Color4.White, isStatic);
@@ -509,9 +516,10 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="pos"></param>
         /// <param name="dimension"></param>
         /// <param name="color"></param>
-        public void DrawRect(Vector2 pos, Vector2 dimension, Color4 color, Enums.DrawType drawType = Enums.DrawType.Filled)
+        /// <param name="isStatic"></param>
+        public void DrawRect(Vector2 pos, Vector2 dimension, Color4 color, Enums.DrawType drawType = Enums.DrawType.Filled, bool isStatic = false)
         {
-            DrawQuad(pos + new Vector2(0, dimension.Y), pos + new Vector2(dimension.X, dimension.Y), pos + new Vector2(dimension.X, 0), pos, color, drawType);
+            DrawQuad(pos + new Vector2(0, dimension.Y), pos + new Vector2(dimension.X, dimension.Y), pos + new Vector2(dimension.X, 0), pos, color, drawType, isStatic);
         }
 
         /// <summary>
@@ -521,6 +529,7 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="dimension"></param>
         /// <param name="texture"></param>
         /// <param name="color"></param>
+        /// <param name="isStatic"></param>
         public void DrawImage(Vector2 pos, Vector2 dimension, Texture texture, Color4 color, bool isStatic = false)
         {
             DrawTexturedQuad(pos + new Vector2(0, dimension.Y), pos + new Vector2(dimension.X, dimension.Y), pos + new Vector2(dimension.X, 0), pos, texture, color, isStatic);
@@ -532,6 +541,7 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="pos"></param>
         /// <param name="dimension"></param>
         /// <param name="texture"></param>
+        /// <param name="isStatic"></param>
         public void DrawImage(Vector2 pos, Vector2 dimension, Texture texture, bool isStatic = false)
         {
             DrawImage(pos, dimension, texture, Color4.White, isStatic);
@@ -543,24 +553,24 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <param name="color"></param>
-        public void DrawLine(Vector2 a, Vector2 b, Color4 color, double width = 1)
+        public void DrawLine(Vector2 a, Vector2 b, Color4 color, double width = 1, bool isStatic = false)
         {
             if (
-                (a.X < 0 && b.X < 0)        ||
-                (a.Y < 0 && b.Y < 0)        ||
-                (a.X > 1920 && b.X > 1920)  ||
-                (a.Y > 1080 && b.Y > 1080)
+                ((a.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) < 0 && (b.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) < 0) ||
+                ((a.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) < 0 && (b.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) < 0) ||
+                ((a.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) > 1920 && (b.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) > 1920) ||
+                ((a.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) > 1080 && (b.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) > 1080)
                 ) return;
 
             if (width <= 1)
             {
                 // Line vertices, point a and point b
                 float[] vertices = {
-                    a.X / (1920 * 0.5f) - 1f, -a.Y / (1080 * 0.5f) + 1f, 0, 0,
-                    b.X / (1920 * 0.5f) - 1f, -b.Y / (1080 * 0.5f) + 1f, 0, 0
+                    (b.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -(b.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f, 0f, 0f,
+                    (a.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -(a.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f, 0f, 0f
                 };
 
-                
+
                 // Set the ucolor in the shader
                 int colorUniformLocation = GL.GetUniformLocation(shaderProgram, "uColor");
                 GL.Uniform4(colorUniformLocation, color);
@@ -608,19 +618,17 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="character"></param>
         /// <param name="color"></param>
         /// <param name="size"></param>
+        /// <param name="isStatic"></param>
         public void DrawChar(Vector2 pos, char character, Color4 color, float size = 1, bool isStatic = true)
         {
-            Vector2 charVec = (font.charSize * size);
             if (
-                ((pos.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) < 0 && (pos.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) < 0 &&
-                (pos.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) < 0 && (pos.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) < 0) ||
-                ((pos.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) < 0 && (pos.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) < 0 &&
-                (pos.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) < 0 && (pos.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) < 0) ||
-                ((pos.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) > 1920 && (pos.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) > 1920 &&
-                (pos.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) > 1920 && (pos.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) > 1920) ||
-                ((pos.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) > 1080 && (pos.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) > 1080 &&
-                (pos.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) > 1080 && (pos.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) > 1080)
+                (pos.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) < 0 ||
+                (pos.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) < 0 ||
+                (pos.X - (isStatic ? 0 : world.cam.camPos.X - (1920 * 0.5f))) > 1920 ||
+                (pos.Y - (isStatic ? 0 : world.cam.camPos.Y - (1080 * 0.5f))) > 1080
                 ) return;
+
+            Vector2 charVec = (font.charSize * size);
 
             // Set the ucolor in the shader
             GL.Uniform4(GL.GetUniformLocation(shaderProgram, "uColor"), color);
@@ -662,6 +670,7 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="text"></param>
         /// <param name="color"></param>
         /// <param name="size"></param>
+        /// <param name="isStatic"></param>
         public void DrawText(Vector2 pos, string text, Color4 color, float size = 1, bool isStatic = true)
         {
             for (int i = 0; i < text.Length; i++) 
