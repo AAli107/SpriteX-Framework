@@ -102,38 +102,9 @@ namespace SpriteX_Engine.EngineContents
             vertexBufferObject = GL.GenBuffer();
             GL.BindBuffer(BufferTarget.ArrayBuffer, vertexBufferObject);
 
-            // The Vertex shader code
-            string vertexShaderSource = @"
-                #version 330 core
-            
-                layout (location = 0) in vec2 aPosition;
-                layout (location = 1) in vec2 aTexCoord;
-            
-                out vec2 texCoords;
-            
-                void main()
-                {
-                    gl_Position = vec4(aPosition, 0.0, 1.0);
-                    texCoords = aTexCoord;
-                }
-            ";
-
-            // The Fragment shader code
-            string fragmentShaderSource = @"
-                #version 330 core
-
-                uniform vec4 uColor;
-                uniform sampler2D uTexture;
-                
-                in vec2 texCoords;
-                
-                out vec4 FragColor;
-                
-                void main()
-                {
-                    FragColor = texture(uTexture, texCoords) * uColor;
-                }
-            ";
+            // Loads the Vertex and Fragment Shaders into variables
+            string vertexShaderSource = File.ReadAllText("Resources/Engine/vertexShader.vert");
+            string fragmentShaderSource = File.ReadAllText("Resources/Engine/fragmentShader.frag");
 
             // Compile Vertex Shader code
             int vertexShader = GL.CreateShader(ShaderType.VertexShader);
