@@ -213,13 +213,14 @@ namespace SpriteX_Engine.EngineContents
 
             gameCode.OnGraphicsUpdate(this); // OnGraphicsUpdate() in GameCode gets executed here
 
-            foreach (Button btn in Button.buttons) // Will render all the visible buttons
-                if (btn.isVisible) DrawImage(new Vector2(btn.buttonRect.Location.X, btn.buttonRect.Location.Y), 
-                    new Vector2(btn.buttonRect.Size.Width, btn.buttonRect.Size.Height), btn.tex, btn.currentColor, true);
-
             // Will render the Rectangles representing the hitbox of the GameObject
             if (showDebugHitbox) foreach (GameObject obj in world.GetAllGameObjects())
-                if (obj.GetSize().X > 0 && obj.GetSize().Y > 0) DrawRect(obj.GetPosition(), obj.GetSize(), Color4.White, Enums.DrawType.Outline, false);
+                    if (obj.GetSize().X > 0 && obj.GetSize().Y > 0) DrawRect(obj.GetPosition(), obj.GetSize(), Color4.White, Enums.DrawType.Outline, false);
+
+            // Will render all the visible buttons
+            foreach (Button btn in Button.buttons)
+                if (btn.isVisible) DrawImage(new Vector2(btn.buttonRect.Location.X, btn.buttonRect.Location.Y), 
+                    new Vector2(btn.buttonRect.Size.Width, btn.buttonRect.Size.Height), btn.tex, btn.currentColor, true);
 
             GL.DisableVertexAttribArray(0);
             GL.DisableVertexAttribArray(1); 
