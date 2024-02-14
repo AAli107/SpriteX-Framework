@@ -1,7 +1,7 @@
 ﻿namespace SpriteX_Engine.EngineContents
 {
     /// <summary>
-    /// Abstract class used to make levels.
+    /// GameLevelScript is an abstract class used to make levels.
     /// To make a level, create a new class that uses GameLevelScript as base class.
     /// </summary>
     public abstract class GameLevelScript

@@ -28,6 +28,7 @@ namespace SpriteX_Engine.EngineContents
             allowAltEnter = true; // Controls whether you can toggle fullscreen when pressing Alt+Enter
             showDebugHitbox = true; // Controls whether to show all GameObjects' hitboxes
             font = Font.GetDefaultFont(); // Contains game font
+            startLevel = new GameCode(); // The Level to load when game launches
         }
 
         /*
@@ -44,6 +45,7 @@ namespace SpriteX_Engine.EngineContents
         private double targetFrameTime; // fixed time for OnFixedGameUpdate()
         private gfx gfx; // All graphics rendering method stored here
         private GameLevelScript gameCode; // Declares Game-Level script
+        private GameLevelScript startLevel; // Contains the start level when the game launches
         private double accumulatedTime = 0.0; // Used for OnFixedGameUpdate()
 
         /// <summary>
@@ -91,7 +93,8 @@ namespace SpriteX_Engine.EngineContents
 
             base.OnLoad();
 
-            LoadLevel(new GameCode()); // Creates the World with default world camera
+            LoadLevel(startLevel); // Creates the World with default world camera
+            startLevel = null;
 
             // Create the vertex array object (VAO)
             vertexArrayObject = GL.GenVertexArray();
