@@ -71,7 +71,7 @@ namespace SpriteX_Engine
         {
             if (win.IsKeyPressed(Keys.Escape)) win.Close();
             if (win.IsKeyPressed(Keys.P)) win.isGamePaused = !win.isGamePaused;
-            if (win.IsKeyPressed(Keys.N)) win.LoadLevel(new Camera(), new GameCode());
+            if (win.IsKeyPressed(Keys.N)) win.LoadLevel(new GameCode());
         }
 
         public override void OnGraphicsUpdate(MainWindow win, gfx gfx)

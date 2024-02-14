@@ -91,7 +91,7 @@ namespace SpriteX_Engine.EngineContents
 
             base.OnLoad();
 
-            LoadLevel(new Camera(), new GameCode()); // Creates the World with default world camera
+            LoadLevel(new GameCode()); // Creates the World with default world camera
 
             // Create the vertex array object (VAO)
             vertexArrayObject = GL.GenVertexArray();
@@ -278,16 +278,26 @@ namespace SpriteX_Engine.EngineContents
         }
 
         /// <summary>
-        /// Will Load level based on GameScript
+        /// Will Load level
         /// </summary>
+        /// <param name="level"></param>
         /// <param name="cam"></param>
-        public void LoadLevel(Camera cam, GameLevelScript level)
+        public void LoadLevel(GameLevelScript level, Camera cam)
         {
             gameCode = level;
             gameCode.Awake(this); // Awake() from GameCode gets executed here
             world = new World(cam);
             Button.buttons.Clear();
             gameCode.OnGameStart(this); // Executes when world is Created
+        }
+
+        /// <summary>
+        /// Will Load Level
+        /// </summary>
+        /// <param name="level"></param>
+        public void LoadLevel(GameLevelScript level)
+        {
+            LoadLevel(level, new Camera());
         }
     }
 }
