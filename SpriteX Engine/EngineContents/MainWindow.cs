@@ -25,7 +25,7 @@ namespace SpriteX_Engine.EngineContents
             CenterWindow(); // Will center the window in the middle of the screen
             bgColor = Color.Black; // Controls the windows background color
             allowAltEnter = true; // Controls whether you can toggle fullscreen when pressing Alt+Enter
-            showDebugHitbox = true; // Controls whether to show all GameObjects' hitboxes
+            showDebugHitbox = false; // Controls whether to show all GameObjects' hitboxes
             font = Font.GetDefaultFont(); // Contains game font
             startLevel = new GameCode(); // The Level to load when game launches
         }
