@@ -200,8 +200,8 @@ namespace SpriteX_Engine.EngineContents
             if (showStats) // Will display FPS and UpdateTime (ms)
             {
                 Color4 c = FPS > 48 ? Color4.Lime : (FPS > 24 ? Color4.Yellow : Color4.Red);
-                gfx.DrawText(new Vector2(10, 16), string.Format("{0:0.00}", Math.Round(FPS, 2)) + " FPS", c, 0.5f);
-                gfx.DrawText(new Vector2(10, 32), string.Format("{0:0.00}", Math.Round(UpdateTime * 1000, 2)) + " ms", c, 0.5f);
+                gfx.DrawText(new Vector2(16, 16), string.Format("{0:0.00}", Math.Round(FPS, 2)) + " FPS", c, 0.5f);
+                gfx.DrawText(new Vector2(16, 32), string.Format("{0:0.00}", Math.Round(UpdateTime * 1000, 2)) + " ms", c, 0.5f);
             }
 
             GL.DisableVertexAttribArray(0);
