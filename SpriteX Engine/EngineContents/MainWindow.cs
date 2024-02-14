@@ -42,7 +42,7 @@ namespace SpriteX_Engine.EngineContents
 
         private bool allowAltEnter; // Alt+Enter Control
         private double targetFrameTime; // fixed time for OnFixedGameUpdate()
-        private GameCode gameCode = new GameCode(); // Declares and instantiate GameCode
+        private GameLevelScript gameCode; // Declares and instantiate GameCode
         private double accumulatedTime = 0.0; // Used for OnFixedGameUpdate()
         private Texture tex; // Used for general rendering
         private Texture fontTex; // used for rendering text
@@ -91,11 +91,9 @@ namespace SpriteX_Engine.EngineContents
             tex = new Texture();
             fontTex = new Texture(Font.GetDefaultFont().fontPath);
 
-            gameCode.Awake(this); // Awake() from GameCode gets executed here
-
             base.OnLoad();
 
-            CreateNewWorld(new Camera()); // Creates the World with default world camera
+            LoadLevel(new Camera(), new GameCode()); // Creates the World with default world camera
 
             // Create the vertex array object (VAO)
             vertexArrayObject = GL.GenVertexArray();
@@ -133,9 +131,6 @@ namespace SpriteX_Engine.EngineContents
             // Allows Transparency for textures
             GL.Enable(EnableCap.Blend);
             GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
-
-            // OnGameStart() gets executed from GameCode
-            gameCode.OnGameStart(this);
         }
 
         protected override void OnResize(ResizeEventArgs e)
@@ -721,18 +716,16 @@ namespace SpriteX_Engine.EngineContents
         }
 
         /// <summary>
-        /// Will Create a new Empty world
+        /// Will Load level based on GameScript
         /// </summary>
         /// <param name="cam"></param>
-        public void CreateNewWorld(Camera cam, bool restartGameCode = false)
+        public void LoadLevel(Camera cam, GameLevelScript level)
         {
+            gameCode = level;
+            gameCode.Awake(this); // Awake() from GameCode gets executed here
             world = new World(cam);
-            if (restartGameCode)
-            {
-                gameCode = new GameCode();
-                Button.buttons.Clear();
-                gameCode.OnGameStart(this); // Executes when world is Created
-            }
+            Button.buttons.Clear();
+            gameCode.OnGameStart(this); // Executes when world is Created
         }
     }
 }

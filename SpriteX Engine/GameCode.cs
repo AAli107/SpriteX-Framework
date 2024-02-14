@@ -9,7 +9,7 @@ using OpenTK.Windowing.Common;
 
 namespace SpriteX_Engine
 {
-    class GameCode : GameScript
+    public class GameCode : GameLevelScript // All classes with GameLevelScript as base class acts like a script for a level
     {
         /* Insert Variables here */
         GameObject g = new GameObject(new Vector2(500, 400), new Vector2(150, 150), true, true, 0.1f);
@@ -71,7 +71,7 @@ namespace SpriteX_Engine
         {
             if (win.IsKeyPressed(Keys.Escape)) win.Close();
             if (win.IsKeyPressed(Keys.P)) win.isGamePaused = !win.isGamePaused;
-            if (win.IsKeyPressed(Keys.N)) win.CreateNewWorld(new Camera(), true);
+            if (win.IsKeyPressed(Keys.N)) win.LoadLevel(new Camera(), new GameCode());
         }
 
         public override void OnGraphicsUpdate(MainWindow win)
