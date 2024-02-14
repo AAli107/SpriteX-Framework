@@ -98,7 +98,7 @@ namespace SpriteX_Engine.EngineContents
         public void TickAllGameObjects()
         {
             List<GameObject> collidableGameObjects = gameObjects.FindAll(o => o.IsCollisionEnabled());
-            foreach (GameObject obj in collidableGameObjects)
+            foreach (GameObject obj in gameObjects)
             {
                 obj.UpdateTick();
                 if (collidableGameObjects.Count > 1)
