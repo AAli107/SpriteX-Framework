@@ -19,6 +19,27 @@ namespace SpriteX_Engine.EngineContents
         }
 
         /// <summary>
+        /// Draw Types
+        /// </summary>
+        public enum DrawType
+        {
+            Filled,
+            Outline
+        }
+
+        /// <summary>
+        /// Shapes
+        /// </summary>
+        public enum Shape
+        {
+            Quad,
+            Rect,
+            Tri,
+            Line,
+            Pixel
+        }
+
+        /// <summary>
         /// Draws a single pixel on the game window (exact pixel position)
         /// </summary>
         /// <param name="x"></param>
@@ -67,7 +88,7 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="isStatic"></param>
         public void DrawScaledPixel(Vector2 position, Color4 color, bool isStatic = false)
         {
-            DrawRect(position, new Vector2(1, 1), color, Enums.DrawType.Filled, isStatic);
+            DrawRect(position, new Vector2(1, 1), color, DrawType.Filled, isStatic);
         }
 
         /// <summary>
@@ -90,7 +111,7 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="c"></param>
         /// <param name="color"></param>
         /// <param name="isStatic"></param>
-        public void DrawTri(Vector2 a, Vector2 b, Vector2 c, Color4 color, Enums.DrawType drawType = Enums.DrawType.Filled, bool isStatic = false)
+        public void DrawTri(Vector2 a, Vector2 b, Vector2 c, Color4 color, DrawType drawType = DrawType.Filled, bool isStatic = false)
         {
             if (
                 ((a.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - (1920 * 0.5f))) < 0 && (b.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - (1920 * 0.5f))) < 0 &&
@@ -103,7 +124,7 @@ namespace SpriteX_Engine.EngineContents
                 (c.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - (1080 * 0.5f))) > 1080)
                 ) return;
 
-            if (drawType == Enums.DrawType.Outline) // Will draw the triangle as an outline
+            if (drawType == DrawType.Outline) // Will draw the triangle as an outline
             {
                 DrawLine(a, b, color);
                 DrawLine(b, c, color);
@@ -143,7 +164,7 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="d"></param>
         /// <param name="color"></param>
         /// <param name="isStatic"></param>
-        public void DrawQuad(Vector2 a, Vector2 b, Vector2 c, Vector2 d, Color4 color, Enums.DrawType drawType = Enums.DrawType.Filled, bool isStatic = false)
+        public void DrawQuad(Vector2 a, Vector2 b, Vector2 c, Vector2 d, Color4 color, DrawType drawType = DrawType.Filled, bool isStatic = false)
         {
             if (
                 ((a.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - (1920 * 0.5f))) < 0 && (b.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - (1920 * 0.5f))) < 0 &&
@@ -156,7 +177,7 @@ namespace SpriteX_Engine.EngineContents
                 (c.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - (1080 * 0.5f))) > 1080 && (d.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - (1080 * 0.5f))) > 1080)
                 ) return;
 
-            if (drawType == Enums.DrawType.Outline) // Will draw the quad as an outline
+            if (drawType == DrawType.Outline) // Will draw the quad as an outline
             {
                 DrawLine(a, b, color);
                 DrawLine(b, c, color);
@@ -263,7 +284,7 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="dimension"></param>
         /// <param name="color"></param>
         /// <param name="isStatic"></param>
-        public void DrawRect(Vector2 pos, Vector2 dimension, Color4 color, Enums.DrawType drawType = Enums.DrawType.Filled, bool isStatic = false)
+        public void DrawRect(Vector2 pos, Vector2 dimension, Color4 color, DrawType drawType = DrawType.Filled, bool isStatic = false)
         {
             DrawQuad(pos + new Vector2(0, dimension.Y), pos + new Vector2(dimension.X, dimension.Y), pos + new Vector2(dimension.X, 0), pos, color, drawType, isStatic);
         }
@@ -353,7 +374,7 @@ namespace SpriteX_Engine.EngineContents
                 Vector2 bottomRight = b + offset;
 
                 // Draws Line as a Quad to have thickness
-                DrawQuad(topRight, topLeft, bottomLeft, bottomRight, color, Enums.DrawType.Filled);
+                DrawQuad(topRight, topLeft, bottomLeft, bottomRight, color, DrawType.Filled);
             }
         }
 
@@ -430,25 +451,25 @@ namespace SpriteX_Engine.EngineContents
             }
         }
 
-        public void DrawShape(Enums.Shape shape, Vector2[] pos, Color4 color, Texture texture, Enums.DrawType drawType = Enums.DrawType.Filled, float size = 1, bool isStatic = false)
+        public void DrawShape(Shape shape, Vector2[] pos, Color4 color, Texture texture, DrawType drawType = DrawType.Filled, float size = 1, bool isStatic = false)
         {
             switch (shape)
             {
-                case Enums.Shape.Quad:
-                    if (drawType == Enums.DrawType.Filled) DrawTexturedQuad(pos[0], pos[1], pos[2], pos[3], texture, color, isStatic);
-                    else if (drawType == Enums.DrawType.Outline) DrawQuad(pos[0], pos[1], pos[2], pos[3], color, drawType, isStatic);
+                case Shape.Quad:
+                    if (drawType == DrawType.Filled) DrawTexturedQuad(pos[0], pos[1], pos[2], pos[3], texture, color, isStatic);
+                    else if (drawType == DrawType.Outline) DrawQuad(pos[0], pos[1], pos[2], pos[3], color, drawType, isStatic);
                     break;
-                case Enums.Shape.Rect:
-                    if (drawType == Enums.DrawType.Filled) DrawImage(pos[0], pos[1], texture, color, isStatic);
-                    else if (drawType == Enums.DrawType.Outline) DrawRect(pos[0], pos[1], color, drawType, isStatic);
+                case Shape.Rect:
+                    if (drawType == DrawType.Filled) DrawImage(pos[0], pos[1], texture, color, isStatic);
+                    else if (drawType == DrawType.Outline) DrawRect(pos[0], pos[1], color, drawType, isStatic);
                     break;
-                case Enums.Shape.Tri:
+                case Shape.Tri:
                     DrawTri(pos[0], pos[1], pos[2], color, drawType, isStatic);
                     break;
-                case Enums.Shape.Line:
+                case Shape.Line:
                     DrawLine(pos[0], pos[1], color, size, isStatic);
                     break;
-                case Enums.Shape.Pixel:
+                case Shape.Pixel:
                     DrawScaledPixel(pos[0], color, isStatic);
                     break;
             }

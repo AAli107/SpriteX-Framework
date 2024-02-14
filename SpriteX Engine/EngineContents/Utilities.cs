@@ -331,24 +331,6 @@ namespace SpriteX_Engine.EngineContents
                 West,
                 NorthWest
             }
-
-            /// <summary>
-            /// Draw Type
-            /// </summary>
-            public enum DrawType
-            {
-                Filled,
-                Outline
-            }
-
-            public enum Shape
-            {
-                Quad,
-                Rect,
-                Tri,
-                Line,
-                Pixel
-            }
         }
     }
 }

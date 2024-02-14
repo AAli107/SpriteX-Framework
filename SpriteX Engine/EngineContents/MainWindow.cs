@@ -186,7 +186,7 @@ namespace SpriteX_Engine.EngineContents
 
             // Will render the Rectangles representing the hitbox of the GameObject
             if (showDebugHitbox) foreach (GameObject obj in world.GetAllGameObjects())
-                    if (obj.GetSize().X > 0 && obj.GetSize().Y > 0) gfx.DrawRect(obj.GetPosition(), obj.GetSize(), Color4.White, Enums.DrawType.Outline, false);
+                    if (obj.GetSize().X > 0 && obj.GetSize().Y > 0) gfx.DrawRect(obj.GetPosition(), obj.GetSize(), Color4.White, gfx.DrawType.Outline, false);
 
             // Will render all the visible buttons
             foreach (Button btn in Button.buttons)
