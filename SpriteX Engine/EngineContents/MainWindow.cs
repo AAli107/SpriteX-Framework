@@ -668,6 +668,30 @@ namespace SpriteX_Engine.EngineContents
             }
         }
 
+        public void DrawShape(Enums.Shape shape, Vector2[] pos, Color4 color, Texture texture, Enums.DrawType drawType = Enums.DrawType.Filled, float size = 1, bool isStatic = false)
+        {
+            switch (shape)
+            {
+                case Enums.Shape.Quad:
+                    if (drawType == Enums.DrawType.Filled) DrawTexturedQuad(pos[0], pos[1], pos[2], pos[3], texture, color, isStatic);
+                    else if (drawType == Enums.DrawType.Outline) DrawQuad(pos[0], pos[1], pos[2], pos[3], color, drawType, isStatic);
+                    break;
+                case Enums.Shape.Rect:
+                    if (drawType == Enums.DrawType.Filled) DrawImage(pos[0], pos[1], texture, color, isStatic);
+                    else if (drawType == Enums.DrawType.Outline) DrawRect(pos[0], pos[1], color, drawType, isStatic);
+                    break;
+                case Enums.Shape.Tri:
+                    DrawTri(pos[0], pos[1], pos[2], color, drawType, isStatic);
+                    break;
+                case Enums.Shape.Line:
+                    DrawLine(pos[0], pos[1], color, size, isStatic);
+                    break;
+                case Enums.Shape.Pixel:
+                    DrawScaledPixel(pos[0], color, isStatic);
+                    break;
+            }
+        }
+
         /// <summary>
         /// Sets the Game's font
         /// </summary>

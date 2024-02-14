@@ -76,9 +76,9 @@ namespace SpriteX_Engine
 
         public override void OnGraphicsUpdate(MainWindow win)
         {
-            for (int i = 0; i < 32; i++)
+            for (int i = -8; i < 24; i++)
             {
-                for (int j = 0; j < 18; j++)
+                for (int j = -5; j < 14; j++)
                 {
                     float brightness = Vec2D.Distance2D(new Vector2(i - ((1920 / 2) / 120), j - ((1080 / 2) / 120)), new Vector2(((g.GetCenterPosition().X - 1920/2) / 120), ((g.GetCenterPosition().Y - 1080 / 2) / 120))) / 5;
                     brightness = 1 - brightness; 
@@ -87,10 +87,9 @@ namespace SpriteX_Engine
             
                     Color4 c = new Color4(1f, 0.75f, 0.25f, 1f);
             
-                    win.DrawImage(new Vector2(i * 120, j * 120), new Vector2(120, 120), img1, new Color4(brightness * c.R, brightness * c.G, brightness * c.B, 1));
+                    win.DrawImage(new Vector2(i * 120, j * 120), new Vector2(120, 120), img2, new Color4(brightness * c.R, brightness * c.G, brightness * c.B, 1));
                 }
             }
-
             win.DrawText(new Vector2(500, 600), "ZA WARUDO!", Color4.Yellow, 1, false);
             foreach (GameObject obj in win.world.GetAllGameObjects())
             {
