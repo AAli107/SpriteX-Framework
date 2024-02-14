@@ -340,6 +340,15 @@ namespace SpriteX_Engine.EngineContents
                 Filled,
                 Outline
             }
+
+            public enum Shape
+            {
+                Quad,
+                Rect,
+                Tri,
+                Line,
+                Pixel
+            }
         }
     }
 }
