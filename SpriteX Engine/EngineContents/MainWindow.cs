@@ -102,14 +102,19 @@ namespace SpriteX_Engine.EngineContents
             vertexBufferObject = GL.GenBuffer();
             GL.BindBuffer(BufferTarget.ArrayBuffer, vertexBufferObject);
 
-            // Loads and Compiles Vertex Shader code
             int vertexShader = GL.CreateShader(ShaderType.VertexShader);
-            GL.ShaderSource(vertexShader, File.ReadAllText("Resources/Engine/vertexShader.vert"));
-            GL.CompileShader(vertexShader);
-
-            // Loads and Compiles Fragment shader code
             int fragmentShader = GL.CreateShader(ShaderType.FragmentShader);
-            GL.ShaderSource(fragmentShader, File.ReadAllText("Resources/Engine/fragmentShader.frag"));
+
+
+            // Tries to Load Vertex and Fragment Shader
+            try
+            {
+                GL.ShaderSource(vertexShader, File.ReadAllText("Resources/Engine/vertexShader.vert"));
+                GL.ShaderSource(fragmentShader, File.ReadAllText("Resources/Engine/fragmentShader.frag"));
+            } catch (Exception) { Close(); } // Closes the Game when it catches an exception
+
+            // Compiles the Vertex and Fragment Shader
+            GL.CompileShader(vertexShader);
             GL.CompileShader(fragmentShader);
 
             // Create Shader Program
