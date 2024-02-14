@@ -75,8 +75,10 @@ namespace SpriteX_Engine.EngineContents
         /// Stores the Game's Font
         /// </summary>
         public Font font {  get; private set; }
-
-        public World world { get; set; }
+        /// <summary>
+        /// Stores the game world
+        /// </summary>
+        public World world { get; private set; }
 
         public Vector2 mouseScreenPos { get { return MousePosition / (ClientSize / new Vector2(1920, 1080)); } }
         public Vector2 mouseWorldPos { get { return (MousePosition / (ClientSize / new Vector2(1920, 1080))) + new Vector2(GetWorldCamera().camPos.X - (1920 * 0.5f), GetWorldCamera().camPos.Y - (1080 * 0.5f)); } }
@@ -88,11 +90,12 @@ namespace SpriteX_Engine.EngineContents
             GL.Viewport(0, 0, ClientSize.X, ClientSize.Y);
             tex = new Texture();
             fontTex = new Texture(Font.GetDefaultFont().fontPath);
-            world = new World(); // Instantiate the world
 
             gameCode.Awake(this); // Awake() from GameCode gets executed here
 
             base.OnLoad();
+
+            CreateNewWorld(new Camera()); // Creates the World with default world camera
 
             // Create the vertex array object (VAO)
             vertexArrayObject = GL.GenVertexArray();
@@ -691,6 +694,21 @@ namespace SpriteX_Engine.EngineContents
         public void SetWorldCamera(Camera cam)
         {
             world.cam = cam;
+        }
+
+        /// <summary>
+        /// Will Create a new Empty world
+        /// </summary>
+        /// <param name="cam"></param>
+        public void CreateNewWorld(Camera cam, bool restartGameCode = false)
+        {
+            world = new World(cam);
+            if (restartGameCode)
+            {
+                gameCode = new GameCode();
+                Button.buttons.Clear();
+                gameCode.OnGameStart(this); // Executes when world is Created
+            }
         }
     }
 }

@@ -62,6 +62,7 @@ namespace SpriteX_Engine
 
         public override void OnGameUpdate(MainWindow win)
         {
+            if (!win.world.DoesGameObjectExist(g.GetID())) win.world.InstantiateGameObject(g);
             s = win.IsKeyDown(Keys.LeftControl) ? 0.4f : (win.IsKeyDown(Keys.LeftShift) ? 1.6f : 0.8f);
             win.world.cam.SetCameraPosition(g.GetCenterPosition());
         }
@@ -70,24 +71,25 @@ namespace SpriteX_Engine
         {
             if (win.IsKeyPressed(Keys.Escape)) win.Close();
             if (win.IsKeyPressed(Keys.P)) win.isGamePaused = !win.isGamePaused;
+            if (win.IsKeyPressed(Keys.N)) win.CreateNewWorld(new Camera(), true);
         }
 
         public override void OnGraphicsUpdate(MainWindow win)
         {
-            //for (int i = 0; i < 32; i++)
-            //{
-            //    for (int j = 0; j < 18; j++)
-            //    {
-            //        float brightness = Vec2D.Distance2D(new Vector2(i - ((1920 / 2) / 120), j - ((1080 / 2) / 120)), new Vector2((g.GetCenterPosition().X / 120), (g.GetCenterPosition().Y / 120))) / 5;
-            //        brightness = 1 - brightness; 
-            //        brightness = brightness > 1 ? 1 : brightness;
-            //        brightness = brightness <= 0.1f ? 0.1f : brightness;
-            //
-            //        Color4 c = new Color4(1f, 0.75f, 0.25f, 1f);
-            //
-            //        win.DrawImage(new Vector2(i * 120, j * 120) - g.GetCenterPosition(), new Vector2(120, 120), img1, new Color4(brightness * c.R, brightness * c.G, brightness * c.B, 1));
-            //    }
-            //}
+            for (int i = 0; i < 32; i++)
+            {
+                for (int j = 0; j < 18; j++)
+                {
+                    float brightness = Vec2D.Distance2D(new Vector2(i - ((1920 / 2) / 120), j - ((1080 / 2) / 120)), new Vector2(((g.GetCenterPosition().X - 1920/2) / 120), ((g.GetCenterPosition().Y - 1080 / 2) / 120))) / 5;
+                    brightness = 1 - brightness; 
+                    brightness = brightness > 1 ? 1 : brightness;
+                    brightness = brightness <= 0.1f ? 0.1f : brightness;
+            
+                    Color4 c = new Color4(1f, 0.75f, 0.25f, 1f);
+            
+                    win.DrawImage(new Vector2(i * 120, j * 120), new Vector2(120, 120), img1, new Color4(brightness * c.R, brightness * c.G, brightness * c.B, 1));
+                }
+            }
 
             win.DrawText(new Vector2(500, 600), "ZA WARUDO!", Color4.Yellow, 1, false);
             foreach (GameObject obj in win.world.GetAllGameObjects())
