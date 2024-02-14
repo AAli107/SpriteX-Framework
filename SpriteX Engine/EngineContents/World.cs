@@ -97,27 +97,36 @@ namespace SpriteX_Engine.EngineContents
         /// </summary>
         public void TickAllGameObjects()
         {
-            List<GameObject> collidableGameObjects = gameObjects.FindAll(o => o.IsCollisionEnabled());
-            foreach (GameObject obj in gameObjects)
+            for (int i = 0; i < gameObjects.Count; i++)
             {
+                GameObject obj = gameObjects[i];
                 obj.UpdateTick();
-                if (collidableGameObjects.Count > 1)
+
+                if (!obj.IsCollisionEnabled())
+                    continue;
+
+                for (int j = i + 1; j < gameObjects.Count; j++)
                 {
-                    foreach (GameObject obj2 in collidableGameObjects)
+                    GameObject obj2 = gameObjects[j];
+                    if (!obj2.IsCollisionEnabled())
+                        continue;
+
+                    if (obj.GetVelocity().Length + obj2.GetVelocity().Length <= 0)
+                        continue;
+
+                    if (!obj.IsIntersectingWith(obj2))
+                        continue;
+
+                    Vector2 cv = CalculateCollisionVector(obj, obj2);
+
+                    if (obj.IsSimulatingPhysics())
                     {
-                        if (obj != obj2 && obj.IsCollisionEnabled() && obj2.IsCollisionEnabled() && obj.GetVelocity().Length + obj2.GetVelocity().Length > 0 && obj.IsIntersectingWith(obj2))
-                        {
-                            // Calculate the collision vector based on the GameObjects' size and position
-                            Vector2 cv = CalculateCollisionVector(obj, obj2);
-
-                            // Move the objects apart along the MTV to prevent overlapping
-                            if (obj.IsSimulatingPhysics()) obj.SetPosition(obj.GetPosition() + cv);
-
-                            // Pushes Colliding GameObjects if simulating physics, pushing force depending on their mass
-                            if (obj.IsSimulatingPhysics()) obj.OverrideVelocity(obj.GetVelocity() + (cv / (obj2.IsSimulatingPhysics() ? obj.GetMass() : 1f)));
-                            if (obj2.IsSimulatingPhysics()) obj2.OverrideVelocity(obj2.GetVelocity() - (cv / (obj.IsSimulatingPhysics() ? obj2.GetMass() : 1f)));
-                        }
+                        obj.SetPosition(obj.GetPosition() + cv);
+                        obj.OverrideVelocity(obj.GetVelocity() + (cv / (obj2.IsSimulatingPhysics() ? obj.GetMass() : 1f)));
                     }
+
+                    if (obj2.IsSimulatingPhysics())
+                        obj2.OverrideVelocity(obj2.GetVelocity() - (cv / (obj.IsSimulatingPhysics() ? obj2.GetMass() : 1f)));
                 }
             }
         }
@@ -125,21 +134,22 @@ namespace SpriteX_Engine.EngineContents
         // collision vector code
         private Vector2 CalculateCollisionVector(GameObject obj1, GameObject obj2)
         {
-            // This'll store the center positions of the GameObjects
             Vector2 center1 = obj1.GetCenterPosition();
             Vector2 center2 = obj2.GetCenterPosition();
 
-            // Calculate the half sizes of the objects
             Vector2 halfSize1 = obj1.GetSize() * 0.5f;
             Vector2 halfSize2 = obj2.GetSize() * 0.5f;
 
-            // Calculate the overlap on each axis
-            float overlapX = halfSize1.X + halfSize2.X - Math.Abs(center1.X - center2.X);
-            float overlapY = halfSize1.Y + halfSize2.Y - Math.Abs(center1.Y - center2.Y);
+            float diffX = center1.X - center2.X;
+            float diffY = center1.Y - center2.Y;
 
-            // Determine the axis of the collision and just return the collision vectors
-            if (overlapX < overlapY) return center1.X < center2.X ? new Vector2(-overlapX, 0) : new Vector2(overlapX, 0);
-            else return center1.Y < center2.Y ? new Vector2(0, -overlapY) : new Vector2(0, overlapY);
+            float overlapX = halfSize1.X + halfSize2.X - Math.Abs(diffX);
+            float overlapY = halfSize1.Y + halfSize2.Y - Math.Abs(diffY);
+
+            float collisionX = overlapX < overlapY ? (center1.X < center2.X ? -overlapX : overlapX) : 0;
+            float collisionY = overlapX < overlapY ? 0 : (center1.Y < center2.Y ? -overlapY : overlapY);
+
+            return new Vector2(collisionX, collisionY);
         }
     }
 }

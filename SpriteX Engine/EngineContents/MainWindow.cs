@@ -19,7 +19,7 @@ namespace SpriteX_Engine.EngineContents
             AspectRatio = (16, 9); // Window Aspect Ratio
             WindowBorder = WindowBorder.Resizable; // Window Border type
             WindowState = WindowState.Fullscreen; // Decides window state (can be used to set fullscreen) 
-            UpdateFrequency = 120; // Window Framerate (setting to 0 and turning off VSync will unlock FPS)
+            UpdateFrequency = 0; // Window Framerate (setting to 0 will unlock FPS if VSync is off)
             fixedFrameTime = 60; // How many times per second the game updates
             VSync = VSyncMode.On; // Control the window's VSync
             CenterWindow(); // Will center the window in the middle of the screen
