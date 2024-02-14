@@ -96,13 +96,10 @@ namespace SpriteX_Engine
                 gfx.DrawImage(obj.GetPosition(), obj.GetSize(), img2, obj.IsSimulatingPhysics() ? Color4.White : Color4.Blue);
             }
 
-            gfx.DrawText(new Vector2(10, 10), Math.Round(win.FPS) + " FPS", Color4.Lime, 1);
-            gfx.DrawText(new Vector2(10, 42), "time since start = " + Math.Round(win.time, 2) + " s", Color4.Cyan, 1);
-            gfx.DrawText(new Vector2(10, 74), "-------------------------------------------", Color4.Yellow, 1);
-            gfx.DrawText(new Vector2(10, 106), "Cam Pos = (" + Math.Round(win.world.cam.camPos.X, 2) + ", " + Math.Round(win.world.cam.camPos.Y, 2) + ")", Color4.White, 1);
-            gfx.DrawText(new Vector2(10, 138), "Obj Pos = (" + Math.Round(g.GetCenterPosition().X, 2) + ", " + Math.Round(g.GetCenterPosition().Y, 2) + ")", Color4.White, 1);
-            gfx.DrawText(new Vector2(10, 170), "World Mouse Pos = (" + Math.Round(win.mouseWorldPos.X, 2) + ", " + Math.Round(win.mouseWorldPos.Y, 2) + ")", Color4.White, 1);
-            gfx.DrawText(new Vector2(10, 202), "Count = " + win.world.GetAllGameObjects().Count, Color4.White, 1);
+            gfx.DrawText(new Vector2(10, 80), "Cam Pos = (" + Math.Round(win.world.cam.camPos.X, 2) + ", " + Math.Round(win.world.cam.camPos.Y, 2) + ")", Color4.White, 1);
+            gfx.DrawText(new Vector2(10, 112), "Obj Pos = (" + Math.Round(g.GetCenterPosition().X, 2) + ", " + Math.Round(g.GetCenterPosition().Y, 2) + ")", Color4.White, 1);
+            gfx.DrawText(new Vector2(10, 144), "World Mouse Pos = (" + Math.Round(win.mouseWorldPos.X, 2) + ", " + Math.Round(win.mouseWorldPos.Y, 2) + ")", Color4.White, 1);
+            gfx.DrawText(new Vector2(10, 176), "Count = " + win.world.GetAllGameObjects().Count, Color4.White, 1);
         }
 
         public override void OnGameEnd(MainWindow win)

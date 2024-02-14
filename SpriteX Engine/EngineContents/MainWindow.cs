@@ -19,13 +19,14 @@ namespace SpriteX_Engine.EngineContents
             AspectRatio = (16, 9); // Window Aspect Ratio
             WindowBorder = WindowBorder.Resizable; // Window Border type
             WindowState = WindowState.Fullscreen; // Decides window state (can be used to set fullscreen) 
-            UpdateFrequency = 0; // Window Framerate (setting to 0 will unlock FPS if VSync is off)
+            UpdateFrequency = 120; // Window Framerate (setting to 0 will unlock FPS if VSync is off)
             fixedFrameTime = 60; // How many times per second the game updates
             VSync = VSyncMode.On; // Control the window's VSync
             CenterWindow(); // Will center the window in the middle of the screen
             bgColor = Color.Black; // Controls the windows background color
             allowAltEnter = true; // Controls whether you can toggle fullscreen when pressing Alt+Enter
             showDebugHitbox = false; // Controls whether to show all GameObjects' hitboxes
+            showStats = true; // FPS and UpdateTime Stat
             font = Font.GetDefaultFont(); // Contains game font
             startLevel = new GameCode(); // The Level to load when game launches
         }
@@ -48,21 +49,25 @@ namespace SpriteX_Engine.EngineContents
         private double accumulatedTime = 0.0; // Used for OnFixedGameUpdate()
 
         /// <summary>
-        /// Controls whether the game is paused or not.
+        /// Controls whether the game is paused or not
         /// </summary>
         public bool isGamePaused { get; set; }
         /// <summary>
-        /// Returns the Window's current FPS.
+        /// Returns the Window's current FPS
         /// </summary>
         public double FPS { get { return 1 / UpdateTime; } } 
         /// <summary>
-        /// controls how many times OnFixedGameUpdate() method is executed per second.
+        /// controls how many times OnFixedGameUpdate() method is executed per second
         /// </summary>
         public double fixedFrameTime { get { return 1 / targetFrameTime; } set { targetFrameTime = 1 / (value < 0 ? 0 : value); } }
         /// <summary>
-        /// controls whether to render the GameObject hitboxes.
+        /// controls whether to render the GameObject hitboxes
         /// </summary>
         public bool showDebugHitbox { get; set; }
+        /// <summary>
+        /// Displays Stats showing FPS and Update time when true
+        /// </summary>
+        public bool showStats { get; set; }
         /// <summary>
         /// Hold time in seconds since Window was created
         /// </summary>
@@ -191,7 +196,12 @@ namespace SpriteX_Engine.EngineContents
             foreach (Button btn in Button.buttons)
                 if (btn.isVisible) gfx.DrawImage(new Vector2(btn.buttonRect.Location.X, btn.buttonRect.Location.Y), 
                     new Vector2(btn.buttonRect.Size.Width, btn.buttonRect.Size.Height), btn.tex, btn.currentColor, true);
-
+            if (showStats)
+            {
+                Color4 c = FPS > 48 ? Color4.Lime : (FPS > 24 ? Color4.Yellow : Color4.Red);
+                gfx.DrawText(new Vector2(10, 16), Math.Round(FPS, 2) + " FPS", c, 0.5f);
+                gfx.DrawText(new Vector2(10, 32), Math.Round(UpdateTime * 1000, 2) + " ms", c, 0.5f);
+            }
             GL.DisableVertexAttribArray(0);
             GL.DisableVertexAttribArray(1); 
             GL.ClearColor(bgColor);
