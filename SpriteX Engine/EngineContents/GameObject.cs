@@ -1,5 +1,4 @@
 ﻿using OpenTK.Mathematics;
-using System.Diagnostics;
 using System.Drawing;
 
 namespace SpriteX_Engine.EngineContents

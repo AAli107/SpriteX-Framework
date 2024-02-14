@@ -1,10 +1,4 @@
 ﻿using OpenTK.Mathematics;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpriteX_Engine.EngineContents
 {
@@ -23,6 +17,11 @@ namespace SpriteX_Engine.EngineContents
         {
             this.cam = cam;
             gameObjects = new List<GameObject>();
+        }
+
+        ~World()
+        {
+            gameObjects.Clear();
         }
 
         /// <summary>

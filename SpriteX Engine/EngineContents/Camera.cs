@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Text;
+﻿using System.Drawing;
 using OpenTK.Mathematics;
 
 namespace SpriteX_Engine.EngineContents

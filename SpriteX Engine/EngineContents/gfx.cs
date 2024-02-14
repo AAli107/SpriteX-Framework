@@ -1,6 +1,5 @@
 ﻿using OpenTK.Mathematics;
 using OpenTK.Graphics.OpenGL4;
-using static SpriteX_Engine.EngineContents.Utilities;
 
 
 namespace SpriteX_Engine.EngineContents
