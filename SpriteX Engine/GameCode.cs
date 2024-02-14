@@ -74,7 +74,7 @@ namespace SpriteX_Engine
             if (win.IsKeyPressed(Keys.N)) win.LoadLevel(new Camera(), new GameCode());
         }
 
-        public override void OnGraphicsUpdate(MainWindow win)
+        public override void OnGraphicsUpdate(MainWindow win, gfx gfx)
         {
             for (int i = -8; i < 24; i++)
             {
@@ -87,22 +87,22 @@ namespace SpriteX_Engine
             
                     Color4 c = new Color4(1f, 0.75f, 0.25f, 1f);
             
-                    win.DrawImage(new Vector2(i * 120, j * 120), new Vector2(120, 120), img2, new Color4(brightness * c.R, brightness * c.G, brightness * c.B, 1));
+                    gfx.DrawImage(new Vector2(i * 120, j * 120), new Vector2(120, 120), img2, new Color4(brightness * c.R, brightness * c.G, brightness * c.B, 1));
                 }
             }
-            win.DrawText(new Vector2(500, 600), "ZA WARUDO!", Color4.Yellow, 1, false);
+            gfx.DrawText(new Vector2(500, 600), "ZA WARUDO!", Color4.Yellow, 1, false);
             foreach (GameObject obj in win.world.GetAllGameObjects())
             {
-                win.DrawImage(obj.GetPosition(), obj.GetSize(), img2, obj.IsSimulatingPhysics() ? Color4.White : Color4.Blue);
+                gfx.DrawImage(obj.GetPosition(), obj.GetSize(), img2, obj.IsSimulatingPhysics() ? Color4.White : Color4.Blue);
             }
 
-            win.DrawText(new Vector2(10, 10), Math.Round(win.FPS) + " FPS", Color4.Lime, 1);
-            win.DrawText(new Vector2(10, 42), "time since start = " + Math.Round(win.time, 2) + " s", Color4.Cyan, 1);
-            win.DrawText(new Vector2(10, 74), "-------------------------------------------", Color4.Yellow, 1);
-            win.DrawText(new Vector2(10, 106), "Cam Pos = (" + Math.Round(win.world.cam.camPos.X, 2) + ", " + Math.Round(win.world.cam.camPos.Y, 2) + ")", Color4.White, 1);
-            win.DrawText(new Vector2(10, 138), "Obj Pos = (" + Math.Round(g.GetCenterPosition().X, 2) + ", " + Math.Round(g.GetCenterPosition().Y, 2) + ")", Color4.White, 1);
-            win.DrawText(new Vector2(10, 170), "World Mouse Pos = (" + Math.Round(win.mouseWorldPos.X, 2) + ", " + Math.Round(win.mouseWorldPos.Y, 2) + ")", Color4.White, 1);
-            win.DrawText(new Vector2(10, 202), "Count = " + win.world.GetAllGameObjects().Count, Color4.White, 1);
+            gfx.DrawText(new Vector2(10, 10), Math.Round(win.FPS) + " FPS", Color4.Lime, 1);
+            gfx.DrawText(new Vector2(10, 42), "time since start = " + Math.Round(win.time, 2) + " s", Color4.Cyan, 1);
+            gfx.DrawText(new Vector2(10, 74), "-------------------------------------------", Color4.Yellow, 1);
+            gfx.DrawText(new Vector2(10, 106), "Cam Pos = (" + Math.Round(win.world.cam.camPos.X, 2) + ", " + Math.Round(win.world.cam.camPos.Y, 2) + ")", Color4.White, 1);
+            gfx.DrawText(new Vector2(10, 138), "Obj Pos = (" + Math.Round(g.GetCenterPosition().X, 2) + ", " + Math.Round(g.GetCenterPosition().Y, 2) + ")", Color4.White, 1);
+            gfx.DrawText(new Vector2(10, 170), "World Mouse Pos = (" + Math.Round(win.mouseWorldPos.X, 2) + ", " + Math.Round(win.mouseWorldPos.Y, 2) + ")", Color4.White, 1);
+            gfx.DrawText(new Vector2(10, 202), "Count = " + win.world.GetAllGameObjects().Count, Color4.White, 1);
         }
 
         public override void OnGameEnd(MainWindow win)

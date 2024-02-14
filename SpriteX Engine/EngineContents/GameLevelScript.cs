@@ -39,7 +39,7 @@
         /// Used to put everything related to rendering stuff
         /// </summary>
         /// <param name="win"></param>
-        public virtual void OnGraphicsUpdate(MainWindow win) { }
+        public virtual void OnGraphicsUpdate(MainWindow win, gfx gfx) { }
         /// <summary>
         /// Gets Executed when game is about to close
         /// </summary>
