@@ -7,7 +7,7 @@
         /// </summary>
         public virtual void Awake(MainWindow win) { }
         /// <summary>
-        /// Gets Executed when game starts running, after the game Window finishes loading
+        /// Gets Executed when game starts running, after the game Window finishes loading or sometimes when a new world is created
         /// </summary>
         /// <param name="win"></param>
         public virtual void OnGameStart(MainWindow win) { }
