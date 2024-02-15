@@ -18,7 +18,7 @@ namespace SpriteX_Engine.EngineContents
             ClientSize = new Vector2i(1280, 720); // Default Window Resolution when not in fullscreen
             AspectRatio = (16, 9); // Window Aspect Ratio
             WindowBorder = WindowBorder.Resizable; // Window Border type
-            WindowState = WindowState.Normal; // Decides window state (can be used to set fullscreen) 
+            WindowState = WindowState.Fullscreen; // Decides window state (can be used to set fullscreen) 
             UpdateFrequency = 120; // Window Framerate (setting to 0 will unlock FPS if VSync is off)
             fixedFrameTime = 60; // How many times per second the game updates
             VSync = VSyncMode.On; // Control the window's VSync
