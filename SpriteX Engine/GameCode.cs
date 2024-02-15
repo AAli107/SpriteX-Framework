@@ -99,7 +99,13 @@ namespace SpriteX_Engine
             gfx.DrawText(new Vector2(500, 600), "ZA WARUDO!", Color4.Yellow, 1, false);
             foreach (GameObject obj in win.world.GetAllGameObjects())
             {
-                gfx.DrawImage(obj.GetPosition(), obj.GetSize(), img1, obj.IsSimulatingPhysics() ? Color4.White : Color4.Blue);
+                float b = Vec2D.Distance2D(obj.GetCenterPosition() / new Vector2(1920/2, 1080/2), g.GetCenterPosition() / new Vector2(1920 / 2, 1080 / 2)) * 1.45f;
+                b = 1 - b;
+                b += 0.25f;
+                b = b <= 0.1f ? 0.1f : b;
+                b = b > 1 ? 1 : b;
+                Color4 c = new Color4(1f, 0.75f, 0.25f, 1f);
+                gfx.DrawImage(obj.GetPosition(), obj.GetSize(), img1, new Color4(b*c.R, b*c.G, b*c.B, 1));
             }
 
             gfx.DrawText(new Vector2(16, 80), "Cam Pos = (" + Math.Round(win.world.cam.camPos.X, 2) + ", " + Math.Round(win.world.cam.camPos.Y, 2) + ")", Color4.White, 1);
