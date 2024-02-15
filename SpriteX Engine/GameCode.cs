@@ -27,26 +27,26 @@ namespace SpriteX_Engine
         {
             MainWindow win = (MainWindow)sender;
             win.world.InstantiateGameObject(new GameObject(new Vector2(Rand.RangeFloat(0, 1920), Rand.RangeFloat(0, 1080)), new Vector2(100, 100), true, true, 0.1f, 1f));
-            win.world.PlayAudio("Resources/Audio/audio.wav");
+            win.world.PlayAudio("Resources/Audio/sample_audio.wav");
         }
 
         public void btn2_ButtonPressed(object sender, MouseButtonEventArgs e)
         {
             MainWindow win = (MainWindow)sender;
             win.world.InstantiateGameObject(new GameObject(new Vector2(Rand.RangeFloat(0, 1920), Rand.RangeFloat(0, 1080)), new Vector2(150, 150), true, true, 0.1f));
-            win.world.PlayAudio("Resources/Audio/audio.wav");
+            win.world.PlayAudio("Resources/Audio/sample_audio.wav");
         }
 
         public void btn3_ButtonPressed(object sender, MouseButtonEventArgs e)
         {
             MainWindow win = (MainWindow)sender;
             win.world.InstantiateGameObject(new GameObject(new Vector2(Rand.RangeFloat(0, 1920), Rand.RangeFloat(0, 1080)), new Vector2(200, 200), true, true, 0.1f, 20f));
-            win.world.PlayAudio("Resources/Audio/audio.wav");
+            win.world.PlayAudio("Resources/Audio/sample_audio.wav");
         }
 
         public override void OnGameStart(MainWindow win)
         {
-            img1 = new Texture("Resources/Textures/img.png");
+            img1 = new Texture("Resources/Textures/sample_texture.png");
             img2 = Texture.GetMissingTexture();
             btn = new Button(new Vector2(1920 / 1.25f, 50), new Vector2(300, 100), Color4.Red);
             btn2 = new Button(new Vector2(1920 / 1.25f, 200), new Vector2(300, 100), Color4.Lime);
@@ -99,7 +99,7 @@ namespace SpriteX_Engine
             gfx.DrawText(new Vector2(500, 600), "ZA WARUDO!", Color4.Yellow, 1, false);
             foreach (GameObject obj in win.world.GetAllGameObjects())
             {
-                gfx.DrawImage(obj.GetPosition(), obj.GetSize(), img2, obj.IsSimulatingPhysics() ? Color4.White : Color4.Blue);
+                gfx.DrawImage(obj.GetPosition(), obj.GetSize(), img1, obj.IsSimulatingPhysics() ? Color4.White : Color4.Blue);
             }
 
             gfx.DrawText(new Vector2(16, 80), "Cam Pos = (" + Math.Round(win.world.cam.camPos.X, 2) + ", " + Math.Round(win.world.cam.camPos.Y, 2) + ")", Color4.White, 1);
