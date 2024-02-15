@@ -298,6 +298,15 @@ namespace SpriteX_Engine.EngineContents
         }
 
         /// <summary>
+        /// Plays Audio from file
+        /// </summary>
+        /// <param name="path"></param>
+        public void PlayAudio(string path)
+        {
+            world.PlayAudio(path);
+        }
+
+        /// <summary>
         /// Will Load level
         /// </summary>
         /// <param name="level"></param>

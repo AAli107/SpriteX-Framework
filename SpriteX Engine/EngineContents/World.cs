@@ -30,6 +30,10 @@ namespace SpriteX_Engine.EngineContents
             audios.Clear();
         }
 
+        /// <summary>
+        /// Plays Audio
+        /// </summary>
+        /// <param name="path"></param>
         public void PlayAudio(string path) 
         {
             Audio a = new Audio(path);
