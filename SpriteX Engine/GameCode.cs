@@ -25,17 +25,23 @@ namespace SpriteX_Engine
 
         public void btn_ButtonPressed(object sender, MouseButtonEventArgs e)
         {
-            ((MainWindow)sender).world.InstantiateGameObject(new GameObject(new Vector2(Rand.RangeFloat(0, 1920), Rand.RangeFloat(0, 1080)), new Vector2(100, 100), true, true, 0.1f, 1f));
+            MainWindow win = (MainWindow)sender;
+            win.world.InstantiateGameObject(new GameObject(new Vector2(Rand.RangeFloat(0, 1920), Rand.RangeFloat(0, 1080)), new Vector2(100, 100), true, true, 0.1f, 1f));
+            win.world.PlayAudio("Resources/Audio/audio.wav");
         }
 
         public void btn2_ButtonPressed(object sender, MouseButtonEventArgs e)
         {
-            ((MainWindow)sender).world.InstantiateGameObject(new GameObject(new Vector2(Rand.RangeFloat(0, 1920), Rand.RangeFloat(0, 1080)), new Vector2(150, 150), true, true, 0.1f));
+            MainWindow win = (MainWindow)sender;
+            win.world.InstantiateGameObject(new GameObject(new Vector2(Rand.RangeFloat(0, 1920), Rand.RangeFloat(0, 1080)), new Vector2(150, 150), true, true, 0.1f));
+            win.world.PlayAudio("Resources/Audio/audio.wav");
         }
 
         public void btn3_ButtonPressed(object sender, MouseButtonEventArgs e)
         {
-            ((MainWindow)sender).world.InstantiateGameObject(new GameObject(new Vector2(Rand.RangeFloat(0, 1920), Rand.RangeFloat(0, 1080)), new Vector2(200, 200), true, true, 0.1f, 20f));
+            MainWindow win = (MainWindow)sender;
+            win.world.InstantiateGameObject(new GameObject(new Vector2(Rand.RangeFloat(0, 1920), Rand.RangeFloat(0, 1080)), new Vector2(200, 200), true, true, 0.1f, 20f));
+            win.world.PlayAudio("Resources/Audio/audio.wav");
         }
 
         public override void OnGameStart(MainWindow win)
@@ -99,7 +105,7 @@ namespace SpriteX_Engine
             gfx.DrawText(new Vector2(16, 80), "Cam Pos = (" + Math.Round(win.world.cam.camPos.X, 2) + ", " + Math.Round(win.world.cam.camPos.Y, 2) + ")", Color4.White, 1);
             gfx.DrawText(new Vector2(16, 112), "Obj Pos = (" + Math.Round(g.GetCenterPosition().X, 2) + ", " + Math.Round(g.GetCenterPosition().Y, 2) + ")", Color4.White, 1);
             gfx.DrawText(new Vector2(16, 144), "World Mouse Pos = (" + Math.Round(win.mouseWorldPos.X, 2) + ", " + Math.Round(win.mouseWorldPos.Y, 2) + ")", Color4.White, 1);
-            gfx.DrawText(new Vector2(16, 176), "Count = " + win.world.GetAllGameObjects().Count, Color4.White, 1);
+            gfx.DrawText(new Vector2(16, 176), "Count = " + win.world.audios.Count, Color4.White, 1);
         }
 
         public override void OnGameEnd(MainWindow win)

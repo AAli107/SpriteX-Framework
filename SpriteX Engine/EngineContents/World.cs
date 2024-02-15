@@ -5,23 +5,52 @@ namespace SpriteX_Engine.EngineContents
     public class World
     {
         public Camera cam;
-        public List<GameObject> gameObjects;
+        public List<GameObject> gameObjects = new List<GameObject>();
+        public List<Audio> audios = new List<Audio>();
 
         public World()
         {
             cam = new Camera();
-            gameObjects = new List<GameObject>();
         }
 
         public World(Camera cam)
         {
             this.cam = cam;
-            gameObjects = new List<GameObject>();
         }
 
         ~World()
         {
             gameObjects.Clear();
+            for (int i = 0; i < audios.Count; i++)
+            {
+                audios[i].Stop();
+                audios[i].Dispose();
+                audios[i] = null;
+            }
+            audios.Clear();
+        }
+
+        public void PlayAudio(string path) 
+        {
+            Audio a = new Audio(path);
+            audios.Add(a);
+            a.Play();
+        }
+
+        public void WorldUpdate()
+        {
+            List<Audio> stoppedSounds = audios.FindAll(a => a.IsStopped());
+            foreach (Audio a in stoppedSounds)
+            {
+                a.Dispose();
+                audios.Remove(a);
+            }
+
+            if (audios.Count > 500)
+            {
+                audios[0].Dispose();
+                audios.RemoveAt(0);
+            }
         }
 
         /// <summary>

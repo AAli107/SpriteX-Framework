@@ -18,7 +18,7 @@ namespace SpriteX_Engine.EngineContents
             ClientSize = new Vector2i(1280, 720); // Default Window Resolution when not in fullscreen
             AspectRatio = (16, 9); // Window Aspect Ratio
             WindowBorder = WindowBorder.Resizable; // Window Border type
-            WindowState = WindowState.Fullscreen; // Decides window state (can be used to set fullscreen) 
+            WindowState = WindowState.Normal; // Decides window state (can be used to set fullscreen) 
             UpdateFrequency = 120; // Window Framerate (setting to 0 will unlock FPS if VSync is off)
             fixedFrameTime = 60; // How many times per second the game updates
             VSync = VSyncMode.On; // Control the window's VSync
@@ -47,6 +47,7 @@ namespace SpriteX_Engine.EngineContents
         private GameLevelScript gameCode; // Declares Game-Level script
         private GameLevelScript startLevel; // Contains the start level when the game launches
         private double accumulatedTime = 0.0; // Used for OnFixedGameUpdate()
+        private int gcTimer = 0;
 
         /// <summary>
         /// Controls whether the game is paused or not
@@ -148,6 +149,10 @@ namespace SpriteX_Engine.EngineContents
         {
             base.OnUpdateFrame(args);
 
+            if (gcTimer > fixedFrameTime * 5) { GC.Collect(); gcTimer = 0; }
+  
+            world.WorldUpdate(); // Updates world
+
             // Will execute Physics/collision code, OnPrePhysicsUpdate(), and OnFixedGameUpdate()
             accumulatedTime += UpdateTime;
             while (accumulatedTime >= targetFrameTime)
@@ -158,6 +163,7 @@ namespace SpriteX_Engine.EngineContents
                     world.TickAllGameObjects();
                     gameCode.OnFixedGameUpdate(this);
                 }
+                gcTimer++;
                 accumulatedTime -= targetFrameTime;
             }
 
@@ -170,7 +176,7 @@ namespace SpriteX_Engine.EngineContents
             }
 
             if (!isGamePaused) gameCode.OnGameUpdate(this); // OnGameUpdate() from GameCode is executed here
-            gameCode.OnGameUpdateNoPause(this);
+            gameCode.OnGameUpdateNoPause(this);    
         }
 
         protected override void OnRenderFrame(FrameEventArgs e)
@@ -298,8 +304,10 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="cam"></param>
         public void LoadLevel(GameLevelScript level, Camera cam)
         {
-            gameCode = level;
+            gameCode = level; 
+            GC.Collect();
             gameCode.Awake(this); // Awake() from GameCode gets executed here
+            if (world != null) world.audios.ForEach(a => a.Stop());
             world = new World(cam);
             Button.buttons.Clear();
             gameCode.OnGameStart(this); // Executes when world is Created
