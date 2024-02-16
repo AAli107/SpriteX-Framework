@@ -6,7 +6,7 @@ namespace SpriteX_Engine.EngineContents
     {
         public Camera cam;
         public List<GameObject> gameObjects = new List<GameObject>();
-        public List<Audio> audios = new List<Audio>();
+        public List<Audio> audios = new List<Audio>(300);
 
         public World()
         {
@@ -49,12 +49,6 @@ namespace SpriteX_Engine.EngineContents
                 a.Dispose();
                 audios.Remove(a);
             }
-
-            if (audios.Count > 500)
-            {
-                audios[0].Dispose();
-                audios.RemoveAt(0);
-            }
         }
 
         /// <summary>
@@ -62,7 +56,7 @@ namespace SpriteX_Engine.EngineContents
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public bool InstantiateGameObject(GameObject obj)
+        public bool SpawnGameObject(GameObject obj)
         {
             uint id = 0;
             while (gameObjects.Any(o => o.GetID() == id))
@@ -72,6 +66,7 @@ namespace SpriteX_Engine.EngineContents
             if (obj.SetID(id, this))
             {
                 gameObjects.Add(obj);
+                obj.OnSpawn();
                 return true;
             }
             return false;

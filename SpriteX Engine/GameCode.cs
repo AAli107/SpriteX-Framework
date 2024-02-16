@@ -26,21 +26,21 @@ namespace SpriteX_Engine
         public void btn_ButtonPressed(object sender, MouseButtonEventArgs e)
         {
             MainWindow win = (MainWindow)sender;
-            win.world.InstantiateGameObject(new GameObject(new Vector2(Rand.RangeFloat(0, 1920), Rand.RangeFloat(0, 1080)), new Vector2(100, 100), true, true, 0.1f, 1f));
+            win.world.SpawnGameObject(new GameObject(new Vector2(Rand.RangeFloat(0, 1920), Rand.RangeFloat(0, 1080)), new Vector2(100, 100), true, true, 0.1f, 1f));
             win.PlayAudio("Resources/Audio/sample_audio.wav");
         }
 
         public void btn2_ButtonPressed(object sender, MouseButtonEventArgs e)
         {
             MainWindow win = (MainWindow)sender;
-            win.world.InstantiateGameObject(new GameObject(new Vector2(Rand.RangeFloat(0, 1920), Rand.RangeFloat(0, 1080)), new Vector2(150, 150), true, true, 0.1f));
+            win.world.SpawnGameObject(new GameObject(new Vector2(Rand.RangeFloat(0, 1920), Rand.RangeFloat(0, 1080)), new Vector2(150, 150), true, true, 0.1f));
             win.PlayAudio("Resources/Audio/sample_audio.wav");
         }
 
         public void btn3_ButtonPressed(object sender, MouseButtonEventArgs e)
         {
             MainWindow win = (MainWindow)sender;
-            win.world.InstantiateGameObject(new GameObject(new Vector2(Rand.RangeFloat(0, 1920), Rand.RangeFloat(0, 1080)), new Vector2(200, 200), true, true, 0.1f, 20f));
+            win.world.SpawnGameObject(new GameObject(new Vector2(Rand.RangeFloat(0, 1920), Rand.RangeFloat(0, 1080)), new Vector2(200, 200), true, true, 0.1f, 20f));
             win.PlayAudio("Resources/Audio/sample_audio.wav");
         }
 
@@ -54,7 +54,7 @@ namespace SpriteX_Engine
             btn.OnButtonPressed += btn_ButtonPressed;
             btn2.OnButtonPressed += btn2_ButtonPressed;
             btn3.OnButtonPressed += btn3_ButtonPressed;
-            win.world.InstantiateGameObject(g);
+            win.world.SpawnGameObject(g);
             win.GetWorldCamera().SetEnableCameraBound(true);
         }
 
@@ -68,7 +68,7 @@ namespace SpriteX_Engine
 
         public override void OnGameUpdate(MainWindow win)
         {
-            if (!win.world.DoesGameObjectExist(g.GetID())) win.world.InstantiateGameObject(g);
+            if (!win.world.DoesGameObjectExist(g.GetID())) win.world.SpawnGameObject(g);
             s = win.IsKeyDown(Keys.LeftControl) ? 0.4f : (win.IsKeyDown(Keys.LeftShift) ? 1.6f : 0.8f);
             win.world.cam.SetCameraPosition(g.GetCenterPosition());
         }

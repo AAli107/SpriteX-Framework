@@ -1,4 +1,5 @@
 ﻿using OpenTK.Mathematics;
+using OpenTK.Windowing.Common;
 using System.Drawing;
 
 namespace SpriteX_Engine.EngineContents
@@ -13,6 +14,14 @@ namespace SpriteX_Engine.EngineContents
         float mass;
         bool simulatePhysics;
         bool collisionEnabled;
+
+        bool isVisible = true;
+
+        public readonly List<Render> renders = new List<Render>(255);
+
+        public event EventHandler<EventArgs> OnGameObjectUpdate;
+        public event EventHandler<EventArgs> OnGameObjectSpawn;
+        public event EventHandler<EventArgs> OnGameObjectRender;
 
         /// <summary>
         /// Creates a GameObject
@@ -47,6 +56,11 @@ namespace SpriteX_Engine.EngineContents
             this.collisionEnabled = collisionEnabled;
         }
 
+        public void OnSpawn()
+        {
+            OnGameObjectSpawn?.Invoke(this, new EventArgs());
+        }
+
         public void UpdateTick()
         {
             if (simulatePhysics)
@@ -54,6 +68,16 @@ namespace SpriteX_Engine.EngineContents
                 position += velocity;
                 velocity *= 1 / (((friction + 1) >= 1) ? (friction + 1) : 1);
             }
+
+            OnGameObjectUpdate?.Invoke(this, new EventArgs());
+        }
+
+        public void Render(gfx gfx)
+        {
+            if (isVisible) for (int i = 0; i < renders.Count; i++)
+                renders[i].DrawRender(gfx, GetCenterPosition());
+
+            OnGameObjectRender?.Invoke(this, new EventArgs());
         }
 
         /// <summary>

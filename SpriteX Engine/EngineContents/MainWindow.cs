@@ -194,9 +194,16 @@ namespace SpriteX_Engine.EngineContents
 
             gameCode.OnGraphicsUpdate(this, gfx); // OnGraphicsUpdate() in GameCode gets executed here
 
-            // Will render the Rectangles representing the hitbox of the GameObject
-            if (showDebugHitbox) foreach (GameObject obj in world.GetAllGameObjects())
-                    if (obj.GetSize().X > 0 && obj.GetSize().Y > 0) gfx.DrawRect(obj.GetPosition(), obj.GetSize(), Color4.White, gfx.DrawType.Outline, false);
+            foreach (GameObject obj in world.GetAllGameObjects())
+            {
+                obj.Render(gfx); // Will render all of GameObject's Renders
+                
+                if (showDebugHitbox) // Will render the Rectangles representing the hitbox of the GameObject
+                {
+                    if (obj.GetSize().X > 0 && obj.GetSize().Y > 0)
+                        gfx.DrawRect(obj.GetPosition(), obj.GetSize(), Color4.White, gfx.DrawType.Outline, false);
+                }
+            }
 
             // Will render all the visible buttons
             foreach (Button btn in Button.buttons)
