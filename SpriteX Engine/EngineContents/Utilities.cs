@@ -281,6 +281,18 @@ namespace SpriteX_Engine.EngineContents
 
                 return min;
             }
+
+            /// <summary>
+            /// Lerps two numbers based on "alpha"
+            /// </summary>
+            /// <param name="a"></param>
+            /// <param name="b"></param>
+            /// <param name="alpha"></param>
+            /// <returns></returns>
+            public static float Lerp(float a, float b, float alpha)
+            {
+                return a * (1 - alpha) + b * alpha;
+            }
         }
 
         /// <summary>
