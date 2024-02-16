@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NAudio.Wave;
+﻿using NAudio.Wave;
 
 namespace SpriteX_Engine.EngineContents
 {
@@ -15,6 +10,8 @@ namespace SpriteX_Engine.EngineContents
         DirectSoundOut output = new DirectSoundOut(); // The Output Sound
         WaveFileReader wfr; 
         WaveStream pcm;
+        Stream audioStream;
+        double totalTime = 0;
 
         public Audio(string fileName, bool playImmediately = true)
         {
@@ -23,13 +20,12 @@ namespace SpriteX_Engine.EngineContents
                 if (fileName.EndsWith(".wav"))
                 {
                     this.fileName = fileName;
-                    wfr = new WaveFileReader(fileName);
+                    audioStream = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+                    wfr = new WaveFileReader(audioStream);
                     pcm = new WaveChannel32(wfr);
                     stream = new BlockAlignReductionStream(pcm);
                     output.Init(stream);
-                    pcm.Flush();
-                    wfr.Flush();
-                    stream.Flush();
+                    totalTime = stream.TotalTime.TotalMilliseconds;
 
                     if (playImmediately) Play();
                 }
@@ -39,9 +35,10 @@ namespace SpriteX_Engine.EngineContents
 
         public void Dispose()
         {
-            if (pcm != null) { pcm.Flush(); pcm.Dispose(); pcm = null; }
-            if (wfr != null) { wfr.Flush(); wfr.Dispose(); wfr = null; }
-            if (stream != null) { stream.Flush(); stream.Dispose(); stream = null; }
+            if (audioStream != null) { audioStream.Flush(); audioStream.Dispose(); audioStream.Close(); audioStream = null; }
+            if (pcm != null) { pcm.Flush(); pcm.Dispose(); pcm.Close(); pcm = null; }
+            if (wfr != null) { wfr.Flush(); wfr.Dispose(); wfr.Close(); wfr = null; }
+            if (stream != null) { stream.Flush(); stream.Dispose(); stream.Close(); stream = null; }
             if (output != null) { output.Dispose(); output = null; }
         }
 
@@ -68,7 +65,7 @@ namespace SpriteX_Engine.EngineContents
         public bool IsStopped() 
         {
             if (File.Exists(fileName))
-                return output.PlaybackPosition.TotalMilliseconds >= stream.TotalTime.TotalMilliseconds;
+                return output.PlaybackPosition.TotalMilliseconds >= totalTime;
             else return true;
         }
     }
