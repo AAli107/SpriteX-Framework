@@ -27,21 +27,21 @@ namespace SpriteX_Engine
         {
             MainWindow win = (MainWindow)sender;
             win.world.InstantiateGameObject(new GameObject(new Vector2(Rand.RangeFloat(0, 1920), Rand.RangeFloat(0, 1080)), new Vector2(100, 100), true, true, 0.1f, 1f));
-            win.world.PlayAudio("Resources/Audio/sample_audio.wav");
+            win.PlayAudio("Resources/Audio/sample_audio.wav");
         }
 
         public void btn2_ButtonPressed(object sender, MouseButtonEventArgs e)
         {
             MainWindow win = (MainWindow)sender;
             win.world.InstantiateGameObject(new GameObject(new Vector2(Rand.RangeFloat(0, 1920), Rand.RangeFloat(0, 1080)), new Vector2(150, 150), true, true, 0.1f));
-            win.world.PlayAudio("Resources/Audio/sample_audio.wav");
+            win.PlayAudio("Resources/Audio/sample_audio.wav");
         }
 
         public void btn3_ButtonPressed(object sender, MouseButtonEventArgs e)
         {
             MainWindow win = (MainWindow)sender;
             win.world.InstantiateGameObject(new GameObject(new Vector2(Rand.RangeFloat(0, 1920), Rand.RangeFloat(0, 1080)), new Vector2(200, 200), true, true, 0.1f, 20f));
-            win.world.PlayAudio("Resources/Audio/sample_audio.wav");
+            win.PlayAudio("Resources/Audio/sample_audio.wav");
         }
 
         public override void OnGameStart(MainWindow win)
