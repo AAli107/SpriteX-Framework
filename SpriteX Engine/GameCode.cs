@@ -82,18 +82,17 @@ namespace SpriteX_Engine
 
         public override void OnGraphicsUpdate(MainWindow win, gfx gfx)
         {
+            Color4 lightColor = new Color4(1f, 0.75f, 0.15f, 1f);
             for (int i = -8; i < 24; i++)
             {
                 for (int j = -5; j < 14; j++)
                 {
-                    float brightness = Vec2D.Distance2D(new Vector2(i - ((1920 / 2) / 120), j - ((1080 / 2) / 120)), new Vector2(((g.GetCenterPosition().X - 1920/2) / 120), ((g.GetCenterPosition().Y - 1080 / 2) / 120))) / 5;
-                    brightness = 1 - brightness; 
-                    brightness = brightness > 1 ? 1 : brightness;
-                    brightness = brightness <= 0.1f ? 0.1f : brightness;
-            
-                    Color4 c = new Color4(1f, 0.75f, 0.25f, 1f);
-            
-                    gfx.DrawImage(new Vector2(i * 120, j * 120), new Vector2(120, 120), img2, new Color4(brightness * c.R, brightness * c.G, brightness * c.B, 1));
+                    float b = Vec2D.Distance2D(new Vector2(i - ((1920 / 2) / 120), j - ((1080 / 2) / 120)), new Vector2(((g.GetCenterPosition().X - 1920/2) / 120), ((g.GetCenterPosition().Y - 1080 / 2) / 120))) / 5;
+                    b = 1 - b; 
+                    b = b > 1 ? 1 : b;
+                    b = b <= 0.1f ? 0.1f : b;
+                    Color4 c = Colors.Lerp(Color4.White, lightColor, b);
+                    gfx.DrawImage(new Vector2(i * 120, j * 120), new Vector2(120, 120), img2, Colors.Multiply(new Color4(b, b, b, 1), c));
                 }
             }
             gfx.DrawText(new Vector2(500, 600), "ZA WARUDO!", Color4.Yellow, 1, false);
@@ -104,8 +103,8 @@ namespace SpriteX_Engine
                 b += 0.25f;
                 b = b <= 0.1f ? 0.1f : b;
                 b = b > 1 ? 1 : b;
-                Color4 c = new Color4(1f, 0.75f, 0.25f, 1f);
-                gfx.DrawImage(obj.GetPosition(), obj.GetSize(), img1, new Color4(b*c.R, b*c.G, b*c.B, 1));
+                Color4 c = Colors.Lerp(Color4.White, lightColor, b);
+                gfx.DrawImage(obj.GetPosition(), obj.GetSize(), img1, Colors.Multiply(new Color4(b, b, b, 1), c));
             }
 
             gfx.DrawText(new Vector2(16, 80), "Cam Pos = (" + Math.Round(win.world.cam.camPos.X, 2) + ", " + Math.Round(win.world.cam.camPos.Y, 2) + ")", Color4.White, 1);
