@@ -196,6 +196,18 @@ namespace SpriteX_Engine.EngineContents
             {
                 return new Vector2((vec3D.X * (depth / vec3D.Z)) + (1920 / 2), (vec3D.Y * (depth / vec3D.Z)) + (1080 / 2));
             }
+
+            /// <summary>
+            /// Lerps two Vector3s based on "alpha"
+            /// </summary>
+            /// <param name="a"></param>
+            /// <param name="b"></param>
+            /// <param name="alpha"></param>
+            /// <returns></returns>
+            public static Vector3 Lerp(Vector3 a, Vector3 b, float alpha)
+            {
+                return new Vector3(Numbers.Lerp(a.X, b.X, alpha), Numbers.Lerp(a.Y, b.Y, alpha), Numbers.Lerp(a.Z, b.Z, alpha));
+            }
         }
 
         /// <summary>
