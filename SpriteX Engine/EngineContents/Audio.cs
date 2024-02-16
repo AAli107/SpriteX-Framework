@@ -8,8 +8,7 @@ namespace SpriteX_Engine.EngineContents
         private string fileName; // Stores the Sound File's name
         BlockAlignReductionStream stream = null; // Sound Data
         DirectSoundOut output = new DirectSoundOut(); // The Output Sound
-        WaveFileReader wfr; 
-        WaveStream pcm;
+        WaveStream wfr;
         Stream audioStream;
         double totalTime = 0;
 
@@ -17,26 +16,24 @@ namespace SpriteX_Engine.EngineContents
         {
             if (File.Exists(fileName))
             {
-                if (fileName.EndsWith(".wav"))
+                if (fileName.EndsWith(".wav") || fileName.EndsWith(".mp3"))
                 {
                     this.fileName = fileName;
                     audioStream = new FileStream(fileName, FileMode.Open, FileAccess.Read);
                     wfr = new WaveFileReader(audioStream);
-                    pcm = new WaveChannel32(wfr);
-                    stream = new BlockAlignReductionStream(pcm);
+                    stream = new BlockAlignReductionStream(fileName.EndsWith(".wav") ? new WaveChannel32(wfr) : new Mp3FileReader(wfr));
                     output.Init(stream);
                     totalTime = stream.TotalTime.TotalMilliseconds;
 
                     if (playImmediately) Play();
                 }
-                else throw new Exception("Audio Type Unsupported! Only supports .wav audio files");
+                else throw new Exception("Audio Type Unsupported: Only supports .wav & .mp3 audio formats.");
             }
         }
 
         public void Dispose()
         {
             if (audioStream != null) { audioStream.Flush(); audioStream.Dispose(); audioStream.Close(); audioStream = null; }
-            if (pcm != null) { pcm.Flush(); pcm.Dispose(); pcm.Close(); pcm = null; }
             if (wfr != null) { wfr.Flush(); wfr.Dispose(); wfr.Close(); wfr = null; }
             if (stream != null) { stream.Flush(); stream.Dispose(); stream.Close(); stream = null; }
             if (output != null) { output.Dispose(); output = null; }
