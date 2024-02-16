@@ -145,6 +145,18 @@ namespace SpriteX_Engine.EngineContents
                 }
                 return new Vector2(0, 0);
             }
+
+            /// <summary>
+            /// Lerps two Vector2s based on "alpha"
+            /// </summary>
+            /// <param name="a"></param>
+            /// <param name="b"></param>
+            /// <param name="alpha"></param>
+            /// <returns></returns>
+            public static Vector2 Lerp(Vector2 a, Vector2 b, float alpha)
+            {
+                return new Vector2(Numbers.Lerp(a.X, b.X, alpha), Numbers.Lerp(a.Y, b.Y, alpha));
+            }
         }
 
         /// <summary>
