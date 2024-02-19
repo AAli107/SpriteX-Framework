@@ -3,6 +3,7 @@ using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
 using OpenTK.Windowing.GraphicsLibraryFramework;
+using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 
 namespace SpriteX_Engine.EngineContents
@@ -305,12 +306,12 @@ namespace SpriteX_Engine.EngineContents
         }
 
         /// <summary>
-        /// Plays Audio from file
+        /// Plays Audio from file, volume ranges from 0-1
         /// </summary>
         /// <param name="path"></param>
-        public void PlayAudio(string path)
+        public void PlayAudio(string path, float volume = 1f)
         {
-            world.PlayAudio(path);
+            world.PlayAudio(path, volume);
         }
 
         /// <summary>

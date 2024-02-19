@@ -1,4 +1,5 @@
 ﻿using OpenTK.Mathematics;
+using System.ComponentModel.DataAnnotations;
 
 namespace SpriteX_Engine.EngineContents
 {
@@ -34,9 +35,11 @@ namespace SpriteX_Engine.EngineContents
         /// Plays Audio
         /// </summary>
         /// <param name="path"></param>
-        public void PlayAudio(string path) 
+        /// <param name="volume"></param>
+        public void PlayAudio(string path, float volume = 1f) 
         {
-            Audio a = new Audio(path);
+            volume = Utilities.Numbers.ClampN(volume, 0, 1);
+            Audio a = new Audio(path, volume);
             audios.Add(a);
             a.Play();
         }

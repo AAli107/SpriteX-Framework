@@ -1,31 +1,31 @@
-﻿using NAudio.Wave;
+﻿using NAudio.Utils;
+using NAudio.Wave;
+using System.ComponentModel.DataAnnotations;
 
 namespace SpriteX_Engine.EngineContents
 {
     public class Audio
     {
-
-        private string fileName; // Stores the Sound File's name
-        BlockAlignReductionStream stream = null; // Sound Data
-        DirectSoundOut output = new DirectSoundOut(); // The Output Sound
-        WaveStream wfr;
-        Stream audioStream;
+        string fileName;
+        WaveStream wfr = null;
+        BlockAlignReductionStream stream = null;
+        WaveOutEvent output = new WaveOutEvent();
         double totalTime = 0;
 
-        public Audio(string fileName, bool playImmediately = true)
+        public Audio(string fileName, float volume = 1f)
         {
             if (File.Exists(fileName))
             {
                 if (fileName.EndsWith(".wav") || fileName.EndsWith(".mp3"))
                 {
                     this.fileName = fileName;
-                    audioStream = new FileStream(fileName, FileMode.Open, FileAccess.Read);
-                    wfr = new WaveFileReader(audioStream);
+                    wfr = new WaveFileReader(fileName);
                     stream = new BlockAlignReductionStream(fileName.EndsWith(".wav") ? new WaveChannel32(wfr) : new Mp3FileReader(wfr));
+                    output.DesiredLatency = 100;
                     output.Init(stream);
-                    totalTime = stream.TotalTime.TotalMilliseconds;
-
-                    if (playImmediately) Play();
+                    totalTime = stream.TotalTime.Milliseconds;
+                    output.Volume = volume;
+                    Play();
                 }
                 else throw new Exception("Audio Type Unsupported: Only supports .wav & .mp3 audio formats.");
             }
@@ -33,7 +33,6 @@ namespace SpriteX_Engine.EngineContents
 
         public void Dispose()
         {
-            if (audioStream != null) { audioStream.Flush(); audioStream.Dispose(); audioStream.Close(); audioStream = null; }
             if (wfr != null) { wfr.Flush(); wfr.Dispose(); wfr.Close(); wfr = null; }
             if (stream != null) { stream.Flush(); stream.Dispose(); stream.Close(); stream = null; }
             if (output != null) { output.Dispose(); output = null; }
@@ -62,7 +61,7 @@ namespace SpriteX_Engine.EngineContents
         public bool IsStopped() 
         {
             if (File.Exists(fileName))
-                return output.PlaybackPosition.TotalMilliseconds >= totalTime;
+                return output.GetPositionTimeSpan().TotalMilliseconds > totalTime;
             else return true;
         }
     }
