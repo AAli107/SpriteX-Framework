@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using SpriteX_Engine.EngineContents;
-using static SpriteX_Engine.EngineContents.Utilities;
+using SpriteX_Engine.EngineContents.Utilities;
 using OpenTK.Windowing.Common;
 
 namespace SpriteX_Engine
