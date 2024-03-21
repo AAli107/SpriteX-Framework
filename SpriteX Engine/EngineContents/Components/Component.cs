@@ -1,4 +1,7 @@
-﻿namespace SpriteX_Engine.EngineContents.Components
+﻿/*
+ * Abstract base class of components used only to create other component classes.
+ */
+namespace SpriteX_Engine.EngineContents.Components
 {
     public abstract class Component
     {
