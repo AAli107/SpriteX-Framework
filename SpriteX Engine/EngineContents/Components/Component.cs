@@ -1,8 +1,8 @@
-﻿/*
- * Abstract base class of components used only to create other component classes.
- */
-namespace SpriteX_Engine.EngineContents.Components
+﻿namespace SpriteX_Engine.EngineContents.Components
 {
+    /// <summary>
+    /// Abstract base class of components used only to create other component classes.
+    /// </summary>
     public abstract class Component
     {
         public GameObject parent;

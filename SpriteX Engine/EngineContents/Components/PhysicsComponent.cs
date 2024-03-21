@@ -2,6 +2,9 @@
 
 namespace SpriteX_Engine.EngineContents.Components
 {
+    /// <summary>
+    /// Can be used on GameObjects to enable physics simulation.
+    /// </summary>
     public class PhysicsComponent : Component
     {
         public Vector2 velocity = new Vector2(0, 0);
