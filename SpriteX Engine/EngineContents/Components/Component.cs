@@ -7,6 +7,8 @@
     {
         public GameObject parent;
 
+        protected static bool allowMultipleComponent = true;
+
         public Component(GameObject parent)
         {
             this.parent = parent;
