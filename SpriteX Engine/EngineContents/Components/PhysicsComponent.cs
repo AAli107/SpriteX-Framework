@@ -7,13 +7,38 @@ namespace SpriteX_Engine.EngineContents.Components
     /// </summary>
     public class PhysicsComponent : Component
     {
+        /// <summary>
+        /// velocity of parent game object
+        /// </summary>
         public Vector2 velocity = new Vector2(0, 0);
+
+        /// <summary>
+        /// mass of parent game object
+        /// </summary>
         public float mass = 10f;
+        /// <summary>
+        /// slows down parent game object the higher the value
+        /// </summary>
         public float friction = 0.1f;
+        /// <summary>
+        /// controls the behavior of the parent game object friction so that it behaves airborne when true
+        /// </summary>
         public bool isAirborne = true;
+        /// <summary>
+        /// controls which axis (X,Y) cannot move
+        /// </summary>
         public Constraint2D movementConstraint = new Constraint2D(false, false);
+        /// <summary>
+        /// Controls whether parent game object has gravity or not
+        /// </summary>
         public bool gravityEnabled = true;
+        /// <summary>
+        /// controls the direction of gravity
+        /// </summary>
         public Vector2 gravityVector = new Vector2(0, 1);
+        /// <summary>
+        /// controls the strength of gravity affecting the parent game object
+        /// </summary>
         public float gravityMultiplier = 1;
 
         public PhysicsComponent(GameObject parent) : base(parent) { parent.SetMass(mass); }
