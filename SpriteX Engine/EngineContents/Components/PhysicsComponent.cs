@@ -11,7 +11,6 @@ namespace SpriteX_Engine.EngineContents.Components
         /// velocity of parent game object
         /// </summary>
         public Vector2 velocity = new Vector2(0, 0);
-
         /// <summary>
         /// mass of parent game object
         /// </summary>
