@@ -54,6 +54,9 @@ namespace SpriteX_Engine.EngineContents.Components
             constraintedVelocity.X = movementConstraint.X ? 0 : velocity.X;
             constraintedVelocity.Y = movementConstraint.Y ? 0 : velocity.Y;
 
+            if (movementConstraint.X) velocity.X = 0;
+            if (movementConstraint.Y) velocity.Y = 0;
+
             parent.SetPosition(parent.GetPosition() + constraintedVelocity);
         }
     }
