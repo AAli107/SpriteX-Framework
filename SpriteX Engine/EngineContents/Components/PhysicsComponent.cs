@@ -1,4 +1,5 @@
 ﻿using OpenTK.Mathematics;
+using SpriteX_Engine.EngineContents.Structs;
 
 namespace SpriteX_Engine.EngineContents.Components
 {
@@ -59,14 +60,5 @@ namespace SpriteX_Engine.EngineContents.Components
 
             parent.SetPosition(parent.GetPosition() + constraintedVelocity);
         }
-    }
-
-    public struct Constraint2D 
-    {
-        public bool X = false;
-        public bool Y = false;
-        public Constraint2D() { }
-        public Constraint2D(bool X, bool Y) 
-        { this.X = X; this.Y = Y; }
     }
 }
