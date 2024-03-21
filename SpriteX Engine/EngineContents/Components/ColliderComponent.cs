@@ -11,7 +11,13 @@ namespace SpriteX_Engine.EngineContents.Components
 {
     public class ColliderComponent : Component
     {
+        /// <summary>
+        /// box collider transform, holds position and scale
+        /// </summary>
         public Transform transform = new Transform();
+        /// <summary>
+        /// controls whether to allow overlapping with other colliders
+        /// </summary>
         public bool isSolidCollision = true;
 
         private RectangleF rectf;
