@@ -28,8 +28,6 @@ namespace SpriteX_Engine.EngineContents.Components
             rectf.Inflate(transform.scale.X * 50, transform.scale.Y * 50);
         }
 
-        static ColliderComponent() { allowMultipleComponent = true; }
-
         /// <summary>
         /// Returns Center Position of the collider
         /// </summary>

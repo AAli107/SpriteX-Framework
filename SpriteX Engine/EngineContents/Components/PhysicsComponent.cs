@@ -43,8 +43,6 @@ namespace SpriteX_Engine.EngineContents.Components
 
         public PhysicsComponent(GameObject parent) : base(parent) { parent.SetMass(defaultMass); }
 
-        static PhysicsComponent() { allowMultipleComponent = false; }
-
         public override void UpdateTick(MainWindow win)
         {
             base.UpdateTick(win);
