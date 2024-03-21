@@ -15,9 +15,9 @@ namespace SpriteX_Engine.EngineContents.Components
 
         public PhysicsComponent(GameObject parent) : base(parent) { parent.SetMass(mass); }
 
-        public override void GameTick(MainWindow win)
+        public override void UpdateTick(MainWindow win)
         {
-            base.GameTick(win);
+            base.UpdateTick(win);
 
             if (gravityEnabled) velocity += gravityVector * gravityMultiplier;
 

@@ -9,7 +9,7 @@
             this.parent = parent;
         }
 
-        public virtual void GameTick(MainWindow win) { }
+        public virtual void UpdateTick(MainWindow win) { }
         public virtual void RenderTick(MainWindow win, gfx gfx) { }
     }
 }
