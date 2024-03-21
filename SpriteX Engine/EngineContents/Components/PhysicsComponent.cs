@@ -12,9 +12,9 @@ namespace SpriteX_Engine.EngineContents.Components
         /// </summary>
         public Vector2 velocity = new Vector2(0, 0);
         /// <summary>
-        /// mass of parent game object
+        /// default mass of parent game object
         /// </summary>
-        public float mass = 10f;
+        public float defaultMass = 10f;
         /// <summary>
         /// slows down parent game object the higher the value
         /// </summary>
@@ -40,7 +40,7 @@ namespace SpriteX_Engine.EngineContents.Components
         /// </summary>
         public float gravityMultiplier = 1;
 
-        public PhysicsComponent(GameObject parent) : base(parent) { parent.SetMass(mass); }
+        public PhysicsComponent(GameObject parent) : base(parent) { parent.SetMass(defaultMass); }
 
         public override void UpdateTick(MainWindow win)
         {
