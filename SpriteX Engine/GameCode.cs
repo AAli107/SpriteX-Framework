@@ -58,7 +58,7 @@ namespace SpriteX_Engine
             win.world.SpawnGameObject(g);
             win.GetWorldCamera().SetEnableCameraBound(true);
 
-            g.AddComponent<PhysicsComponent>();
+            var c = g.AddComponent<PhysicsComponent>();
         }
 
         public override void OnFixedGameUpdate(MainWindow win)

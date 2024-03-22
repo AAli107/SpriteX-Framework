@@ -6,6 +6,7 @@
     public abstract class Component
     {
         public GameObject parent;
+        public bool isEnabled = true;
 
         public Component(GameObject parent)
         {

@@ -91,7 +91,7 @@ namespace SpriteX_Engine.EngineContents
 
         public void UpdateTick(MainWindow win)
         {
-            foreach (Component c in components) c.UpdateTick(win);
+            foreach (Component c in components) if (c.isEnabled) c.UpdateTick(win);
 
             //if (simulatePhysics)
             //{
@@ -104,7 +104,7 @@ namespace SpriteX_Engine.EngineContents
 
         public void Render(MainWindow win, gfx gfx)
         {
-            foreach (Component c in components) c.RenderTick(win, gfx);
+            foreach (Component c in components) if (c.isEnabled) c.RenderTick(win, gfx);
 
             if (isVisible) for (int i = 0; i < renders.Count; i++)
                 renders[i].DrawRender(gfx, GetCenterPosition());
