@@ -59,6 +59,9 @@ namespace SpriteX_Engine
             win.GetWorldCamera().SetEnableCameraBound(true);
 
             var c = g.AddComponent<PhysicsComponent>();
+            c.isEnabled = false;
+
+            ColliderComponent cc = g.AddComponent<ColliderComponent>() as ColliderComponent;
         }
 
         public override void OnFixedGameUpdate(MainWindow win)
@@ -114,6 +117,7 @@ namespace SpriteX_Engine
             gfx.DrawText(new Vector2(16, 112), "Obj Pos = (" + Math.Round(g.GetCenterPosition().X, 2) + ", " + Math.Round(g.GetCenterPosition().Y, 2) + ")", Color4.White, 1);
             gfx.DrawText(new Vector2(16, 144), "World Mouse Pos = (" + Math.Round(win.mouseWorldPos.X, 2) + ", " + Math.Round(win.mouseWorldPos.Y, 2) + ")", Color4.White, 1);
             gfx.DrawText(new Vector2(16, 176), "Count = " + win.world.audios.Count, Color4.White, 1);
+            gfx.DrawText(new Vector2(16, 256), (g.GetComponent<ColliderComponent>() as ColliderComponent).transform.ToString(), Color4.White, 1);
         }
 
         public override void OnGameEnd(MainWindow win)

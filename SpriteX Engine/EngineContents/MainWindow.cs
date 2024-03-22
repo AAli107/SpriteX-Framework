@@ -3,6 +3,7 @@ using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
 using OpenTK.Windowing.GraphicsLibraryFramework;
+using SpriteX_Engine.EngineContents.Components;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 
@@ -26,7 +27,7 @@ namespace SpriteX_Engine.EngineContents
             CenterWindow(); // Will center the window in the middle of the screen
             bgColor = Color.Black; // Controls the windows background color
             allowAltEnter = true; // Controls whether you can toggle fullscreen when pressing Alt+Enter
-            showDebugHitbox = false; // Controls whether to show all GameObjects' hitboxes
+            showDebugHitbox = true; // Controls whether to show all GameObjects' hitboxes
             showStats = true; // Displays FPS and UpdateTime(ms) Stat
             font = Font.GetDefaultFont(); // Contains game font
             startLevel = new GameCode(); // The Level to load when game launches
@@ -200,10 +201,9 @@ namespace SpriteX_Engine.EngineContents
                 obj.Render(this, gfx); // Will render all of GameObject's Renders
                 
                 if (showDebugHitbox) // Will render the Rectangles representing the hitbox of the GameObject
-                {
-                    if (obj.GetSize().X > 0 && obj.GetSize().Y > 0)
-                        gfx.DrawRect(obj.GetPosition(), obj.GetSize(), Color4.White, gfx.DrawType.Outline, false);
-                }
+                    foreach (ColliderComponent cc in obj.GetComponents<ColliderComponent>())
+                        if (cc.isEnabled)
+                            gfx.DrawRect(obj.GetPosition() + cc.topLeft, cc.bottomRight - cc.topLeft, Color4.White, gfx.DrawType.Outline, false);
             }
 
             // Will render all the visible buttons
