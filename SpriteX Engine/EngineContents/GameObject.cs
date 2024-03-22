@@ -2,6 +2,7 @@
 using OpenTK.Windowing.Common;
 using SpriteX_Engine.EngineContents.Components;
 using System.Drawing;
+using System.Reflection;
 
 namespace SpriteX_Engine.EngineContents
 {
@@ -61,7 +62,9 @@ namespace SpriteX_Engine.EngineContents
 
         public Component AddComponent<T>() where T : Component
         {
-            Component component = Activator.CreateInstance<T>();
+            Type classType = typeof(T);
+            ConstructorInfo constructor = classType.GetConstructor(new Type[] { typeof(GameObject) });
+            Component component = (T)constructor.Invoke(new object[] { this });
             components.Add(component);
             return component;
         }

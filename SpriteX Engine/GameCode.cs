@@ -57,6 +57,8 @@ namespace SpriteX_Engine
             btn3.OnButtonPressed += btn3_ButtonPressed;
             win.world.SpawnGameObject(g);
             win.GetWorldCamera().SetEnableCameraBound(true);
+
+            g.AddComponent<PhysicsComponent>();
         }
 
         public override void OnFixedGameUpdate(MainWindow win)
