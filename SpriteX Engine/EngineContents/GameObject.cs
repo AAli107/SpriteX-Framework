@@ -1,5 +1,6 @@
 ﻿using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
+using SpriteX_Engine.EngineContents.Components;
 using System.Drawing;
 
 namespace SpriteX_Engine.EngineContents
@@ -16,6 +17,8 @@ namespace SpriteX_Engine.EngineContents
         bool collisionEnabled;
 
         bool isVisible = true;
+
+        private List<Component> components = new List<Component>();
 
         public readonly List<Render> renders = new List<Render>(255);
 
@@ -54,6 +57,28 @@ namespace SpriteX_Engine.EngineContents
             this.friction = friction;
             this.simulatePhysics = simulatePhysics;
             this.collisionEnabled = collisionEnabled;
+        }
+
+        public Component AddComponent<T>() where T : Component
+        {
+            Component component = Activator.CreateInstance<T>();
+            components.Add(component);
+            return component;
+        }
+
+        public Component GetComponent<T>() where T : Component
+        {
+            return components.FirstOrDefault(c => c.GetType() == typeof(T));
+        }
+
+        public Component[] GetComponents<T>() where T : Component
+        {
+            return components.Where(c => c.GetType() == typeof(T)).ToArray();
+        }
+
+        public void RemoveComponent(Component c)
+        {
+            components.Remove(c);
         }
 
         public void OnSpawn()
