@@ -13,5 +13,10 @@ namespace SpriteX_Engine.EngineContents.Structs
             this.position = position;
             this.scale = scale;
         }
+
+        public override string ToString()
+        {
+            return "[ position=" + position + " / scale=" + scale + " ]";
+        }
     }
 }
