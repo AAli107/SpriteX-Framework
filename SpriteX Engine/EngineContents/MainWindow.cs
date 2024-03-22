@@ -161,7 +161,7 @@ namespace SpriteX_Engine.EngineContents
                 if (!isGamePaused)
                 {
                     gameCode.OnPrePhysicsUpdate(this);
-                    world.TickAllGameObjects();
+                    world.TickAllGameObjects(this);
                     gameCode.OnFixedGameUpdate(this);
                 }
                 gcTimer++;
@@ -197,7 +197,7 @@ namespace SpriteX_Engine.EngineContents
 
             foreach (GameObject obj in world.GetAllGameObjects())
             {
-                obj.Render(gfx); // Will render all of GameObject's Renders
+                obj.Render(this, gfx); // Will render all of GameObject's Renders
                 
                 if (showDebugHitbox) // Will render the Rectangles representing the hitbox of the GameObject
                 {

@@ -126,12 +126,12 @@ namespace SpriteX_Engine.EngineContents
         /// <summary>
         /// Will update tick all existing GameObjects and does the collision between them
         /// </summary>
-        public void TickAllGameObjects()
+        public void TickAllGameObjects(MainWindow win)
         {
             for (int i = 0; i < gameObjects.Count; i++)
             {
                 GameObject obj = gameObjects[i];
-                obj.UpdateTick();
+                obj.UpdateTick(win);
 
                 if (!obj.IsCollisionEnabled())
                     continue;

@@ -86,8 +86,10 @@ namespace SpriteX_Engine.EngineContents
             OnGameObjectSpawn?.Invoke(this, new EventArgs());
         }
 
-        public void UpdateTick()
+        public void UpdateTick(MainWindow win)
         {
+            foreach (Component c in components) c.UpdateTick(win);
+
             if (simulatePhysics)
             {
                 position += velocity;
@@ -97,8 +99,10 @@ namespace SpriteX_Engine.EngineContents
             OnGameObjectUpdate?.Invoke(this, new EventArgs());
         }
 
-        public void Render(gfx gfx)
+        public void Render(MainWindow win, gfx gfx)
         {
+            foreach (Component c in components) c.RenderTick(win, gfx);
+
             if (isVisible) for (int i = 0; i < renders.Count; i++)
                 renders[i].DrawRender(gfx, GetCenterPosition());
 
