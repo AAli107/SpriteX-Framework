@@ -93,11 +93,11 @@ namespace SpriteX_Engine.EngineContents
         {
             foreach (Component c in components) c.UpdateTick(win);
 
-            if (simulatePhysics)
-            {
-                position += velocity;
-                velocity *= 1 / (((friction + 1) >= 1) ? (friction + 1) : 1);
-            }
+            //if (simulatePhysics)
+            //{
+            //    position += velocity;
+            //    velocity *= 1 / (((friction + 1) >= 1) ? (friction + 1) : 1);
+            //}
 
             OnGameObjectUpdate?.Invoke(this, new EventArgs());
         }
