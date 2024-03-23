@@ -84,10 +84,10 @@ namespace SpriteX_Engine.EngineContents.Components
         public RectangleF GetHitbox() { return rectf; }
 
         /// <summary>
-        /// Returns true when GameObject hitbox intersects with another one
+        /// Returns true when Collider intersects with another one
         /// </summary>
         /// <param name="gameObject"></param>
         /// <returns></returns>
-        public bool IsIntersectingWithGameObject(GameObject gameObject) { return GetHitbox().IntersectsWith(gameObject.GetHitbox()); }
+        public bool IsIntersectingWith(ColliderComponent cc) { return GetHitbox().IntersectsWith(cc.GetHitbox()); }
     }
 }
