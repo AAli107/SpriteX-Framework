@@ -50,25 +50,28 @@ namespace SpriteX_Engine.EngineContents.Components
                     if (!cc.isEnabled) continue;
                     if (!IsIntersectingWith(cc)) continue;
 
-                    PhysicsComponent pc = parent.GetComponent<PhysicsComponent>() as PhysicsComponent;
-
-                    Vector2 mtv = CalculateMTV(cc);
-
-                    if (pc != null)
+                    if (isSolidCollision && cc.isSolidCollision)
                     {
-                        if (pc.isEnabled)
-                        {
-                            parent.SetPosition(parent.GetPosition() + mtv);
-                            pc.AddVelocity(mtv / obj.GetMass());
-                            PhysicsComponent pc2 = obj.GetComponent<PhysicsComponent>() as PhysicsComponent;
-                            if (pc2 != null)
-                            {
-                                if (pc2.isEnabled)
-                                {
-                                    obj.SetPosition(obj.GetPosition() - mtv);
-                                    pc2.AddVelocity(-(mtv / obj.GetMass()));
-                                }
+                        PhysicsComponent pc = parent.GetComponent<PhysicsComponent>() as PhysicsComponent;
 
+                        Vector2 mtv = CalculateMTV(cc);
+
+                        if (pc != null)
+                        {
+                            if (pc.isEnabled)
+                            {
+                                parent.SetPosition(parent.GetPosition() + mtv);
+                                pc.AddVelocity(mtv / obj.GetMass());
+                                PhysicsComponent pc2 = obj.GetComponent<PhysicsComponent>() as PhysicsComponent;
+                                if (pc2 != null)
+                                {
+                                    if (pc2.isEnabled)
+                                    {
+                                        obj.SetPosition(obj.GetPosition() - mtv);
+                                        pc2.AddVelocity(-(mtv / obj.GetMass()));
+                                    }
+
+                                }
                             }
                         }
                     }
