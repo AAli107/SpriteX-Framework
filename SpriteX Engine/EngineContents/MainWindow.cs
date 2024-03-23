@@ -199,11 +199,14 @@ namespace SpriteX_Engine.EngineContents
             foreach (GameObject obj in world.GetAllGameObjects())
             {
                 obj.Render(this, gfx); // Will render all of GameObject's Renders
-                
+
                 if (showDebugHitbox) // Will render the Rectangles representing the hitbox of the GameObject
                     foreach (ColliderComponent cc in obj.GetComponents<ColliderComponent>())
                         if (cc.isEnabled)
-                            gfx.DrawRect(obj.GetPosition() + cc.topLeft, cc.bottomRight - cc.topLeft, Color4.White, gfx.DrawType.Outline, false);
+                        { 
+                            var hb = cc.GetHitbox();
+                            gfx.DrawRect(new Vector2(hb.X, hb.Y), new Vector2(hb.Width, hb.Height), Color4.White, gfx.DrawType.Outline, false); 
+                        }
             }
 
             // Will render all the visible buttons
