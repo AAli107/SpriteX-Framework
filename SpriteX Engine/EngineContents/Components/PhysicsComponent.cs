@@ -69,5 +69,13 @@ namespace SpriteX_Engine.EngineContents.Components
         {
             this.velocity = velocity;
         }
+        /// <summary>
+        /// Adds directional velocity into current Velocity
+        /// </summary>
+        /// <param name="velocity"></param>
+        public void AddVelocity(Vector2 velocity)
+        {
+            this.velocity += velocity;
+        }
     }
 }
