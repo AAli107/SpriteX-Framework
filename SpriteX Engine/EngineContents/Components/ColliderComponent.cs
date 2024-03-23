@@ -50,9 +50,53 @@ namespace SpriteX_Engine.EngineContents.Components
                     if (!cc.isEnabled) continue;
                     if (!IsIntersectingWith(cc)) continue;
 
-                    // TODO: Collision implementation here...
+                    PhysicsComponent pc = parent.GetComponent<PhysicsComponent>() as PhysicsComponent;
+
+                    Vector2 mtv = CalculateMTV(cc);
+
+                    if (pc != null)
+                    {
+                        if (pc.isEnabled)
+                        {
+                            parent.SetPosition(parent.GetPosition() + mtv);
+                            pc.AddVelocity(mtv / obj.GetMass());
+                            PhysicsComponent pc2 = obj.GetComponent<PhysicsComponent>() as PhysicsComponent;
+                            if (pc2 != null)
+                            {
+                                if (pc2.isEnabled)
+                                {
+                                    obj.SetPosition(obj.GetPosition() - mtv);
+                                    pc2.AddVelocity(-(mtv / obj.GetMass()));
+                                }
+
+                            }
+                        }
+                    }
                 }
             }
+        }
+
+        private Vector2 CalculateMTV(ColliderComponent otherCollider)
+        {
+            Vector2 thisHalfSize = GetHalfSize();
+            Vector2 otherHalfSize = otherCollider.GetHalfSize();
+
+            Vector2 thisCenter = transform.position + parent.GetPosition();
+            Vector2 otherCenter = otherCollider.transform.position + otherCollider.parent.GetPosition();
+
+            Vector2 centerDifference = thisCenter - otherCenter;
+
+            float xOverlap = thisHalfSize.X + otherHalfSize.X - Math.Abs(centerDifference.X);
+            float yOverlap = thisHalfSize.Y + otherHalfSize.Y - Math.Abs(centerDifference.Y);
+
+            if (xOverlap > 0 && yOverlap > 0)
+            {
+                return (xOverlap < yOverlap) ? 
+                    new Vector2(Math.Sign(centerDifference.X) * xOverlap, 0) :
+                    new Vector2(0, Math.Sign(centerDifference.Y) * yOverlap); 
+            }
+
+            return Vector2.Zero;
         }
 
 
@@ -85,6 +129,6 @@ namespace SpriteX_Engine.EngineContents.Components
         /// Returns Half-size of the collider
         /// </summary>
         /// <returns></returns>
-        public Vector2 GetHalfSize() { return bottomRight - (parent.GetPosition() - transform.position); }
+        public Vector2 GetHalfSize() { return bottomRight - (parent.GetPosition() + transform.position); }
     }
 }
