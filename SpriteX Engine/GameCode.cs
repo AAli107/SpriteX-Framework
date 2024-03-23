@@ -64,10 +64,13 @@ namespace SpriteX_Engine
             PhysicsComponent pc2 = gg.AddComponent<PhysicsComponent>() as PhysicsComponent;
             pc2.gravityEnabled = false;
             pc2.mass = 100;
+            pc2.isAirborne = false;
             gg.AddComponent<ColliderComponent>();
 
             pc = g.AddComponent<PhysicsComponent>() as PhysicsComponent;
             pc.gravityEnabled = false;
+            pc.mass = 10f;
+            pc.isAirborne = false;
 
             ColliderComponent cc = g.AddComponent<ColliderComponent>() as ColliderComponent;
             ColliderComponent cc2 = g.AddComponent<ColliderComponent>() as ColliderComponent;
