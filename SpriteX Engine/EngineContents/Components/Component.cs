@@ -13,7 +13,13 @@
             this.parent = parent;
         }
 
-        public virtual void UpdateTick(MainWindow win) { }
-        public virtual void RenderTick(MainWindow win, gfx gfx) { }
+        public virtual void UpdateTick(MainWindow win) 
+        {
+            if (parent == null || !isEnabled) return;
+        }
+        public virtual void RenderTick(MainWindow win, gfx gfx) 
+        {
+            if (parent == null || !isEnabled) return;
+        }
     }
 }
