@@ -54,6 +54,15 @@ namespace SpriteX_Engine.EngineContents.Components
                     if (isSolidCollision && cc.isSolidCollision)
                     {
                         PhysicsComponent pc = parent.GetComponent<PhysicsComponent>() as PhysicsComponent;
+                        PhysicsComponent pc2 = obj.GetComponent<PhysicsComponent>() as PhysicsComponent;
+
+                        float pcMass = pc != null ? pc.mass : float.MaxValue;
+                        float pc2Mass = pc2 != null ? pc2.mass : float.MaxValue;
+
+                        float totalMass = pcMass + pc2Mass;
+                        
+                        float thisMassProportion = pcMass / totalMass;
+                        float otherMassProportion = pc2Mass / totalMass;
 
                         Vector2 mtv = CalculateMTV(cc);
 
@@ -61,15 +70,14 @@ namespace SpriteX_Engine.EngineContents.Components
                         {
                             if (pc.isEnabled)
                             {
-                                parent.SetPosition(parent.GetPosition() + mtv);
-                                pc.AddVelocity(mtv);
-                                PhysicsComponent pc2 = obj.GetComponent<PhysicsComponent>() as PhysicsComponent;
+                                parent.SetPosition(parent.GetPosition() + mtv * (1 - thisMassProportion));
+                                pc.AddVelocity(mtv * (1 - thisMassProportion));
                                 if (pc2 != null)
                                 {
                                     if (pc2.isEnabled)
                                     {
-                                        obj.SetPosition(obj.GetPosition() - mtv);
-                                        pc2.AddVelocity(-mtv);
+                                        obj.SetPosition(obj.GetPosition() - mtv * (1 - otherMassProportion));
+                                        pc2.AddVelocity(-mtv * (1 - otherMassProportion));
                                     }
                                 }
                             }
