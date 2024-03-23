@@ -14,10 +14,7 @@ namespace SpriteX_Engine.EngineContents.Components
         /// <summary>
         /// box collider transform, holds position and scale
         /// </summary>
-        public Transform transform {
-            get { return t; }
-            set { SetTransform(value); }
-        }
+        public Transform transform = new Transform();
         /// <summary>
         /// controls whether to allow overlapping with other colliders
         /// </summary>
@@ -32,25 +29,30 @@ namespace SpriteX_Engine.EngineContents.Components
         public Vector2 bottomRight;
 
         private RectangleF rectf;
-        private Transform t = new Transform();
 
-        public ColliderComponent(GameObject parent) : base(parent) 
+        public ColliderComponent(GameObject parent) : base(parent) { }
+
+        public override void UpdateTick(MainWindow win)
         {
-            SetTransform(t);
-        }
+            base.UpdateTick(win);
 
-        /// <summary>
-        /// Sets Transform of collision
-        /// </summary>
-        /// <param name="transform"></param>
-        public void SetTransform(Transform transform)
-        {
-            t = transform;
-
-            rectf = new RectangleF(new PointF(t.position.X, t.position.Y), SizeF.Empty);
-            rectf.Inflate(t.scale.X * 50, t.scale.Y * 50);
-            topLeft = new Vector2(rectf.Left, rectf.Top);
+            rectf = new RectangleF(new PointF(transform.position.X + parent.GetPosition().X, transform.position.Y + parent.GetPosition().Y), SizeF.Empty);
+            rectf.Inflate(transform.scale.X * 50, transform.scale.Y * 50);
+            topLeft = new Vector2(rectf.Left, rectf.Top) - parent.GetPosition();
             bottomRight = new Vector2(rectf.Right, rectf.Bottom);
+
+            foreach (GameObject obj in win.world.gameObjects)
+            {
+                if (obj == parent) continue;
+
+                foreach (ColliderComponent cc in obj.GetComponents<ColliderComponent>())
+                {
+                    if (!cc.isEnabled) continue;
+                    if (!IsIntersectingWith(cc)) continue;
+
+                    // TODO: Collision implementation here...
+                }
+            }
         }
 
         /// <summary>
@@ -59,7 +61,7 @@ namespace SpriteX_Engine.EngineContents.Components
         /// <param name="pos"></param>
         public void SetRelativePosition(Vector2 pos)
         {
-            SetTransform(new Transform(pos, t.scale));
+            transform.position = pos;
         }
 
         /// <summary>
@@ -68,14 +70,8 @@ namespace SpriteX_Engine.EngineContents.Components
         /// <param name="scale"></param>
         public void SetRelativeScale(Vector2 scale)
         {
-            SetTransform(new Transform(t.position, scale));
+            transform.scale = scale;
         }
-
-        /// <summary>
-        /// Returns Center Position of the collider
-        /// </summary>
-        /// <returns></returns>
-        public Vector2 GetCenterPosition() { return new Vector2(t.position.X + (t.scale.X / 2), t.position.Y + (t.scale.Y / 2)); }
 
         /// <summary>
         /// Returns the collider dimensions
