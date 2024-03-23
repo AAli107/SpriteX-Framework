@@ -55,23 +55,18 @@ namespace SpriteX_Engine.EngineContents.Components
             }
         }
 
+
         /// <summary>
         /// Sets the collider's relative position to its parent game object
         /// </summary>
         /// <param name="pos"></param>
-        public void SetRelativePosition(Vector2 pos)
-        {
-            transform.position = pos;
-        }
+        public void SetRelativePosition(Vector2 pos) { transform.position = pos; }
 
         /// <summary>
         /// Sets the collider's scale
         /// </summary>
         /// <param name="scale"></param>
-        public void SetRelativeScale(Vector2 scale)
-        {
-            transform.scale = scale;
-        }
+        public void SetRelativeScale(Vector2 scale) { transform.scale = scale; }
 
         /// <summary>
         /// Returns the collider dimensions
@@ -85,5 +80,11 @@ namespace SpriteX_Engine.EngineContents.Components
         /// <param name="gameObject"></param>
         /// <returns></returns>
         public bool IsIntersectingWith(ColliderComponent cc) { return GetHitbox().IntersectsWith(cc.GetHitbox()); }
+        
+        /// <summary>
+        /// Returns Half-size of the collider
+        /// </summary>
+        /// <returns></returns>
+        public Vector2 GetHalfSize() { return bottomRight - (parent.GetPosition() - transform.position); }
     }
 }
