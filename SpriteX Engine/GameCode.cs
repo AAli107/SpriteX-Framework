@@ -63,7 +63,7 @@ namespace SpriteX_Engine
 
             PhysicsComponent pc2 = gg.AddComponent<PhysicsComponent>() as PhysicsComponent;
             pc2.gravityEnabled = false;
-            pc2.mass = 100;
+            pc2.mass = 10f;
             pc2.isAirborne = false;
             gg.AddComponent<ColliderComponent>();
 
@@ -133,7 +133,7 @@ namespace SpriteX_Engine
 
             gfx.DrawText(new Vector2(16, 80), "Cam Pos = (" + Math.Round(win.world.cam.camPos.X, 2) + ", " + Math.Round(win.world.cam.camPos.Y, 2) + ")", Color4.White, 1);
             gfx.DrawText(new Vector2(16, 112), "Obj Pos = (" + Math.Round(g.GetPosition().X, 2) + ", " + Math.Round(g.GetPosition().Y, 2) + ")", Color4.White, 1);
-            gfx.DrawText(new Vector2(16, 144), "Obj Speed = " + Math.Round(pc.velocity.Length * win.fixedFrameTime, 2) + "cm/s", Color4.White, 1);
+            gfx.DrawText(new Vector2(16, 144), "Obj Speed = " + Math.Round(pc.velocity.Length * win.fixedFrameTime, 2) + "u/s", Color4.White, 1);
             gfx.DrawText(new Vector2(16, 176), "Count = " + win.world.audios.Count, Color4.White, 1);
         }
 

@@ -67,7 +67,8 @@ namespace SpriteX_Engine.EngineContents.Components
         /// <param name="velocity"></param>
         public void OverrideVelocity(Vector2 velocity)
         {
-            this.velocity = velocity;
+            if (isEnabled)
+                this.velocity = velocity;
         }
         /// <summary>
         /// Adds directional velocity into current Velocity
@@ -75,7 +76,8 @@ namespace SpriteX_Engine.EngineContents.Components
         /// <param name="velocity"></param>
         public void AddVelocity(Vector2 velocity)
         {
-            this.velocity += velocity;
+            if (isEnabled)
+                this.velocity += velocity;
         }
     }
 }
