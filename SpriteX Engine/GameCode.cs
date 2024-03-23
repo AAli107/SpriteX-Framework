@@ -29,7 +29,7 @@ namespace SpriteX_Engine
         public void btn_ButtonPressed(object sender, MouseButtonEventArgs e)
         {
             MainWindow win = (MainWindow)sender;
-            win.world.SpawnGameObject(new GameObject(new Vector2(Rand.RangeFloat(0, 1920), Rand.RangeFloat(0, 1080)), 1f));
+            win.world.SpawnGameObject(new GameObject(new Vector2(Rand.RangeFloat(0, 1920), Rand.RangeFloat(0, 1080))));
             win.PlayAudio("Resources/Audio/sample_audio.wav");
         }
 
@@ -43,7 +43,7 @@ namespace SpriteX_Engine
         public void btn3_ButtonPressed(object sender, MouseButtonEventArgs e)
         {
             MainWindow win = (MainWindow)sender;
-            win.world.SpawnGameObject(new GameObject(new Vector2(Rand.RangeFloat(0, 1920), Rand.RangeFloat(0, 1080)), 20f));
+            win.world.SpawnGameObject(new GameObject(new Vector2(Rand.RangeFloat(0, 1920), Rand.RangeFloat(0, 1080))));
             win.PlayAudio("Resources/Audio/sample_audio.wav");
         }
 
@@ -61,7 +61,8 @@ namespace SpriteX_Engine
             win.world.SpawnGameObject(gg);
             win.GetWorldCamera().SetEnableCameraBound(true);
 
-            (gg.AddComponent<PhysicsComponent>() as PhysicsComponent).gravityEnabled = false;
+            PhysicsComponent pc2 = gg.AddComponent<PhysicsComponent>() as PhysicsComponent;
+            pc2.gravityEnabled = false;
             gg.AddComponent<ColliderComponent>();
 
             pc = g.AddComponent<PhysicsComponent>() as PhysicsComponent;

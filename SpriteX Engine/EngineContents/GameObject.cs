@@ -10,7 +10,6 @@ namespace SpriteX_Engine.EngineContents
     {
         uint id;
         Vector2 position;
-        float mass;
 
         bool isVisible = true;
 
@@ -29,15 +28,14 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="size"></param>
         /// <param name="simulatePhysics"></param>
         /// <param name="friction"></param>
-        public GameObject(Vector2 position, float mass = 10f)
+        public GameObject(Vector2 position)
         {
-            Construct(position, mass);
+            Construct(position);
         }
 
-        void Construct(Vector2 position, float mass = 10f)
+        void Construct(Vector2 position)
         {
             this.position = position;
-            this.mass = mass;
         }
 
         public Component AddComponent<T>() where T : Component
@@ -110,15 +108,6 @@ namespace SpriteX_Engine.EngineContents
         }
 
         /// <summary>
-        /// Sets GameObject's Mass
-        /// </summary>
-        /// <param name="mass"></param>
-        public void SetMass(float mass) 
-        {
-            this.mass = mass;
-        }
-
-        /// <summary>
         /// Returns GameObject's ID
         /// </summary>
         /// <returns></returns>
@@ -129,11 +118,5 @@ namespace SpriteX_Engine.EngineContents
         /// </summary>
         /// <returns></returns>
         public Vector2 GetPosition() { return position; }
-
-        /// <summary>
-        /// Returns GameObject's mass
-        /// </summary>
-        /// <returns></returns>
-        public float GetMass() { return mass; }
     }
 }

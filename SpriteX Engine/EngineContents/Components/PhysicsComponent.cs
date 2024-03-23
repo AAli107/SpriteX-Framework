@@ -13,9 +13,9 @@ namespace SpriteX_Engine.EngineContents.Components
         /// </summary>
         public Vector2 velocity = new Vector2(0, 0);
         /// <summary>
-        /// default mass of parent game object
+        /// The mass of the parent game object
         /// </summary>
-        public float defaultMass = 10f;
+        public float mass = 10f;
         /// <summary>
         /// slows down parent game object the higher the value
         /// </summary>
@@ -41,7 +41,7 @@ namespace SpriteX_Engine.EngineContents.Components
         /// </summary>
         public float gravityMultiplier = 1;
 
-        public PhysicsComponent(GameObject parent) : base(parent) { parent.SetMass(defaultMass); }
+        public PhysicsComponent(GameObject parent) : base(parent) { }
 
         public override void UpdateTick(MainWindow win)
         {
@@ -49,7 +49,7 @@ namespace SpriteX_Engine.EngineContents.Components
 
             if (gravityEnabled) velocity += gravityVector * gravityMultiplier;
 
-            velocity *= 1 / (((isAirborne ? (friction * (1 / parent.GetMass())) : friction) + 1) >= 1 ? ((isAirborne ? (friction * (1 / parent.GetMass())) : friction) + 1) : 1);
+            velocity *= 1 / (((isAirborne ? (friction * (1 / mass)) : friction) + 1) >= 1 ? ((isAirborne ? (friction * (1 / mass)) : friction) + 1) : 1);
 
             Vector2 constraintedVelocity = Vector2.Zero;
             constraintedVelocity.X = movementConstraint.X ? 0 : velocity.X;

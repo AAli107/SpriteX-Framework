@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NAudio.Wave.SampleProviders;
 using OpenTK.Mathematics;
 using SpriteX_Engine.EngineContents.Structs;
 
@@ -61,16 +62,15 @@ namespace SpriteX_Engine.EngineContents.Components
                             if (pc.isEnabled)
                             {
                                 parent.SetPosition(parent.GetPosition() + mtv);
-                                pc.AddVelocity(mtv / obj.GetMass());
+                                pc.AddVelocity(mtv);
                                 PhysicsComponent pc2 = obj.GetComponent<PhysicsComponent>() as PhysicsComponent;
                                 if (pc2 != null)
                                 {
                                     if (pc2.isEnabled)
                                     {
                                         obj.SetPosition(obj.GetPosition() - mtv);
-                                        pc2.AddVelocity(-(mtv / obj.GetMass()));
+                                        pc2.AddVelocity(-mtv);
                                     }
-
                                 }
                             }
                         }
