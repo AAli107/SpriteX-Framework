@@ -60,5 +60,14 @@ namespace SpriteX_Engine.EngineContents.Components
 
             parent.SetPosition(parent.GetPosition() + constraintedVelocity);
         }
+
+        /// <summary>
+        /// Will override the current Velocity
+        /// </summary>
+        /// <param name="velocity"></param>
+        public void OverrideVelocity(Vector2 velocity)
+        {
+            this.velocity = velocity;
+        }
     }
 }
