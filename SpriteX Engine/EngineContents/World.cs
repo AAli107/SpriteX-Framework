@@ -129,58 +129,7 @@ namespace SpriteX_Engine.EngineContents
         public void TickAllGameObjects(MainWindow win)
         {
             for (int i = 0; i < gameObjects.Count; i++)
-            {
-                GameObject obj = gameObjects[i];
-                obj.UpdateTick(win);
-
-                if (!obj.IsCollisionEnabled())
-                    continue;
-
-                for (int j = i + 1; j < gameObjects.Count; j++)
-                {
-                    GameObject obj2 = gameObjects[j];
-                    if (!obj2.IsCollisionEnabled())
-                        continue;
-
-                    if (obj.GetVelocity().Length + obj2.GetVelocity().Length <= 0)
-                        continue;
-
-                    if (!obj.IsIntersectingWith(obj2))
-                        continue;
-
-                    Vector2 cv = CalculateCollisionVector(obj, obj2);
-
-                    if (obj.IsSimulatingPhysics())
-                    {
-                        obj.SetPosition(obj.GetPosition() + cv);
-                        obj.OverrideVelocity(obj.GetVelocity() + (cv / (obj2.IsSimulatingPhysics() ? obj.GetMass() : 1f)));
-                    }
-
-                    if (obj2.IsSimulatingPhysics())
-                        obj2.OverrideVelocity(obj2.GetVelocity() - (cv / (obj.IsSimulatingPhysics() ? obj2.GetMass() : 1f)));
-                }
-            }
-        }
-
-        // collision vector code
-        private Vector2 CalculateCollisionVector(GameObject obj1, GameObject obj2)
-        {
-            Vector2 center1 = obj1.GetCenterPosition();
-            Vector2 center2 = obj2.GetCenterPosition();
-
-            Vector2 halfSize1 = obj1.GetSize() * 0.5f;
-            Vector2 halfSize2 = obj2.GetSize() * 0.5f;
-
-            float diffX = center1.X - center2.X;
-            float diffY = center1.Y - center2.Y;
-
-            float overlapX = halfSize1.X + halfSize2.X - Math.Abs(diffX);
-            float overlapY = halfSize1.Y + halfSize2.Y - Math.Abs(diffY);
-
-            float collisionX = overlapX < overlapY ? (center1.X < center2.X ? -overlapX : overlapX) : 0;
-            float collisionY = overlapX < overlapY ? 0 : (center1.Y < center2.Y ? -overlapY : overlapY);
-
-            return new Vector2(collisionX, collisionY);
+                gameObjects[i].UpdateTick(win);
         }
     }
 }

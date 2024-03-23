@@ -13,8 +13,8 @@ namespace SpriteX_Engine
     public class GameCode : GameLevelScript // All classes with GameLevelScript as base class acts like a script for a level
     {
         /* Insert Variables here */
-        GameObject g = new GameObject(new Vector2(500, 400), new Vector2(150, 150), true, true, 0.1f);
-        GameObject gg = new GameObject(new Vector2(200, 400), new Vector2(150, 150), true, true, 0.1f);
+        GameObject g = new GameObject(new Vector2(500, 400));
+        GameObject gg = new GameObject(new Vector2(200, 400));
         PhysicsComponent pc;
 
         float s;
@@ -29,21 +29,21 @@ namespace SpriteX_Engine
         public void btn_ButtonPressed(object sender, MouseButtonEventArgs e)
         {
             MainWindow win = (MainWindow)sender;
-            win.world.SpawnGameObject(new GameObject(new Vector2(Rand.RangeFloat(0, 1920), Rand.RangeFloat(0, 1080)), new Vector2(100, 100), true, true, 0.1f, 1f));
+            win.world.SpawnGameObject(new GameObject(new Vector2(Rand.RangeFloat(0, 1920), Rand.RangeFloat(0, 1080)), 1f));
             win.PlayAudio("Resources/Audio/sample_audio.wav");
         }
 
         public void btn2_ButtonPressed(object sender, MouseButtonEventArgs e)
         {
             MainWindow win = (MainWindow)sender;
-            win.world.SpawnGameObject(new GameObject(new Vector2(Rand.RangeFloat(0, 1920), Rand.RangeFloat(0, 1080)), new Vector2(150, 150), true, true, 0.1f));
+            win.world.SpawnGameObject(new GameObject(new Vector2(Rand.RangeFloat(0, 1920), Rand.RangeFloat(0, 1080))));
             win.PlayAudio("Resources/Audio/sample_audio.wav");
         }
 
         public void btn3_ButtonPressed(object sender, MouseButtonEventArgs e)
         {
             MainWindow win = (MainWindow)sender;
-            win.world.SpawnGameObject(new GameObject(new Vector2(Rand.RangeFloat(0, 1920), Rand.RangeFloat(0, 1080)), new Vector2(200, 200), true, true, 0.1f, 20f));
+            win.world.SpawnGameObject(new GameObject(new Vector2(Rand.RangeFloat(0, 1920), Rand.RangeFloat(0, 1080)), 20f));
             win.PlayAudio("Resources/Audio/sample_audio.wav");
         }
 
@@ -104,7 +104,7 @@ namespace SpriteX_Engine
             {
                 for (int j = -5; j < 14; j++)
                 {
-                    float b = Vec2D.Distance2D(new Vector2(i - ((1920 / 2) / 120), j - ((1080 / 2) / 120)), new Vector2(((g.GetCenterPosition().X - 1920/2) / 120), ((g.GetCenterPosition().Y - 1080 / 2) / 120))) / 5;
+                    float b = Vec2D.Distance2D(new Vector2(i - ((1920 / 2) / 120), j - ((1080 / 2) / 120)), new Vector2(((g.GetPosition().X - 1920/2) / 120), ((g.GetPosition().Y - 1080 / 2) / 120))) / 5;
                     b = 1 - b; 
                     b = b > 1 ? 1 : b;
                     b = b <= 0.1f ? 0.1f : b;
@@ -115,17 +115,19 @@ namespace SpriteX_Engine
             gfx.DrawText(new Vector2(500, 600), "ZA WARUDO!", Color4.Yellow, 1, false);
             foreach (GameObject obj in win.world.GetAllGameObjects())
             {
-                float b = Vec2D.Distance2D(obj.GetCenterPosition() / new Vector2(1920/2, 1080/2), g.GetCenterPosition() / new Vector2(1920 / 2, 1080 / 2)) * 1.45f;
+                float b = Vec2D.Distance2D(obj.GetPosition() / new Vector2(1920/2, 1080/2), g.GetPosition() / new Vector2(1920 / 2, 1080 / 2)) * 1.45f;
                 b = 1 - b;
                 b += 0.25f;
                 b = b <= 0.1f ? 0.1f : b;
                 b = b > 1 ? 1 : b;
                 Color4 c = Colors.Lerp(Color4.White, lightColor, b);
-                gfx.DrawImage(obj.GetPosition(), obj.GetSize(), img1, Colors.Multiply(new Color4(b, b, b, 1), c));
+                ColliderComponent cc = obj.GetComponent<ColliderComponent>() as ColliderComponent;
+                Vector2 s = cc != null ? cc.transform.scale * 50 : new Vector2(50, 50);
+                gfx.DrawImage(obj.GetPosition() - s, s*2, img1, Colors.Multiply(new Color4(b, b, b, 1), c));
             }
 
             gfx.DrawText(new Vector2(16, 80), "Cam Pos = (" + Math.Round(win.world.cam.camPos.X, 2) + ", " + Math.Round(win.world.cam.camPos.Y, 2) + ")", Color4.White, 1);
-            gfx.DrawText(new Vector2(16, 112), "Obj Pos = (" + Math.Round(g.GetCenterPosition().X, 2) + ", " + Math.Round(g.GetCenterPosition().Y, 2) + ")", Color4.White, 1);
+            gfx.DrawText(new Vector2(16, 112), "Obj Pos = (" + Math.Round(g.GetPosition().X, 2) + ", " + Math.Round(g.GetPosition().Y, 2) + ")", Color4.White, 1);
             gfx.DrawText(new Vector2(16, 144), "World Mouse Pos = (" + Math.Round(win.mouseWorldPos.X, 2) + ", " + Math.Round(win.mouseWorldPos.Y, 2) + ")", Color4.White, 1);
             gfx.DrawText(new Vector2(16, 176), "Count = " + win.world.audios.Count, Color4.White, 1);
         }
