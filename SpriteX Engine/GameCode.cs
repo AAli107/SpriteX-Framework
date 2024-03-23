@@ -14,6 +14,8 @@ namespace SpriteX_Engine
     {
         /* Insert Variables here */
         GameObject g = new GameObject(new Vector2(500, 400), new Vector2(150, 150), true, true, 0.1f);
+        GameObject gg = new GameObject(new Vector2(200, 400), new Vector2(150, 150), true, true, 0.1f);
+        PhysicsComponent pc;
 
         float s;
 
@@ -56,27 +58,34 @@ namespace SpriteX_Engine
             btn2.OnButtonPressed += btn2_ButtonPressed;
             btn3.OnButtonPressed += btn3_ButtonPressed;
             win.world.SpawnGameObject(g);
+            win.world.SpawnGameObject(gg);
             win.GetWorldCamera().SetEnableCameraBound(true);
 
-            var c = g.AddComponent<PhysicsComponent>();
-            c.isEnabled = false;
+            //(gg.AddComponent<PhysicsComponent>() as PhysicsComponent).gravityEnabled = false;
+            gg.AddComponent<ColliderComponent>();
+
+            pc = g.AddComponent<PhysicsComponent>() as PhysicsComponent;
+            pc.gravityEnabled = false;
 
             ColliderComponent cc = g.AddComponent<ColliderComponent>() as ColliderComponent;
         }
 
         public override void OnFixedGameUpdate(MainWindow win)
         {
-            if (win.IsKeyDown(Keys.W)) g.AddVelocity(new Vector2(0, -s));
-            if (win.IsKeyDown(Keys.A)) g.AddVelocity(new Vector2(-s, 0));
-            if (win.IsKeyDown(Keys.S)) g.AddVelocity(new Vector2(0, +s));
-            if (win.IsKeyDown(Keys.D)) g.AddVelocity(new Vector2(+s, 0));
+            if (pc != null)
+            {
+                if (win.IsKeyDown(Keys.W)) pc.AddVelocity(new Vector2(0, -s));
+                if (win.IsKeyDown(Keys.A)) pc.AddVelocity(new Vector2(-s, 0));
+                if (win.IsKeyDown(Keys.S)) pc.AddVelocity(new Vector2(0, +s));
+                if (win.IsKeyDown(Keys.D)) pc.AddVelocity(new Vector2(+s, 0));
+            }
         }
 
         public override void OnGameUpdate(MainWindow win)
         {
             if (!win.world.DoesGameObjectExist(g.GetID())) win.world.SpawnGameObject(g);
             s = win.IsKeyDown(Keys.LeftControl) ? 0.4f : (win.IsKeyDown(Keys.LeftShift) ? 1.6f : 0.8f);
-            win.world.cam.SetCameraPosition(g.GetCenterPosition());
+            win.world.cam.SetCameraPosition(g.GetPosition());
         }
 
         public override void OnGameUpdateNoPause(MainWindow win)
@@ -117,7 +126,7 @@ namespace SpriteX_Engine
             gfx.DrawText(new Vector2(16, 112), "Obj Pos = (" + Math.Round(g.GetCenterPosition().X, 2) + ", " + Math.Round(g.GetCenterPosition().Y, 2) + ")", Color4.White, 1);
             gfx.DrawText(new Vector2(16, 144), "World Mouse Pos = (" + Math.Round(win.mouseWorldPos.X, 2) + ", " + Math.Round(win.mouseWorldPos.Y, 2) + ")", Color4.White, 1);
             gfx.DrawText(new Vector2(16, 176), "Count = " + win.world.audios.Count, Color4.White, 1);
-            gfx.DrawText(new Vector2(16, 256), (g.GetComponent<ColliderComponent>() as ColliderComponent).transform.ToString(), Color4.White, 1);
+            gfx.DrawText(new Vector2(16, 256), (g.GetComponent<ColliderComponent>() as ColliderComponent).bottomRight.ToString(), Color4.White, 1);
         }
 
         public override void OnGameEnd(MainWindow win)
