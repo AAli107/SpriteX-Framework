@@ -25,9 +25,6 @@ namespace SpriteX_Engine.EngineContents
         /// Creates a GameObject
         /// </summary>
         /// <param name="position"></param>
-        /// <param name="size"></param>
-        /// <param name="simulatePhysics"></param>
-        /// <param name="friction"></param>
         public GameObject(Vector2 position)
         {
             Construct(position);
@@ -44,6 +41,7 @@ namespace SpriteX_Engine.EngineContents
             ConstructorInfo constructor = classType.GetConstructor(new Type[] { typeof(GameObject) });
             Component component = (T)constructor.Invoke(new object[] { this });
             components.Add(component);
+            if (component.isEnabled) if (component is ScriptComponent) (component as ScriptComponent).Start();
             return component;
         }
 

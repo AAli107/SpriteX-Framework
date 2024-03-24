@@ -177,7 +177,21 @@ namespace SpriteX_Engine.EngineContents
                 WindowState = IsFullscreen ? WindowState.Normal : WindowState.Fullscreen;
             }
 
-            if (!isGamePaused) gameCode.OnGameUpdate(this); // OnGameUpdate() from GameCode is executed here
+            if (!isGamePaused)
+            {
+                gameCode.OnGameUpdate(this); // OnGameUpdate() from GameCode is executed here
+                foreach (GameObject obj in world.gameObjects)
+                {
+                    var cs = obj.GetComponents<ScriptComponent>();
+
+                    if (cs.Length <= 0) continue;
+
+                    foreach (ScriptComponent c in cs)
+                    {
+                        if (c.isEnabled) c.Update(this);
+                    }
+                }
+            }
             gameCode.OnGameUpdateNoPause(this);    
         }
 
