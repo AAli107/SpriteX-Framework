@@ -17,7 +17,7 @@ namespace SpriteX_Engine.EngineContents.Components
         /// </summary>
         public float mass = 10f;
         /// <summary>
-        /// slows down parent game object the higher the value
+        /// movement friction that slows down parent game object the higher the value
         /// </summary>
         public float friction = 0.1f;
         /// <summary>
