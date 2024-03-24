@@ -13,8 +13,9 @@ namespace SpriteX_Engine
     public class GameCode : GameLevelScript // All classes with GameLevelScript as base class acts like a script for a level
     {
         /* Insert Variables here */
-        GameObject g = new GameObject(new Vector2(500, 400));
+        GameObject g = new GameObject(new Vector2(500, 100));
         GameObject gg = new GameObject(new Vector2(200, 400));
+        GameObject ggg = new GameObject(new Vector2(1200, 400));
         PhysicsComponent pc;
 
         float s;
@@ -59,18 +60,24 @@ namespace SpriteX_Engine
             btn3.OnButtonPressed += btn3_ButtonPressed;
             win.world.SpawnGameObject(g);
             win.world.SpawnGameObject(gg);
+            win.world.SpawnGameObject(ggg);
             win.GetWorldCamera().SetEnableCameraBound(true);
 
-            PhysicsComponent pc2 = gg.AddComponent<PhysicsComponent>() as PhysicsComponent;
-            pc2.gravityEnabled = false;
-            pc2.mass = 10f;
-            pc2.isAirborne = false;
-            gg.AddComponent<ColliderComponent>();
+            //PhysicsComponent pc2 = gg.AddComponent<PhysicsComponent>() as PhysicsComponent;
+            //pc2.mass = 10f;
+            //pc2.gravityEnabled = false;
+            //pc2.isAirborne = false;
+            ColliderComponent ccc = gg.AddComponent<ColliderComponent>() as ColliderComponent;
+            ccc.transform.scale = new Vector2(10, 1);
+            ccc.friction = 0f;
+            ColliderComponent ccc2 = ggg.AddComponent<ColliderComponent>() as ColliderComponent;
+            ccc2.transform.scale = new Vector2(10, 1);
+            ccc2.friction = 0.1f;
 
             pc = g.AddComponent<PhysicsComponent>() as PhysicsComponent;
-            pc.gravityEnabled = false;
             pc.mass = 10f;
-            pc.isAirborne = false;
+            //pc.gravityEnabled = false;
+            //pc.isAirborne = false;
 
             ColliderComponent cc = g.AddComponent<ColliderComponent>() as ColliderComponent;
             ColliderComponent cc2 = g.AddComponent<ColliderComponent>() as ColliderComponent;
@@ -117,7 +124,8 @@ namespace SpriteX_Engine
                     gfx.DrawImage(new Vector2(i * 120, j * 120), new Vector2(120, 120), img2, Colors.Multiply(new Color4(b, b, b, 1), c));
                 }
             }
-            gfx.DrawText(new Vector2(500, 600), "ZA WARUDO!", Color4.Yellow, 1, false);
+            gfx.DrawText(new Vector2(200, 300), "Slippery Floor", Color4.Cyan, 1, false);
+            gfx.DrawText(new Vector2(1200, 300), "Normal Floor", Color4.Yellow, 1, false);
             foreach (GameObject obj in win.world.GetAllGameObjects())
             {
                 float b = Vec2D.Distance2D(obj.GetPosition() / new Vector2(1920/2, 1080/2), g.GetPosition() / new Vector2(1920 / 2, 1080 / 2)) * 1.45f;
