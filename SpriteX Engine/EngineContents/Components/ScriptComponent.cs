@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace SpriteX_Engine.EngineContents.Components
 {
+    /// <summary>
+    /// Abstract class to create your own script components
+    /// </summary>
     public abstract class ScriptComponent : Component
     {
         public ScriptComponent(GameObject parent) : base(parent) 
