@@ -182,13 +182,15 @@ namespace SpriteX_Engine.EngineContents
                 gameCode.OnGameUpdate(this); // OnGameUpdate() from GameCode is executed here
                 foreach (GameObject obj in world.gameObjects)
                 {
-                    var cs = obj.GetComponents<ScriptComponent>();
+                    var cs = obj.GetAllComponents();
 
                     if (cs.Length <= 0) continue;
 
-                    foreach (ScriptComponent c in cs)
+                    foreach (var c in cs)
                     {
-                        if (c.isEnabled) c.Update(this);
+                        if (c is ScriptComponent)
+                            if (c.isEnabled) 
+                                (c as ScriptComponent).Update(this);
                     }
                 }
             }
