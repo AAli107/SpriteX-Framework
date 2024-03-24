@@ -55,6 +55,11 @@ namespace SpriteX_Engine.EngineContents
             return components.Where(c => c.GetType() == typeof(T)).ToArray();
         }
 
+        public Component[] GetAllComponents()
+        {
+            return components.ToArray();
+        }
+
         public void RemoveComponent(Component c)
         {
             components.Remove(c);
