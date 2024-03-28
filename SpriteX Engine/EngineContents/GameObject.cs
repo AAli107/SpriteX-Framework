@@ -52,7 +52,7 @@ namespace SpriteX_Engine.EngineContents
 
         public T[] GetComponents<T>() where T : Component
         {
-            return components.Where(c => c.GetType() == typeof(T)).ToArray() as T[];
+            return components.Where(c => c.GetType() == typeof(T)).Cast<T>().ToArray();
         }
 
         public Component[] GetAllComponents()
