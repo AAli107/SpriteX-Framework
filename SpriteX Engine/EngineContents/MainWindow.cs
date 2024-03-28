@@ -14,23 +14,23 @@ namespace SpriteX_Engine.EngineContents
         public MainWindow(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings)
         : base(gameWindowSettings, nativeWindowSettings)
         {
-            /* --- Initial Window Parameters --- */
-
-            Title = "SpriteX Game"; // Window Title
-            ClientSize = new Vector2i(1280, 720); // Default Window Resolution when not in fullscreen
-            AspectRatio = (16, 9); // Window Aspect Ratio
-            WindowBorder = WindowBorder.Resizable; // Window Border type
-            WindowState = WindowState.Maximized; // Decides window state (can be used to set fullscreen) 
-            UpdateFrequency = 120; // Window Framerate (setting to 0 will unlock FPS if VSync is off)
-            fixedFrameTime = 60; // How many times per second the game updates
-            VSync = VSyncMode.On; // Control the window's VSync
             CenterWindow(); // Will center the window in the middle of the screen
-            bgColor = Color.Black; // Controls the windows background color
-            allowAltEnter = true; // Controls whether you can toggle fullscreen when pressing Alt+Enter
-            showDebugHitbox = true; // Controls whether to show all GameObjects' hitboxes
-            showStats = true; // Displays FPS and UpdateTime(ms) Stat
-            font = Font.GetDefaultFont(); // Contains game font
-            startLevel = new GameCode(); // The Level to load when game launches
+
+            // Will input all the values from InitialGameWindowConfig into MainWindow
+            Title = InitialGameWindowConfig.Title;
+            ClientSize = InitialGameWindowConfig.ClientSize;
+            AspectRatio = InitialGameWindowConfig.AspectRatio;
+            WindowBorder = InitialGameWindowConfig.WindowBorder;
+            WindowState = InitialGameWindowConfig.WindowState;
+            UpdateFrequency = InitialGameWindowConfig.UpdateFrequency;
+            fixedFrameTime = InitialGameWindowConfig.fixedFrameTime;
+            VSync = InitialGameWindowConfig.VSync;
+            bgColor = InitialGameWindowConfig.bgColor;
+            allowAltEnter = InitialGameWindowConfig.allowAltEnter;
+            showDebugHitbox = InitialGameWindowConfig.showDebugHitbox;
+            showStats = InitialGameWindowConfig.showStats;
+            font = InitialGameWindowConfig.font;
+            startLevel = InitialGameWindowConfig.startLevel;
         }
 
         /*
