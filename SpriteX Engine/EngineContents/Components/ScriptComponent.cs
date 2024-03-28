@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SpriteX_Engine.EngineContents.Components
+﻿namespace SpriteX_Engine.EngineContents.Components
 {
     /// <summary>
     /// Abstract class to create your own script components

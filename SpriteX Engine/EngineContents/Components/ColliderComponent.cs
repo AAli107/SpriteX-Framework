@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NAudio.Wave.SampleProviders;
+﻿using System.Drawing;
 using OpenTK.Mathematics;
 using SpriteX_Engine.EngineContents.Structs;
 

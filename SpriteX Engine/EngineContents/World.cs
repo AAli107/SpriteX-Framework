@@ -1,7 +1,4 @@
-﻿using OpenTK.Mathematics;
-using System.ComponentModel.DataAnnotations;
-
-namespace SpriteX_Engine.EngineContents
+﻿namespace SpriteX_Engine.EngineContents
 {
     public class World
     {
