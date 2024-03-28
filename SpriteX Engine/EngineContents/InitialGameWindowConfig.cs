@@ -1,16 +1,13 @@
 ﻿using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
-using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpriteX_Engine.EngineContents
 {
     public static class InitialGameWindowConfig
     {
+        /* --- Initial Game Window Parameters --- */
+
         public static readonly string Title = "SpriteX Game"; // Window Title
         public static readonly Vector2i ClientSize = new Vector2i(1280, 720); // Default Window Resolution when not in fullscreen
         public static readonly (int numerator, int denominator) AspectRatio = (16, 9); // Window Aspect Ratio
