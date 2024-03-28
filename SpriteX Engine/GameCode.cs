@@ -63,24 +63,24 @@ namespace SpriteX_Engine
             win.world.SpawnGameObject(ggg);
             win.GetWorldCamera().SetEnableCameraBound(true);
 
-            //PhysicsComponent pc2 = gg.AddComponent<PhysicsComponent>() as PhysicsComponent;
+            //PhysicsComponent pc2 = gg.AddComponent<PhysicsComponent>();
             //pc2.mass = 10f;
             //pc2.gravityEnabled = false;
             //pc2.isAirborne = false;
-            ColliderComponent ccc = gg.AddComponent<ColliderComponent>() as ColliderComponent;
+            ColliderComponent ccc = gg.AddComponent<ColliderComponent>();
             ccc.transform.scale = new Vector2(10, 1);
             ccc.friction = 0f;
-            ColliderComponent ccc2 = ggg.AddComponent<ColliderComponent>() as ColliderComponent;
+            ColliderComponent ccc2 = ggg.AddComponent<ColliderComponent>();
             ccc2.transform.scale = new Vector2(10, 1);
             ccc2.friction = 0.1f;
 
-            pc = g.AddComponent<PhysicsComponent>() as PhysicsComponent;
+            pc = g.AddComponent<PhysicsComponent>();
             pc.mass = 10f;
             //pc.gravityEnabled = false;
             //pc.isAirborne = false;
 
-            ColliderComponent cc = g.AddComponent<ColliderComponent>() as ColliderComponent;
-            ColliderComponent cc2 = g.AddComponent<ColliderComponent>() as ColliderComponent;
+            ColliderComponent cc = g.AddComponent<ColliderComponent>();
+            ColliderComponent cc2 = g.AddComponent<ColliderComponent>();
             cc2.transform.position = new Vector2(60, 80);
         }
 

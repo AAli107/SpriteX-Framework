@@ -59,8 +59,8 @@ namespace SpriteX_Engine.EngineContents.Components
 
                     if (isSolidCollision && cc.isSolidCollision)
                     {
-                        PhysicsComponent pc = parent.GetComponent<PhysicsComponent>() as PhysicsComponent;
-                        PhysicsComponent pc2 = obj.GetComponent<PhysicsComponent>() as PhysicsComponent;
+                        PhysicsComponent pc = parent.GetComponent<PhysicsComponent>();
+                        PhysicsComponent pc2 = obj.GetComponent<PhysicsComponent>();
 
                         float pcMass = pc != null ? pc.mass : float.MaxValue;
                         float pc2Mass = pc2 != null ? pc2.mass : float.MaxValue;

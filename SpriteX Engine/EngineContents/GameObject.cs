@@ -35,24 +35,24 @@ namespace SpriteX_Engine.EngineContents
             this.position = position;
         }
 
-        public Component AddComponent<T>() where T : Component
+        public T AddComponent<T>() where T : Component
         {
             Type classType = typeof(T);
             ConstructorInfo constructor = classType.GetConstructor(new Type[] { typeof(GameObject) });
             Component component = (T)constructor.Invoke(new object[] { this });
             components.Add(component);
             if (component.isEnabled) if (component is ScriptComponent) (component as ScriptComponent).Start();
-            return component;
+            return component as T;
         }
 
-        public Component GetComponent<T>() where T : Component
+        public T GetComponent<T>() where T : Component
         {
-            return components.FirstOrDefault(c => c.GetType() == typeof(T));
+            return components.FirstOrDefault(c => c.GetType() == typeof(T)) as T;
         }
 
-        public Component[] GetComponents<T>() where T : Component
+        public T[] GetComponents<T>() where T : Component
         {
-            return components.Where(c => c.GetType() == typeof(T)).ToArray();
+            return components.Where(c => c.GetType() == typeof(T)).ToArray() as T[];
         }
 
         public Component[] GetAllComponents()
