@@ -4,12 +4,13 @@ using static SpriteX_Engine.EngineContents.Utilities.Enums;
 
 namespace SpriteX_Engine.EngineContents.Assets.GameObjects
 {
-    public abstract class CharacterBase : GameObject
+    public class CharacterBase : GameObject
     {
         private float hitPoints;
         private float maxHitPoints = 100;
         private uint iframes = 0;
         private Vector2 spawnpoint;
+        private float lookRotation = 0f;
 
         /// <summary>
         /// Determines whether the character is immune to damage or not
@@ -23,6 +24,10 @@ namespace SpriteX_Engine.EngineContents.Assets.GameObjects
         /// Returns whether the character is currently invulnerable to attacks determined by iframes and Invincibility
         /// </summary>
         public bool IsInvulnerable { get { return iframes > 0 || Invincibility; } }
+        /// <summary>
+        /// Returns the Forward Direction of the Character
+        /// </summary>
+        public Vector2 ForwardDirection { get { return Vec2D.RotateAroundPoint(Vector2.UnitX, Vector2.Zero, lookRotation); } }
 
         public CharacterBase(Vector2 position) : base(position) 
         {
@@ -64,6 +69,16 @@ namespace SpriteX_Engine.EngineContents.Assets.GameObjects
         }
 
         /// <summary>
+        /// Turns the character's look rotation by an amount
+        /// </summary>
+        /// <param name="turnAmount"></param>
+        public void TurnLook(float turnAmount)
+        {
+            if (IsDead) return;
+            lookRotation += turnAmount;
+        }
+
+        /// <summary>
         /// Executed when the character dies / hitpoints reaches 0
         /// </summary>
         /// <param name="damageType"></param>
@@ -100,6 +115,15 @@ namespace SpriteX_Engine.EngineContents.Assets.GameObjects
         }
 
         /// <summary>
+        /// Sets the character's look rotation
+        /// </summary>
+        /// <param name="lookRotation"></param>
+        public void SetLookRotation(float lookRotation)
+        {
+            this.lookRotation = lookRotation;
+        }
+
+        /// <summary>
         /// Returns current HP of the character
         /// </summary>
         /// <returns></returns>
@@ -116,6 +140,12 @@ namespace SpriteX_Engine.EngineContents.Assets.GameObjects
         /// </summary>
         /// <returns></returns>
         public Vector2 GetSpawnpoint() { return spawnpoint; }
+
+        /// <summary>
+        /// returns character's look rotation
+        /// </summary>
+        /// <returns></returns>
+        public float GetLookRotation() { return lookRotation; }
 
         /// <summary>
         /// Deducts Character's hitpoints

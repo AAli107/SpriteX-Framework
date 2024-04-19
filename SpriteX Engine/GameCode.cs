@@ -6,6 +6,7 @@ using OpenTK.Windowing.GraphicsLibraryFramework;
 using SpriteX_Engine.EngineContents;
 using SpriteX_Engine.EngineContents.Components;
 using SpriteX_Engine.EngineContents.Utilities;
+using SpriteX_Engine.EngineContents.Assets.GameObjects;
 using OpenTK.Windowing.Common;
 
 namespace SpriteX_Engine
@@ -16,6 +17,7 @@ namespace SpriteX_Engine
         GameObject g = new GameObject(new Vector2(500, 100));
         GameObject gg = new GameObject(new Vector2(200, 400));
         GameObject ggg = new GameObject(new Vector2(1200, 400));
+        CharacterBase c = new CharacterBase(new Vector2(0, 0));
         PhysicsComponent pc;
 
         float s;
@@ -61,6 +63,7 @@ namespace SpriteX_Engine
             win.world.SpawnGameObject(g);
             win.world.SpawnGameObject(gg);
             win.world.SpawnGameObject(ggg);
+            win.world.SpawnGameObject(c);
             win.GetWorldCamera().SetEnableCameraBound(true);
 
             //PhysicsComponent pc2 = gg.AddComponent<PhysicsComponent>();
@@ -93,6 +96,9 @@ namespace SpriteX_Engine
                 if (win.IsKeyDown(Keys.S)) pc.AddVelocity(new Vector2(0, +s));
                 if (win.IsKeyDown(Keys.D)) pc.AddVelocity(new Vector2(+s, 0));
             }
+
+            if (win.IsKeyDown(Keys.Right)) c.TurnLook(1);
+            if (win.IsKeyDown(Keys.Left)) c.TurnLook(-1);
         }
 
         public override void OnGameUpdate(MainWindow win)
@@ -138,6 +144,8 @@ namespace SpriteX_Engine
                 Vector2 s = cc != null ? cc.transform.scale * 50 : new Vector2(50, 50);
                 gfx.DrawImage(obj.GetPosition() - s, s*2, img1, Colors.Multiply(new Color4(b, b, b, 1), c));
             }
+
+            gfx.DrawLine(c.GetPosition(), c.GetPosition() + (c.ForwardDirection * 100), Color4.Red);
 
             gfx.DrawText(new Vector2(16, 80), "Cam Pos = (" + Math.Round(win.world.cam.camPos.X, 2) + ", " + Math.Round(win.world.cam.camPos.Y, 2) + ")", Color4.White, 1);
             gfx.DrawText(new Vector2(16, 112), "Obj Pos = (" + Math.Round(g.GetPosition().X, 2) + ", " + Math.Round(g.GetPosition().Y, 2) + ")", Color4.White, 1);
