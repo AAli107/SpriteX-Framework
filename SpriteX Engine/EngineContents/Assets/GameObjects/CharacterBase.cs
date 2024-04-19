@@ -1,11 +1,4 @@
 ﻿using OpenTK.Mathematics;
-using SpriteX_Engine.EngineContents.Components;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpriteX_Engine.EngineContents.Assets.GameObjects
 {
@@ -14,6 +7,7 @@ namespace SpriteX_Engine.EngineContents.Assets.GameObjects
         private float hitPoints;
         private float maxHitPoints = 100;
         private int iframes = 0;
+        private Vector2 spawnpoint;
 
         public bool Invincibility { get; set; }
         public bool IsDead { get { return hitPoints <= 0; } }
@@ -21,7 +15,18 @@ namespace SpriteX_Engine.EngineContents.Assets.GameObjects
 
         public CharacterBase(Vector2 position) : base(position) 
         {
+            OnGameObjectSpawn += CharacterBase_OnGameObjectSpawn;
+        }
+
+        private void CharacterBase_OnGameObjectSpawn(object sender, EventArgs e)
+        {
             hitPoints = maxHitPoints;
+            spawnpoint = GetPosition();
+        }
+
+        public void Respawn()
+        {
+            CharacterBase_OnGameObjectSpawn(null, null);
         }
 
         public bool DealDamage(float amount)
