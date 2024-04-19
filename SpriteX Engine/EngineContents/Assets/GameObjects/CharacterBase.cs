@@ -1,5 +1,6 @@
 ﻿using OpenTK.Mathematics;
 using SpriteX_Engine.EngineContents.Utilities;
+using static SpriteX_Engine.EngineContents.Utilities.Enums;
 
 namespace SpriteX_Engine.EngineContents.Assets.GameObjects
 {
@@ -32,12 +33,24 @@ namespace SpriteX_Engine.EngineContents.Assets.GameObjects
             SetPosition(spawnpoint);
         }
 
-        public virtual void DeathSequence(Enums.DamageType damageType)
-        {
+        public virtual void DeathSequence(DamageType damageType) { }
 
+        public void SetHP(float hp)
+        {
+            hitPoints = hp; 
+            if (IsDead) DeathSequence(DamageType.None);
         }
 
-        public bool DealDamage(float amount, Enums.DamageType damageType = Enums.DamageType.Generic)
+        public void SetMaxHP(float maxHP)
+        {
+            maxHitPoints = maxHP < 0 ? 0 : maxHP;
+        }
+
+        public float GetHP() { return hitPoints; }
+
+        public float GetMaxHP() { return maxHitPoints; }
+
+        public bool DealDamage(float amount, DamageType damageType = DamageType.Generic)
         {
             if (!IsDead && !IsInvulnerable)
             {
