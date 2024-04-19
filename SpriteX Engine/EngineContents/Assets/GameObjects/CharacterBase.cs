@@ -8,7 +8,7 @@ namespace SpriteX_Engine.EngineContents.Assets.GameObjects
     {
         private float hitPoints;
         private float maxHitPoints = 100;
-        private int iframes = 0;
+        private uint iframes = 0;
         private Vector2 spawnpoint;
 
         public bool Invincibility { get; set; }
@@ -17,10 +17,16 @@ namespace SpriteX_Engine.EngineContents.Assets.GameObjects
 
         public CharacterBase(Vector2 position) : base(position) 
         {
-            OnGameObjectSpawn += CharacterBase_OnGameObjectSpawn;
+            OnGameObjectSpawn += CharacterBase_Spawn;
+            OnGameObjectUpdate += CharacterBase_Update;
         }
 
-        private void CharacterBase_OnGameObjectSpawn(object sender, EventArgs e)
+        private void CharacterBase_Update(object sender, EventArgs e)
+        {
+            if (iframes > 0) iframes--;
+        }
+
+        private void CharacterBase_Spawn(object sender, EventArgs e)
         {
             hitPoints = maxHitPoints;
             if (sender == null)
@@ -29,7 +35,7 @@ namespace SpriteX_Engine.EngineContents.Assets.GameObjects
 
         public void Respawn()
         {
-            CharacterBase_OnGameObjectSpawn(null, null);
+            CharacterBase_Spawn(null, null);
             SetPosition(spawnpoint);
         }
 
@@ -58,11 +64,12 @@ namespace SpriteX_Engine.EngineContents.Assets.GameObjects
 
         public Vector2 GetSpawnpoint() { return spawnpoint; }
 
-        public bool DealDamage(float amount, DamageType damageType = DamageType.Generic)
+        public bool DealDamage(float amount, uint iframes = 60, DamageType damageType = DamageType.Generic)
         {
             if (!IsDead && !IsInvulnerable)
             {
                 hitPoints = Numbers.ClampN(hitPoints - amount, 0, maxHitPoints);
+                this.iframes = iframes < 0 ? 0 : iframes;
                 if (IsDead) DeathSequence(damageType);
                 return true;
             } else return false;
