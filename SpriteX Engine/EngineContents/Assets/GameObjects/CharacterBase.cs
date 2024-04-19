@@ -32,11 +32,17 @@ namespace SpriteX_Engine.EngineContents.Assets.GameObjects
             SetPosition(spawnpoint);
         }
 
-        public bool DealDamage(float amount)
+        public virtual void DeathSequence(Enums.DamageType damageType)
+        {
+
+        }
+
+        public bool DealDamage(float amount, Enums.DamageType damageType = Enums.DamageType.Generic)
         {
             if (!IsDead && !IsInvulnerable)
             {
                 hitPoints = Numbers.ClampN(hitPoints - amount, 0, maxHitPoints);
+                if (IsDead) DeathSequence(damageType);
                 return true;
             } else return false;
         }
