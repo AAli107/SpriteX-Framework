@@ -52,6 +52,18 @@ namespace SpriteX_Engine.EngineContents.Assets.GameObjects
         }
 
         /// <summary>
+        /// Kills the character even when invulnerable to damage
+        /// </summary>
+        public void Kill()
+        {
+            bool inv = Invincibility;
+            Invincibility = false;
+            iframes = 0;
+            DealDamage(float.MaxValue, 0, DamageType.Generic);
+            Invincibility = inv;
+        }
+
+        /// <summary>
         /// Executed when the character dies / hitpoints reaches 0
         /// </summary>
         /// <param name="damageType"></param>
