@@ -46,6 +46,12 @@ namespace SpriteX_Engine.EngineContents.Assets.GameObjects
             if (maxHP > 0) { maxHitPoints = maxHP; }
         }
 
+        public void SetSpawnpoint(Vector2 spawnpoint, bool willRespawn = false)
+        {
+            this.spawnpoint = spawnpoint;
+            if (willRespawn) Respawn();
+        }
+
         public float GetHP() { return hitPoints; }
 
         public float GetMaxHP() { return maxHitPoints; }
