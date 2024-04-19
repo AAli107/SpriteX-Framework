@@ -21,12 +21,14 @@ namespace SpriteX_Engine.EngineContents.Assets.GameObjects
         private void CharacterBase_OnGameObjectSpawn(object sender, EventArgs e)
         {
             hitPoints = maxHitPoints;
-            spawnpoint = GetPosition();
+            if (sender == null)
+                spawnpoint = GetPosition();
         }
 
         public void Respawn()
         {
             CharacterBase_OnGameObjectSpawn(null, null);
+            SetPosition(spawnpoint);
         }
 
         public bool DealDamage(float amount)
