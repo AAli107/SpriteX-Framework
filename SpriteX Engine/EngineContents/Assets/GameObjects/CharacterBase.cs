@@ -43,7 +43,7 @@ namespace SpriteX_Engine.EngineContents.Assets.GameObjects
 
         public void SetMaxHP(float maxHP)
         {
-            maxHitPoints = maxHP < 0 ? 0 : maxHP;
+            if (maxHP > 0) { maxHitPoints = maxHP; }
         }
 
         public float GetHP() { return hitPoints; }
