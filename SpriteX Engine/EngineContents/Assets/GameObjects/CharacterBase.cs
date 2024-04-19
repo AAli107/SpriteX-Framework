@@ -56,6 +56,8 @@ namespace SpriteX_Engine.EngineContents.Assets.GameObjects
 
         public float GetMaxHP() { return maxHitPoints; }
 
+        public Vector2 GetSpawnpoint() { return spawnpoint; }
+
         public bool DealDamage(float amount, DamageType damageType = DamageType.Generic)
         {
             if (!IsDead && !IsInvulnerable)
