@@ -1,4 +1,5 @@
 ﻿using OpenTK.Mathematics;
+using SpriteX_Engine.EngineContents.Utilities;
 
 namespace SpriteX_Engine.EngineContents.Assets.GameObjects
 {
@@ -35,7 +36,7 @@ namespace SpriteX_Engine.EngineContents.Assets.GameObjects
         {
             if (!IsDead && !IsInvulnerable)
             {
-                hitPoints = Utilities.Numbers.ClampN(hitPoints - amount, 0, maxHitPoints);
+                hitPoints = Numbers.ClampN(hitPoints - amount, 0, maxHitPoints);
                 return true;
             } else return false;
         }
@@ -44,7 +45,7 @@ namespace SpriteX_Engine.EngineContents.Assets.GameObjects
         {
             if (!IsDead)
             {
-                hitPoints = Utilities.Numbers.ClampN(hitPoints + amount, 0, maxHitPoints);
+                hitPoints = Numbers.ClampN(hitPoints + amount, 0, maxHitPoints);
                 return true;
             }
             else return false;
