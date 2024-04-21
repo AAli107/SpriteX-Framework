@@ -4,7 +4,7 @@ using static SpriteX_Engine.EngineContents.Utilities.Enums;
 
 namespace SpriteX_Engine.EngineContents.Assets.GameObjects
 {
-    public class CharacterBase : GameObject
+    public abstract class CharacterBase : GameObject
     {
         private float hitPoints;
         private float maxHitPoints = 100;

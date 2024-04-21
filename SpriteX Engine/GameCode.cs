@@ -17,7 +17,7 @@ namespace SpriteX_Engine
         GameObject g = new GameObject(new Vector2(500, 100));
         GameObject gg = new GameObject(new Vector2(200, 400));
         GameObject ggg = new GameObject(new Vector2(1200, 400));
-        CharacterBase c = new CharacterBase(new Vector2(0, 0));
+        TopDownCharacter c = new TopDownCharacter(new Vector2(0, 0));
         PhysicsComponent pc;
 
         float s;
