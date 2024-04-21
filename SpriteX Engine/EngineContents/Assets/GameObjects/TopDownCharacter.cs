@@ -19,7 +19,8 @@ namespace SpriteX_Engine.EngineContents.Assets.GameObjects
 
         public void MoveForward(float speed = 1f)
         {
-            pc.AddVelocity(ForwardDirection * speed);
+            if (pc != null)
+                pc.AddVelocity(ForwardDirection * speed);
         }
     }
 }
