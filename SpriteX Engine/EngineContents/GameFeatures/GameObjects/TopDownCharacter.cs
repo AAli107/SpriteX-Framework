@@ -28,5 +28,11 @@ namespace SpriteX_Engine.EngineContents.GameFeatures.GameObjects
             if (pc != null)
                 pc.AddVelocity(RightDirection * speed);
         }
+
+        public void SetSimulatePhysics(bool simulatePhysics)
+        {
+            if (pc != null)
+                pc.isEnabled = simulatePhysics;
+        }
     }
 }
