@@ -6,7 +6,7 @@ using OpenTK.Windowing.GraphicsLibraryFramework;
 using SpriteX_Engine.EngineContents;
 using SpriteX_Engine.EngineContents.Components;
 using SpriteX_Engine.EngineContents.Utilities;
-using SpriteX_Engine.EngineContents.Assets.GameObjects;
+using SpriteX_Engine.EngineContents.GameFeatures.GameObjects;
 using OpenTK.Windowing.Common;
 
 namespace SpriteX_Engine

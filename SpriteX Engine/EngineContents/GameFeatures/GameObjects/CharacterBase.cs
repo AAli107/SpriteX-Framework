@@ -2,7 +2,7 @@
 using SpriteX_Engine.EngineContents.Utilities;
 using static SpriteX_Engine.EngineContents.Utilities.Enums;
 
-namespace SpriteX_Engine.EngineContents.Assets.GameObjects
+namespace SpriteX_Engine.EngineContents.GameFeatures.GameObjects
 {
     public abstract class CharacterBase : GameObject
     {
