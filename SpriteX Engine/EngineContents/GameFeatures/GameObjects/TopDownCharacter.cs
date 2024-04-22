@@ -22,5 +22,11 @@ namespace SpriteX_Engine.EngineContents.GameFeatures.GameObjects
             if (pc != null)
                 pc.AddVelocity(ForwardDirection * speed);
         }
+
+        public void StrafeRight(float speed = 1f)
+        {
+            if (pc != null)
+                pc.AddVelocity(RightDirection * speed);
+        }
     }
 }
