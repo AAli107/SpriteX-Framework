@@ -34,5 +34,10 @@ namespace SpriteX_Engine.EngineContents.GameFeatures.GameObjects
             if (pc != null)
                 pc.isEnabled = simulatePhysics;
         }
+
+        public bool IsSimulatingPhysics()
+        {
+            return pc != null && pc.isEnabled;
+        }
     }
 }
