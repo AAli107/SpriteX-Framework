@@ -28,6 +28,10 @@ namespace SpriteX_Engine.EngineContents.GameFeatures.GameObjects
         /// Returns the Forward Direction of the Character
         /// </summary>
         public Vector2 ForwardDirection { get { return Vec2D.RotateAroundPoint(Vector2.UnitX, Vector2.Zero, lookRotation); } }
+        /// <summary>
+        /// Returns the Right Direction of the Character
+        /// </summary>
+        public Vector2 RightDirection { get { return Vec2D.RotateAroundPoint(Vector2.UnitX, Vector2.Zero, lookRotation + 90); } }
 
         public CharacterBase(Vector2 position) : base(position) 
         {

@@ -146,6 +146,7 @@ namespace SpriteX_Engine
             }
 
             gfx.DrawLine(c.GetPosition(), c.GetPosition() + (c.ForwardDirection * 100), Color4.Red);
+            gfx.DrawLine(c.GetPosition(), c.GetPosition() + (c.RightDirection * 50), Color4.Blue);
 
             gfx.DrawText(new Vector2(16, 80), "Cam Pos = (" + Math.Round(win.world.cam.camPos.X, 2) + ", " + Math.Round(win.world.cam.camPos.Y, 2) + ")", Color4.White, 1);
             gfx.DrawText(new Vector2(16, 112), "Obj Pos = (" + Math.Round(g.GetPosition().X, 2) + ", " + Math.Round(g.GetPosition().Y, 2) + ")", Color4.White, 1);
