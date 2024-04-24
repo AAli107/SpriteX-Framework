@@ -10,6 +10,11 @@ namespace SpriteX_Engine.EngineContents
 {
     public class MainWindow : GameWindow
     {
+        /*
+         * DO NOT TOUCH ANYTHING BELOW!
+         * well unless if you know what you're doing
+         */
+
         public MainWindow(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings)
         : base(gameWindowSettings, nativeWindowSettings)
         {
@@ -31,11 +36,6 @@ namespace SpriteX_Engine.EngineContents
             font = InitialGameWindowConfig.font;
             startLevel = InitialGameWindowConfig.startLevel;
         }
-
-        /*
-         * DO NOT TOUCH ANYTHING BELOW!
-         * well unless if you know what you're doing
-         */
 
         // Shader stuff
         public int vertexArrayObject { get; private set; }
