@@ -10,6 +10,7 @@ namespace SpriteX_Engine.EngineContents.GameFeatures.GameObjects
 {
     public class SideScrollerCharacter : CharacterBase
     {
+        Vector2 gravityVector = Vector2.UnitY;
         PhysicsComponent pc;
         ColliderComponent cc;
 
@@ -19,5 +20,12 @@ namespace SpriteX_Engine.EngineContents.GameFeatures.GameObjects
             cc = AddComponent<ColliderComponent>();
             cc.friction = 0f;
         }
+
+        public void SetGravityVector(Vector2 gravityVector) 
+        {
+            this.gravityVector = gravityVector;
+        }
+
+        public Vector2 GetGravityVector() {  return gravityVector; }
     }
 }
