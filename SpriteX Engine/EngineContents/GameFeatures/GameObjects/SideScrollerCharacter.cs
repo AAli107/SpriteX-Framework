@@ -21,11 +21,19 @@ namespace SpriteX_Engine.EngineContents.GameFeatures.GameObjects
             cc.friction = 0f;
         }
 
+        /// <summary>
+        /// Sets which direction the character falls towards
+        /// </summary>
+        /// <param name="gravityVector"></param>
         public void SetGravityVector(Vector2 gravityVector) 
         {
             this.gravityVector = gravityVector;
         }
 
+        /// <summary>
+        /// Returns the direction at which the character falls towards
+        /// </summary>
+        /// <returns></returns>
         public Vector2 GetGravityVector() {  return gravityVector; }
     }
 }
