@@ -35,7 +35,7 @@ namespace SpriteX_Engine.EngineContents.Components
         /// <summary>
         /// controls the direction of gravity
         /// </summary>
-        public Vector2 gravityVector = new Vector2(0, 1);
+        public Vector2 gravityVector = Vector2.UnitY;
         /// <summary>
         /// controls the strength of gravity affecting the parent game object
         /// </summary>
