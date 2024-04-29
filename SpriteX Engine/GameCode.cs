@@ -85,15 +85,16 @@ namespace SpriteX_Engine
         {
             if (pc != null)
             {
-                if (win.IsKeyDown(Keys.W)) pc.AddVelocity(new Vector2(0, -s));
+                //if (win.IsKeyDown(Keys.W)) pc.AddVelocity(new Vector2(0, -s));
                 if (win.IsKeyDown(Keys.A)) pc.AddVelocity(new Vector2(-s, 0));
-                if (win.IsKeyDown(Keys.S)) pc.AddVelocity(new Vector2(0, +s));
+                //if (win.IsKeyDown(Keys.S)) pc.AddVelocity(new Vector2(0, +s));
                 if (win.IsKeyDown(Keys.D)) pc.AddVelocity(new Vector2(+s, 0));
             }
 
             if (win.IsKeyDown(Keys.Right)) c.TurnLook(1);
             if (win.IsKeyDown(Keys.Left)) c.TurnLook(-1);
 
+            if (win.IsKeyDown(Keys.Space)) g.Jump();
         }
 
         public override void OnGameUpdate(MainWindow win)

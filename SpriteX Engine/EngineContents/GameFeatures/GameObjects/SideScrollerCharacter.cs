@@ -11,6 +11,7 @@ namespace SpriteX_Engine.EngineContents.GameFeatures.GameObjects
     public class SideScrollerCharacter : CharacterBase
     {
         Vector2 gravityVector = Vector2.UnitY;
+        float jumpStrength = 10f;
         PhysicsComponent pc;
         ColliderComponent cc;
         ColliderComponent groundCollider;
@@ -29,8 +30,8 @@ namespace SpriteX_Engine.EngineContents.GameFeatures.GameObjects
         {
             if (groundCollider != null && cc != null)
             {
-                groundCollider.transform.scale = new Vector2(cc.transform.scale.X, 0.01f);
-                groundCollider.transform.position.Y = ((cc.transform.scale.Y * 100 * 0.99f) / 2) + 1;
+                groundCollider.transform.scale = new Vector2(cc.transform.scale.X, 0.001f);
+                groundCollider.transform.position.Y = ((cc.transform.scale.Y * 100 * 0.999f) / 2) + 0.001f;
             }
         }
 
@@ -48,6 +49,15 @@ namespace SpriteX_Engine.EngineContents.GameFeatures.GameObjects
         /// </summary>
         /// <returns></returns>
         public Vector2 GetGravityVector() {  return gravityVector; }
+
+        public void Jump(float jumpMultiplier = 1f, bool requireGrounded = true) 
+        {
+            if (!IsDead)
+            {
+                if (requireGrounded && IsGrounded || !requireGrounded)
+                    pc.AddVelocity(-gravityVector * (jumpStrength * jumpMultiplier));
+            }
+        }
 
         public bool IsGrounded { get {  return groundCollider != null && groundCollider.IsOverlapping(); } }
     }
