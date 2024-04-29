@@ -45,6 +45,11 @@ namespace SpriteX_Engine.EngineContents.GameFeatures.GameObjects
         /// <returns></returns>
         public Vector2 GetGravityVector() {  return gravityVector; }
 
+        /// <summary>
+        /// Will cause the character to jump
+        /// </summary>
+        /// <param name="jumpMultiplier"></param>
+        /// <param name="requireGrounded"></param>
         public void Jump(float jumpMultiplier = 1f, bool requireGrounded = true) 
         {
             if (!IsDead)
