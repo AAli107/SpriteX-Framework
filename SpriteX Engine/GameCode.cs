@@ -146,7 +146,7 @@ namespace SpriteX_Engine
             gfx.DrawText(new Vector2(16, 80), "Cam Pos = (" + Math.Round(win.world.cam.camPos.X, 2) + ", " + Math.Round(win.world.cam.camPos.Y, 2) + ")", Color4.White, 1);
             gfx.DrawText(new Vector2(16, 112), "Obj Pos = (" + Math.Round(g.GetPosition().X, 2) + ", " + Math.Round(g.GetPosition().Y, 2) + ")", Color4.White, 1);
             gfx.DrawText(new Vector2(16, 144), "Obj Speed = " + Math.Round(pc.velocity.Length * win.fixedFrameTime, 2) + "u/s", Color4.White, 1);
-            gfx.DrawText(new Vector2(16, 176), "is overlapping = " + g.GetComponents<ColliderComponent>()[1].IsOverlapping(), Color4.White, 1);
+            gfx.DrawText(new Vector2(16, 176), "is player grounded? = " + g.IsGrounded, Color4.White, 1);
         }
 
         public override void OnGameEnd(MainWindow win)

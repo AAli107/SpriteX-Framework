@@ -220,7 +220,7 @@ namespace SpriteX_Engine.EngineContents
                         if (cc.isEnabled)
                         { 
                             var hb = cc.GetHitbox();
-                            gfx.DrawRect(new Vector2(hb.X, hb.Y), new Vector2(hb.Width, hb.Height), Color4.White, gfx.DrawType.Outline, false); 
+                            gfx.DrawRect(new Vector2(hb.X, hb.Y), new Vector2(hb.Width, hb.Height), cc.isSolidCollision ? Color4.White : Color4.Blue, gfx.DrawType.Outline, false); 
                         }
             }
 
