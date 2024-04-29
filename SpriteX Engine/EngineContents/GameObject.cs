@@ -15,9 +15,9 @@ namespace SpriteX_Engine.EngineContents
 
         public readonly List<Render> renders = new List<Render>(255);
 
-        public event EventHandler<EventArgs> OnGameObjectUpdate;
-        public event EventHandler<EventArgs> OnGameObjectSpawn;
-        public event EventHandler<EventArgs> OnGameObjectRender;
+        public event EventHandler<EventArgs> OnUpdate;
+        public event EventHandler<EventArgs> OnSpawn;
+        public event EventHandler<EventArgs> OnRender;
 
         /// <summary>
         /// Creates a GameObject
@@ -63,20 +63,20 @@ namespace SpriteX_Engine.EngineContents
             components.Remove(c);
         }
 
-        public void OnSpawn()
+        public void Spawn()
         {
-            OnGameObjectSpawn?.Invoke(this, new EventArgs());
+            OnSpawn?.Invoke(this, new EventArgs());
         }
 
         public void UpdateTick(MainWindow win)
         {
-            OnGameObjectUpdate?.Invoke(this, new EventArgs());
+            OnUpdate?.Invoke(this, new EventArgs());
             foreach (Component c in components) if (c.isEnabled) c.UpdateTick(win);
         }
 
         public void Render(MainWindow win, gfx gfx)
         {
-            OnGameObjectRender?.Invoke(this, new EventArgs());
+            OnRender?.Invoke(this, new EventArgs());
             foreach (Component c in components) if (c.isEnabled) c.RenderTick(win, gfx);
 
             if (isVisible) for (int i = 0; i < renders.Count; i++)

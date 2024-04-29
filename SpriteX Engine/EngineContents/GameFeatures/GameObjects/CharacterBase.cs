@@ -35,8 +35,8 @@ namespace SpriteX_Engine.EngineContents.GameFeatures.GameObjects
 
         public CharacterBase(Vector2 position) : base(position) 
         {
-            OnGameObjectSpawn += CharacterBase_Spawn;
-            OnGameObjectUpdate += CharacterBase_Update;
+            OnSpawn += CharacterBase_Spawn;
+            OnUpdate += CharacterBase_Update;
         }
 
         private void CharacterBase_Update(object sender, EventArgs e)

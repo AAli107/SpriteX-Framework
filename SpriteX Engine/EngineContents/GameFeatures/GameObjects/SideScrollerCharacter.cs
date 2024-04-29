@@ -18,7 +18,7 @@ namespace SpriteX_Engine.EngineContents.GameFeatures.GameObjects
             cc.friction = 0f;
             groundCollider = AddComponent<ColliderComponent>();
             groundCollider.isSolidCollision = false;
-            OnGameObjectUpdate += SideScrollerCharacter_Update;
+            OnUpdate += SideScrollerCharacter_Update;
         }
 
         private void SideScrollerCharacter_Update(object sender, EventArgs e)

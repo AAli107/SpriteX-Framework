@@ -66,7 +66,7 @@
             if (obj.SetID(id, this))
             {
                 gameObjects.Add(obj);
-                obj.OnSpawn();
+                obj.Spawn();
                 return true;
             }
             return false;
