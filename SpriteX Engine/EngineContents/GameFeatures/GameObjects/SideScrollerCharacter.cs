@@ -59,6 +59,21 @@ namespace SpriteX_Engine.EngineContents.GameFeatures.GameObjects
             }
         }
 
+        /// <summary>
+        /// Sets the character's jump strength
+        /// </summary>
+        /// <param name="jumpStrength"></param>
+        public void SetJumpStrength(float jumpStrength) { this.jumpStrength = jumpStrength; }
+
+        /// <summary>
+        /// Returns the character's jump strength
+        /// </summary>
+        /// <returns></returns>
+        public float GetJumpStrength() { return jumpStrength; }
+
+        /// <summary>
+        /// Returns true if character is on the ground
+        /// </summary>
         public bool IsGrounded { get { return groundCollider != null && groundCollider.IsOverlapping(); } }
     }
 }
