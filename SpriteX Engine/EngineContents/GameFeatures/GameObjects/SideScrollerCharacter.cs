@@ -54,6 +54,6 @@ namespace SpriteX_Engine.EngineContents.GameFeatures.GameObjects
             }
         }
 
-        public bool IsGrounded { get {  return groundCollider != null && groundCollider.IsOverlapping(); } }
+        public bool IsGrounded { get { return groundCollider != null && groundCollider.IsOverlapping(); } }
     }
 }
