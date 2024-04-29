@@ -11,7 +11,7 @@ namespace SpriteX_Engine.EngineContents.GameFeatures.GameObjects
     public class SideScrollerCharacter : CharacterBase
     {
         Vector2 gravityVector = Vector2.UnitY;
-        float jumpStrength = 10f;
+        float jumpStrength = 16f;
         PhysicsComponent pc;
         ColliderComponent cc;
         ColliderComponent groundCollider;
