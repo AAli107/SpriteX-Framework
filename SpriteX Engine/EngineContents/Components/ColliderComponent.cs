@@ -28,6 +28,7 @@ namespace SpriteX_Engine.EngineContents.Components
         public float friction = 0.1f;
 
         private RectangleF rectf;
+        private List<ColliderComponent> overlappingColliders = new List<ColliderComponent>();
 
         public ColliderComponent(GameObject parent) : base(parent) { }
 
@@ -42,6 +43,8 @@ namespace SpriteX_Engine.EngineContents.Components
 
             friction = Utilities.Numbers.ClampN(friction, 0, 1);
 
+            if (overlappingColliders.Count > 0) overlappingColliders.Clear();
+
             foreach (GameObject obj in win.world.gameObjects)
             {
                 if (obj == parent) continue;
@@ -50,6 +53,8 @@ namespace SpriteX_Engine.EngineContents.Components
                 {
                     if (!cc.isEnabled) continue;
                     if (!IsIntersectingWith(cc)) continue;
+                    
+                    if (!overlappingColliders.Contains(cc)) overlappingColliders.Add(cc);
 
                     if (isSolidCollision && cc.isSolidCollision)
                     {
@@ -139,6 +144,24 @@ namespace SpriteX_Engine.EngineContents.Components
         /// <param name="gameObject"></param>
         /// <returns></returns>
         public bool IsIntersectingWith(ColliderComponent cc) { return GetHitbox().IntersectsWith(cc.GetHitbox()); }
+
+        /// <summary>
+        /// Will return true if this collider is overlapping with another collider
+        /// </summary>
+        /// <returns></returns>
+        public bool IsOverlapping() { return overlappingColliders.Count > 0; }
+
+        /// <summary>
+        /// Will return true if this collider is overlapping with another collider ignoring the array of ignored colliders
+        /// </summary>
+        /// <param name="ignoredColliders"></param>
+        /// <returns></returns>
+        public bool IsOverlapping(ColliderComponent[] ignoredColliders)
+        {
+            List<ColliderComponent> oc = overlappingColliders;
+            oc.RemoveAll(x => ignoredColliders.Contains(x));
+            return oc.Count > 0;
+        }
         
         /// <summary>
         /// Returns Half-size of the collider
