@@ -31,7 +31,7 @@ namespace SpriteX_Engine.EngineContents.GameFeatures.GameObjects
             if (groundCollider != null && cc != null)
             {
                 groundCollider.transform.scale = new Vector2(cc.transform.scale.X, 0.001f);
-                groundCollider.transform.position.Y = ((cc.transform.scale.Y * 100 * 0.999f) / 2) + 0.001f;
+                groundCollider.transform.position.Y = ((cc.transform.scale.Y * 100 * 0.999f) / 2) + 1f;
             }
         }
 

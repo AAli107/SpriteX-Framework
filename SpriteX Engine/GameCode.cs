@@ -93,8 +93,6 @@ namespace SpriteX_Engine
 
             if (win.IsKeyDown(Keys.Right)) c.TurnLook(1);
             if (win.IsKeyDown(Keys.Left)) c.TurnLook(-1);
-
-            if (win.IsKeyDown(Keys.Space)) g.Jump();
         }
 
         public override void OnGameUpdate(MainWindow win)
@@ -102,6 +100,7 @@ namespace SpriteX_Engine
             if (!win.world.DoesGameObjectExist(g.GetID())) win.world.SpawnGameObject(g);
             s = win.IsKeyDown(Keys.LeftControl) ? 0.4f : (win.IsKeyDown(Keys.LeftShift) ? 1.6f : 0.8f);
             win.world.cam.SetCameraPosition(g.GetPosition());
+            if (win.IsKeyPressed(Keys.Space)) g.Jump();
         }
 
         public override void OnGameUpdateNoPause(MainWindow win)
