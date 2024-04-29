@@ -8,13 +8,14 @@ using SpriteX_Engine.EngineContents.Components;
 using SpriteX_Engine.EngineContents.Utilities;
 using SpriteX_Engine.EngineContents.GameFeatures.GameObjects;
 using OpenTK.Windowing.Common;
+using System.Runtime.CompilerServices;
 
 namespace SpriteX_Engine
 {
     public class GameCode : GameLevelScript // All classes with GameLevelScript as base class acts like a script for a level
     {
         /* Insert Variables here */
-        GameObject g = new GameObject(new Vector2(500, 100));
+        SideScrollerCharacter g = new SideScrollerCharacter(new Vector2(500, 100));
         GameObject gg = new GameObject(new Vector2(200, 400));
         GameObject ggg = new GameObject(new Vector2(1200, 400));
         TopDownCharacter c = new TopDownCharacter(new Vector2(0, 0));
@@ -77,14 +78,7 @@ namespace SpriteX_Engine
             ccc2.transform.scale = new Vector2(10, 1);
             ccc2.friction = 0.1f;
 
-            pc = g.AddComponent<PhysicsComponent>();
-            pc.mass = 10f;
-            //pc.gravityEnabled = false;
-            //pc.isAirborne = false;
-
-            ColliderComponent cc = g.AddComponent<ColliderComponent>();
-            ColliderComponent cc2 = g.AddComponent<ColliderComponent>();
-            cc2.transform.position = new Vector2(60, 80);
+            pc = g.GetComponent<PhysicsComponent>();
         }
 
         public override void OnFixedGameUpdate(MainWindow win)
@@ -107,8 +101,6 @@ namespace SpriteX_Engine
             if (!win.world.DoesGameObjectExist(g.GetID())) win.world.SpawnGameObject(g);
             s = win.IsKeyDown(Keys.LeftControl) ? 0.4f : (win.IsKeyDown(Keys.LeftShift) ? 1.6f : 0.8f);
             win.world.cam.SetCameraPosition(g.GetPosition());
-
-            if (win.IsKeyPressed(Keys.V)) c.SetSimulatePhysics(!c.IsSimulatingPhysics());
         }
 
         public override void OnGameUpdateNoPause(MainWindow win)
@@ -154,7 +146,7 @@ namespace SpriteX_Engine
             gfx.DrawText(new Vector2(16, 80), "Cam Pos = (" + Math.Round(win.world.cam.camPos.X, 2) + ", " + Math.Round(win.world.cam.camPos.Y, 2) + ")", Color4.White, 1);
             gfx.DrawText(new Vector2(16, 112), "Obj Pos = (" + Math.Round(g.GetPosition().X, 2) + ", " + Math.Round(g.GetPosition().Y, 2) + ")", Color4.White, 1);
             gfx.DrawText(new Vector2(16, 144), "Obj Speed = " + Math.Round(pc.velocity.Length * win.fixedFrameTime, 2) + "u/s", Color4.White, 1);
-            gfx.DrawText(new Vector2(16, 176), "Count = " + win.world.audios.Count, Color4.White, 1);
+            gfx.DrawText(new Vector2(16, 176), "is overlapping = " + g.GetComponents<ColliderComponent>()[1].IsOverlapping(), Color4.White, 1);
         }
 
         public override void OnGameEnd(MainWindow win)

@@ -13,12 +13,25 @@ namespace SpriteX_Engine.EngineContents.GameFeatures.GameObjects
         Vector2 gravityVector = Vector2.UnitY;
         PhysicsComponent pc;
         ColliderComponent cc;
+        ColliderComponent groundCollider;
 
         public SideScrollerCharacter(Vector2 position) : base(position)
         {
             pc = AddComponent<PhysicsComponent>();
             cc = AddComponent<ColliderComponent>();
             cc.friction = 0f;
+            groundCollider = AddComponent<ColliderComponent>();
+            groundCollider.isSolidCollision = false;
+            OnGameObjectUpdate += SideScrollerCharacter_Update;
+        }
+
+        private void SideScrollerCharacter_Update(object sender, EventArgs e)
+        {
+            if (groundCollider != null && cc != null)
+            {
+                groundCollider.transform.scale = new Vector2(cc.transform.scale.X, 0.01f);
+                groundCollider.transform.position.Y = ((cc.transform.scale.Y * 100 * 0.99f) / 2) + 1;
+            }
         }
 
         /// <summary>
@@ -35,5 +48,7 @@ namespace SpriteX_Engine.EngineContents.GameFeatures.GameObjects
         /// </summary>
         /// <returns></returns>
         public Vector2 GetGravityVector() {  return gravityVector; }
+
+        public bool IsGrounded { get {  return groundCollider != null && groundCollider.IsOverlapping(); } }
     }
 }
