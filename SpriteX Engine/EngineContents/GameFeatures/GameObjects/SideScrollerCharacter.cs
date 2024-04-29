@@ -1,10 +1,5 @@
 ﻿using OpenTK.Mathematics;
 using SpriteX_Engine.EngineContents.Components;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpriteX_Engine.EngineContents.GameFeatures.GameObjects
 {
