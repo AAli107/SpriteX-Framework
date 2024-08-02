@@ -45,12 +45,23 @@ namespace SpriteX_Engine.EngineContents
 
         public T GetComponent<T>() where T : Component
         {
-            return components.FirstOrDefault(c => c.GetType() == typeof(T)) as T;
+            for (int i = 0; i < components.Count; i++)
+            {
+                if (components[i].GetType() == typeof(T))
+                    return components[i] as T;
+            }
+            return null;
         }
 
         public T[] GetComponents<T>() where T : Component
         {
-            return components.Where(c => c.GetType() == typeof(T)).Cast<T>().ToArray();
+            List<T> comps = new List<T>();
+            for (int i = 0; i < components.Count; i++)
+            {
+                if (components[i].GetType() == typeof(T))
+                    comps.Add(components[i] as T);
+            }
+            return comps.ToArray();
         }
 
         public Component[] GetAllComponents()
