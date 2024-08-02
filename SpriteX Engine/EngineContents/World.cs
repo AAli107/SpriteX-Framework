@@ -4,7 +4,7 @@
     {
         public Camera cam;
         public List<GameObject> gameObjects = new List<GameObject>();
-        public List<Audio> audios = new List<Audio>(300);
+        public List<Audio> audios = new(256);
 
         public World()
         {
@@ -36,18 +36,20 @@
         public void PlayAudio(string path, float volume = 1f) 
         {
             volume = Utilities.Numbers.ClampN(volume, 0, 1);
-            Audio a = new Audio(path, volume);
+            Audio a = new(path, volume);
             audios.Add(a);
             a.Play();
         }
 
         public void WorldUpdate()
         {
-            List<Audio> stoppedSounds = audios.FindAll(a => a.IsStopped());
-            foreach (Audio a in stoppedSounds)
+            foreach (Audio a in audios.ToArray())
             {
-                a.Dispose();
-                audios.Remove(a);
+                if (a.IsStopped())
+                {
+                    a.Dispose();
+                    audios.Remove(a);
+                } 
             }
         }
 
@@ -59,10 +61,9 @@
         public bool SpawnGameObject(GameObject obj)
         {
             uint id = 0;
-            while (gameObjects.Any(o => o.GetID() == id))
-            {
-                id++;
-            }
+
+            while (gameObjects.Any(o => o.GetID() == id)) id++;
+
             if (obj.SetID(id, this))
             {
                 gameObjects.Add(obj);

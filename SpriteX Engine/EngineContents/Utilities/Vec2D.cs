@@ -24,7 +24,7 @@ namespace SpriteX_Engine.EngineContents.Utilities
         /// <returns></returns>
         public static Vector2 Midpoint2D(Vector2 point1, Vector2 point2)
         {
-            return (point1 + point2) / 2;
+            return (point1 + point2) * 0.5f;
         }
 
         /// <summary>

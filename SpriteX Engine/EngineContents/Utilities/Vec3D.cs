@@ -24,7 +24,7 @@ namespace SpriteX_Engine.EngineContents.Utilities
         /// <returns></returns>
         public static Vector3 Midpoint3D(Vector3 point1, Vector3 point2)
         {
-            return (point1 + point2) / 2;
+            return (point1 + point2) * 0.5f;
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace SpriteX_Engine.EngineContents.Utilities
         /// <returns></returns>
         public static Vector2 Vec3DToVec2D(Vector3 vec3D, float depth = 100)
         {
-            return new Vector2((vec3D.X * (depth / vec3D.Z)) + (1920 / 2), (vec3D.Y * (depth / vec3D.Z)) + (1080 / 2));
+            return new Vector2((vec3D.X * (depth / vec3D.Z)) + 960, (vec3D.Y * (depth / vec3D.Z)) + 540);
         }
 
         /// <summary>

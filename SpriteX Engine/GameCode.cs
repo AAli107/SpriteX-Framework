@@ -121,8 +121,7 @@ namespace SpriteX_Engine
                     b = 1 - b; 
                     b = b > 1 ? 1 : b;
                     b = b <= 0.1f ? 0.1f : b;
-                    Color4 c = Colors.Lerp(Color4.White, lightColor, b);
-                    gfx.DrawImage(new Vector2(i * 120, j * 120), new Vector2(120, 120), img2, Colors.Multiply(new Color4(b, b, b, 1), c));
+                    gfx.DrawImage(new Vector2(i * 120, j * 120), new Vector2(120, 120), img2, Colors.Multiply(new Color4(b, b, b, 1), Colors.Lerp(Color4.White, lightColor, b)));
                 }
             }
             gfx.DrawText(new Vector2(200, 300), "Slippery Floor", Color4.Cyan, 1, false);
@@ -134,10 +133,9 @@ namespace SpriteX_Engine
                 b += 0.25f;
                 b = b <= 0.1f ? 0.1f : b;
                 b = b > 1 ? 1 : b;
-                Color4 c = Colors.Lerp(Color4.White, lightColor, b);
                 ColliderComponent cc = obj.GetComponent<ColliderComponent>();
                 Vector2 s = cc != null ? cc.transform.scale * 50 : new Vector2(50, 50);
-                gfx.DrawImage(obj.GetPosition() - s, s*2, img1, Colors.Multiply(new Color4(b, b, b, 1), c));
+                gfx.DrawImage(obj.GetPosition() - s, s*2, img1, Colors.Multiply(new Color4(b, b, b, 1), Colors.Lerp(Color4.White, lightColor, b)));
             }
 
             gfx.DrawLine(c.GetPosition(), c.GetPosition() + (c.ForwardDirection * 100), Color4.Red);

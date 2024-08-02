@@ -342,7 +342,10 @@ namespace SpriteX_Engine.EngineContents
             gameCode = level; 
             GC.Collect();
             gameCode.Awake(this); // Awake() from GameCode gets executed here
-            if (world != null) world.audios.ForEach(a => a.Stop());
+            var auds = world?.audios;
+            if (auds != null)
+                foreach (var a in auds)
+                    a.Stop();
             world = new World(cam);
             Button.buttons.Clear();
             gameCode.OnGameStart(this); // Executes when world is Created
