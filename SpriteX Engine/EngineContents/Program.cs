@@ -12,10 +12,8 @@ namespace SpriteX_Engine.EngineContents
             */
 
             // Will create and run the Main Window
-            using (var win = new MainWindow(new GameWindowSettings(), new NativeWindowSettings()))
-            {
-                win.Run();
-            }
+            using var win = new MainWindow(new GameWindowSettings(), new NativeWindowSettings());
+            win.Run();
 
         }
     }
