@@ -113,14 +113,14 @@ namespace SpriteX_Engine.EngineContents
         public void DrawTri(Vector2 a, Vector2 b, Vector2 c, Color4 color, DrawType drawType = DrawType.Filled, bool isStatic = false)
         {
             if (
-                ((a.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - (1920 * 0.5f))) < 0 && (b.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - (1920 * 0.5f))) < 0 &&
-                (c.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - (1920 * 0.5f))) < 0) ||
-                ((a.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - (1080 * 0.5f))) < 0 && (b.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - (1080 * 0.5f))) < 0 &&
-                (c.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - (1080 * 0.5f))) < 0) ||
-                ((a.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - (1920 * 0.5f))) > 1920 && (b.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - (1920 * 0.5f))) > 1920 &&
-                (c.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - (1920 * 0.5f))) > 1920) ||
-                ((a.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - (1080 * 0.5f))) > 1080 && (b.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - (1080 * 0.5f))) > 1080 &&
-                (c.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - (1080 * 0.5f))) > 1080)
+                ((a.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) < 0 && (b.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) < 0 &&
+                (c.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) < 0) ||
+                ((a.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) < 0 && (b.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) < 0 &&
+                (c.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) < 0) ||
+                ((a.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) > 1920 && (b.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) > 1920 &&
+                (c.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) > 1920) ||
+                ((a.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) > 1080 && (b.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) > 1080 &&
+                (c.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) > 1080)
                 ) return;
 
             if (drawType == DrawType.Outline) // Will draw the triangle as an outline
@@ -132,9 +132,9 @@ namespace SpriteX_Engine.EngineContents
             }
             // Triangle verticies
             float[] vertices = {
-                (b.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -(b.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f, 1.0f, 1.0f,
-                (a.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -(a.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f, 0.0f, 1.0f,
-                (c.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -(c.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f, 1.0f, 0.0f
+                (b.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) / 960 - 1f, -(b.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) / 540 + 1f, 1.0f, 1.0f,
+                (a.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) / 960 - 1f, -(a.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) / 540 + 1f, 0.0f, 1.0f,
+                (c.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) / 960 - 1f, -(c.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) / 540 + 1f, 1.0f, 0.0f
             };
 
             // Set the ucolor in the shader
@@ -166,14 +166,14 @@ namespace SpriteX_Engine.EngineContents
         public void DrawQuad(Vector2 a, Vector2 b, Vector2 c, Vector2 d, Color4 color, DrawType drawType = DrawType.Filled, bool isStatic = false)
         {
             if (
-                ((a.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - (1920 * 0.5f))) < 0 && (b.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - (1920 * 0.5f))) < 0 &&
-                (c.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - (1920 * 0.5f))) < 0 && (d.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - (1920 * 0.5f))) < 0) ||
-                ((a.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - (1080 * 0.5f))) < 0 && (b.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - (1080 * 0.5f))) < 0 &&
-                (c.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - (1080 * 0.5f))) < 0 && (d.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - (1080 * 0.5f))) < 0) ||
-                ((a.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - (1920 * 0.5f))) > 1920 && (b.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - (1920 * 0.5f))) > 1920 &&
-                (c.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - (1920 * 0.5f))) > 1920 && (d.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - (1920 * 0.5f))) > 1920) ||
-                ((a.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - (1080 * 0.5f))) > 1080 && (b.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - (1080 * 0.5f))) > 1080 &&
-                (c.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - (1080 * 0.5f))) > 1080 && (d.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - (1080 * 0.5f))) > 1080)
+                ((a.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) < 0 && (b.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) < 0 &&
+                (c.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) < 0 && (d.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) < 0) ||
+                ((a.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) < 0 && (b.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) < 0 &&
+                (c.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) < 0 && (d.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) < 0) ||
+                ((a.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) > 1920 && (b.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) > 1920 &&
+                (c.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) > 1920 && (d.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) > 1920) ||
+                ((a.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) > 1080 && (b.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) > 1080 &&
+                (c.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) > 1080 && (d.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) > 1080)
                 ) return;
 
             if (drawType == DrawType.Outline) // Will draw the quad as an outline
@@ -197,10 +197,10 @@ namespace SpriteX_Engine.EngineContents
 
             // Specify the vertex data for quad
             float[] vertices = {
-                (b.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -(b.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f, 1.0f, 1.0f,
-                (a.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -(a.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f, 0.0f, 1.0f,
-                (c.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -(c.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f, 1.0f, 0.0f,
-                (d.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -(d.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f, 0.0f, 0.0f
+                (b.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) / 960 - 1f, -(b.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) / 540 + 1f, 1.0f, 1.0f,
+                (a.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) / 960 - 1f, -(a.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) / 540 + 1f, 0.0f, 1.0f,
+                (c.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) / 960 - 1f, -(c.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) / 540 + 1f, 1.0f, 0.0f,
+                (d.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) / 960 - 1f, -(d.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) / 540 + 1f, 0.0f, 0.0f
             };
 
             GL.BindBuffer(BufferTarget.ArrayBuffer, win.vertexBufferObject);
@@ -224,14 +224,14 @@ namespace SpriteX_Engine.EngineContents
         public void DrawTexturedQuad(Vector2 a, Vector2 b, Vector2 c, Vector2 d, Texture texture, Color4 color, bool isStatic = false)
         {
             if (
-                ((a.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - (1920 * 0.5f))) < 0 && (b.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - (1920 * 0.5f))) < 0 &&
-                (c.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - (1920 * 0.5f))) < 0 && (d.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - (1920 * 0.5f))) < 0) ||
-                ((a.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - (1080 * 0.5f))) < 0 && (b.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - (1080 * 0.5f))) < 0 &&
-                (c.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - (1080 * 0.5f))) < 0 && (d.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - (1080 * 0.5f))) < 0) ||
-                ((a.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - (1920 * 0.5f))) > 1920 && (b.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - (1920 * 0.5f))) > 1920 &&
-                (c.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - (1920 * 0.5f))) > 1920 && (d.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - (1920 * 0.5f))) > 1920) ||
-                ((a.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - (1080 * 0.5f))) > 1080 && (b.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - (1080 * 0.5f))) > 1080 &&
-                (c.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - (1080 * 0.5f))) > 1080 && (d.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - (1080 * 0.5f))) > 1080)
+                ((a.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) < 0 && (b.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) < 0 &&
+                (c.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) < 0 && (d.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) < 0) ||
+                ((a.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) < 0 && (b.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) < 0 &&
+                (c.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) < 0 && (d.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) < 0) ||
+                ((a.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) > 1920 && (b.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) > 1920 &&
+                (c.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) > 1920 && (d.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) > 1920) ||
+                ((a.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) > 1080 && (b.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) > 1080 &&
+                (c.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) > 1080 && (d.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) > 1080)
                 ) return;
 
             // Set the ucolor in the shader
@@ -247,10 +247,10 @@ namespace SpriteX_Engine.EngineContents
 
             // Specify the vertex data for the quad
             float[] vertices = {
-                (b.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -(b.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f, 1.0f, 1.0f,
-                (a.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -(a.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f, 0.0f, 1.0f,
-                (c.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -(c.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f, 1.0f, 0.0f,
-                (d.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -(d.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f, 0.0f, 0.0f
+                (b.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) / 960 - 1f, -(b.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) / 540 + 1f, 1.0f, 1.0f,
+                (a.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) / 960 - 1f, -(a.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) / 540 + 1f, 0.0f, 1.0f,
+                (c.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) / 960 - 1f, -(c.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) / 540 + 1f, 1.0f, 0.0f,
+                (d.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) / 960 - 1f, -(d.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) / 540 + 1f, 0.0f, 0.0f
             };
 
             GL.BindBuffer(BufferTarget.ArrayBuffer, win.vertexBufferObject);
@@ -322,18 +322,18 @@ namespace SpriteX_Engine.EngineContents
         public void DrawLine(Vector2 a, Vector2 b, Color4 color, double width = 1, bool isStatic = false)
         {
             if (
-                ((a.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - (1920 * 0.5f))) < 0 && (b.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - (1920 * 0.5f))) < 0) ||
-                ((a.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - (1080 * 0.5f))) < 0 && (b.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - (1080 * 0.5f))) < 0) ||
-                ((a.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - (1920 * 0.5f))) > 1920 && (b.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - (1920 * 0.5f))) > 1920) ||
-                ((a.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - (1080 * 0.5f))) > 1080 && (b.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - (1080 * 0.5f))) > 1080)
+                ((a.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) < 0 && (b.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) < 0) ||
+                ((a.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) < 0 && (b.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) < 0) ||
+                ((a.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) > 1920 && (b.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) > 1920) ||
+                ((a.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) > 1080 && (b.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) > 1080)
                 ) return;
 
             if (width <= 1)
             {
                 // Line vertices, point a and point b
                 float[] vertices = {
-                    (b.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -(b.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f, 0f, 0f,
-                    (a.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -(a.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f, 0f, 0f
+                    (b.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) / 960 - 1f, -(b.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) / 540 + 1f, 0f, 0f,
+                    (a.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) / 960 - 1f, -(a.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) / 540 + 1f, 0f, 0f
                 };
 
 
@@ -385,16 +385,16 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="color"></param>
         /// <param name="size"></param>
         /// <param name="isStatic"></param>
-        public void DrawChar(Vector2 pos, char character, Color4 color, float size = 1, bool isStatic = true)
+        public void DrawSingleChar(Vector2 pos, char character, Color4 color, float size = 1, bool isStatic = true)
         {
             if (
-                (pos.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - (1920 * 0.5f))) < 0 ||
-                (pos.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - (1080 * 0.5f))) < 0 ||
-                (pos.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - (1920 * 0.5f))) > 1920 ||
-                (pos.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - (1080 * 0.5f))) > 1080
+                (pos.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) < 0 ||
+                (pos.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) < 0 ||
+                (pos.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) > 1920 ||
+                (pos.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) > 1080
                 ) return;
 
-            Vector2 charVec = (win.font.charSize * size);
+            Vector2 charVec = win.font.charSize * size;
 
             // Set the ucolor in the shader
             GL.Uniform4(GL.GetUniformLocation(win.shaderProgram, "uColor"), color);
@@ -405,18 +405,18 @@ namespace SpriteX_Engine.EngineContents
             // Bind the texture
             fontTex.Bind();
 
-            int charCount = Font.charSheet.Count;
-            int charIndex = Font.charSheet.IndexOf(character);
+            int charCount = Font.charSheet.Length;
+            int charIndex = Array.IndexOf(Font.charSheet, character);
 
             // Specify the vertex data for the quad
             float[] vertices = {
-                (pos.X  - (isStatic ? 0 : win.GetWorldCamera().camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -((pos.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - (1080 * 0.5f)))) / (1080 * 0.5f) + 1f,
+                (pos.X  - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) / 960 - 1f, -((pos.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540))) / 540 + 1f,
                 (1.0f / charCount) * charIndex, 0.0f,
-                ((pos.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - (1920 * 0.5f))) + charVec.X) / (1920 * 0.5f) - 1f, -(pos.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f,
+                ((pos.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) + charVec.X) / 960 - 1f, -(pos.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) / 540 + 1f,
                 (1.0f / charCount) * charIndex + (1.0f / charCount), 0.0f,
-                (pos.X  - (isStatic ? 0 : win.GetWorldCamera().camPos.X - (1920 * 0.5f))) / (1920 * 0.5f) - 1f, -((pos.Y) + charVec.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - (1080 * 0.5f))) / (1080 * 0.5f) + 1f,
+                (pos.X  - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) / 960 - 1f, -(pos.Y + charVec.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) / 540 + 1f,
                 (1.0f / charCount) * charIndex, 1.0f,
-                ((pos.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - (1920 * 0.5f))) + charVec.X) / (1920 * 0.5f) - 1f, -((pos.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - (1080 * 0.5f))) + charVec.Y ) / (1080 * 0.5f) + 1f,
+                ((pos.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) + charVec.X) / 960 - 1f, -((pos.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) + charVec.Y ) / 540 + 1f,
                 (1.0f / charCount) * charIndex + (1.0f / charCount), 1.0f
             };
 
@@ -439,15 +439,67 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="isStatic"></param>
         public void DrawText(Vector2 pos, string text, Color4 color, float size = 1, bool isStatic = true)
         {
+            // Set the ucolor in the shader
+            GL.Uniform4(GL.GetUniformLocation(win.shaderProgram, "uColor"), color);
+
+            // Set the texture uniform in the shader
+            GL.Uniform1(GL.GetUniformLocation(win.shaderProgram, "uTexture"), 0);
+
+            // Bind the texture
+            fontTex.Bind();
+
             for (int i = 0; i < text.Length; i++)
             {
                 if (text[i].Equals('\n') && i + 1 < text.Length)
                 {
-                    DrawText(pos + new Vector2(0, win.font.charSize.Y * size), text.Substring(i + 1), color, size, isStatic);
+                    DrawText(pos + new Vector2(0, win.font.charSize.Y * size), text[(i + 1)..], color, size, isStatic);
                     return;
                 }
-                DrawChar(pos + new Vector2(win.font.charSize.X * i * size, 0), text[i], color, size, isStatic);
+                DrawCharactor(pos + new Vector2(win.font.charSize.X * i * size, 0), text[i], size, isStatic);
             }
+
+            // Unbind the texture
+            fontTex.Unbind();
+        }
+
+        /// <summary>
+        /// Used only for drawing text
+        /// </summary>
+        /// <param name="pos"></param>
+        /// <param name="character"></param>
+        /// <param name="color"></param>
+        /// <param name="size"></param>
+        /// <param name="isStatic"></param>
+        private void DrawCharactor(Vector2 pos, char character, float size = 1, bool isStatic = true)
+        {
+            if (
+                (pos.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) < 0 ||
+                (pos.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) < 0 ||
+                (pos.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) > 1920 ||
+                (pos.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) > 1080
+                ) return;
+
+            Vector2 charVec = win.font.charSize * size;
+
+            int charCount = Font.charSheet.Length;
+            int charIndex = Array.IndexOf(Font.charSheet, character);
+
+            // Specify the vertex data for the quad
+            float[] vertices = {
+                (pos.X  - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) / 960 - 1f, -((pos.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540))) / 540 + 1f,
+                (1.0f / charCount) * charIndex, 0.0f,
+                ((pos.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) + charVec.X) / 960 - 1f, -(pos.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) / 540 + 1f,
+                (1.0f / charCount) * charIndex + (1.0f / charCount), 0.0f,
+                (pos.X  - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) / 960 - 1f, -(pos.Y + charVec.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) / 540 + 1f,
+                (1.0f / charCount) * charIndex, 1.0f,
+                ((pos.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) + charVec.X) / 960 - 1f, -((pos.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) + charVec.Y ) / 540 + 1f,
+                (1.0f / charCount) * charIndex + (1.0f / charCount), 1.0f
+            };
+
+            GL.BindBuffer(BufferTarget.ArrayBuffer, win.vertexBufferObject);
+            GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * vertices.Length, vertices, BufferUsageHint.DynamicDraw);
+
+            GL.DrawArrays(PrimitiveType.TriangleStrip, 0, 4);
         }
 
         public void DrawShape(Shape shape, Vector2[] pos, Color4 color, Texture texture, DrawType drawType = DrawType.Filled, float size = 1, bool isStatic = false)
