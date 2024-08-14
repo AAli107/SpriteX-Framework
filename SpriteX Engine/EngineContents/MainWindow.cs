@@ -144,6 +144,7 @@ namespace SpriteX_Engine.EngineContents
         {
             base.OnResize(e);
             GL.Viewport(0, 0, ClientSize.X, ClientSize.Y); // Fixes viewport whenever the window changes size
+            gfx?.ScreenRefresh();
         }
 
         protected override void OnUpdateFrame(FrameEventArgs args)

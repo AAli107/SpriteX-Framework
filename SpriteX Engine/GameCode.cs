@@ -68,11 +68,11 @@ namespace SpriteX_Engine
             win.world.SpawnGameObject(c);
             win.GetWorldCamera().SetEnableCameraBound(true);
 
-            v = new Vector2[1000000];
+            v = new Vector2[100000];
 
             for (int i = 0; i < v.Length; i++)
             {
-                v[i] = new Vector2(Rand.RangeInt(100, 2560), Rand.RangeInt(100, 1400));
+                v[i] = new Vector2(Rand.RangeInt(0, 2560), Rand.RangeInt(0, 1400));
             }
 
             //PhysicsComponent pc2 = gg.AddComponent<PhysicsComponent>();
@@ -152,9 +152,10 @@ namespace SpriteX_Engine
             gfx.DrawText(new Vector2(16, 80), "Cam Pos = (" + Math.Round(win.world.cam.camPos.X, 2) + ", " + Math.Round(win.world.cam.camPos.Y, 2) + ")", Color4.White, 1);
             gfx.DrawText(new Vector2(16, 112), "Obj Pos = (" + Math.Round(g.GetPosition().X, 2) + ", " + Math.Round(g.GetPosition().Y, 2) + ")", Color4.White, 1);
             gfx.DrawText(new Vector2(16, 144), "Obj Speed = " + Math.Round(pc.velocity.Length * win.fixedFrameTime, 2) + "u/s", Color4.White, 1);
-            gfx.DrawText(new Vector2(16, 176), "is player grounded? = " + g.IsGrounded, Color4.White, 1);
+            gfx.DrawText(new Vector2(16, 176), "pixel Scale = " + gfx.ScaledPixelSize, Color4.White, 1);
 
-            gfx.DrawPixels(v, Color4.White);
+            gfx.DrawScaledPixels(v, Color4.White, true);
+            //gfx.DrawScaledPixel(new Vector2(200, 200), Color4.Red, true);
         }
 
         public override void OnGameEnd(MainWindow win)

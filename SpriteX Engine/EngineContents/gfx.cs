@@ -9,6 +9,15 @@ namespace SpriteX_Engine.EngineContents
         MainWindow win;
         public Texture tex;
         public Texture fontTex;
+        public int ScaledPixelSize { get { return scaledPixelSize; } }
+        
+        private int scaledPixelSize = 0;
+
+        public void ScreenRefresh()
+        {
+            scaledPixelSize = (int)MathF.Round(Vector2.Distance(new Vector2((0 - (win.world.cam.camPos.X - 960)) / 960 - 1f, -(0 - (win.world.cam.camPos.Y - 540)) / 540 + 1f),
+                new Vector2((0 - (win.world.cam.camPos.X - 960)) / 960 - 1f, -(1 - (win.world.cam.camPos.Y - 540)) / 540 + 1f)) * (win.ClientSize.Y * 0.5f));
+        }
 
         public gfx(MainWindow win) 
         {
@@ -59,6 +68,30 @@ namespace SpriteX_Engine.EngineContents
             float[] position = { (float)x / (win.ClientSize.X * 0.5f) - 1f, (float)-y / (win.ClientSize.Y * 0.5f) + 1f, 0, 0 };
             GL.BindBuffer(BufferTarget.ArrayBuffer, win.vertexBufferObject);
             GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * position.Length, position, BufferUsageHint.DynamicDraw);
+
+            // Draws the pixel
+            GL.DrawArrays(PrimitiveType.Points, 0, 1);
+
+            tex.Unbind();
+        }
+
+        /// <summary>
+        /// Draws a single pixel on the game window based on given data
+        /// </summary>
+        /// <param name="vertexData"></param>
+        /// <param name="color"></param>
+        public void DrawPixel(float[] data, Color4 color)
+        {
+            // Set the ucolor in the shader
+            GL.Uniform4(GL.GetUniformLocation(win.shaderProgram, "uColor"), color);
+
+            // Set the texture uniform in the shader
+            GL.Uniform1(GL.GetUniformLocation(win.shaderProgram, "uTexture"), 0);
+
+            tex.Bind();
+            // Specify the vertex data for pixel
+            GL.BindBuffer(BufferTarget.ArrayBuffer, win.vertexBufferObject);
+            GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * data.Length, data, BufferUsageHint.DynamicDraw);
 
             // Draws the pixel
             GL.DrawArrays(PrimitiveType.Points, 0, 1);
@@ -132,6 +165,16 @@ namespace SpriteX_Engine.EngineContents
             tex.Unbind();
         }
 
+        private void BufferPixels(float[] vertexData)
+        {
+            if (vertexData.Length % 4 != 0) return;
+
+            GL.BindBuffer(BufferTarget.ArrayBuffer, win.vertexBufferObject);
+            GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * vertexData.Length, vertexData, BufferUsageHint.DynamicDraw);
+
+            GL.DrawArrays(PrimitiveType.Points, 0, vertexData.Length / 4);
+        }
+
         /// <summary>
         /// Draws a single pixel that scales with Game Window
         /// </summary>
@@ -141,6 +184,35 @@ namespace SpriteX_Engine.EngineContents
         public void DrawScaledPixel(Vector2 position, Color4 color, bool isStatic = false)
         {
             DrawRect(position, new Vector2(1, 1), color, DrawType.Filled, isStatic);
+        }
+
+        /// <summary>
+        /// Draws many pixels that scales with Game Window
+        /// </summary>
+        /// <param name="position"></param>
+        /// <param name="color"></param>
+        /// <param name="isStatic"></param>
+        public void DrawScaledPixels(Vector2[] position, Color4 color, bool isStatic = false)
+        {
+            float[] v = new float[position.Length * scaledPixelSize * scaledPixelSize * 4];
+            int vi = 0;
+            for (int j = 0; j < position.Length; j++)
+            {
+                for (int i = 0; i < scaledPixelSize * scaledPixelSize; i++)
+                {
+                    v[vi] = (position[j].X + (i / scaledPixelSize) - (isStatic ? 0 : win.world.cam.camPos.X - 960)) / 960 - 1f;
+                    v[vi + 1] = -(position[j].Y + (i % scaledPixelSize) - (isStatic ? 0 : win.world.cam.camPos.Y - 540)) / 540 + 1f;
+                    vi += 4;
+                }
+            }
+
+            GL.Uniform4(GL.GetUniformLocation(win.shaderProgram, "uColor"), color);
+
+            GL.Uniform1(GL.GetUniformLocation(win.shaderProgram, "uTexture"), 0);
+
+            tex.Bind();
+            BufferPixels(v);
+            tex.Unbind();
         }
 
         /// <summary>
@@ -246,10 +318,10 @@ namespace SpriteX_Engine.EngineContents
 
             // Specify the vertex data for quad
             float[] vertices = {
-                (b.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) / 960 - 1f, -(b.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) / 540 + 1f, 1.0f, 1.0f,
-                (a.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) / 960 - 1f, -(a.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) / 540 + 1f, 0.0f, 1.0f,
-                (c.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) / 960 - 1f, -(c.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) / 540 + 1f, 1.0f, 0.0f,
-                (d.X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) / 960 - 1f, -(d.Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) / 540 + 1f, 0.0f, 0.0f
+                (b.X - (isStatic ? 0 : win.world.cam.camPos.X - 960)) / 960 - 1f, -(b.Y - (isStatic ? 0 : win.world.cam.camPos.Y - 540)) / 540 + 1f, 1.0f, 1.0f,
+                (a.X - (isStatic ? 0 : win.world.cam.camPos.X - 960)) / 960 - 1f, -(a.Y - (isStatic ? 0 : win.world.cam.camPos.Y - 540)) / 540 + 1f, 0.0f, 1.0f,
+                (c.X - (isStatic ? 0 : win.world.cam.camPos.X - 960)) / 960 - 1f, -(c.Y - (isStatic ? 0 : win.world.cam.camPos.Y - 540)) / 540 + 1f, 1.0f, 0.0f,
+                (d.X - (isStatic ? 0 : win.world.cam.camPos.X - 960)) / 960 - 1f, -(d.Y - (isStatic ? 0 : win.world.cam.camPos.Y - 540)) / 540 + 1f, 0.0f, 0.0f
             };
 
             GL.BindBuffer(BufferTarget.ArrayBuffer, win.vertexBufferObject);
