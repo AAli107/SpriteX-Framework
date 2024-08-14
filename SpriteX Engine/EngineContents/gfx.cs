@@ -79,8 +79,7 @@ namespace SpriteX_Engine.EngineContents
         /// <summary>
         /// Draws many pixels on the game window (exact pixel position)
         /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
+        /// <param name="position"></param>
         /// <param name="color"></param>
         public void DrawPixels(Vector2[] position, Color4 color)
         {
