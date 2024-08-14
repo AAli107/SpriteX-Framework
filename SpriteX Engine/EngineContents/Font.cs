@@ -8,6 +8,7 @@ namespace SpriteX_Engine.EngineContents
         public Vector2 charSize = new Vector2(16, 32);
 
         public static char[] charSheet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()-=_+[]{}\\|;:'\".,<>/?`~ ".ToArray();
+        public static readonly Font defaultFont = new();
 
         public Font() { }
 
@@ -15,11 +16,6 @@ namespace SpriteX_Engine.EngineContents
         {
             this.fontPath = fontPath;
             this.charSize = charSize;
-        }
-
-        public static Font GetDefaultFont()
-        {
-            return new Font();
         }
     }
 }

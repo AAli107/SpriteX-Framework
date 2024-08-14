@@ -20,7 +20,7 @@ namespace SpriteX_Engine.EngineContents
         public static readonly bool allowAltEnter = true; // Controls whether you can toggle fullscreen when pressing Alt+Enter
         public static readonly bool showDebugHitbox = true; // Controls whether to show all GameObjects' hitboxes
         public static readonly bool showStats = true; // Displays FPS and UpdateTime(ms) Stat
-        public static readonly Font font = Font.GetDefaultFont(); // Contains game font
+        public static readonly Font font = Font.defaultFont; // Contains game font
         public static readonly GameLevelScript startLevel = new GameCode(); // The Level to load when game launches
     }
 }

@@ -23,7 +23,7 @@ namespace SpriteX_Engine.EngineContents
         {
             this.win = win;
             tex = new Texture();
-            fontTex = new Texture(Font.GetDefaultFont().fontPath);
+            fontTex = new Texture(Font.defaultFont.fontPath);
         }
 
         /// <summary>
