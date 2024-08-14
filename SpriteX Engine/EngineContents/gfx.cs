@@ -46,8 +46,7 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="color"></param>
         public void DrawPixel(double x, double y, Color4 color)
         {
-            if (x < 0 || y < 0)
-                return;
+            if (x < 0 || y < 0) return;
 
             // Set the ucolor in the shader
             int colorUniformLocation = GL.GetUniformLocation(win.shaderProgram, "uColor");
