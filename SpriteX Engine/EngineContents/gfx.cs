@@ -46,7 +46,7 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="color"></param>
         public void DrawPixel(double x, double y, Color4 color)
         {
-            if ((x < 0) || (y < 0) || (x > 1920) || (y > 1080))
+            if (x < 0 || y < 0)
                 return;
 
             // Set the ucolor in the shader
@@ -87,7 +87,6 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="color"></param>
         public void DrawPixels(Vector2[] position, Color4 color)
         {
-
             // Set the ucolor in the shader
             int colorUniformLocation = GL.GetUniformLocation(win.shaderProgram, "uColor");
             GL.Uniform4(colorUniformLocation, color);
@@ -104,9 +103,9 @@ namespace SpriteX_Engine.EngineContents
             int vi = 0;
             for (int i = 0; i < position.Length; i++)
             {
-                // Specify the vertex data for pixel
-                vertexData[vi] = (float)position[i].X * xs - 1f;
-                vertexData[vi + 1] = (float)-position[i].Y * ys + 1f;
+                // Specify the vertex data for each pixel
+                vertexData[vi] = position[i].X * xs - 1f;
+                vertexData[vi + 1] = -position[i].Y * ys + 1f;
                 vertexData[vi + 2] = 0;
                 vertexData[vi + 3] = 0;
                 vi += 4;
