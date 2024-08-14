@@ -112,6 +112,26 @@ namespace SpriteX_Engine.EngineContents
             tex.Unbind();
         }
 
+        public void DrawPixels(float[] vertexData, Color4 color)
+        {
+            if (vertexData.Length % 4 != 0) return;
+
+            // Set the ucolor in the shader
+            GL.Uniform4(GL.GetUniformLocation(win.shaderProgram, "uColor"), color);
+
+            // Set the texture uniform in the shader
+            GL.Uniform1(GL.GetUniformLocation(win.shaderProgram, "uTexture"), 0);
+
+            tex.Bind();
+
+            GL.BindBuffer(BufferTarget.ArrayBuffer, win.vertexBufferObject);
+            GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * vertexData.Length, vertexData, BufferUsageHint.DynamicDraw);
+
+            GL.DrawArrays(PrimitiveType.Points, 0, vertexData.Length / 4);
+
+            tex.Unbind();
+        }
+
         /// <summary>
         /// Draws a single pixel that scales with Game Window
         /// </summary>
