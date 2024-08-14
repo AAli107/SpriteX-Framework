@@ -49,12 +49,10 @@ namespace SpriteX_Engine.EngineContents
             if (x < 0 || y < 0) return;
 
             // Set the ucolor in the shader
-            int colorUniformLocation = GL.GetUniformLocation(win.shaderProgram, "uColor");
-            GL.Uniform4(colorUniformLocation, color);
+            GL.Uniform4(GL.GetUniformLocation(win.shaderProgram, "uColor"), color);
 
             // Set the texture uniform in the shader
-            int textureUniformLocation = GL.GetUniformLocation(win.shaderProgram, "uTexture");
-            GL.Uniform1(textureUniformLocation, 0);
+            GL.Uniform1(GL.GetUniformLocation(win.shaderProgram, "uTexture"), 0);
 
             tex.Bind();
             // Specify the vertex data for pixel
@@ -87,12 +85,10 @@ namespace SpriteX_Engine.EngineContents
         public void DrawPixels(Vector2[] position, Color4 color)
         {
             // Set the ucolor in the shader
-            int colorUniformLocation = GL.GetUniformLocation(win.shaderProgram, "uColor");
-            GL.Uniform4(colorUniformLocation, color);
+            GL.Uniform4(GL.GetUniformLocation(win.shaderProgram, "uColor"), color);
 
             // Set the texture uniform in the shader
-            int textureUniformLocation = GL.GetUniformLocation(win.shaderProgram, "uTexture");
-            GL.Uniform1(textureUniformLocation, 0);
+            GL.Uniform1(GL.GetUniformLocation(win.shaderProgram, "uTexture"), 0);
 
             float xs = 1 / (win.ClientSize.X * 0.5f);
             float ys = 1 / (win.ClientSize.Y * 0.5f);
@@ -176,12 +172,10 @@ namespace SpriteX_Engine.EngineContents
             };
 
             // Set the ucolor in the shader
-            int colorUniformLocation = GL.GetUniformLocation(win.shaderProgram, "uColor");
-            GL.Uniform4(colorUniformLocation, color);
+            GL.Uniform4(GL.GetUniformLocation(win.shaderProgram, "uColor"), color);
 
             // Set the texture uniform in the shader
-            int textureUniformLocation = GL.GetUniformLocation(win.shaderProgram, "uTexture");
-            GL.Uniform1(textureUniformLocation, 0);
+            GL.Uniform1(GL.GetUniformLocation(win.shaderProgram, "uTexture"), 0);
 
             tex.Bind();
 
@@ -224,12 +218,10 @@ namespace SpriteX_Engine.EngineContents
             }
 
             // Set the ucolor in the shader
-            int colorUniformLocation = GL.GetUniformLocation(win.shaderProgram, "uColor");
-            GL.Uniform4(colorUniformLocation, color);
+            GL.Uniform4(GL.GetUniformLocation(win.shaderProgram, "uColor"), color);
 
             // Set the texture uniform in the shader
-            int textureUniformLocation = GL.GetUniformLocation(win.shaderProgram, "uTexture");
-            GL.Uniform1(textureUniformLocation, 0);
+            GL.Uniform1(GL.GetUniformLocation(win.shaderProgram, "uTexture"), 0);
 
             tex.Bind();
 
@@ -273,12 +265,10 @@ namespace SpriteX_Engine.EngineContents
                 ) return;
 
             // Set the ucolor in the shader
-            int colorUniformLocation = GL.GetUniformLocation(win.shaderProgram, "uColor");
-            GL.Uniform4(colorUniformLocation, color);
+            GL.Uniform4(GL.GetUniformLocation(win.shaderProgram, "uColor"), color);
 
             // Set the texture uniform in the shader
-            int textureUniformLocation = GL.GetUniformLocation(win.shaderProgram, "uTexture");
-            GL.Uniform1(textureUniformLocation, 0);
+            GL.Uniform1(GL.GetUniformLocation(win.shaderProgram, "uTexture"), 0);
 
             // Bind the texture
             texture.Bind();
@@ -376,12 +366,10 @@ namespace SpriteX_Engine.EngineContents
 
 
                 // Set the ucolor in the shader
-                int colorUniformLocation = GL.GetUniformLocation(win.shaderProgram, "uColor");
-                GL.Uniform4(colorUniformLocation, color);
+                GL.Uniform4(GL.GetUniformLocation(win.shaderProgram, "uColor"), color);
 
                 // Set the texture uniform in the shader
-                int textureUniformLocation = GL.GetUniformLocation(win.shaderProgram, "uTexture");
-                GL.Uniform1(textureUniformLocation, 0);
+                GL.Uniform1(GL.GetUniformLocation(win.shaderProgram, "uTexture"), 0);
 
                 tex.Bind();
 
