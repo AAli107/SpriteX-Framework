@@ -154,7 +154,7 @@ namespace SpriteX_Engine
             gfx.DrawText(new Vector2(16, 144), "Obj Speed = " + Math.Round(pc.velocity.Length * win.fixedFrameTime, 2) + "u/s", Color4.White, 1);
             gfx.DrawText(new Vector2(16, 176), "pixel Scale = " + gfx.ScaledPixelSize, Color4.White, 1);
 
-            gfx.DrawScaledPixels(v, Color4.White, true);
+            //gfx.DrawScaledPixels(v, Color4.White, true);
             //gfx.DrawScaledPixel(new Vector2(200, 200), Color4.Red, true);
         }
 

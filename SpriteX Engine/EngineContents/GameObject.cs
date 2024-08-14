@@ -66,7 +66,9 @@ namespace SpriteX_Engine.EngineContents
 
         public Component[] GetAllComponents()
         {
-            return components.ToArray();
+            Component[] _components = new Component[components.Count];
+            components.CopyTo(_components);
+            return _components;
         }
 
         public void RemoveComponent(Component c)
