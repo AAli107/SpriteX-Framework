@@ -22,7 +22,7 @@ namespace SpriteX_Engine
         PhysicsComponent pc;
 
         float s;
-        float[] v;
+        Vector2[] v;
 
         Texture img1;
         Texture img2;
@@ -68,12 +68,11 @@ namespace SpriteX_Engine
             win.world.SpawnGameObject(c);
             win.GetWorldCamera().SetEnableCameraBound(true);
 
-            v = new float[1000000];
+            v = new Vector2[1000000];
 
             for (int i = 0; i < v.Length; i++)
             {
-                if ((i+1) % 4 == 1 || (i + 1) % 4 == 2)
-                    v[i] = Rand.RangeFloat(-1, 1);
+                v[i] = new Vector2(Rand.RangeInt(100, 2560), Rand.RangeInt(100, 1400));
             }
 
             //PhysicsComponent pc2 = gg.AddComponent<PhysicsComponent>();
