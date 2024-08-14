@@ -7,7 +7,7 @@ namespace SpriteX_Engine.EngineContents
         public string fontPath = "Resources/Engine/SpriteX_Font.png";
         public Vector2 charSize = new Vector2(16, 32);
 
-        public static char[] charSheet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()-=_+[]{}\\|;:'\".,<>/?`~ ".ToArray();
+        public static readonly char[] charSheet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()-=_+[]{}\\|;:'\".,<>/?`~ ".ToArray();
         public static readonly Font defaultFont = new();
 
         public Font() { }
