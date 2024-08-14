@@ -80,6 +80,46 @@ namespace SpriteX_Engine.EngineContents
         }
 
         /// <summary>
+        /// Draws many pixels on the game window (exact pixel position)
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="color"></param>
+        public void DrawPixels(Vector2[] position, Color4 color)
+        {
+
+            // Set the ucolor in the shader
+            int colorUniformLocation = GL.GetUniformLocation(win.shaderProgram, "uColor");
+            GL.Uniform4(colorUniformLocation, color);
+
+            // Set the texture uniform in the shader
+            int textureUniformLocation = GL.GetUniformLocation(win.shaderProgram, "uTexture");
+            GL.Uniform1(textureUniformLocation, 0);
+
+            float xs = 1 / (win.ClientSize.X * 0.5f);
+            float ys = 1 / (win.ClientSize.Y * 0.5f);
+
+            tex.Bind();
+            float[] vertexData = new float[position.Length * 4];
+            int vi = 0;
+            for (int i = 0; i < position.Length; i++)
+            {
+                // Specify the vertex data for pixel
+                vertexData[vi] = (float)position[i].X * xs - 1f;
+                vertexData[vi + 1] = (float)-position[i].Y * ys + 1f;
+                vertexData[vi + 2] = 0;
+                vertexData[vi + 3] = 0;
+                vi += 4;
+            }
+            GL.BindBuffer(BufferTarget.ArrayBuffer, win.vertexBufferObject);
+            GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * vertexData.Length, vertexData, BufferUsageHint.DynamicDraw);
+
+            GL.DrawArrays(PrimitiveType.Points, 0, position.Length);
+
+            tex.Unbind();
+        }
+
+        /// <summary>
         /// Draws a single pixel that scales with Game Window
         /// </summary>
         /// <param name="position"></param>

@@ -22,6 +22,7 @@ namespace SpriteX_Engine
         PhysicsComponent pc;
 
         float s;
+        Vector2[] v;
 
         Texture img1;
         Texture img2;
@@ -66,6 +67,13 @@ namespace SpriteX_Engine
             win.world.SpawnGameObject(ggg);
             win.world.SpawnGameObject(c);
             win.GetWorldCamera().SetEnableCameraBound(true);
+
+            v = new Vector2[100000];
+
+            for (int i = 0; i < v.Length; i++)
+            {
+                v[i] = new Vector2(Rand.RangeInt(0, 1920), Rand.RangeInt(0, 1080));
+            }
 
             //PhysicsComponent pc2 = gg.AddComponent<PhysicsComponent>();
             //pc2.mass = 10f;
@@ -145,6 +153,8 @@ namespace SpriteX_Engine
             gfx.DrawText(new Vector2(16, 112), "Obj Pos = (" + Math.Round(g.GetPosition().X, 2) + ", " + Math.Round(g.GetPosition().Y, 2) + ")", Color4.White, 1);
             gfx.DrawText(new Vector2(16, 144), "Obj Speed = " + Math.Round(pc.velocity.Length * win.fixedFrameTime, 2) + "u/s", Color4.White, 1);
             gfx.DrawText(new Vector2(16, 176), "is player grounded? = " + g.IsGrounded, Color4.White, 1);
+
+            gfx.DrawPixels(v, Color4.White);
         }
 
         public override void OnGameEnd(MainWindow win)
