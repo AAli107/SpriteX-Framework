@@ -1,8 +1,8 @@
 ﻿using OpenTK.Mathematics;
 
-namespace SpriteX_Engine.EngineContents
+namespace SpriteX_Engine.EngineContents.Components
 {
-    public struct Render
+    public class RenderComponent : Component
     {
         public bool isVisible = true;
         public Vector2[] vertex = { new Vector2(0, 0), new Vector2(100, 100) };
@@ -12,17 +12,17 @@ namespace SpriteX_Engine.EngineContents
         public Color4 color = Color4.White;
         public float size = 1;
 
-        public Render() { }
+        public RenderComponent(GameObject parent) : base(parent) { }
 
-        public Render(gfx.Shape shape, Vector2[] vertex, Texture tex, Color4 color)
+        public RenderComponent(GameObject parent, gfx.Shape shape, Vector2[] vertex, Texture tex, Color4 color) : base(parent)
         {
             Construct(shape, vertex, tex, color);
         }
-        public Render(gfx.Shape shape, Vector2[] vertex, Texture tex)
+        public RenderComponent(GameObject parent, gfx.Shape shape, Vector2[] vertex, Texture tex) : base(parent)
         {
             Construct(shape, vertex, tex, Color4.White);
         }
-        public Render(gfx.Shape shape, Vector2[] vertex, Color4 color)
+        public RenderComponent(GameObject parent, gfx.Shape shape, Vector2[] vertex, Color4 color) : base(parent)
         {
             Construct(shape, vertex, Texture.GetPlainWhiteTexture(), color);
         }
@@ -35,14 +35,15 @@ namespace SpriteX_Engine.EngineContents
             this.color = color;
         }
 
-        public void DrawRender(gfx gfx, Vector2 pos)
+        public override void RenderTick(MainWindow win, gfx gfx)
         {
+            base.RenderTick(win, gfx);
             if (!isVisible) return;
             Vector2[] v = vertex.ToArray();
             for (int i = 0; i < v.Length; i++)
             {
                 if (shape == gfx.Shape.Rect && i == 1) continue;
-                v[i] = v[i] + pos;
+                v[i] = v[i] + parent.GetPosition();
             }
 
             gfx.DrawShape(shape, v, color, tex, drawType, size, false);

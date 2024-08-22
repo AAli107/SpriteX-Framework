@@ -1,14 +1,12 @@
 ﻿using OpenTK.Mathematics;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using SpriteX_Engine.EngineContents;
 using SpriteX_Engine.EngineContents.Components;
 using SpriteX_Engine.EngineContents.Utilities;
 using SpriteX_Engine.EngineContents.GameFeatures.GameObjects;
 using OpenTK.Windowing.Common;
-using System.Runtime.CompilerServices;
 
 namespace SpriteX_Engine
 {

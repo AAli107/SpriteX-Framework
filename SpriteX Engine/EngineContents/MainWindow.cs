@@ -214,7 +214,9 @@ namespace SpriteX_Engine.EngineContents
 
             foreach (GameObject obj in world.GetAllGameObjects())
             {
-                obj.Render(this, gfx); // Will render all of GameObject's Renders
+                if (!obj.isEnabled) continue;
+
+                obj.Render(this, gfx); // Will do rendering tick on all Game Objects
 
                 if (showDebugHitbox) // Will render the Rectangles representing the hitbox of the GameObject
                     foreach (ColliderComponent cc in obj.GetComponents<ColliderComponent>())

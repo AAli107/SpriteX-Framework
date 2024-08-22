@@ -9,15 +9,12 @@ namespace SpriteX_Engine.EngineContents
         uint id;
         Vector2 position;
 
-        bool isVisible = true;
-
         private List<Component> components = new List<Component>();
-
-        public readonly List<Render> renders = new List<Render>(255);
 
         public event EventHandler<EventArgs> OnUpdate;
         public event EventHandler<EventArgs> OnSpawn;
         public event EventHandler<EventArgs> OnRender;
+        public bool isEnabled = true;
 
         /// <summary>
         /// Creates a GameObject
@@ -83,17 +80,17 @@ namespace SpriteX_Engine.EngineContents
 
         public void UpdateTick(MainWindow win)
         {
-            OnUpdate?.Invoke(this, new EventArgs());
-            foreach (Component c in components) if (c.isEnabled) c.UpdateTick(win);
+            if (isEnabled)
+            {
+                OnUpdate?.Invoke(this, new EventArgs());
+                foreach (Component c in components) if (c.isEnabled) c.UpdateTick(win);
+            }
         }
 
         public void Render(MainWindow win, gfx gfx)
         {
             OnRender?.Invoke(this, new EventArgs());
             foreach (Component c in components) if (c.isEnabled) c.RenderTick(win, gfx);
-
-            if (isVisible) for (int i = 0; i < renders.Count; i++)
-                renders[i].DrawRender(gfx, GetPosition());
         }
 
         /// <summary>
