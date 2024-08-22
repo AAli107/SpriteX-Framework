@@ -127,7 +127,8 @@
         public void TickAllGameObjects(MainWindow win)
         {
             for (int i = 0; i < gameObjects.Count; i++)
-                gameObjects[i].UpdateTick(win);
+                if (gameObjects[i].isEnabled)
+                    gameObjects[i].UpdateTick(win);
         }
     }
 }
