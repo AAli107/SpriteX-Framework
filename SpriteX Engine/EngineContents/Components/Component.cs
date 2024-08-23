@@ -8,6 +8,8 @@
         public GameObject parent;
         public bool isEnabled = true;
 
+        public Component() {}
+
         public Component(GameObject parent)
         {
             this.parent = parent;
