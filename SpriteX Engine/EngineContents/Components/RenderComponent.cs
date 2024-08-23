@@ -14,27 +14,6 @@ namespace SpriteX_Engine.EngineContents.Components
 
         public RenderComponent(GameObject parent) : base(parent) { }
 
-        public RenderComponent(GameObject parent, gfx.Shape shape, Vector2[] vertex, Texture tex, Color4 color) : base(parent)
-        {
-            Construct(shape, vertex, tex, color);
-        }
-        public RenderComponent(GameObject parent, gfx.Shape shape, Vector2[] vertex, Texture tex) : base(parent)
-        {
-            Construct(shape, vertex, tex, Color4.White);
-        }
-        public RenderComponent(GameObject parent, gfx.Shape shape, Vector2[] vertex, Color4 color) : base(parent)
-        {
-            Construct(shape, vertex, Texture.GetPlainWhiteTexture(), color);
-        }
-
-        private void Construct(gfx.Shape shape, Vector2[] vertex, Texture tex, Color4 color)
-        {
-            this.shape = shape;
-            this.vertex = vertex;
-            this.tex = tex;
-            this.color = color;
-        }
-
         public override void RenderTick(MainWindow win, gfx gfx)
         {
             base.RenderTick(win, gfx);
