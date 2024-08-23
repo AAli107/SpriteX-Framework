@@ -20,15 +20,7 @@ namespace SpriteX_Engine.EngineContents
         /// Creates a GameObject
         /// </summary>
         /// <param name="position"></param>
-        public GameObject(Vector2 position)
-        {
-            Construct(position);
-        }
-
-        void Construct(Vector2 position)
-        {
-            this.position = position;
-        }
+        public GameObject() { }
 
         public T AddComponent<T>() where T : Component
         {

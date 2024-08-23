@@ -8,7 +8,7 @@ namespace SpriteX_Engine.EngineContents.GameFeatures.GameObjects
         PhysicsComponent pc;
         ColliderComponent cc;
 
-        public TopDownCharacter(Vector2 position) : base(position)
+        public TopDownCharacter() : base()
         {
             pc = AddComponent<PhysicsComponent>();
             cc = AddComponent<ColliderComponent>();

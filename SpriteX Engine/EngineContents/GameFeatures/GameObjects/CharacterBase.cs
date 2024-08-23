@@ -33,7 +33,7 @@ namespace SpriteX_Engine.EngineContents.GameFeatures.GameObjects
         /// </summary>
         public Vector2 RightDirection { get { return Vec2D.RotateAroundPoint(Vector2.UnitX, Vector2.Zero, lookRotation + 90); } }
 
-        public CharacterBase(Vector2 position) : base(position) 
+        public CharacterBase() : base() 
         {
             OnSpawn += CharacterBase_Spawn;
             OnUpdate += CharacterBase_Update;

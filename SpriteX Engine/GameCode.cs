@@ -13,10 +13,10 @@ namespace SpriteX_Engine
     public class GameCode : GameLevelScript // All classes with GameLevelScript as base class acts like a script for a level
     {
         /* Insert Variables here */
-        SideScrollerCharacter g = new SideScrollerCharacter(new Vector2(500, 100));
-        GameObject gg = new GameObject(new Vector2(200, 400));
-        GameObject ggg = new GameObject(new Vector2(1200, 400));
-        TopDownCharacter c = new TopDownCharacter(new Vector2(0, 0));
+        SideScrollerCharacter g = new SideScrollerCharacter();
+        GameObject gg = new GameObject();
+        GameObject ggg = new GameObject();
+        TopDownCharacter c = new TopDownCharacter();
         PhysicsComponent pc;
 
         float s;
@@ -32,21 +32,21 @@ namespace SpriteX_Engine
         public void btn_ButtonPressed(object sender, MouseButtonEventArgs e)
         {
             MainWindow win = (MainWindow)sender;
-            win.world.SpawnGameObject(new GameObject(new Vector2(Rand.RangeFloat(0, 1920), Rand.RangeFloat(0, 1080))));
+            win.world.SpawnGameObject(new GameObject(), new Vector2(Rand.RangeFloat(0, 1920), Rand.RangeFloat(0, 1080)));
             win.PlayAudio("Resources/Audio/sample_audio.wav");
         }
 
         public void btn2_ButtonPressed(object sender, MouseButtonEventArgs e)
         {
             MainWindow win = (MainWindow)sender;
-            win.world.SpawnGameObject(new GameObject(new Vector2(Rand.RangeFloat(0, 1920), Rand.RangeFloat(0, 1080))));
+            win.world.SpawnGameObject(new GameObject(), new Vector2(Rand.RangeFloat(0, 1920), Rand.RangeFloat(0, 1080)));
             win.PlayAudio("Resources/Audio/sample_audio.wav");
         }
 
         public void btn3_ButtonPressed(object sender, MouseButtonEventArgs e)
         {
             MainWindow win = (MainWindow)sender;
-            win.world.SpawnGameObject(new GameObject(new Vector2(Rand.RangeFloat(0, 1920), Rand.RangeFloat(0, 1080))));
+            win.world.SpawnGameObject(new GameObject(), new Vector2(Rand.RangeFloat(0, 1920), Rand.RangeFloat(0, 1080)));
             win.PlayAudio("Resources/Audio/sample_audio.wav");
         }
 
@@ -60,10 +60,10 @@ namespace SpriteX_Engine
             btn.OnButtonPressed += btn_ButtonPressed;
             btn2.OnButtonPressed += btn2_ButtonPressed;
             btn3.OnButtonPressed += btn3_ButtonPressed;
-            win.world.SpawnGameObject(g);
-            win.world.SpawnGameObject(gg);
-            win.world.SpawnGameObject(ggg);
-            win.world.SpawnGameObject(c);
+            win.world.SpawnGameObject(g, new Vector2(500, 100));
+            win.world.SpawnGameObject(gg, new Vector2(200, 400));
+            win.world.SpawnGameObject(ggg, new Vector2(1200, 400));
+            win.world.SpawnGameObject(c, new Vector2(0, 300));
             win.GetWorldCamera().SetEnableCameraBound(true);
 
             v = new Vector2[100000];
@@ -103,7 +103,7 @@ namespace SpriteX_Engine
 
         public override void OnGameUpdate(MainWindow win)
         {
-            if (!win.world.DoesGameObjectExist(g.GetID())) win.world.SpawnGameObject(g);
+            if (!win.world.DoesGameObjectExist(g.GetID())) win.world.SpawnGameObject(g, new Vector2(500, 100));
             s = win.IsKeyDown(Keys.LeftControl) ? 0.4f : (win.IsKeyDown(Keys.LeftShift) ? 1.6f : 0.8f);
             win.world.cam.SetCameraPosition(g.GetPosition());
             if (win.IsKeyPressed(Keys.Space) || win.IsKeyPressed(Keys.W)) g.Jump();

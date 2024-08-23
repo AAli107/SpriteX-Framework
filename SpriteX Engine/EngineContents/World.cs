@@ -1,4 +1,6 @@
-﻿namespace SpriteX_Engine.EngineContents
+﻿using OpenTK.Mathematics;
+
+namespace SpriteX_Engine.EngineContents
 {
     public class World
     {
@@ -58,7 +60,7 @@
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public bool SpawnGameObject(GameObject obj)
+        public bool SpawnGameObject(GameObject obj, Vector2 position)
         {
             uint id = 0;
 
@@ -66,6 +68,7 @@
 
             if (obj.SetID(id, this))
             {
+                obj.SetPosition(position);
                 gameObjects.Add(obj);
                 obj.Spawn();
                 return true;

@@ -11,7 +11,7 @@ namespace SpriteX_Engine.EngineContents.GameFeatures.GameObjects
         ColliderComponent cc;
         ColliderComponent groundCollider;
 
-        public SideScrollerCharacter(Vector2 position) : base(position)
+        public SideScrollerCharacter() : base()
         {
             pc = AddComponent<PhysicsComponent>();
             cc = AddComponent<ColliderComponent>();
