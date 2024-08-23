@@ -269,12 +269,46 @@ namespace SpriteX_Engine.EngineContents
             GL.Uniform1(GL.GetUniformLocation(win.shaderProgram, "uTexture"), 0);
 
             tex.Bind();
-
             GL.BindBuffer(BufferTarget.ArrayBuffer, win.vertexBufferObject);
             GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * vertices.Length, vertices, BufferUsageHint.DynamicDraw);
-
             GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
             tex.Unbind();
+        }
+
+        public void DrawTris(Vector2[] vertexPos, Color4 color, bool isStatic = false)
+        {
+            if (vertexPos.Length % 3 != 0) return;
+
+            float[] v = new float[vertexPos.Length * 4];
+            int vi = 0;
+            for (int i = 0; i < vertexPos.Length; i++)
+            {
+                v[vi] = (vertexPos[i].X - (isStatic ? 0 : win.GetWorldCamera().camPos.X - 960)) / 960 - 1f;
+                v[vi + 1] = -(vertexPos[i].Y - (isStatic ? 0 : win.GetWorldCamera().camPos.Y - 540)) / 540 + 1f;
+                v[vi + 2] = i % 3 == 1 ? 0f : 1f;
+                v[vi + 3] = i % 3 == 2 ? 0f : 1f;
+                vi += 4;
+            }
+
+            // Set the ucolor in the shader
+            GL.Uniform4(GL.GetUniformLocation(win.shaderProgram, "uColor"), color);
+
+            // Set the texture uniform in the shader
+            GL.Uniform1(GL.GetUniformLocation(win.shaderProgram, "uTexture"), 0);
+
+            tex.Bind();
+            BufferTris(v);
+            tex.Unbind();
+        }
+
+        private void BufferTris(float[] vertexData)
+        {
+            if (vertexData.Length % 12 != 0) return;
+
+            GL.BindBuffer(BufferTarget.ArrayBuffer, win.vertexBufferObject);
+            GL.BufferData(BufferTarget.ArrayBuffer, sizeof(float) * vertexData.Length, vertexData, BufferUsageHint.DynamicDraw);
+
+            GL.DrawArrays(PrimitiveType.Triangles, 0, vertexData.Length / 4);
         }
 
         /// <summary>
