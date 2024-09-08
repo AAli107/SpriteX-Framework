@@ -19,7 +19,6 @@ namespace SpriteX_Engine.EngineContents
         /// <summary>
         /// Creates a GameObject
         /// </summary>
-        /// <param name="position"></param>
         public GameObject() { }
 
         public T AddComponent<T>() where T : Component
