@@ -27,7 +27,7 @@ namespace SpriteX_Engine.EngineContents.Components
         /// <summary>
         /// controls which axis (X,Y) cannot move
         /// </summary>
-        public Constraint2D movementConstraint = new Constraint2D(false, false);
+        public Constraint2D movementConstraint = new();
         /// <summary>
         /// Controls whether parent game object has gravity or not
         /// </summary>
