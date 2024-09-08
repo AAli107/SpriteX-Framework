@@ -141,7 +141,7 @@ namespace SpriteX_Engine
                 b = b <= 0.1f ? 0.1f : b;
                 b = b > 1 ? 1 : b;
                 ColliderComponent cc = obj.GetComponent<ColliderComponent>();
-                Vector2 s = cc != null ? cc.transform.scale * 50 : new Vector2(50, 50);
+                Vector2d s = cc != null ? cc.transform.scale * 50 : new Vector2d(50, 50);
                 gfx.DrawImage(obj.GetPosition() - s, s*2, img1, Colors.Multiply(new Color4(b, b, b, 1), Colors.Lerp(Color4.White, lightColor, b)));
             }
 
