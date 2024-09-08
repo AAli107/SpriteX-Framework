@@ -87,22 +87,14 @@ namespace SpriteX_Engine.EngineContents.Components
 
         private Vector2 CalculateMTV(ColliderComponent otherCollider)
         {
-            Vector2 thisHalfSize = GetHalfSize();
-            Vector2 otherHalfSize = otherCollider.GetHalfSize();
+            Vector2 centerDifference = transform.position + parent.GetPosition() - (otherCollider.transform.position + otherCollider.parent.GetPosition());
+            Vector2 overlap = GetHalfSize() + otherCollider.GetHalfSize() - new Vector2(Math.Abs(centerDifference.X), Math.Abs(centerDifference.Y));
 
-            Vector2 thisCenter = transform.position + parent.GetPosition();
-            Vector2 otherCenter = otherCollider.transform.position + otherCollider.parent.GetPosition();
-
-            Vector2 centerDifference = thisCenter - otherCenter;
-
-            float xOverlap = thisHalfSize.X + otherHalfSize.X - Math.Abs(centerDifference.X);
-            float yOverlap = thisHalfSize.Y + otherHalfSize.Y - Math.Abs(centerDifference.Y);
-
-            if (xOverlap > 0 && yOverlap > 0)
+            if (overlap.X > 0 && overlap.Y > 0)
             {
-                return (xOverlap < yOverlap) ? 
-                    new Vector2(Math.Sign(centerDifference.X) * xOverlap, 0) :
-                    new Vector2(0, Math.Sign(centerDifference.Y) * yOverlap); 
+                return (overlap.X < overlap.Y) ? 
+                    new Vector2(Math.Sign(centerDifference.X) * overlap.X, 0) :
+                    new Vector2(0, Math.Sign(centerDifference.Y) * overlap.Y); 
             }
 
             return Vector2.Zero;
