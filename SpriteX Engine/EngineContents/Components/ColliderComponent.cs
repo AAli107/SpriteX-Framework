@@ -45,9 +45,11 @@ namespace SpriteX_Engine.EngineContents.Components
 
             if (overlappingColliders.Count > 0) overlappingColliders.Clear();
 
+            PhysicsComponent pc = parent.GetComponent<PhysicsComponent>();
             foreach (GameObject obj in win.world.gameObjects)
             {
                 if (obj == parent) continue;
+                PhysicsComponent pc2 = obj.GetComponent<PhysicsComponent>();
 
                 foreach (ColliderComponent cc in obj.GetComponents<ColliderComponent>())
                 {
@@ -58,9 +60,6 @@ namespace SpriteX_Engine.EngineContents.Components
 
                     if (isSolidCollision && cc.isSolidCollision)
                     {
-                        PhysicsComponent pc = parent.GetComponent<PhysicsComponent>();
-                        PhysicsComponent pc2 = obj.GetComponent<PhysicsComponent>();
-
                         float pcMass = pc != null ? pc.mass : float.MaxValue;
                         float pc2Mass = pc2 != null ? pc2.mass : float.MaxValue;
 
@@ -71,24 +70,14 @@ namespace SpriteX_Engine.EngineContents.Components
 
                         Vector2 mtv = CalculateMTV(cc);
 
-                        if (pc != null)
+                        if (pc != null && pc.isEnabled)
                         {
-                            if (pc.isEnabled)
+                            parent.SetPosition(parent.GetPosition() + mtv * (1 - thisMassProportion));
+                            pc.AddVelocity(mtv * (1 - thisMassProportion) + -pc.velocity * cc.friction);
+                            if (pc2 != null && pc2.isEnabled)
                             {
-                                Vector2 frictionForce = -pc.velocity * cc.friction;
-
-                                parent.SetPosition(parent.GetPosition() + mtv * (1 - thisMassProportion));
-                                pc.AddVelocity(mtv * (1 - thisMassProportion) + frictionForce);
-                                if (pc2 != null)
-                                {
-                                    if (pc2.isEnabled)
-                                    {
-                                        Vector2 frictionForce2 = -pc2.velocity * friction;
-
-                                        obj.SetPosition(obj.GetPosition() - mtv * (1 - otherMassProportion));
-                                        pc2.AddVelocity(-mtv * (1 - otherMassProportion) + frictionForce2);
-                                    }
-                                }
+                                obj.SetPosition(obj.GetPosition() - mtv * (1 - otherMassProportion));
+                                pc2.AddVelocity(-mtv * (1 - otherMassProportion) + -pc2.velocity * friction);
                             }
                         }
                     }
