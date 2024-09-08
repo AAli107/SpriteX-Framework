@@ -51,14 +51,12 @@ namespace SpriteX_Engine.EngineContents.Components
 
             velocity *= 1 / (((isAirborne ? (friction * (1 / mass)) : friction) + 1) >= 1 ? ((isAirborne ? (friction * (1 / mass)) : friction) + 1) : 1);
 
-            Vector2d constraintedVelocity = Vector2.Zero;
-            constraintedVelocity.X = movementConstraint.X ? 0 : velocity.X;
-            constraintedVelocity.Y = movementConstraint.Y ? 0 : velocity.Y;
+            if (velocity.X == 0 && velocity.Y == 0) return;
 
             if (movementConstraint.X) velocity.X = 0;
             if (movementConstraint.Y) velocity.Y = 0;
 
-            parent.SetPosition(parent.GetPosition() + constraintedVelocity);
+            parent.SetPosition(parent.GetPosition() + new Vector2d(movementConstraint.X ? 0 : velocity.X, movementConstraint.Y ? 0 : velocity.Y));
         }
 
         /// <summary>
