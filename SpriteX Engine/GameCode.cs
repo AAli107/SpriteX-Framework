@@ -82,7 +82,7 @@ namespace SpriteX_Engine
             ccc.friction = 0f;
             ColliderComponent ccc2 = ggg.AddComponent<ColliderComponent>();
             ccc2.transform.scale = new Vector2(10, 1);
-            ccc2.friction = 0.1f;
+            ccc2.friction = 0.15f;
 
             pc = g.GetComponent<PhysicsComponent>();
         }
