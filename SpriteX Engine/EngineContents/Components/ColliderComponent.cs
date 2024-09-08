@@ -15,19 +15,11 @@ namespace SpriteX_Engine.EngineContents.Components
         /// </summary>
         public bool isSolidCollision = true;
         /// <summary>
-        /// top left corner of the collider
-        /// </summary>
-        public Vector2 topLeft;
-        /// <summary>
-        /// bottom right corner of the collider
-        /// </summary>
-        public Vector2 bottomRight;
-        /// <summary>
         /// friction between colliders [0-1]. Lower values will cause ice-like friction
         /// </summary>
         public float friction = 0.1f;
 
-        private RectangleF rectf;
+        private Box2d rect;
         private List<ColliderComponent> overlappingColliders = new List<ColliderComponent>();
 
         public ColliderComponent(GameObject parent) : base(parent) { }
@@ -36,10 +28,8 @@ namespace SpriteX_Engine.EngineContents.Components
         {
             base.UpdateTick(win);
 
-            rectf = new RectangleF(new PointF(transform.position.X + parent.GetPosition().X, transform.position.Y + parent.GetPosition().Y), SizeF.Empty);
-            rectf.Inflate(transform.scale.X * 50, transform.scale.Y * 50);
-            topLeft = new Vector2(rectf.Left, rectf.Top) - parent.GetPosition();
-            bottomRight = new Vector2(rectf.Right, rectf.Bottom);
+            rect = new Box2d(new Vector2d(parent.GetPosition().X, parent.GetPosition().Y), new Vector2d(transform.position.X + parent.GetPosition().X, transform.position.Y + parent.GetPosition().Y));
+            rect.Inflate(transform.scale * 50);
 
             friction = Utilities.Numbers.ClampN(friction, 0, 1);
 
@@ -68,7 +58,7 @@ namespace SpriteX_Engine.EngineContents.Components
                         float thisMassProportion = pcMass / totalMass;
                         float otherMassProportion = pc2Mass / totalMass;
 
-                        Vector2 mtv = CalculateMTV(cc);
+                        Vector2d mtv = CalculateMTV(cc);
 
                         if (pc != null && pc.isEnabled)
                         {
@@ -85,19 +75,19 @@ namespace SpriteX_Engine.EngineContents.Components
             }
         }
 
-        private Vector2 CalculateMTV(ColliderComponent otherCollider)
+        private Vector2d CalculateMTV(ColliderComponent otherCollider)
         {
-            Vector2 centerDifference = transform.position + parent.GetPosition() - (otherCollider.transform.position + otherCollider.parent.GetPosition());
-            Vector2 overlap = GetHalfSize() + otherCollider.GetHalfSize() - new Vector2(Math.Abs(centerDifference.X), Math.Abs(centerDifference.Y));
+            Vector2d centerDifference = transform.position + parent.GetPosition() - (otherCollider.transform.position + otherCollider.parent.GetPosition());
+            Vector2d overlap = GetHalfSize() + otherCollider.GetHalfSize() - new Vector2d(Math.Abs(centerDifference.X), Math.Abs(centerDifference.Y));
 
             if (overlap.X > 0 && overlap.Y > 0)
             {
                 return (overlap.X < overlap.Y) ? 
-                    new Vector2(Math.Sign(centerDifference.X) * overlap.X, 0) :
-                    new Vector2(0, Math.Sign(centerDifference.Y) * overlap.Y); 
+                    new Vector2d(Math.Sign(centerDifference.X) * overlap.X, 0) :
+                    new Vector2d(0, Math.Sign(centerDifference.Y) * overlap.Y); 
             }
 
-            return Vector2.Zero;
+            return Vector2d.Zero;
         }
 
 
@@ -117,14 +107,16 @@ namespace SpriteX_Engine.EngineContents.Components
         /// Returns the collider dimensions
         /// </summary>
         /// <returns></returns>
-        public RectangleF GetHitbox() { return rectf; }
+        public Box2d GetHitbox() { return rect; }
 
         /// <summary>
         /// Returns true when Collider intersects with another one
         /// </summary>
-        /// <param name="gameObject"></param>
         /// <returns></returns>
-        public bool IsIntersectingWith(ColliderComponent cc) { return GetHitbox().IntersectsWith(cc.GetHitbox()); }
+        public bool IsIntersectingWith(ColliderComponent cc) 
+        {
+            return GetHitbox().Contains(cc.GetHitbox()); 
+        }
 
         /// <summary>
         /// Will return true if this collider is overlapping with another collider
@@ -148,6 +140,6 @@ namespace SpriteX_Engine.EngineContents.Components
         /// Returns Half-size of the collider
         /// </summary>
         /// <returns></returns>
-        public Vector2 GetHalfSize() { return bottomRight - (parent.GetPosition() + transform.position); }
+        public Vector2d GetHalfSize() { return rect.HalfSize; }
     }
 }

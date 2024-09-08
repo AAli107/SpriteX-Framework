@@ -9,7 +9,7 @@ namespace SpriteX_Engine.EngineContents.GameFeatures.GameObjects
         private float hitPoints;
         private float maxHitPoints = 100;
         private uint iframes = 0;
-        private Vector2 spawnpoint;
+        private Vector2d spawnpoint;
         private float lookRotation = 0f;
 
         /// <summary>
@@ -143,7 +143,7 @@ namespace SpriteX_Engine.EngineContents.GameFeatures.GameObjects
         /// returns character spawnpoint
         /// </summary>
         /// <returns></returns>
-        public Vector2 GetSpawnpoint() { return spawnpoint; }
+        public Vector2d GetSpawnpoint() { return spawnpoint; }
 
         /// <summary>
         /// returns character's look rotation

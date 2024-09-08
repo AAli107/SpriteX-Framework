@@ -7,7 +7,7 @@ namespace SpriteX_Engine.EngineContents
     public class GameObject
     {
         uint id;
-        Vector2 position;
+        Vector2d position;
 
         private List<Component> components = new List<Component>();
 
@@ -104,7 +104,7 @@ namespace SpriteX_Engine.EngineContents
         /// Sets GameObject's Position
         /// </summary>
         /// <param name="position"></param>
-        public void SetPosition(Vector2 position)
+        public void SetPosition(Vector2d position)
         {
             this.position = position;
         }
@@ -119,6 +119,6 @@ namespace SpriteX_Engine.EngineContents
         /// Returns GameObject's position
         /// </summary>
         /// <returns></returns>
-        public Vector2 GetPosition() { return position; }
+        public Vector2d GetPosition() { return position; }
     }
 }

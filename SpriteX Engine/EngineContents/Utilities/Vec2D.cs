@@ -6,23 +6,12 @@ namespace SpriteX_Engine.EngineContents.Utilities
     public static class Vec2D
     {
         /// <summary>
-        /// Calculates the 2D distance between two points/vectors
-        /// </summary>
-        /// <param name="point1"></param>
-        /// <param name="point2"></param>
-        /// <returns></returns>
-        public static float Distance2D(Vector2 point1, Vector2 point2)
-        {
-            return MathF.Sqrt(MathF.Pow(point2.X - point1.X, 2) + MathF.Pow(point2.Y - point1.Y, 2));
-        }
-
-        /// <summary>
         /// Returns the center between two 2D vectors
         /// </summary>
         /// <param name="point1"></param>
         /// <param name="point2"></param>
         /// <returns></returns>
-        public static Vector2 Midpoint2D(Vector2 point1, Vector2 point2)
+        public static Vector2d Midpoint2D(Vector2 point1, Vector2 point2)
         {
             return (point1 + point2) * 0.5f;
         }

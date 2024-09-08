@@ -5,7 +5,7 @@ namespace SpriteX_Engine.EngineContents.Components
     public class RenderComponent : Component
     {
         public bool isVisible = true;
-        public Vector2[] vertex = { new Vector2(0, 0), new Vector2(100, 100) };
+        public Vector2d[] vertex = { new Vector2(0, 0), new Vector2(100, 100) };
         public gfx.Shape shape = gfx.Shape.Rect;
         public gfx.DrawType drawType = gfx.DrawType.Filled;
         public Texture tex = Texture.GetPlainWhiteTexture();
@@ -18,7 +18,7 @@ namespace SpriteX_Engine.EngineContents.Components
         {
             base.RenderTick(win, gfx);
             if (!isVisible) return;
-            Vector2[] v = vertex.ToArray();
+            Vector2d[] v = vertex.ToArray();
             for (int i = 0; i < v.Length; i++)
             {
                 if (shape == gfx.Shape.Rect && i == 1) continue;

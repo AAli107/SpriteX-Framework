@@ -58,6 +58,18 @@
         {
             return val > max ? max : val < min ? min : val;
         }
+        
+        /// <summary>
+        /// Fixes the value number between the minimum and maximum in double
+        /// </summary>
+        /// <param name="val"></param>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <returns></returns>
+        public static double ClampND(double val, double min, double max)
+        {
+            return val > max ? max : val < min ? min : val;
+        }
 
         /// <summary>
         /// Returns the largest number in an array of floats

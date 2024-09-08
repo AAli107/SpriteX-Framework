@@ -11,7 +11,7 @@ namespace SpriteX_Engine.EngineContents.Components
         /// <summary>
         /// velocity of parent game object
         /// </summary>
-        public Vector2 velocity = new Vector2(0, 0);
+        public Vector2d velocity = new Vector2(0, 0);
         /// <summary>
         /// The mass of the parent game object
         /// </summary>
@@ -35,7 +35,7 @@ namespace SpriteX_Engine.EngineContents.Components
         /// <summary>
         /// controls the direction of gravity
         /// </summary>
-        public Vector2 gravityVector = Vector2.UnitY;
+        public Vector2d gravityVector = Vector2.UnitY;
         /// <summary>
         /// controls the strength of gravity affecting the parent game object
         /// </summary>
@@ -51,7 +51,7 @@ namespace SpriteX_Engine.EngineContents.Components
 
             velocity *= 1 / (((isAirborne ? (friction * (1 / mass)) : friction) + 1) >= 1 ? ((isAirborne ? (friction * (1 / mass)) : friction) + 1) : 1);
 
-            Vector2 constraintedVelocity = Vector2.Zero;
+            Vector2d constraintedVelocity = Vector2.Zero;
             constraintedVelocity.X = movementConstraint.X ? 0 : velocity.X;
             constraintedVelocity.Y = movementConstraint.Y ? 0 : velocity.Y;
 
@@ -65,7 +65,7 @@ namespace SpriteX_Engine.EngineContents.Components
         /// Will override the current Velocity
         /// </summary>
         /// <param name="velocity"></param>
-        public void OverrideVelocity(Vector2 velocity)
+        public void OverrideVelocity(Vector2d velocity)
         {
             if (isEnabled)
                 this.velocity = velocity;
@@ -74,7 +74,7 @@ namespace SpriteX_Engine.EngineContents.Components
         /// Adds directional velocity into current Velocity
         /// </summary>
         /// <param name="velocity"></param>
-        public void AddVelocity(Vector2 velocity)
+        public void AddVelocity(Vector2d velocity)
         {
             if (isEnabled)
                 this.velocity += velocity;

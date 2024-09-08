@@ -5,22 +5,22 @@ namespace SpriteX_Engine.EngineContents
 {
     public class Camera
     {
-        private Vector2 loc;
+        private Vector2d loc;
         public float speed;
         private RectangleF bounds;
 
         public bool isCameraBound { get; private set; }
-        public Vector2 camPos { get { return loc; } }
+        public Vector2d camPos { get { return loc; } }
 
         public Camera() // Default Camera constructor
         {
-            loc = new Vector2(0,0);
+            loc = new Vector2d(0,0);
             speed = 10;
             bounds = new RectangleF(new PointF(0, 0), new SizeF(1920, 1080));
             isCameraBound = false;
         }
 
-        public Camera(Vector2 _loc) // Camera constructor to decide where to create the camera
+        public Camera(Vector2d _loc) // Camera constructor to decide where to create the camera
         {
             loc = _loc;
             speed = 10;
@@ -28,7 +28,7 @@ namespace SpriteX_Engine.EngineContents
             isCameraBound = false;
         }
 
-        public Camera(Vector2 _loc, float _speed) // Camera constructor to decide where to create the camera and what speed to move
+        public Camera(Vector2d _loc, float _speed) // Camera constructor to decide where to create the camera and what speed to move
         {
             loc = _loc;
             speed = _speed;
@@ -40,32 +40,32 @@ namespace SpriteX_Engine.EngineContents
         /// Offsets the camera location based on the offset vector xy values.
         /// </summary>
         /// <param name="offset"></param>
-        public void MoveCamera(Vector2 offset)
+        public void MoveCamera(Vector2d offset)
         {
-            loc = isCameraBound ? new Vector2(Utilities.Numbers.ClampN(loc.X + offset.X, bounds.X, bounds.Width),
-                Utilities.Numbers.ClampN(loc.Y + offset.Y, bounds.Y, bounds.Height)) : new Vector2(loc.X + offset.X, loc.Y + offset.Y);
+            loc = isCameraBound ? new Vector2d(Utilities.Numbers.ClampND(loc.X + offset.X, (double)bounds.X, (double)bounds.Width),
+                Utilities.Numbers.ClampND(loc.Y + offset.Y, bounds.Y, bounds.Height)) : new Vector2d(loc.X + offset.X, loc.Y + offset.Y);
         }
 
         /// <summary>
         /// Offsets the camera location based on the dir(normalized vector) multiplied by the camera's speed
         /// </summary>
         /// <param name="dir"></param>
-        public void MoveCameraBySpeed(Vector2 dir)
+        public void MoveCameraBySpeed(Vector2d dir)
         {
-            Vector2 clampedDir = new Vector2(Utilities.Numbers.ClampN(dir.X, -1, 1), Utilities.Numbers.ClampN(dir.Y, -1, 1));
+            Vector2d clampedDir = new Vector2d(Utilities.Numbers.ClampND(dir.X, -1, 1), Utilities.Numbers.ClampND(dir.Y, -1, 1));
 
-            loc = isCameraBound ? new Vector2(Utilities.Numbers.ClampN(loc.X + (clampedDir.X * speed), bounds.X, bounds.Width),
-                Utilities.Numbers.ClampN(loc.Y + (clampedDir.Y * speed), bounds.Y, bounds.Height)) : new Vector2(loc.X + (clampedDir.X * speed), loc.Y + (clampedDir.Y * speed));
+            loc = isCameraBound ? new Vector2d(Utilities.Numbers.ClampND(loc.X + (clampedDir.X * speed), bounds.X, bounds.Width),
+                Utilities.Numbers.ClampND(loc.Y + (clampedDir.Y * speed), bounds.Y, bounds.Height)) : new Vector2d(loc.X + (clampedDir.X * speed), loc.Y + (clampedDir.Y * speed));
         }
 
         /// <summary>
         /// Sets the camera's position to whatever newPos is at
         /// </summary>
         /// <param name="newPos"></param>
-        public void SetCameraPosition(Vector2 newPos)
+        public void SetCameraPosition(Vector2d newPos)
         {
-            loc = isCameraBound ? new Vector2(Utilities.Numbers.ClampN(newPos.X, bounds.X, bounds.Width),
-                Utilities.Numbers.ClampN(newPos.Y, bounds.Y, bounds.Height)) : newPos;
+            loc = isCameraBound ? new Vector2d(Utilities.Numbers.ClampND(newPos.X, (double)bounds.X, (double)bounds.Width),
+                Utilities.Numbers.ClampND(newPos.Y, bounds.Y, bounds.Height)) : newPos;
         }
 
         /// <summary>
@@ -73,11 +73,11 @@ namespace SpriteX_Engine.EngineContents
         /// </summary>
         /// <param name="start"></param>
         /// <param name="width"></param>
-        public bool SetCameraBound(Vector2 start, Vector2 width, bool enableBounds = false)
+        public bool SetCameraBound(Vector2d start, Vector2d width, bool enableBounds = false)
         {
             if (start.X < width.X && start.Y < width.Y)
             {
-                bounds = new RectangleF(new PointF(start.X, start.Y), new SizeF(width.X, width.Y));
+                bounds = new RectangleF(new PointF((float)start.X, (float)start.Y), new SizeF((float)width.X, (float)width.Y));
                 isCameraBound = enableBounds;
                 return true;
             }

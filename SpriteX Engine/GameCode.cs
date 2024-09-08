@@ -64,7 +64,7 @@ namespace SpriteX_Engine
             win.world.SpawnGameObject(gg, new Vector2(200, 400));
             win.world.SpawnGameObject(ggg, new Vector2(1200, 400));
             win.world.SpawnGameObject(c, new Vector2(0, 300));
-            win.GetWorldCamera().SetEnableCameraBound(true);
+            win.GetWorldCamera().SetEnableCameraBound(false);
 
             v = new Vector2[100000];
 
@@ -103,6 +103,7 @@ namespace SpriteX_Engine
 
         public override void OnGameUpdate(MainWindow win)
         {
+            if (win.IsKeyPressed(Keys.G)) pc.AddVelocity(new Vector2d(10000000000000, -10000000000000));
             if (!win.world.DoesGameObjectExist(g.GetID())) win.world.SpawnGameObject(g, new Vector2(500, 100));
             s = win.IsKeyDown(Keys.LeftControl) ? 0.4f : (win.IsKeyDown(Keys.LeftShift) ? 1.6f : 0.8f);
             win.world.cam.SetCameraPosition(g.GetPosition());
@@ -123,7 +124,7 @@ namespace SpriteX_Engine
             {
                 for (int j = -5; j < 14; j++)
                 {
-                    float b = Vec2D.Distance2D(new Vector2(i - ((1920 / 2) / 120), j - ((1080 / 2) / 120)), new Vector2(((g.GetPosition().X - 1920/2) / 120), ((g.GetPosition().Y - 1080 / 2) / 120))) / 5;
+                    float b = (float)Vector2d.Distance(new Vector2d(i - ((1920 / 2) / 120), j - ((1080 / 2) / 120)), new Vector2d(((g.GetPosition().X - 1920/2) / 120), ((g.GetPosition().Y - 1080 / 2) / 120))) / 5;
                     b = 1 - b; 
                     b = b > 1 ? 1 : b;
                     b = b <= 0.1f ? 0.1f : b;
@@ -134,7 +135,7 @@ namespace SpriteX_Engine
             gfx.DrawText(new Vector2(1200, 300), "Normal Floor", Color4.Yellow, 1, false);
             foreach (GameObject obj in win.world.GetAllGameObjects())
             {
-                float b = Vec2D.Distance2D(obj.GetPosition() / new Vector2(1920/2, 1080/2), g.GetPosition() / new Vector2(1920 / 2, 1080 / 2)) * 1.45f;
+                float b = (float)Vector2d.Distance(obj.GetPosition() / new Vector2d(1920/2, 1080/2), g.GetPosition() / new Vector2d(1920 / 2, 1080 / 2)) * 1.45f;
                 b = 1 - b;
                 b += 0.25f;
                 b = b <= 0.1f ? 0.1f : b;

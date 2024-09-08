@@ -87,8 +87,8 @@ namespace SpriteX_Engine.EngineContents
         /// </summary>
         public World world { get; private set; }
 
-        public Vector2 mouseScreenPos { get { return MousePosition / (ClientSize / new Vector2(1920, 1080)); } }
-        public Vector2 mouseWorldPos { get { return (MousePosition / (ClientSize / new Vector2(1920, 1080))) + new Vector2(GetWorldCamera().camPos.X - (1920 * 0.5f), GetWorldCamera().camPos.Y - (1080 * 0.5f)); } }
+        public Vector2d mouseScreenPos { get { return MousePosition / (ClientSize / new Vector2d(1920, 1080)); } }
+        public Vector2d mouseWorldPos { get { return (MousePosition / (ClientSize / new Vector2d(1920, 1080))) + new Vector2d(GetWorldCamera().camPos.X - (1920 * 0.5f), GetWorldCamera().camPos.Y - (1080 * 0.5f)); } }
 
         protected override void OnLoad()
         {
@@ -223,7 +223,7 @@ namespace SpriteX_Engine.EngineContents
                         if (cc.isEnabled)
                         { 
                             var hb = cc.GetHitbox();
-                            gfx.DrawRect(new Vector2(hb.X, hb.Y), new Vector2(hb.Width, hb.Height), cc.isSolidCollision ? Color4.White : Color4.Blue, gfx.DrawType.Outline, false); 
+                            gfx.DrawRect(hb.Center - hb.HalfSize, hb.Size, cc.isSolidCollision ? Color4.White : Color4.Blue, gfx.DrawType.Outline, false); 
                         }
             }
 
@@ -263,7 +263,7 @@ namespace SpriteX_Engine.EngineContents
             {
                 foreach (Button btn in Button.buttons)
                 {
-                    if (btn.buttonRect.IntersectsWith(new RectangleF(mouseScreenPos.X, mouseScreenPos.Y, 0, 0))) // Will invoke OnButtonPress event
+                    if (btn.buttonRect.IntersectsWith(new RectangleF((float)mouseScreenPos.X, (float)mouseScreenPos.Y, 0, 0))) // Will invoke OnButtonPress event
                     {
                         btn.isPressed = false;
                         btn.InvokeButtonPress(this, e);
@@ -281,7 +281,7 @@ namespace SpriteX_Engine.EngineContents
             {
                 foreach (Button btn in Button.buttons)
                 {
-                    if (btn.buttonRect.IntersectsWith(new RectangleF(mouseScreenPos.X, mouseScreenPos.Y, 0, 0)))
+                    if (btn.buttonRect.IntersectsWith(new RectangleF((float)mouseScreenPos.X, (float)mouseScreenPos.Y, 0, 0)))
                     {
                         btn.isPressed = true;
                     }
@@ -294,7 +294,7 @@ namespace SpriteX_Engine.EngineContents
             base.OnMouseMove(e);
             foreach (Button btn in Button.buttons) // Will determine whether button is being hovered on or not
             {
-                btn.isHovered = btn.buttonRect.IntersectsWith(new RectangleF(mouseScreenPos.X, mouseScreenPos.Y, 0, 0));
+                btn.isHovered = btn.buttonRect.IntersectsWith(new RectangleF((float)mouseScreenPos.X, (float)mouseScreenPos.Y, 0, 0));
             }
         }
 
