@@ -1,5 +1,7 @@
 ﻿using OpenTK.Mathematics;
 using SpriteX_Engine.EngineContents.Components;
+using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace SpriteX_Engine.EngineContents

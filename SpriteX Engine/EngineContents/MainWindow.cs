@@ -4,7 +4,9 @@ using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using SpriteX_Engine.EngineContents.Components;
+using System;
 using System.Drawing;
+using System.IO;
 
 namespace SpriteX_Engine.EngineContents
 {

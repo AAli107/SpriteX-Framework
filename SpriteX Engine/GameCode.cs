@@ -5,6 +5,7 @@ using SpriteX_Engine.EngineContents.Components;
 using SpriteX_Engine.EngineContents.Utilities;
 using SpriteX_Engine.EngineContents.GameFeatures.GameObjects;
 using OpenTK.Windowing.Common;
+using System;
 
 namespace SpriteX_Engine
 {

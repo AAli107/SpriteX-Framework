@@ -1,4 +1,5 @@
 ﻿using OpenTK.Mathematics;
+using System;
 
 namespace SpriteX_Engine.EngineContents.Utilities
 {
@@ -13,7 +14,7 @@ namespace SpriteX_Engine.EngineContents.Utilities
         /// <returns></returns>
         public static float Distance3D(Vector3 point1, Vector3 point2)
         {
-            return MathF.Sqrt(MathF.Pow(point2.X - point1.X, 2) + MathF.Pow(point2.Y - point1.Y, 2) + MathF.Pow(point2.Z - point1.Z, 2));
+            return MathF.Sqrt(MathF.Pow(point2.X - point1.X, 2) + MathF.Pow(point2.Y - point1.Y, 2) + System.MathF.Pow(point2.Z - point1.Z, 2));
         }
 
         /// <summary>

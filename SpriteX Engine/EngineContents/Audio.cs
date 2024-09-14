@@ -1,5 +1,7 @@
 ﻿using NAudio.Utils;
 using NAudio.Wave;
+using System;
+using System.IO;
 
 namespace SpriteX_Engine.EngineContents
 {

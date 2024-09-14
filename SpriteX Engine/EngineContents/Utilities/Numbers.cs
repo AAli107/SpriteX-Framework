@@ -1,4 +1,6 @@
-﻿namespace SpriteX_Engine.EngineContents.Utilities
+﻿using System;
+
+namespace SpriteX_Engine.EngineContents.Utilities
 {
     public static class Numbers
     {
@@ -44,7 +46,7 @@
         /// <returns></returns>
         public static float RadToDegree(float radian)
         {
-            return (radian * 180.0f) / MathF.PI;
+            return (radian * 180.0f) / System.MathF.PI;
         }
 
         /// <summary>

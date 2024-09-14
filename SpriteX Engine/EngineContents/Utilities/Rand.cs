@@ -3,7 +3,7 @@
 
     public static class Rand
     {
-        static readonly Random rng = new(); // Variable that stores the Random Class
+        static readonly System.Random rng = new(); // Variable that stores the Random Class
 
         /// <summary>
         /// Returns a random int in range (inclusive)
