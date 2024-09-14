@@ -21,7 +21,7 @@
         /// <param name="win"></param>
         public virtual void OnPrePhysicsUpdate(MainWindow win) { }
         /// <summary>
-        /// Gets Executed fixed amount of time per second
+        /// Gets Executed fixed amount of time per second after Physics and collision updates
         /// </summary>
         /// <param name="win"></param>
         public virtual void OnFixedGameUpdate(MainWindow win) { }
@@ -36,7 +36,7 @@
         /// <param name="win"></param>
         public virtual void OnGameUpdateNoPause(MainWindow win) { }
         /// <summary>
-        /// Used to put everything related to rendering stuff
+        /// Used for rendering shapes and images on screen
         /// </summary>
         /// <param name="win"></param>
         public virtual void OnGraphicsUpdate(MainWindow win, gfx gfx) { }
