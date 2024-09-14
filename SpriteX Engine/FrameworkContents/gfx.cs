@@ -585,6 +585,19 @@ namespace SpriteX_Framework.FrameworkContents
         /// Draws Text on screen
         /// </summary>
         /// <param name="pos"></param>
+        /// <param name="_object"></param>
+        /// <param name="color"></param>
+        /// <param name="size"></param>
+        /// <param name="isStatic"></param>
+        public void DrawText(Vector2d pos, object _object, Color4 color, float size = 1, bool isStatic = true)
+        {
+            DrawText(pos, _object?.ToString(), color, size, isStatic);
+        }
+
+        /// <summary>
+        /// Draws Text on screen
+        /// </summary>
+        /// <param name="pos"></param>
         /// <param name="text"></param>
         /// <param name="color"></param>
         /// <param name="size"></param>
