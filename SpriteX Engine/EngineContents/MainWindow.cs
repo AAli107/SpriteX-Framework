@@ -235,11 +235,9 @@ namespace SpriteX_Engine.EngineContents
                     new Vector2(btn.buttonRect.Size.Width, btn.buttonRect.Size.Height), btn.tex, btn.currentColor, true);
             
             if (showStats) // Will display FPS and UpdateTime (ms)
-            {
-                Color4 c = FPS > 48 ? Color4.Lime : (FPS > 24 ? Color4.Yellow : Color4.Red);
-                gfx.DrawText(new Vector2(16, 16), string.Format("{0:0.00}", Math.Round(FPS, 2)) + " FPS", c, 0.5f);
-                gfx.DrawText(new Vector2(16, 32), string.Format("{0:0.00}", Math.Round(UpdateTime * 1000, 2)) + " ms", c, 0.5f);
-            }
+                gfx.DrawText(new Vector2(16, 16), string.Format("{0:0.00}", Math.Round(FPS, 2)) + " FPS\n"
+                    + string.Format("{0:0.00}", Math.Round(UpdateTime * 1000, 2)) + " ms", 
+                    FPS > 48 ? Color4.Lime : (FPS > 24 ? Color4.Yellow : Color4.Red), 0.5f);
 
             GL.DisableVertexAttribArray(0);
             GL.DisableVertexAttribArray(1); 
