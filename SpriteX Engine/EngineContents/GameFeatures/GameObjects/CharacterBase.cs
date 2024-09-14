@@ -11,7 +11,7 @@ namespace SpriteX_Engine.EngineContents.GameFeatures.GameObjects
         private float maxHitPoints = 100;
         private uint iframes = 0;
         private Vector2d spawnpoint;
-        private float lookRotation = 0f;
+        private double lookRotation = 0f;
 
         /// <summary>
         /// Determines whether the character is immune to damage or not
@@ -28,11 +28,11 @@ namespace SpriteX_Engine.EngineContents.GameFeatures.GameObjects
         /// <summary>
         /// Returns the Forward Direction of the Character
         /// </summary>
-        public Vector2 ForwardDirection { get { return Vec2D.RotateAroundPoint(Vector2.UnitX, Vector2.Zero, lookRotation); } }
+        public Vector2d ForwardDirection { get { return Vec2D.RotateAroundPoint(Vector2d.UnitX, Vector2d.Zero, lookRotation); } }
         /// <summary>
         /// Returns the Right Direction of the Character
         /// </summary>
-        public Vector2 RightDirection { get { return Vec2D.RotateAroundPoint(Vector2.UnitX, Vector2.Zero, lookRotation + 90); } }
+        public Vector2d RightDirection { get { return Vec2D.RotateAroundPoint(Vector2d.UnitX, Vector2d.Zero, lookRotation + 90); } }
 
         public CharacterBase() : base() 
         {
@@ -77,7 +77,7 @@ namespace SpriteX_Engine.EngineContents.GameFeatures.GameObjects
         /// Turns the character's look rotation by an amount
         /// </summary>
         /// <param name="turnAmount"></param>
-        public void TurnLook(float turnAmount)
+        public void TurnLook(double turnAmount)
         {
             if (IsDead) return;
             lookRotation += turnAmount;
@@ -150,7 +150,7 @@ namespace SpriteX_Engine.EngineContents.GameFeatures.GameObjects
         /// returns character's look rotation
         /// </summary>
         /// <returns></returns>
-        public float GetLookRotation() { return lookRotation; }
+        public double GetLookRotation() { return lookRotation; }
 
         /// <summary>
         /// Deducts Character's hitpoints
