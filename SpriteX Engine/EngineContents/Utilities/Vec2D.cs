@@ -42,15 +42,15 @@ namespace SpriteX_Engine.EngineContents.Utilities
         {
             return cardinalDirection switch
             {
-                Enums.CardinalDirection.North => new Vector2d(0, -1),
-                Enums.CardinalDirection.NorthEast => new Vector2d(1, -1),
-                Enums.CardinalDirection.East => new Vector2d(1, 0),
-                Enums.CardinalDirection.SouthEast => new Vector2d(1, 1),
-                Enums.CardinalDirection.South => new Vector2d(0, 1),
-                Enums.CardinalDirection.SouthWest => new Vector2d(-1, 1),
-                Enums.CardinalDirection.West => new Vector2d(-1, 0),
-                Enums.CardinalDirection.NorthWest => new Vector2d(-1, -1),
-                _ => new Vector2d(0, 0),
+                Enums.CardinalDirection.North => new Vector2d(0, -1).Normalized(),
+                Enums.CardinalDirection.NorthEast => new Vector2d(1, -1).Normalized(),
+                Enums.CardinalDirection.East => new Vector2d(1, 0).Normalized(),
+                Enums.CardinalDirection.SouthEast => new Vector2d(1, 1).Normalized(),
+                Enums.CardinalDirection.South => new Vector2d(0, 1).Normalized(),
+                Enums.CardinalDirection.SouthWest => new Vector2d(-1, 1).Normalized(),
+                Enums.CardinalDirection.West => new Vector2d(-1, 0).Normalized(),
+                Enums.CardinalDirection.NorthWest => new Vector2d(-1, -1).Normalized(),
+                _ => new (0, 0),
             };
         }
 
