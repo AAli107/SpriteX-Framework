@@ -227,11 +227,6 @@ namespace SpriteX_Framework.FrameworkContents
                             gfx.DrawRect(hb.Center - hb.HalfSize, hb.Size, cc.isSolidCollision ? Color4.White : Color4.Blue, gfx.DrawType.Outline, false); 
                         }
             }
-
-            // Will render all the visible buttons
-            foreach (Button btn in Button.buttons)
-                if (btn.isVisible) gfx.DrawImage(new Vector2(btn.buttonRect.Location.X, btn.buttonRect.Location.Y), 
-                    new Vector2(btn.buttonRect.Size.Width, btn.buttonRect.Size.Height), btn.tex, btn.currentColor, true);
             
             if (showStats) // Will display FPS and UpdateTime (ms)
                 gfx.DrawText(new Vector2(16, 16), string.Format("{0:0.00}", Math.Round(FPS, 2)) + " FPS\n"
@@ -260,15 +255,24 @@ namespace SpriteX_Framework.FrameworkContents
             base.OnMouseUp(e);
             if (e.Button == MouseButton.Left)
             {
-                foreach (Button btn in Button.buttons)
+                for (int i = 0; i < world.gameObjects.Count; i++)
                 {
-                    if (btn.buttonRect.IntersectsWith(new RectangleF((float)mouseScreenPos.X, (float)mouseScreenPos.Y, 0, 0)))
-                    {
-                        btn.isPressed = false;
-                        btn.InvokeButtonPress(this, e);
-                    }
+                    if (!world.gameObjects[i].isEnabled) continue;
 
-                    btn.isPressed = false;
+                    ButtonComponent[] buttonComponents = world.gameObjects[i].GetComponents<ButtonComponent>();
+
+                    for (int j = 0; j < buttonComponents.Length; j++)
+                    {
+                        ButtonComponent btn = buttonComponents[j];
+
+                        if (btn.buttonRect.ContainsInclusive(mouseScreenPos))
+                        {
+                            btn.IsPressed = false;
+                            btn.InvokeButtonPress(this, e);
+                        }
+
+                        btn.IsPressed = false;
+                    }
                 }
             }
         }
@@ -278,11 +282,16 @@ namespace SpriteX_Framework.FrameworkContents
             base.OnMouseDown(e);
             if (e.Button == MouseButton.Left)
             {
-                foreach (Button btn in Button.buttons)
+                for (int i = 0; i < world.gameObjects.Count; i++)
                 {
-                    if (btn.buttonRect.IntersectsWith(new RectangleF((float)mouseScreenPos.X, (float)mouseScreenPos.Y, 0, 0)))
+                    if (!world.gameObjects[i].isEnabled) continue;
+
+                    ButtonComponent[] buttonComponents = world.gameObjects[i].GetComponents<ButtonComponent>();
+
+                    for (int j = 0; j < buttonComponents.Length; j++)
                     {
-                        btn.isPressed = true;
+                        if (!buttonComponents[j].buttonRect.ContainsInclusive(mouseScreenPos)) continue;
+                        buttonComponents[j].IsPressed = true;
                     }
                 }
             }
@@ -291,8 +300,17 @@ namespace SpriteX_Framework.FrameworkContents
         protected override void OnMouseMove(MouseMoveEventArgs e)
         {
             base.OnMouseMove(e);
-            foreach (Button btn in Button.buttons) // Will determine whether button is being hovered on or not
-                btn.isHovered = btn.buttonRect.IntersectsWith(new RectangleF((float)mouseScreenPos.X, (float)mouseScreenPos.Y, 0, 0));
+            
+            // Will determine whether button is being hovered on or not
+            for (int i = 0; i < world.gameObjects.Count; i++)
+            {
+                if (!world.gameObjects[i].isEnabled) continue;
+
+                ButtonComponent[] buttonComponents = world.gameObjects[i].GetComponents<ButtonComponent>();
+
+                for (int j = 0; j < buttonComponents.Length; j++)
+                    buttonComponents[j].IsHovered = buttonComponents[j].buttonRect.ContainsInclusive(mouseScreenPos);
+            }
         }
 
         /// <summary>
@@ -349,7 +367,6 @@ namespace SpriteX_Framework.FrameworkContents
                     a.Stop();
             world = new World(cam);
             World.SetWorldInst(world);
-            Button.buttons.Clear();
             gameLevel.LevelStart(this);
         }
 
