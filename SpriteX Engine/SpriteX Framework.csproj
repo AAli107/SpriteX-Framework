@@ -7,7 +7,7 @@
     <Nullable>disable</Nullable>
     <ProduceReferenceAssembly>True</ProduceReferenceAssembly>
     <Trimming></Trimming>
-    <StartupObject>SpriteX_Framework.EngineContents.Program</StartupObject>
+    <StartupObject>SpriteX_Framework.FrameworkContents.Program</StartupObject>
     <ApplicationIcon>Resources\Framework\icon.ico</ApplicationIcon>
     <ImplicitUsings>disable</ImplicitUsings>
   </PropertyGroup>

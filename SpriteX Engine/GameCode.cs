@@ -1,9 +1,9 @@
 ﻿using OpenTK.Mathematics;
 using OpenTK.Windowing.GraphicsLibraryFramework;
-using SpriteX_Framework.EngineContents;
-using SpriteX_Framework.EngineContents.Components;
-using SpriteX_Framework.EngineContents.Utilities;
-using SpriteX_Framework.EngineContents.GameFeatures.GameObjects;
+using SpriteX_Framework.FrameworkContents;
+using SpriteX_Framework.FrameworkContents.Components;
+using SpriteX_Framework.FrameworkContents.Utilities;
+using SpriteX_Framework.FrameworkContents.GameFeatures.GameObjects;
 using OpenTK.Windowing.Common;
 using System;
 
