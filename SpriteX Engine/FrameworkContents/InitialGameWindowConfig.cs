@@ -4,6 +4,9 @@ using System.Drawing;
 
 namespace SpriteX_Framework.FrameworkContents
 {
+    /// <summary>
+    /// This stores initial values the game starts out with.
+    /// </summary>
     public static class InitialGameWindowConfig
     {
         /* --- Initial Game Window Parameters --- */

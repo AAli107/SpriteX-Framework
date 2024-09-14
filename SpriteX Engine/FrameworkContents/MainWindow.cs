@@ -181,7 +181,7 @@ namespace SpriteX_Framework.FrameworkContents
 
             if (!isGamePaused)
             {
-                gameLevel.GameUpdate(this); // OnGameUpdate() from GameCode is executed here
+                gameLevel.GameUpdate(this);
                 foreach (GameObject obj in world.gameObjects)
                 {
                     var cs = obj.GetAllComponents();
