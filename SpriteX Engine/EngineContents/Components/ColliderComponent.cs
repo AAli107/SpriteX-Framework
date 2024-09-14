@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using OpenTK.Mathematics;
 using SpriteX_Engine.EngineContents.Structs;
 
@@ -134,7 +133,18 @@ namespace SpriteX_Engine.EngineContents.Components
         public bool IsOverlapping(ColliderComponent[] ignoredColliders)
         {
             List<ColliderComponent> oc = overlappingColliders;
-            oc.RemoveAll(x => ignoredColliders.Contains(x));
+            for (int i = 0; i < oc.Count; i++)
+            {
+                for (int j = 0; j < ignoredColliders.Length; j++)
+                {
+                    if (oc[i].Equals(ignoredColliders[j]))
+                    {
+                        oc.RemoveAt(i);
+                        break;
+                    }
+                }
+            }
+
             return oc.Count > 0;
         }
         
