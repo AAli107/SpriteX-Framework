@@ -1,13 +1,13 @@
 ﻿using OpenTK.Mathematics;
 using OpenTK.Windowing.GraphicsLibraryFramework;
-using SpriteX_Engine.EngineContents;
-using SpriteX_Engine.EngineContents.Components;
-using SpriteX_Engine.EngineContents.Utilities;
-using SpriteX_Engine.EngineContents.GameFeatures.GameObjects;
+using SpriteX_Framework.EngineContents;
+using SpriteX_Framework.EngineContents.Components;
+using SpriteX_Framework.EngineContents.Utilities;
+using SpriteX_Framework.EngineContents.GameFeatures.GameObjects;
 using OpenTK.Windowing.Common;
 using System;
 
-namespace SpriteX_Engine
+namespace SpriteX_Framework
 {
     public class GameCode : GameLevelScript // All classes with GameLevelScript as base class acts like a script for a level
     {

@@ -1,6 +1,6 @@
 ﻿using OpenTK.Windowing.Desktop;
 
-namespace SpriteX_Engine.EngineContents
+namespace SpriteX_Framework.EngineContents
 {
     internal class Program
     {

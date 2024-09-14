@@ -1,6 +1,6 @@
 ﻿using OpenTK.Mathematics;
 
-namespace SpriteX_Engine.EngineContents.Structs
+namespace SpriteX_Framework.EngineContents.Structs
 {
     public struct Transform
     {

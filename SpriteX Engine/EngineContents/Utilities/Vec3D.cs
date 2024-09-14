@@ -1,7 +1,7 @@
 ﻿using OpenTK.Mathematics;
 using System;
 
-namespace SpriteX_Engine.EngineContents.Utilities
+namespace SpriteX_Framework.EngineContents.Utilities
 {
 
     public static class Vec3D

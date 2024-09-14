@@ -3,7 +3,7 @@ using OpenTK.Graphics.OpenGL4;
 using System;
 
 
-namespace SpriteX_Engine.EngineContents
+namespace SpriteX_Framework.EngineContents
 {
     public class gfx
     {

@@ -1,10 +1,10 @@
 ﻿using OpenTK.Mathematics;
-using SpriteX_Engine.EngineContents.Components;
+using SpriteX_Framework.EngineContents.Components;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace SpriteX_Engine.EngineContents
+namespace SpriteX_Framework.EngineContents
 {
     public class GameObject
     {

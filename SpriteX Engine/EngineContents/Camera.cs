@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using OpenTK.Mathematics;
 
-namespace SpriteX_Engine.EngineContents
+namespace SpriteX_Framework.EngineContents
 {
     public class Camera
     {

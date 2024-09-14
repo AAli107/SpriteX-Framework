@@ -1,9 +1,9 @@
 ﻿using OpenTK.Mathematics;
-using SpriteX_Engine.EngineContents.Utilities;
+using SpriteX_Framework.EngineContents.Utilities;
 using System;
-using static SpriteX_Engine.EngineContents.Utilities.Enums;
+using static SpriteX_Framework.EngineContents.Utilities.Enums;
 
-namespace SpriteX_Engine.EngineContents.GameFeatures.GameObjects
+namespace SpriteX_Framework.EngineContents.GameFeatures.GameObjects
 {
     public abstract class CharacterBase : GameObject
     {

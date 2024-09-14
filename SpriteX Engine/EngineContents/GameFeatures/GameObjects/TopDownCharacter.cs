@@ -1,7 +1,7 @@
 ﻿using OpenTK.Mathematics;
-using SpriteX_Engine.EngineContents.Components;
+using SpriteX_Framework.EngineContents.Components;
 
-namespace SpriteX_Engine.EngineContents.GameFeatures.GameObjects
+namespace SpriteX_Framework.EngineContents.GameFeatures.GameObjects
 {
     public class TopDownCharacter : CharacterBase
     {

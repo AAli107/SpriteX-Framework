@@ -3,7 +3,7 @@ using NAudio.Wave;
 using System;
 using System.IO;
 
-namespace SpriteX_Engine.EngineContents
+namespace SpriteX_Framework.EngineContents
 {
     public class Audio
     {

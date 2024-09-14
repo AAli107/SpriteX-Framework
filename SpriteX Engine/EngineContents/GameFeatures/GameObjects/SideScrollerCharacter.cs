@@ -1,8 +1,8 @@
 ﻿using OpenTK.Mathematics;
-using SpriteX_Engine.EngineContents.Components;
+using SpriteX_Framework.EngineContents.Components;
 using System;
 
-namespace SpriteX_Engine.EngineContents.GameFeatures.GameObjects
+namespace SpriteX_Framework.EngineContents.GameFeatures.GameObjects
 {
     public class SideScrollerCharacter : CharacterBase
     {

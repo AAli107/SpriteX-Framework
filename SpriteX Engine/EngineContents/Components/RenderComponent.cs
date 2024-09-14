@@ -1,6 +1,6 @@
 ﻿using OpenTK.Mathematics;
 
-namespace SpriteX_Engine.EngineContents.Components
+namespace SpriteX_Framework.EngineContents.Components
 {
     public class RenderComponent : Component
     {

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using OpenTK.Mathematics;
-using SpriteX_Engine.EngineContents.Structs;
+using SpriteX_Framework.EngineContents.Structs;
 
-namespace SpriteX_Engine.EngineContents.Components
+namespace SpriteX_Framework.EngineContents.Components
 {
     public class ColliderComponent : Component
     {

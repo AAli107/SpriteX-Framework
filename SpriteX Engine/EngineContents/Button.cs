@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace SpriteX_Engine.EngineContents
+namespace SpriteX_Framework.EngineContents
 {
     public class Button
     {

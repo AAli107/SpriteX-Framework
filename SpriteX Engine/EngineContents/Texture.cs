@@ -6,7 +6,7 @@ using OpenTK.Mathematics;
 
 #pragma warning disable CA1416
 
-namespace SpriteX_Engine.EngineContents
+namespace SpriteX_Framework.EngineContents
 {
     public struct Texture
     {

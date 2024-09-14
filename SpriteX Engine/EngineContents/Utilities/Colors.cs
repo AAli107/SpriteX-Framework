@@ -1,6 +1,6 @@
 ﻿using OpenTK.Mathematics;
 
-namespace SpriteX_Engine.EngineContents.Utilities
+namespace SpriteX_Framework.EngineContents.Utilities
 {
     public static class Colors
     {

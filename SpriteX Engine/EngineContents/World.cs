@@ -1,7 +1,7 @@
 ﻿using OpenTK.Mathematics;
 using System.Collections.Generic;
 
-namespace SpriteX_Engine.EngineContents
+namespace SpriteX_Framework.EngineContents
 {
     public class World
     {

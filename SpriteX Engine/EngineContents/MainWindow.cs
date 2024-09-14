@@ -3,12 +3,12 @@ using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
 using OpenTK.Windowing.GraphicsLibraryFramework;
-using SpriteX_Engine.EngineContents.Components;
+using SpriteX_Framework.EngineContents.Components;
 using System;
 using System.Drawing;
 using System.IO;
 
-namespace SpriteX_Engine.EngineContents
+namespace SpriteX_Framework.EngineContents
 {
     public class MainWindow : GameWindow
     {
@@ -119,8 +119,8 @@ namespace SpriteX_Engine.EngineContents
             // Tries to Load Vertex and Fragment Shader
             try
             {
-                GL.ShaderSource(vertexShader, File.ReadAllText("Resources/Engine/vertexShader.vert"));
-                GL.ShaderSource(fragmentShader, File.ReadAllText("Resources/Engine/fragmentShader.frag"));
+                GL.ShaderSource(vertexShader, File.ReadAllText("Resources/Framework/vertexShader.vert"));
+                GL.ShaderSource(fragmentShader, File.ReadAllText("Resources/Framework/fragmentShader.frag"));
             } catch (Exception) { Close(); } // Closes the Game when it catches an exception
 
             // Compiles the Vertex and Fragment Shader

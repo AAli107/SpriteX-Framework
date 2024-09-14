@@ -2,7 +2,7 @@
 using OpenTK.Windowing.Common;
 using System.Drawing;
 
-namespace SpriteX_Engine.EngineContents
+namespace SpriteX_Framework.EngineContents
 {
     public static class InitialGameWindowConfig
     {

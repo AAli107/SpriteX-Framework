@@ -3,12 +3,12 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
-    <RootNamespace>SpriteX_Engine</RootNamespace>
+    <RootNamespace>SpriteX_Framework</RootNamespace>
     <Nullable>disable</Nullable>
     <ProduceReferenceAssembly>True</ProduceReferenceAssembly>
     <Trimming></Trimming>
-    <StartupObject>SpriteX_Engine.EngineContents.Program</StartupObject>
-    <ApplicationIcon>Resources\Engine\icon.ico</ApplicationIcon>
+    <StartupObject>SpriteX_Framework.EngineContents.Program</StartupObject>
+    <ApplicationIcon>Resources\Framework\icon.ico</ApplicationIcon>
     <ImplicitUsings>disable</ImplicitUsings>
   </PropertyGroup>
 
@@ -23,7 +23,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="Resources\Engine\icon.ico" />
+    <Content Include="Resources\Framework\icon.ico" />
   </ItemGroup>
 
   <ItemGroup>

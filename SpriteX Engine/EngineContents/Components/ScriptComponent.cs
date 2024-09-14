@@ -1,4 +1,4 @@
-﻿namespace SpriteX_Engine.EngineContents.Components
+﻿namespace SpriteX_Framework.EngineContents.Components
 {
     /// <summary>
     /// Abstract class to create your own script components
