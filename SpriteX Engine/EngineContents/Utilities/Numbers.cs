@@ -10,9 +10,9 @@ namespace SpriteX_Engine.EngineContents.Utilities
         /// <param name="num1"></param>
         /// <param name="num2"></param>
         /// <returns></returns>
-        public static float Distance1D(float num1, float num2)
+        public static double Distance1D(double num1, double num2)
         {
-            return MathF.Sqrt(MathF.Pow(num1 - num2, 2));
+            return Math.Sqrt(Math.Pow(num1 - num2, 2));
         }
 
         /// <summary>
@@ -20,13 +20,13 @@ namespace SpriteX_Engine.EngineContents.Utilities
         /// </summary>
         /// <param name="floatArray"></param>
         /// <returns></returns>
-        public static float AverageNum(float[] floatArray)
+        public static double AverageNum(double[] arr)
         {
-            float value = 0.0f;
-            for (int i = 0; i < floatArray.Length; i++)
-                value += floatArray[i];
+            double value = 0;
+            for (int i = 0; i < arr.Length; i++)
+                value += arr[i];
 
-            return value / floatArray.Length;
+            return value / arr.Length;
         }
 
         /// <summary>
@@ -34,9 +34,9 @@ namespace SpriteX_Engine.EngineContents.Utilities
         /// </summary>
         /// <param name="degree"></param>
         /// <returns></returns>
-        public static float DegreeToRad(float degree)
+        public static double DegreeToRad(double degree)
         {
-            return (degree * MathF.PI) / 180.0f;
+            return (degree * Math.PI) / 180.0f;
         }
 
         /// <summary>
@@ -44,9 +44,9 @@ namespace SpriteX_Engine.EngineContents.Utilities
         /// </summary>
         /// <param name="radian"></param>
         /// <returns></returns>
-        public static float RadToDegree(float radian)
+        public static double RadToDegree(double radian)
         {
-            return (radian * 180.0f) / System.MathF.PI;
+            return (radian * 180.0f) / Math.PI;
         }
 
         /// <summary>
@@ -78,43 +78,49 @@ namespace SpriteX_Engine.EngineContents.Utilities
         /// </summary>
         /// <param name="floatArray"></param>
         /// <returns></returns>
-        public static float MaxVal(float[] floatArray)
+        public static double MaxVal(double[] arr)
         {
-            float max = 0;
-            for (int i = 0; i < floatArray.Length; i++)
-                if (floatArray[i] > max)
-                {
-                    max = floatArray[i];
-                }
-
+            double max = 0;
+            for (int i = 0; i < arr.Length; i++)
+                if (arr[i] > max)
+                    max = arr[i];
             return max;
         }
 
         /// <summary>
-        /// Returns the smallest number in an array of floats
+        /// Returns the smallest number in an array
         /// </summary>
         /// <param name="floatArray"></param>
         /// <returns></returns>
-        public static float MinVal(float[] floatArray)
+        public static double MinVal(double[] arr)
         {
-            float min = floatArray[0];
-            for (int i = 0; i < floatArray.Length; i++)
-                if (floatArray[i] < min)
-                {
-                    min = floatArray[i];
-                }
-
+            double min = arr[0];
+            for (int i = 0; i < arr.Length; i++)
+                if (arr[i] < min)
+                    min = arr[i];
             return min;
         }
 
         /// <summary>
-        /// Lerps two numbers based on "alpha"
+        /// Lerps two floats based on "alpha"
         /// </summary>
         /// <param name="a"></param>
         /// <param name="b"></param>
         /// <param name="alpha"></param>
         /// <returns></returns>
         public static float Lerp(float a, float b, float alpha)
+        {
+            return a * (1 - alpha) + b * alpha;
+        }
+
+        /// <summary>
+        /// Lerps two doubles based on "alpha"
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <param name="alpha"></param>
+        /// <returns></returns>
+        public static double LerpD(double a, double b, double alpha)
         {
             return a * (1 - alpha) + b * alpha;
         }

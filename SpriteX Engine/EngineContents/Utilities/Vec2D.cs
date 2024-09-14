@@ -12,9 +12,9 @@ namespace SpriteX_Engine.EngineContents.Utilities
         /// <param name="point1"></param>
         /// <param name="point2"></param>
         /// <returns></returns>
-        public static Vector2d Midpoint2D(Vector2 point1, Vector2 point2)
+        public static Vector2d Midpoint2D(Vector2d point1, Vector2d point2)
         {
-            return (point1 + point2) * 0.5f;
+            return (point1 + point2) * 0.5;
         }
 
         /// <summary>
@@ -24,13 +24,13 @@ namespace SpriteX_Engine.EngineContents.Utilities
         /// <param name="centerPoint"></param>
         /// <param name="degreesAngle"></param>
         /// <returns></returns>
-        public static Vector2 RotateAroundPoint(Vector2 pointToRotate, Vector2 centerPoint, float degreesAngle)
+        public static Vector2d RotateAroundPoint(Vector2 pointToRotate, Vector2 centerPoint, double degreesAngle)
         {
-            float radianAngle = Numbers.DegreeToRad(degreesAngle); // Converts Degrees angle to Radian angle
-            float cosTheta = MathF.Cos(radianAngle);
-            float sinTheta = MathF.Sin(radianAngle);
+            double radianAngle = Numbers.DegreeToRad(degreesAngle);
+            double cosTheta = Math.Cos(radianAngle);
+            double sinTheta = Math.Sin(radianAngle);
 
-            return new Vector2((cosTheta * (pointToRotate.X - centerPoint.X) - sinTheta * (pointToRotate.Y - centerPoint.Y) + centerPoint.X), (sinTheta * (pointToRotate.X - centerPoint.X) + cosTheta * (pointToRotate.Y - centerPoint.Y) + centerPoint.Y));
+            return new Vector2d((cosTheta * (pointToRotate.X - centerPoint.X) - sinTheta * (pointToRotate.Y - centerPoint.Y) + centerPoint.X), (sinTheta * (pointToRotate.X - centerPoint.X) + cosTheta * (pointToRotate.Y - centerPoint.Y) + centerPoint.Y));
         }
 
         /// <summary>
@@ -38,28 +38,20 @@ namespace SpriteX_Engine.EngineContents.Utilities
         /// </summary>
         /// <param name="cardinalDirection"></param>
         /// <returns></returns>
-        public static Vector2 DirectionToVec2D(Enums.CardinalDirection cardinalDirection)
+        public static Vector2d DirectionToVec2D(Enums.CardinalDirection cardinalDirection)
         {
-            switch (cardinalDirection)
+            return cardinalDirection switch
             {
-                case Enums.CardinalDirection.North:
-                    return new Vector2(0, -1);
-                case Enums.CardinalDirection.NorthEast:
-                    return new Vector2(1, -1);
-                case Enums.CardinalDirection.East:
-                    return new Vector2(1, 0);
-                case Enums.CardinalDirection.SouthEast:
-                    return new Vector2(1, 1);
-                case Enums.CardinalDirection.South:
-                    return new Vector2(0, 1);
-                case Enums.CardinalDirection.SouthWest:
-                    return new Vector2(-1, 1);
-                case Enums.CardinalDirection.West:
-                    return new Vector2(-1, 0);
-                case Enums.CardinalDirection.NorthWest:
-                    return new Vector2(-1, -1);
-            }
-            return new Vector2(0, 0);
+                Enums.CardinalDirection.North => new Vector2d(0, -1),
+                Enums.CardinalDirection.NorthEast => new Vector2d(1, -1),
+                Enums.CardinalDirection.East => new Vector2d(1, 0),
+                Enums.CardinalDirection.SouthEast => new Vector2d(1, 1),
+                Enums.CardinalDirection.South => new Vector2d(0, 1),
+                Enums.CardinalDirection.SouthWest => new Vector2d(-1, 1),
+                Enums.CardinalDirection.West => new Vector2d(-1, 0),
+                Enums.CardinalDirection.NorthWest => new Vector2d(-1, -1),
+                _ => new Vector2d(0, 0),
+            };
         }
 
         /// <summary>
@@ -69,9 +61,9 @@ namespace SpriteX_Engine.EngineContents.Utilities
         /// <param name="b"></param>
         /// <param name="alpha"></param>
         /// <returns></returns>
-        public static Vector2 Lerp(Vector2 a, Vector2 b, float alpha)
+        public static Vector2d Lerp(Vector2d a, Vector2d b, double alpha)
         {
-            return new Vector2(Numbers.Lerp(a.X, b.X, alpha), Numbers.Lerp(a.Y, b.Y, alpha));
+            return new Vector2d(Numbers.LerpD(a.X, b.X, alpha), Numbers.LerpD(a.Y, b.Y, alpha));
         }
     }
 

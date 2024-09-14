@@ -12,9 +12,9 @@ namespace SpriteX_Engine.EngineContents.Utilities
         /// <param name="point1"></param>
         /// <param name="point2"></param>
         /// <returns></returns>
-        public static float Distance3D(Vector3 point1, Vector3 point2)
+        public static double Distance3D(Vector3d point1, Vector3d point2)
         {
-            return MathF.Sqrt(MathF.Pow(point2.X - point1.X, 2) + MathF.Pow(point2.Y - point1.Y, 2) + MathF.Pow(point2.Z - point1.Z, 2));
+            return Math.Sqrt(Math.Pow(point2.X - point1.X, 2) + Math.Pow(point2.Y - point1.Y, 2) + Math.Pow(point2.Z - point1.Z, 2));
         }
 
         /// <summary>
@@ -23,20 +23,20 @@ namespace SpriteX_Engine.EngineContents.Utilities
         /// <param name="point1"></param>
         /// <param name="point2"></param>
         /// <returns></returns>
-        public static Vector3 Midpoint3D(Vector3 point1, Vector3 point2)
+        public static Vector3d Midpoint3D(Vector3d point1, Vector3d point2)
         {
-            return (point1 + point2) * 0.5f;
+            return (point1 + point2) * 0.5;
         }
 
         /// <summary>
-        /// Converts 3D Vectors into 2D vectors (Can be used to render simple 3D graphics)
+        /// Converts 3D Vectors into 2D vectors with depth (Can be used to render simple 3D graphics)
         /// </summary>
         /// <param name="vec3D"></param>
         /// <param name="depth"></param>
         /// <returns></returns>
-        public static Vector2 Vec3DToVec2D(Vector3 vec3D, float depth = 100)
+        public static Vector2d Vec3DToVec2D(Vector3d vec3D, double depth = 100)
         {
-            return new Vector2((vec3D.X * (depth / vec3D.Z)) + 960, (vec3D.Y * (depth / vec3D.Z)) + 540);
+            return new Vector2d((vec3D.X * (depth / vec3D.Z)) + 960, (vec3D.Y * (depth / vec3D.Z)) + 540);
         }
 
         /// <summary>
@@ -46,9 +46,9 @@ namespace SpriteX_Engine.EngineContents.Utilities
         /// <param name="b"></param>
         /// <param name="alpha"></param>
         /// <returns></returns>
-        public static Vector3 Lerp(Vector3 a, Vector3 b, float alpha)
+        public static Vector3d Lerp(Vector3d a, Vector3d b, double alpha)
         {
-            return new Vector3(Numbers.Lerp(a.X, b.X, alpha), Numbers.Lerp(a.Y, b.Y, alpha), Numbers.Lerp(a.Z, b.Z, alpha));
+            return new Vector3d(Numbers.LerpD(a.X, b.X, alpha), Numbers.LerpD(a.Y, b.Y, alpha), Numbers.LerpD(a.Z, b.Z, alpha));
         }
     }
 

@@ -1,6 +1,5 @@
 ﻿namespace SpriteX_Engine.EngineContents.Utilities
 {
-
     public static class Rand
     {
         static readonly System.Random rng = new(); // Variable that stores the Random Class
@@ -24,7 +23,7 @@
         /// <returns></returns>
         public static float RangeFloat(float min, float max)
         {
-            return (float)RangeDouble(min, max);
+            return rng.NextSingle() * (max - min) + min;
         }
 
         /// <summary>
@@ -54,7 +53,7 @@
         /// <returns></returns>
         public static bool RandBoolByChance(float chance = 0.5f)
         {
-            return chance >= rng.NextDouble();
+            return rng.NextDouble() <= chance;
         }
 
         /// <summary>
