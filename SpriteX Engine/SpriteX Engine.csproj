@@ -4,12 +4,12 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>SpriteX_Engine</RootNamespace>
-    <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>disable</Nullable>
     <ProduceReferenceAssembly>True</ProduceReferenceAssembly>
     <Trimming></Trimming>
     <StartupObject>SpriteX_Engine.EngineContents.Program</StartupObject>
     <ApplicationIcon>Resources\Engine\icon.ico</ApplicationIcon>
+    <ImplicitUsings>disable</ImplicitUsings>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

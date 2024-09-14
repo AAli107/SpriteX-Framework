@@ -1,6 +1,4 @@
 ﻿using OpenTK.Mathematics;
-using System;
-using System.Collections.Generic;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using SpriteX_Engine.EngineContents;
 using SpriteX_Engine.EngineContents.Components;
