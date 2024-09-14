@@ -68,7 +68,11 @@ namespace SpriteX_Engine.EngineContents
         {
             uint id = 0;
 
-            while (gameObjects.Any(o => o.GetID() == id)) id++;
+            for (int i = 0; i < gameObjects.Count; i++)
+            {
+                if (gameObjects[i].GetID() == id) id++;
+                else break;
+            }
 
             if (obj.SetID(id, this))
             {

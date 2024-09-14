@@ -46,7 +46,6 @@ namespace SpriteX_Engine
         {
             MainWindow win = (MainWindow)sender;
             win.world.SpawnGameObject(new GameObject(), new Vector2(Rand.RangeFloat(0, 1920), Rand.RangeFloat(0, 1080)));
-            win.PlayAudio("Resources/Audio/sample_audio.wav");
         }
 
         public override void LevelStart(MainWindow win)
