@@ -10,7 +10,7 @@ namespace SpriteX_Engine.EngineContents.Components
         /// <summary>
         /// box collider transform, holds position and scale
         /// </summary>
-        public Transform transform = new Transform();
+        public Transform transform = new ();
         /// <summary>
         /// controls whether to allow overlapping with other colliders
         /// </summary>
