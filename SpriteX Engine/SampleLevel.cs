@@ -1,163 +1,25 @@
 ﻿using OpenTK.Mathematics;
-using OpenTK.Windowing.GraphicsLibraryFramework;
 using SpriteX_Framework.FrameworkContents;
-using SpriteX_Framework.FrameworkContents.Components;
-using SpriteX_Framework.FrameworkContents.Utilities;
-using SpriteX_Framework.FrameworkContents.GameFeatures.GameObjects;
-using OpenTK.Windowing.Common;
-using System;
 
 namespace SpriteX_Framework
 {
     public class SampleLevel : GameLevelScript // All classes with GameLevelScript as base class acts like a script for a level
     {
-        /* Insert Variables here */
-        SideScrollerCharacter g = new SideScrollerCharacter();
-        GameObject gg = new GameObject();
-        GameObject ggg = new GameObject();
-        TopDownCharacter c = new TopDownCharacter();
-        PhysicsComponent pc;
-
-        double s;
-        Vector2[] v;
-
-        Texture img1;
-        Texture img2;
-
-        Button btn;
-        Button btn2;
-        Button btn3;
-
-        public void btn_ButtonPressed(object sender, MouseButtonEventArgs e)
-        {
-            MainWindow win = (MainWindow)sender;
-            win.world.SpawnGameObject(new GameObject(), new Vector2(Rand.RangeFloat(0, 1920), Rand.RangeFloat(0, 1080)));
-            win.PlayAudio("Resources/Audio/sample_audio.wav");
-        }
-
-        public void btn2_ButtonPressed(object sender, MouseButtonEventArgs e)
-        {
-            MainWindow win = (MainWindow)sender;
-            win.world.SpawnGameObject(new GameObject(), new Vector2(Rand.RangeFloat(0, 1920), Rand.RangeFloat(0, 1080)));
-            win.PlayAudio("Resources/Audio/sample_audio.wav");
-        }
-
-        public void btn3_ButtonPressed(object sender, MouseButtonEventArgs e)
-        {
-            MainWindow win = (MainWindow)sender;
-            win.world.SpawnGameObject(new GameObject(), new Vector2(Rand.RangeFloat(0, 1920), Rand.RangeFloat(0, 1080)));
-        }
+        /* Insert Level Variables here */
 
         public override void LevelStart(MainWindow win)
         {
-            img1 = new Texture("Resources/Textures/sample_texture.png");
-            img2 = Texture.GetMissingTexture();
-            btn = new Button(new Vector2(1920 / 1.25f, 50), new Vector2(300, 100), Color4.Red);
-            btn2 = new Button(new Vector2(1920 / 1.25f, 200), new Vector2(300, 100), Color4.Lime);
-            btn3 = new Button(new Vector2(1920 / 1.25f, 350), new Vector2(300, 100), Color4.Blue);
-            btn.OnButtonPressed += btn_ButtonPressed;
-            btn2.OnButtonPressed += btn2_ButtonPressed;
-            btn3.OnButtonPressed += btn3_ButtonPressed;
-            win.world.SpawnGameObject(g, new Vector2(500, 100));
-            win.world.SpawnGameObject(gg, new Vector2(200, 400));
-            win.world.SpawnGameObject(ggg, new Vector2(1200, 400));
-            win.world.SpawnGameObject(c, new Vector2(0, 300));
-            win.GetWorldCamera().SetEnableCameraBound(false);
 
-            v = new Vector2[100000];
-
-            for (int i = 0; i < v.Length; i++)
-            {
-                v[i] = new Vector2(Rand.RangeInt(0, 2560), Rand.RangeInt(0, 1400));
-            }
-
-            //PhysicsComponent pc2 = gg.AddComponent<PhysicsComponent>();
-            //pc2.mass = 10f;
-            //pc2.gravityEnabled = false;
-            //pc2.isAirborne = false;
-            ColliderComponent ccc = gg.AddComponent<ColliderComponent>();
-            ccc.transform.scale = new Vector2(10, 1);
-            ccc.friction = 0f;
-            ColliderComponent ccc2 = ggg.AddComponent<ColliderComponent>();
-            ccc2.transform.scale = new Vector2(10, 1);
-            ccc2.friction = 0.15f;
-
-            pc = g.GetComponent<PhysicsComponent>();
-        }
-
-        public override void FixedUpdate(MainWindow win)
-        {
-            if (pc != null)
-            {
-                //if (win.IsKeyDown(Keys.W)) pc.AddVelocity(new Vector2d(0, -s));
-                if (win.IsKeyDown(Keys.A)) pc.AddVelocity(new Vector2d(-s, 0));
-                //if (win.IsKeyDown(Keys.S)) pc.AddVelocity(new Vector2d(0, +s));
-                if (win.IsKeyDown(Keys.D)) pc.AddVelocity(new Vector2d(+s, 0));
-            }
-
-            if (win.IsKeyDown(Keys.Right)) c.TurnLook(1);
-            if (win.IsKeyDown(Keys.Left)) c.TurnLook(-1);
         }
 
         public override void GameUpdate(MainWindow win)
         {
-            if (win.IsKeyPressed(Keys.G)) pc.AddVelocity(new Vector2d(10000000000000, -10000000000000));
-            if (!win.world.DoesGameObjectExist(g.GetID())) win.world.SpawnGameObject(g, new Vector2(500, 100));
-            s = win.IsKeyDown(Keys.LeftControl) ? 0.4 : (win.IsKeyDown(Keys.LeftShift) ? 1.6 : 0.8);
-            win.world.cam.SetCameraPosition(g.GetPosition());
-            if (win.IsKeyPressed(Keys.Space) || win.IsKeyPressed(Keys.W)) g.Jump();
-        }
 
-        public override void GameUpdateNoPause(MainWindow win)
-        {
-            if (win.IsKeyPressed(Keys.Escape)) win.Close();
-            if (win.IsKeyPressed(Keys.P)) win.isGamePaused = !win.isGamePaused;
-            if (win.IsKeyPressed(Keys.N)) win.LoadLevel(new SampleLevel());
         }
 
         public override void GraphicsUpdate(MainWindow win, gfx gfx)
         {
-            Color4 lightColor = new Color4(1f, 0.75f, 0.15f, 1f);
-            for (int i = -8; i < 24; i++)
-            {
-                for (int j = -5; j < 14; j++)
-                {
-                    float b = (float)Vector2d.Distance(new Vector2d(i - ((1920 / 2) / 120), j - ((1080 / 2) / 120)), new Vector2d(((g.GetPosition().X - 1920/2) / 120), ((g.GetPosition().Y - 1080 / 2) / 120))) / 5;
-                    b = 1 - b; 
-                    b = b > 1 ? 1 : b;
-                    b = b <= 0.1f ? 0.1f : b;
-                    gfx.DrawImage(new Vector2(i * 120, j * 120), new Vector2(120, 120), img2, Colors.Multiply(new Color4(b, b, b, 1), Colors.Lerp(Color4.White, lightColor, b)));
-                }
-            }
-            gfx.DrawText(new Vector2(200, 300), "Slippery Floor", Color4.Cyan, 1, false);
-            gfx.DrawText(new Vector2(1200, 300), "Normal Floor", Color4.Yellow, 1, false);
-            foreach (GameObject obj in win.world.GetAllGameObjects())
-            {
-                float b = (float)Vector2d.Distance(obj.GetPosition() / new Vector2d(1920/2, 1080/2), g.GetPosition() / new Vector2d(1920 / 2, 1080 / 2)) * 1.45f;
-                b = 1 - b;
-                b += 0.25f;
-                b = b <= 0.1f ? 0.1f : b;
-                b = b > 1 ? 1 : b;
-                ColliderComponent cc = obj.GetComponent<ColliderComponent>();
-                Vector2d s = cc != null ? cc.transform.scale * 50 : new Vector2d(50, 50);
-                gfx.DrawImage(obj.GetPosition() - s, s*2, img1, Colors.Multiply(new Color4(b, b, b, 1), Colors.Lerp(Color4.White, lightColor, b)));
-            }
-
-            gfx.DrawLine(c.GetPosition(), c.GetPosition() + (c.ForwardDirection * 100), Color4.Red);
-            gfx.DrawLine(c.GetPosition(), c.GetPosition() + (c.RightDirection * 50), Color4.Blue);
-
-            gfx.DrawText(new Vector2(16, 80), "Cam Pos = (" + Math.Round(win.world.cam.camPos.X, 2) + ", " + Math.Round(win.world.cam.camPos.Y, 2) + ")", Color4.White, 1);
-            gfx.DrawText(new Vector2(16, 112), "Obj Pos = (" + Math.Round(g.GetPosition().X, 2) + ", " + Math.Round(g.GetPosition().Y, 2) + ")", Color4.White, 1);
-            gfx.DrawText(new Vector2(16, 144), "Obj Speed = " + Math.Round(pc.velocity.Length * win.fixedFrameTime, 2) + "u/s", Color4.White, 1);
-            gfx.DrawText(new Vector2(16, 176), "pixel Scale = " + gfx.ScaledPixelSize, Color4.White, 1);
-
-            //gfx.DrawScaledPixels(v, Color4.White, true);
-            //gfx.DrawScaledPixel(new Vector2(200, 200), Color4.Red, true);
-        }
-
-        public override void GameEnd(MainWindow win)
-        {
-
+            gfx.DrawText(new Vector2d(100, 100), "Hello World!", Color4.White);
         }
     }
 }
