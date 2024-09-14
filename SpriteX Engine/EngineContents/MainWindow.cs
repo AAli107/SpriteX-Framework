@@ -350,6 +350,7 @@ namespace SpriteX_Engine.EngineContents
                 foreach (var a in auds)
                     a.Stop();
             world = new World(cam);
+            World.SetWorldInst(world);
             Button.buttons.Clear();
             gameCode.OnGameStart(this); // Executes when world is Created
         }

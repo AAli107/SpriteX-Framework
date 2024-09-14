@@ -4,6 +4,8 @@ namespace SpriteX_Engine.EngineContents
 {
     public class World
     {
+        public static World WorldInst { get; private set; }
+
         public Camera cam;
         public List<GameObject> gameObjects = new List<GameObject>();
         public List<Audio> audios = new(256);
@@ -132,6 +134,15 @@ namespace SpriteX_Engine.EngineContents
             for (int i = 0; i < gameObjects.Count; i++)
                 if (gameObjects[i].isEnabled)
                     gameObjects[i].UpdateTick(win);
+        }
+
+        /// <summary>
+        /// Sets the world inst
+        /// </summary>
+        /// <param name="world"></param>
+        public static void SetWorldInst(World world)
+        {
+            WorldInst = world;
         }
     }
 }
