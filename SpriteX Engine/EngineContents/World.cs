@@ -1,6 +1,5 @@
 ﻿using OpenTK.Mathematics;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace SpriteX_Engine.EngineContents
 {
@@ -109,8 +108,12 @@ namespace SpriteX_Engine.EngineContents
         /// <returns></returns>
         public GameObject GetGameObjectByID(uint id)
         {
-            try { return gameObjects.Single(o => o.GetID() == id); }
-            catch { return null; }
+            for (int i = 0; i < gameObjects.Count; i++)
+            {
+                if (id == gameObjects[i].GetID())
+                    return gameObjects[i];
+            }
+            return null;
         }
 
         /// <summary>
@@ -120,7 +123,12 @@ namespace SpriteX_Engine.EngineContents
         /// <returns></returns>
         public bool DoesGameObjectExist(uint id)
         {
-            return gameObjects.Any(o => o.GetID() == id);
+            for (int i = 0; i < gameObjects.Count; i++)
+            {
+                if (id == gameObjects[i].GetID())
+                    return true;
+            }
+            return false;
         }
 
         /// <summary>
