@@ -9,7 +9,7 @@ using System;
 
 namespace SpriteX_Framework
 {
-    public class GameCode : GameLevelScript // All classes with GameLevelScript as base class acts like a script for a level
+    public class SampleLevel : GameLevelScript // All classes with GameLevelScript as base class acts like a script for a level
     {
         /* Insert Variables here */
         SideScrollerCharacter g = new SideScrollerCharacter();
@@ -112,7 +112,7 @@ namespace SpriteX_Framework
         {
             if (win.IsKeyPressed(Keys.Escape)) win.Close();
             if (win.IsKeyPressed(Keys.P)) win.isGamePaused = !win.isGamePaused;
-            if (win.IsKeyPressed(Keys.N)) win.LoadLevel(new GameCode());
+            if (win.IsKeyPressed(Keys.N)) win.LoadLevel(new SampleLevel());
         }
 
         public override void GraphicsUpdate(MainWindow win, gfx gfx)

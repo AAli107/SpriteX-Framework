@@ -4,10 +4,10 @@ namespace SpriteX_Framework.FrameworkContents
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             /*
-            *   If you wanna use the engine properly, go to GameCode, not here!
+            *   If you wanna use the framework properly, go to SampleLevel, not here!
             *                                                   See ya! :3
             */
 

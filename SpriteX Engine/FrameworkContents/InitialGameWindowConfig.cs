@@ -21,6 +21,6 @@ namespace SpriteX_Framework.FrameworkContents
         public static readonly bool showDebugHitbox = true; // Controls whether to show all GameObjects' hitboxes
         public static readonly bool showStats = true; // Displays FPS and UpdateTime(ms) Stat
         public static readonly Font font = Font.defaultFont; // Contains game font
-        public static readonly GameLevelScript startLevel = new GameCode(); // The Level to load when game launches
+        public static readonly GameLevelScript startLevel = new SampleLevel(); // The Level to load when game launches
     }
 }
