@@ -18,7 +18,7 @@ namespace SpriteX_Engine
         TopDownCharacter c = new TopDownCharacter();
         PhysicsComponent pc;
 
-        float s;
+        double s;
         Vector2[] v;
 
         Texture img1;
@@ -90,10 +90,10 @@ namespace SpriteX_Engine
         {
             if (pc != null)
             {
-                //if (win.IsKeyDown(Keys.W)) pc.AddVelocity(new Vector2(0, -s));
-                if (win.IsKeyDown(Keys.A)) pc.AddVelocity(new Vector2(-s, 0));
-                //if (win.IsKeyDown(Keys.S)) pc.AddVelocity(new Vector2(0, +s));
-                if (win.IsKeyDown(Keys.D)) pc.AddVelocity(new Vector2(+s, 0));
+                //if (win.IsKeyDown(Keys.W)) pc.AddVelocity(new Vector2d(0, -s));
+                if (win.IsKeyDown(Keys.A)) pc.AddVelocity(new Vector2d(-s, 0));
+                //if (win.IsKeyDown(Keys.S)) pc.AddVelocity(new Vector2d(0, +s));
+                if (win.IsKeyDown(Keys.D)) pc.AddVelocity(new Vector2d(+s, 0));
             }
 
             if (win.IsKeyDown(Keys.Right)) c.TurnLook(1);
@@ -104,7 +104,7 @@ namespace SpriteX_Engine
         {
             if (win.IsKeyPressed(Keys.G)) pc.AddVelocity(new Vector2d(10000000000000, -10000000000000));
             if (!win.world.DoesGameObjectExist(g.GetID())) win.world.SpawnGameObject(g, new Vector2(500, 100));
-            s = win.IsKeyDown(Keys.LeftControl) ? 0.4f : (win.IsKeyDown(Keys.LeftShift) ? 1.6f : 0.8f);
+            s = win.IsKeyDown(Keys.LeftControl) ? 0.4 : (win.IsKeyDown(Keys.LeftShift) ? 1.6 : 0.8);
             win.world.cam.SetCameraPosition(g.GetPosition());
             if (win.IsKeyPressed(Keys.Space) || win.IsKeyPressed(Keys.W)) g.Jump();
         }
