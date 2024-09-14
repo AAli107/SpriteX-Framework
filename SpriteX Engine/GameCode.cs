@@ -49,7 +49,7 @@ namespace SpriteX_Engine
             win.PlayAudio("Resources/Audio/sample_audio.wav");
         }
 
-        public override void OnGameStart(MainWindow win)
+        public override void LevelStart(MainWindow win)
         {
             img1 = new Texture("Resources/Textures/sample_texture.png");
             img2 = Texture.GetMissingTexture();
@@ -86,7 +86,7 @@ namespace SpriteX_Engine
             pc = g.GetComponent<PhysicsComponent>();
         }
 
-        public override void OnFixedGameUpdate(MainWindow win)
+        public override void FixedUpdate(MainWindow win)
         {
             if (pc != null)
             {
@@ -100,7 +100,7 @@ namespace SpriteX_Engine
             if (win.IsKeyDown(Keys.Left)) c.TurnLook(-1);
         }
 
-        public override void OnGameUpdate(MainWindow win)
+        public override void GameUpdate(MainWindow win)
         {
             if (win.IsKeyPressed(Keys.G)) pc.AddVelocity(new Vector2d(10000000000000, -10000000000000));
             if (!win.world.DoesGameObjectExist(g.GetID())) win.world.SpawnGameObject(g, new Vector2(500, 100));
@@ -109,14 +109,14 @@ namespace SpriteX_Engine
             if (win.IsKeyPressed(Keys.Space) || win.IsKeyPressed(Keys.W)) g.Jump();
         }
 
-        public override void OnGameUpdateNoPause(MainWindow win)
+        public override void GameUpdateNoPause(MainWindow win)
         {
             if (win.IsKeyPressed(Keys.Escape)) win.Close();
             if (win.IsKeyPressed(Keys.P)) win.isGamePaused = !win.isGamePaused;
             if (win.IsKeyPressed(Keys.N)) win.LoadLevel(new GameCode());
         }
 
-        public override void OnGraphicsUpdate(MainWindow win, gfx gfx)
+        public override void GraphicsUpdate(MainWindow win, gfx gfx)
         {
             Color4 lightColor = new Color4(1f, 0.75f, 0.15f, 1f);
             for (int i = -8; i < 24; i++)
@@ -156,7 +156,7 @@ namespace SpriteX_Engine
             //gfx.DrawScaledPixel(new Vector2(200, 200), Color4.Red, true);
         }
 
-        public override void OnGameEnd(MainWindow win)
+        public override void GameEnd(MainWindow win)
         {
 
         }

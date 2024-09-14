@@ -47,7 +47,7 @@ namespace SpriteX_Engine.EngineContents
         private bool allowAltEnter; // Alt+Enter Control
         private double targetFrameTime; // fixed time for OnFixedGameUpdate()
         private gfx gfx; // All graphics rendering method stored here
-        private GameLevelScript gameCode; // Declares Game-Level script
+        private GameLevelScript gameLevel; // Declares Game-Level script
         private GameLevelScript startLevel; // Contains the start level when the game launches
         private double accumulatedTime = 0.0; // Used for OnFixedGameUpdate()
         private int gcTimer = 0;
@@ -163,9 +163,9 @@ namespace SpriteX_Engine.EngineContents
             {
                 if (!isGamePaused)
                 {
-                    gameCode.OnPrePhysicsUpdate(this);
+                    gameLevel.PrePhysicsUpdate(this);
                     world.TickAllGameObjects(this);
-                    gameCode.OnFixedGameUpdate(this);
+                    gameLevel.FixedUpdate(this);
                 }
                 gcTimer++;
                 accumulatedTime -= targetFrameTime;
@@ -181,7 +181,7 @@ namespace SpriteX_Engine.EngineContents
 
             if (!isGamePaused)
             {
-                gameCode.OnGameUpdate(this); // OnGameUpdate() from GameCode is executed here
+                gameLevel.GameUpdate(this); // OnGameUpdate() from GameCode is executed here
                 foreach (GameObject obj in world.gameObjects)
                 {
                     var cs = obj.GetAllComponents();
@@ -196,7 +196,7 @@ namespace SpriteX_Engine.EngineContents
                     }
                 }
             }
-            gameCode.OnGameUpdateNoPause(this);    
+            gameLevel.GameUpdateNoPause(this);    
         }
 
         protected override void OnRenderFrame(FrameEventArgs e)
@@ -212,7 +212,7 @@ namespace SpriteX_Engine.EngineContents
             GL.EnableVertexAttribArray(1);
             GL.VertexAttribPointer(1, 2, VertexAttribPointerType.Float, false, sizeof(float) * 4, sizeof(float) * 2);
 
-            gameCode.OnGraphicsUpdate(this, gfx); // OnGraphicsUpdate() in GameCode gets executed here
+            gameLevel.GraphicsUpdate(this, gfx); // OnGraphicsUpdate() in GameCode gets executed here
 
             foreach (GameObject obj in world.GetAllGameObjects())
             {
@@ -249,7 +249,7 @@ namespace SpriteX_Engine.EngineContents
 
         protected override void OnUnload()
         {
-            gameCode.OnGameEnd(this); // OnGameEnd method will get executed when game is about to close
+            gameLevel.GameEnd(this); // OnGameEnd method will get executed when game is about to close
 
             GL.DeleteBuffer(vertexBufferObject);
             GL.DeleteVertexArray(vertexArrayObject);
@@ -344,9 +344,9 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="cam"></param>
         public void LoadLevel(GameLevelScript level, Camera cam)
         {
-            gameCode = level; 
+            gameLevel = level; 
             GC.Collect();
-            gameCode.Awake(this); // Awake() from GameCode gets executed here
+            gameLevel.Awake(this); // Awake() from GameCode gets executed here
             var auds = world?.audios;
             if (auds != null)
                 foreach (var a in auds)
@@ -354,7 +354,7 @@ namespace SpriteX_Engine.EngineContents
             world = new World(cam);
             World.SetWorldInst(world);
             Button.buttons.Clear();
-            gameCode.OnGameStart(this); // Executes when world is Created
+            gameLevel.LevelStart(this); // Executes when world is Created
         }
 
         /// <summary>

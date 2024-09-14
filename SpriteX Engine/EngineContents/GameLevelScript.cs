@@ -11,39 +11,39 @@
         /// </summary>
         public virtual void Awake(MainWindow win) { }
         /// <summary>
-        /// Gets Executed after a world is loaded
+        /// Gets Executed after the world is loaded
         /// </summary>
         /// <param name="win"></param>
-        public virtual void OnGameStart(MainWindow win) { }
+        public virtual void LevelStart(MainWindow win) { }
         /// <summary>
         /// Gets Executed before Physics and collision updates for fixed amount of time per second
         /// </summary>
         /// <param name="win"></param>
-        public virtual void OnPrePhysicsUpdate(MainWindow win) { }
+        public virtual void PrePhysicsUpdate(MainWindow win) { }
         /// <summary>
         /// Gets Executed fixed amount of time per second after Physics and collision updates
         /// </summary>
         /// <param name="win"></param>
-        public virtual void OnFixedGameUpdate(MainWindow win) { }
+        public virtual void FixedUpdate(MainWindow win) { }
         /// <summary>
         /// Gets Executed every frame, used for Game related actions
         /// </summary>
         /// <param name="win"></param>
-        public virtual void OnGameUpdate(MainWindow win) { }
+        public virtual void GameUpdate(MainWindow win) { }
         /// <summary>
         /// Gets Executed every frame, used for Game related actions (cannot be paused; executed right after OnGameUpdate())
         /// </summary>
         /// <param name="win"></param>
-        public virtual void OnGameUpdateNoPause(MainWindow win) { }
+        public virtual void GameUpdateNoPause(MainWindow win) { }
         /// <summary>
         /// Used for rendering shapes and images on screen
         /// </summary>
         /// <param name="win"></param>
-        public virtual void OnGraphicsUpdate(MainWindow win, gfx gfx) { }
+        public virtual void GraphicsUpdate(MainWindow win, gfx gfx) { }
         /// <summary>
         /// Gets Executed when game is about to close
         /// </summary>
         /// <param name="win"></param>
-        public virtual void OnGameEnd(MainWindow win) { }
+        public virtual void GameEnd(MainWindow win) { }
     }
 }
