@@ -41,6 +41,11 @@
         /// <param name="win"></param>
         public virtual void GraphicsUpdate(MainWindow win, gfx gfx) { }
         /// <summary>
+        /// Gets Executed when current level is about to be switched
+        /// </summary>
+        /// <param name="win"></param>
+        public virtual void LevelEnd(MainWindow win) { }
+        /// <summary>
         /// Gets Executed when game is about to close
         /// </summary>
         /// <param name="win"></param>

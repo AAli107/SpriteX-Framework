@@ -45,11 +45,11 @@ namespace SpriteX_Engine.EngineContents
         public int shaderProgram { get; private set; }
 
         private bool allowAltEnter; // Alt+Enter Control
-        private double targetFrameTime; // fixed time for OnFixedGameUpdate()
+        private double targetFrameTime; // fixed time for FixedUpdate()
         private gfx gfx; // All graphics rendering method stored here
         private GameLevelScript gameLevel; // Declares Game-Level script
         private GameLevelScript startLevel; // Contains the start level when the game launches
-        private double accumulatedTime = 0.0; // Used for OnFixedGameUpdate()
+        private double accumulatedTime = 0.0; // Used for FixedUpdate()
         private int gcTimer = 0;
 
         /// <summary>
@@ -157,7 +157,7 @@ namespace SpriteX_Engine.EngineContents
   
             world.WorldUpdate(); // Updates world
 
-            // Will execute Physics/collision code, OnPrePhysicsUpdate(), and OnFixedGameUpdate()
+            // Will execute Physics/collision code, PrePhysicsUpdate(), and FixedUpdate()
             accumulatedTime += UpdateTime;
             while (accumulatedTime >= targetFrameTime)
             {
@@ -249,7 +249,7 @@ namespace SpriteX_Engine.EngineContents
 
         protected override void OnUnload()
         {
-            gameLevel.GameEnd(this); // OnGameEnd method will get executed when game is about to close
+            gameLevel.GameEnd(this); // GameEnd method will get executed when game is about to close
 
             GL.DeleteBuffer(vertexBufferObject);
             GL.DeleteVertexArray(vertexArrayObject);
@@ -344,6 +344,7 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="cam"></param>
         public void LoadLevel(GameLevelScript level, Camera cam)
         {
+            gameLevel?.LevelEnd(this);
             gameLevel = level; 
             GC.Collect();
             gameLevel.Awake(this); // Awake() from GameCode gets executed here
