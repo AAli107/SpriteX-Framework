@@ -1,5 +1,4 @@
 ﻿using OpenTK.Mathematics;
-using System.Linq;
 
 namespace SpriteX_Engine.EngineContents.Components
 {
@@ -19,7 +18,8 @@ namespace SpriteX_Engine.EngineContents.Components
         {
             base.RenderTick(win, gfx);
             if (!isVisible) return;
-            Vector2d[] v = vertex.ToArray();
+            Vector2d[] v = new Vector2d[vertex.Length];
+            vertex.CopyTo(v, 0);
             for (int i = 0; i < v.Length; i++)
             {
                 if (shape == gfx.Shape.Rect && i == 1) continue;
