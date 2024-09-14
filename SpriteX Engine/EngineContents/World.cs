@@ -89,7 +89,14 @@ namespace SpriteX_Engine.EngineContents
         /// <param name="id"></param>
         public void RemoveGameObjectByID(uint id)
         {
-            gameObjects.RemoveAll(o => o.GetID() == id);
+            for (int i = 0; i < gameObjects.Count; i++)
+            {
+                if (gameObjects[i].GetID() == id)
+                { 
+                    gameObjects.RemoveAt(i);
+                    return;
+                }
+            }
         }
 
         /// <summary>
