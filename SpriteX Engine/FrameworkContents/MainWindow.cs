@@ -20,7 +20,7 @@ namespace SpriteX_Framework.FrameworkContents
         public MainWindow(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings)
         : base(gameWindowSettings, nativeWindowSettings)
         {
-            CenterWindow(); // Will center the window in the middle of the screen
+            CenterWindow();
 
             // Will input all the values from InitialGameWindowConfig into MainWindow
             Title = InitialGameWindowConfig.Title;
@@ -44,12 +44,12 @@ namespace SpriteX_Framework.FrameworkContents
         public int vertexBufferObject { get; private set; }
         public int shaderProgram { get; private set; }
 
-        private bool allowAltEnter; // Alt+Enter Control
-        private double targetFrameTime; // fixed time for FixedUpdate()
-        private gfx gfx; // All graphics rendering method stored here
-        private GameLevelScript gameLevel; // Declares Game-Level script
-        private GameLevelScript startLevel; // Contains the start level when the game launches
-        private double accumulatedTime = 0.0; // Used for FixedUpdate()
+        private bool allowAltEnter;
+        private double targetFrameTime;
+        private gfx gfx;
+        private GameLevelScript gameLevel;
+        private GameLevelScript startLevel; 
+        private double accumulatedTime = 0.0;
         private int gcTimer = 0;
 
         /// <summary>
@@ -90,7 +90,7 @@ namespace SpriteX_Framework.FrameworkContents
         public World world { get; private set; }
 
         public Vector2d mouseScreenPos { get { return MousePosition / (ClientSize / new Vector2d(1920, 1080)); } }
-        public Vector2d mouseWorldPos { get { return (MousePosition / (ClientSize / new Vector2d(1920, 1080))) + new Vector2d(GetWorldCamera().camPos.X - (1920 * 0.5f), GetWorldCamera().camPos.Y - (1080 * 0.5f)); } }
+        public Vector2d mouseWorldPos { get { return (MousePosition / (ClientSize / new Vector2d(1920, 1080))) + new Vector2d(GetWorldCamera().camPos.X - 960, GetWorldCamera().camPos.Y - 540); } }
 
         protected override void OnLoad()
         {
@@ -114,7 +114,6 @@ namespace SpriteX_Framework.FrameworkContents
 
             int vertexShader = GL.CreateShader(ShaderType.VertexShader);
             int fragmentShader = GL.CreateShader(ShaderType.FragmentShader);
-
 
             // Tries to Load Vertex and Fragment Shader
             try
@@ -155,9 +154,9 @@ namespace SpriteX_Framework.FrameworkContents
 
             if (gcTimer > fixedFrameTime * 5) { GC.Collect(); gcTimer = 0; }
   
-            world.WorldUpdate(); // Updates world
+            world.WorldUpdate();
 
-            // Will execute Physics/collision code, PrePhysicsUpdate(), and FixedUpdate()
+            // Will execute Physics/collision code, PrePhysicsUpdate, and FixedUpdate
             accumulatedTime += UpdateTime;
             while (accumulatedTime >= targetFrameTime)
             {
@@ -203,7 +202,7 @@ namespace SpriteX_Framework.FrameworkContents
         {
             base.OnRenderFrame(e);
 
-            // Does stuff that allows the game window to be able to render whatever you wrote in OnGraphicsUpdate()
+            // Does stuff that allows the game window to be able to render whatever you wrote in GraphicsUpdate()
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             GL.UseProgram(shaderProgram);
             GL.BindVertexArray(vertexArrayObject);
@@ -212,13 +211,13 @@ namespace SpriteX_Framework.FrameworkContents
             GL.EnableVertexAttribArray(1);
             GL.VertexAttribPointer(1, 2, VertexAttribPointerType.Float, false, sizeof(float) * 4, sizeof(float) * 2);
 
-            gameLevel.GraphicsUpdate(this, gfx); // OnGraphicsUpdate() in GameCode gets executed here
+            gameLevel.GraphicsUpdate(this, gfx);
 
             foreach (GameObject obj in world.GetAllGameObjects())
             {
                 if (!obj.isEnabled) continue;
 
-                obj.Render(this, gfx); // Will do rendering tick on all Game Objects
+                obj.Render(this, gfx); // Will render all game objects
 
                 if (showDebugHitbox) // Will render the Rectangles representing the hitbox of the GameObject
                     foreach (ColliderComponent cc in obj.GetComponents<ColliderComponent>())
@@ -242,12 +241,12 @@ namespace SpriteX_Framework.FrameworkContents
             GL.DisableVertexAttribArray(0);
             GL.DisableVertexAttribArray(1); 
             GL.ClearColor(bgColor);
-            SwapBuffers(); // Switches buffer
+            SwapBuffers();
         }
 
         protected override void OnUnload()
         {
-            gameLevel.GameEnd(this); // GameEnd method will get executed when game is about to close
+            gameLevel.GameEnd(this);
 
             GL.DeleteBuffer(vertexBufferObject);
             GL.DeleteVertexArray(vertexArrayObject);
@@ -263,7 +262,7 @@ namespace SpriteX_Framework.FrameworkContents
             {
                 foreach (Button btn in Button.buttons)
                 {
-                    if (btn.buttonRect.IntersectsWith(new RectangleF((float)mouseScreenPos.X, (float)mouseScreenPos.Y, 0, 0))) // Will invoke OnButtonPress event
+                    if (btn.buttonRect.IntersectsWith(new RectangleF((float)mouseScreenPos.X, (float)mouseScreenPos.Y, 0, 0)))
                     {
                         btn.isPressed = false;
                         btn.InvokeButtonPress(this, e);
@@ -277,7 +276,7 @@ namespace SpriteX_Framework.FrameworkContents
         protected override void OnMouseDown(MouseButtonEventArgs e)
         {
             base.OnMouseDown(e);
-            if (e.Button == MouseButton.Left) // Will determine whether button is being held
+            if (e.Button == MouseButton.Left)
             {
                 foreach (Button btn in Button.buttons)
                 {
@@ -293,9 +292,7 @@ namespace SpriteX_Framework.FrameworkContents
         {
             base.OnMouseMove(e);
             foreach (Button btn in Button.buttons) // Will determine whether button is being hovered on or not
-            {
                 btn.isHovered = btn.buttonRect.IntersectsWith(new RectangleF((float)mouseScreenPos.X, (float)mouseScreenPos.Y, 0, 0));
-            }
         }
 
         /// <summary>
@@ -345,7 +342,7 @@ namespace SpriteX_Framework.FrameworkContents
             gameLevel?.LevelEnd(this);
             gameLevel = level; 
             GC.Collect();
-            gameLevel.Awake(this); // Awake() from GameCode gets executed here
+            gameLevel.Awake(this);
             var auds = world?.audios;
             if (auds != null)
                 foreach (var a in auds)
@@ -353,7 +350,7 @@ namespace SpriteX_Framework.FrameworkContents
             world = new World(cam);
             World.SetWorldInst(world);
             Button.buttons.Clear();
-            gameLevel.LevelStart(this); // Executes when world is Created
+            gameLevel.LevelStart(this);
         }
 
         /// <summary>

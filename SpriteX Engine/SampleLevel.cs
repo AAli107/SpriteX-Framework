@@ -3,7 +3,7 @@ using SpriteX_Framework.FrameworkContents;
 
 namespace SpriteX_Framework
 {
-    public class SampleLevel : GameLevelScript // All classes with GameLevelScript as base class acts like a script for a level
+    public class SampleLevel : GameLevelScript
     {
         // LevelStart is called when the level begins
         public override void LevelStart(MainWindow win)
