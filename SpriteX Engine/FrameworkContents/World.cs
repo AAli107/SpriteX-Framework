@@ -63,7 +63,7 @@ namespace SpriteX_Framework.FrameworkContents
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public bool SpawnGameObject(GameObject obj, Vector2 position)
+        public bool SpawnGameObject(GameObject obj, Vector2d position)
         {
             uint id = 0;
 
