@@ -24,7 +24,7 @@ namespace SpriteX_Engine.EngineContents.Utilities
         /// <param name="centerPoint"></param>
         /// <param name="degreesAngle"></param>
         /// <returns></returns>
-        public static Vector2d RotateAroundPoint(Vector2 pointToRotate, Vector2 centerPoint, double degreesAngle)
+        public static Vector2d RotateAroundPoint(Vector2d pointToRotate, Vector2d centerPoint, double degreesAngle)
         {
             double radianAngle = Numbers.DegreeToRad(degreesAngle);
             double cosTheta = Math.Cos(radianAngle);
