@@ -42,7 +42,7 @@ namespace SpriteX_Engine.EngineContents
         /// </summary>
         public void Play()
         {
-            if (output != null) output.Play();
+            output?.Play();
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace SpriteX_Engine.EngineContents
         /// </summary>
         public void Stop() 
         {
-            if (output != null) output.Stop();
+            output?.Stop();
         }
 
         /// <summary>
