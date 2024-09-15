@@ -83,7 +83,7 @@ namespace SpriteX_Framework.FrameworkContents
         /// <summary>
         /// Removes a GameObject by uuid
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="uuid"></param>
         public void RemoveGameObjectByID(string uuid)
         {
             if (gameObjects.ContainsKey(uuid))
@@ -97,18 +97,14 @@ namespace SpriteX_Framework.FrameworkContents
         public void RemoveGameObject(GameObject obj)
         {
             foreach (var keyValue in gameObjects)
-            {
                 if (keyValue.Value.Equals(obj))
-                {
                     gameObjects.Remove(keyValue.Key);
-                }
-            }
         }
 
         /// <summary>
         /// Returns GameObject by the inputted UUID
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="uuid"></param>
         /// <returns></returns>
         public GameObject GetGameObjectByID(string uuid)
         {
@@ -118,11 +114,28 @@ namespace SpriteX_Framework.FrameworkContents
         /// <summary>
         /// Returns true if GameObject with the same UUID exists
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="uuid"></param>
         /// <returns></returns>
         public bool DoesGameObjectExist(string uuid)
         {
             return gameObjects.ContainsKey(uuid);
+        }
+
+        /// <summary>
+        /// Returns true if given GameObject exists
+        /// </summary>
+        /// <param name="gameObject"></param>
+        /// <returns></returns>
+        public bool DoesGameObjectExist(GameObject gameObject)
+        {
+            GameObject[] _gameObjects = new GameObject[gameObjects.Count];
+            gameObjects.Values.CopyTo(_gameObjects, 0);
+            foreach (GameObject gameObj in _gameObjects)
+            {
+                if (gameObj.Equals(gameObject))
+                    return true;
+            }
+            return false;
         }
 
         /// <summary>
