@@ -74,9 +74,9 @@ namespace SpriteX_Framework.FrameworkContents.Utilities
         }
 
         /// <summary>
-        /// Returns the largest number in an array of floats
+        /// Returns the largest number in an array
         /// </summary>
-        /// <param name="floatArray"></param>
+        /// <param name="arr"></param>
         /// <returns></returns>
         public static double MaxVal(double[] arr)
         {
