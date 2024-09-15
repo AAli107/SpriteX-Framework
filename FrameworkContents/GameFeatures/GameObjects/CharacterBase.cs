@@ -95,7 +95,7 @@ namespace SpriteX_Framework.FrameworkContents.GameFeatures.GameObjects
         /// <param name="hp"></param>
         public void SetHP(float hp)
         {
-            hitPoints = hp; 
+            hitPoints = Numbers.ClampN(hp, 0, maxHitPoints); 
             if (IsDead) DeathSequence(DamageType.None);
         }
 
