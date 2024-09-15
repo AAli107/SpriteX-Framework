@@ -84,7 +84,7 @@ namespace SpriteX_Framework.FrameworkContents
         /// Removes a GameObject by uuid
         /// </summary>
         /// <param name="uuid"></param>
-        public void RemoveGameObjectByID(string uuid)
+        public void RemoveGameObject(string uuid)
         {
             if (gameObjects.ContainsKey(uuid))
                 gameObjects.Remove(uuid);
