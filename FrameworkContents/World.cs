@@ -64,13 +64,20 @@ namespace SpriteX_Framework.FrameworkContents
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public string SpawnGameObject(GameObject obj, Vector2d position)
+        public string SpawnGameObject(GameObject obj, Vector2d position = default)
         {
             string uuid = Guid.NewGuid().ToString();
             obj.SetPosition(position);
             gameObjects.Add(uuid, obj);
             obj.Spawn();
             return uuid;
+        }
+
+        public GameObject SpawnEmptyGameObject(Vector2d position = default)
+        {
+            GameObject gameObject = new GameObject();
+            SpawnGameObject(gameObject, position);
+            return gameObject;
         }
 
         /// <summary>
