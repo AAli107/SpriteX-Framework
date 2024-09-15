@@ -8,7 +8,7 @@ namespace SpriteX_Framework.FrameworkContents
         public static World WorldInst { get; private set; }
 
         public Camera cam;
-        public List<GameObject> gameObjects = new List<GameObject>();
+        public List<GameObject> gameObjects = new();
         public List<Audio> audios = new(256);
 
         public World()
