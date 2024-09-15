@@ -1,5 +1,5 @@
 # SpriteX Framework
-
+[test](#how-to-take-in-player-input)
 This is a 2D Game Framework. Go to [Releases](https://github.com/AAli107/SpriteX-Framework/releases) and select the latest release to download. Once the download is complete, extract the zip file then read the documentation below if you're new to SpriteX Framework.
 
 # Documentation
