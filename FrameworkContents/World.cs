@@ -139,15 +139,6 @@ namespace SpriteX_Framework.FrameworkContents
         }
 
         /// <summary>
-        /// Returns the List of all GameObjects
-        /// </summary>
-        /// <returns></returns>
-        public Dictionary<string, GameObject> GetAllGameObjects()
-        {
-            return gameObjects;
-        }
-
-        /// <summary>
         /// Will update tick all existing GameObjects and does the collision between them
         /// </summary>
         public void TickAllGameObjects(MainWindow win)
