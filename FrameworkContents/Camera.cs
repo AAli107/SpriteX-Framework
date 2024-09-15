@@ -9,7 +9,14 @@ namespace SpriteX_Framework.FrameworkContents
         public float speed;
         private RectangleF bounds;
 
+        /// <summary>
+        /// Controls whether the camera is locked within its bounds
+        /// </summary>
         public bool isCameraBound { get; private set; }
+
+        /// <summary>
+        /// Gives the position of the camera
+        /// </summary>
         public Vector2d camPos { get { return loc; } }
 
         public Camera() // Default Camera constructor
