@@ -106,7 +106,7 @@ namespace SpriteX_Framework.FrameworkContents
         /// </summary>
         /// <param name="uuid"></param>
         /// <returns></returns>
-        public GameObject GetGameObjectByID(string uuid)
+        public GameObject GetGameObject(string uuid)
         {
             return gameObjects[uuid];
         }
