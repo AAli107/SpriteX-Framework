@@ -60,7 +60,7 @@ namespace SpriteX_Framework.FrameworkContents
         /// </summary>
         public double FPS { get { return 1 / UpdateTime; } } 
         /// <summary>
-        /// controls how many times OnFixedGameUpdate() method is executed per second
+        /// controls how many times FixedUpdate method is executed per second
         /// </summary>
         public double fixedFrameTime { get { return 1 / targetFrameTime; } set { targetFrameTime = 1 / (value < 0 ? 0 : value); } }
         /// <summary>
