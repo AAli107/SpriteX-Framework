@@ -16,6 +16,7 @@ namespace SpriteX_Framework.FrameworkContents
         public event EventHandler<EventArgs> OnSpawn;
         public event EventHandler<EventArgs> OnRender;
         public bool isEnabled = true;
+        public bool isStatic = false;
 
         /// <summary>
         /// Creates a GameObject
@@ -98,7 +99,7 @@ namespace SpriteX_Framework.FrameworkContents
         /// Returns GameObject's position
         /// </summary>
         /// <returns></returns>
-        public Vector2d GetPosition() { return position; }
+        public Vector2d GetPosition() { return position + (isStatic ? World.WorldInst.cam.camPos : Vector2d.Zero); }
 
         /// <summary>
         /// Will try and get UUID of game object. It will work only when it is spawned in the world
