@@ -55,16 +55,6 @@
         {
             return rng.NextDouble() <= chance;
         }
-
-        /// <summary>
-        /// Returns a random int between 0 to max
-        /// </summary>
-        /// <param name="max"></param>
-        /// <returns></returns>
-        public static int RandInt(int max)
-        {
-            return rng.Next(max + 1);
-        }
     }
 
 }
