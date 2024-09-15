@@ -44,7 +44,7 @@ namespace SpriteX_Framework.FrameworkContents.Components
         {
             base.UpdateTick(win);
 
-            buttonRect = new Box2d(parent.GetPosition() + World.WorldInst.cam.camPos - (new Vector2d(-50, -50) * transform.scale) + transform.position, parent.GetPosition() + World.WorldInst.cam.camPos - (new Vector2d(50, 50) * transform.scale) + transform.position);
+            buttonRect = new Box2d((parent.GetPosition() - World.WorldInst.cam.camPos + transform.position + new Vector2d(960, 540)) + (new Vector2d(-50, -50) * transform.scale), (parent.GetPosition() - World.WorldInst.cam.camPos + transform.position + new Vector2d(960, 540)) + (new Vector2d(50, 50) * transform.scale));
         }
 
         public void InvokeButtonPress(MainWindow win, MouseButtonEventArgs e)
