@@ -92,7 +92,7 @@ namespace SpriteX_Framework.FrameworkContents
         /// </summary>
         public Vector2d mouseScreenPos { get { return MousePosition / (ClientSize / new Vector2d(1920, 1080)); } }
         /// <summary>
-        /// The position of the mouse in the world
+        /// The position of the mouse within the world
         /// </summary>
         public Vector2d mouseWorldPos { get { return (MousePosition / (ClientSize / new Vector2d(1920, 1080))) + new Vector2d(GetWorldCamera().camPos.X - 960, GetWorldCamera().camPos.Y - 540); } }
 
