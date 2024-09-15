@@ -21,7 +21,7 @@ This is a 2D Game Framework. Go to [Releases](https://github.com/AAli107/SpriteX
 	- [Removing a Game Object](#removing-a-game-object)
 	- [Getting a Game Object / Check if Game Object Exists](#getting-a-game-object--check-if-game-object-exists)
 - [Components](#components)
-	- [Button Component](#button-component)
+	- [ButtonComponent](#buttoncomponent)
 	- [ColliderComponent](#collidercomponent)
 	- [PhysicsComponent](#physicscomponent)
 	- [RenderComponent](#rendercomponent)
@@ -251,7 +251,7 @@ Components can be attached to Game Objects to add features and behaviors onto th
 - `gameObject.GetAllComponents()` will straight up return a copy of the component list as an array.
 - To remove a component, you have to do `gameObject.AddComponent(component);`.
 
-### Button Component
+### ButtonComponent
 Adding this Component onto your Game Object will make your game object be a button you can click with a mouse.
 Button components have these attributes:
 - `Transform transform`: Contains the position (offsets from parent game object) and the scale of the button.
