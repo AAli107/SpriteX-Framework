@@ -51,7 +51,7 @@
         /// </summary>
         /// <param name="chance"></param>
         /// <returns></returns>
-        public static bool RandBoolByChance(float chance = 0.5f)
+        public static bool RandBoolByChance(double chance = 0.5)
         {
             return rng.NextDouble() <= chance;
         }
