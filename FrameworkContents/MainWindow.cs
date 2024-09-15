@@ -5,7 +5,6 @@ using OpenTK.Windowing.Desktop;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using SpriteX_Framework.FrameworkContents.Components;
 using System;
-using System.Drawing;
 using System.IO;
 
 namespace SpriteX_Framework.FrameworkContents
