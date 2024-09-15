@@ -146,6 +146,11 @@ namespace SpriteX_Framework.FrameworkContents
             tex.Unbind();
         }
 
+        /// <summary>
+        /// Draws many pixels on the game window using given vertex data
+        /// </summary>
+        /// <param name="vertexData"></param>
+        /// <param name="color"></param>
         public void DrawPixels(float[] vertexData, Color4 color)
         {
             if (vertexData.Length % 4 != 0) return;
@@ -276,6 +281,12 @@ namespace SpriteX_Framework.FrameworkContents
             tex.Unbind();
         }
 
+        /// <summary>
+        /// Draws many triangles on the game window
+        /// </summary>
+        /// <param name="vertexPos"></param>
+        /// <param name="color"></param>
+        /// <param name="isStatic"></param>
         public void DrawTris(Vector2d[] vertexPos, Color4 color, bool isStatic = false)
         {
             if (vertexPos.Length % 3 != 0) return;
