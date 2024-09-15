@@ -1,4 +1,5 @@
 ﻿using OpenTK.Mathematics;
+using System;
 using System.Collections.Generic;
 
 namespace SpriteX_Framework.FrameworkContents
@@ -8,7 +9,7 @@ namespace SpriteX_Framework.FrameworkContents
         public static World WorldInst { get; private set; }
 
         public Camera cam;
-        public List<GameObject> gameObjects = new();
+        public Dictionary<string, GameObject> gameObjects = new();
         public List<Audio> audios = new(256);
 
         public World()
@@ -63,40 +64,23 @@ namespace SpriteX_Framework.FrameworkContents
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public bool SpawnGameObject(GameObject obj, Vector2d position)
+        public string SpawnGameObject(GameObject obj, Vector2d position)
         {
-            uint id = 0;
-
-            for (int i = 0; i < gameObjects.Count; i++)
-            {
-                if (gameObjects[i].GetID() == id) id++;
-                else break;
-            }
-
-            if (obj.SetID(id, this))
-            {
-                obj.SetPosition(position);
-                gameObjects.Add(obj);
-                obj.Spawn();
-                return true;
-            }
-            return false;
+            string uuid = Guid.NewGuid().ToString();
+            obj.SetPosition(position);
+            gameObjects.Add(uuid, obj);
+            obj.Spawn();
+            return uuid;
         }
 
         /// <summary>
-        /// Removes a GameObject by id
+        /// Removes a GameObject by uuid
         /// </summary>
         /// <param name="id"></param>
-        public void RemoveGameObjectByID(uint id)
+        public void RemoveGameObjectByID(string uuid)
         {
-            for (int i = 0; i < gameObjects.Count; i++)
-            {
-                if (gameObjects[i].GetID() == id)
-                { 
-                    gameObjects.RemoveAt(i);
-                    return;
-                }
-            }
+            if (gameObjects.ContainsKey(uuid))
+                gameObjects.Remove(uuid);
         }
 
         /// <summary>
@@ -105,44 +89,40 @@ namespace SpriteX_Framework.FrameworkContents
         /// <param name="obj"></param>
         public void RemoveGameObject(GameObject obj)
         {
-            gameObjects.Remove(obj);
+            foreach (var keyValue in gameObjects)
+            {
+                if (keyValue.Value.Equals(obj))
+                {
+                    gameObjects.Remove(keyValue.Key);
+                }
+            }
         }
 
         /// <summary>
-        /// Returns GameObject by the inputted ID
+        /// Returns GameObject by the inputted UUID
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public GameObject GetGameObjectByID(uint id)
+        public GameObject GetGameObjectByID(string uuid)
         {
-            for (int i = 0; i < gameObjects.Count; i++)
-            {
-                if (id == gameObjects[i].GetID())
-                    return gameObjects[i];
-            }
-            return null;
+            return gameObjects[uuid];
         }
 
         /// <summary>
-        /// Returns true if GameObject with the same ID exists
+        /// Returns true if GameObject with the same UUID exists
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public bool DoesGameObjectExist(uint id)
+        public bool DoesGameObjectExist(string uuid)
         {
-            for (int i = 0; i < gameObjects.Count; i++)
-            {
-                if (id == gameObjects[i].GetID())
-                    return true;
-            }
-            return false;
+            return gameObjects.ContainsKey(uuid);
         }
 
         /// <summary>
         /// Returns the List of all GameObjects
         /// </summary>
         /// <returns></returns>
-        public List<GameObject> GetAllGameObjects()
+        public Dictionary<string, GameObject> GetAllGameObjects()
         {
             return gameObjects;
         }
@@ -152,9 +132,9 @@ namespace SpriteX_Framework.FrameworkContents
         /// </summary>
         public void TickAllGameObjects(MainWindow win)
         {
-            for (int i = 0; i < gameObjects.Count; i++)
-                if (gameObjects[i].isEnabled)
-                    gameObjects[i].UpdateTick(win);
+            foreach (var gameObj in gameObjects.Values)
+                if (gameObj.isEnabled)
+                    gameObj.UpdateTick(win);
         }
 
         /// <summary>

@@ -180,7 +180,9 @@ namespace SpriteX_Framework.FrameworkContents
             if (!isGamePaused)
             {
                 gameLevel.GameUpdate(this);
-                foreach (GameObject obj in world.gameObjects)
+                GameObject[] _gameObjects = new GameObject[world.gameObjects.Count];
+                world.gameObjects.Values.CopyTo(_gameObjects, 0);
+                foreach (GameObject obj in _gameObjects)
                 {
                     var cs = obj.GetAllComponents();
 
@@ -212,7 +214,9 @@ namespace SpriteX_Framework.FrameworkContents
 
             gameLevel.GraphicsUpdate(this, gfx);
 
-            foreach (GameObject obj in world.GetAllGameObjects())
+            GameObject[] _gameObjects = new GameObject[world.gameObjects.Count];
+            world.gameObjects.Values.CopyTo(_gameObjects, 0);
+            foreach (GameObject obj in _gameObjects)
             {
                 if (!obj.isEnabled) continue;
 
@@ -254,11 +258,13 @@ namespace SpriteX_Framework.FrameworkContents
             base.OnMouseUp(e);
             if (e.Button == MouseButton.Left)
             {
-                for (int i = 0; i < world.gameObjects.Count; i++)
+                GameObject[] _gameObjects = new GameObject[world.gameObjects.Count];
+                world.gameObjects.Values.CopyTo(_gameObjects, 0);
+                foreach (GameObject gameObj in _gameObjects)
                 {
-                    if (!world.gameObjects[i].isEnabled) continue;
+                    if (!gameObj.isEnabled) continue;
 
-                    ButtonComponent[] buttonComponents = world.gameObjects[i].GetComponents<ButtonComponent>();
+                    ButtonComponent[] buttonComponents = gameObj.GetComponents<ButtonComponent>();
 
                     for (int j = 0; j < buttonComponents.Length; j++)
                     {
@@ -281,11 +287,13 @@ namespace SpriteX_Framework.FrameworkContents
             base.OnMouseDown(e);
             if (e.Button == MouseButton.Left)
             {
-                for (int i = 0; i < world.gameObjects.Count; i++)
+                GameObject[] _gameObjects = new GameObject[world.gameObjects.Count];
+                world.gameObjects.Values.CopyTo(_gameObjects, 0);
+                foreach (GameObject gameObj in _gameObjects)
                 {
-                    if (!world.gameObjects[i].isEnabled) continue;
+                    if (!gameObj.isEnabled) continue;
 
-                    ButtonComponent[] buttonComponents = world.gameObjects[i].GetComponents<ButtonComponent>();
+                    ButtonComponent[] buttonComponents = gameObj.GetComponents<ButtonComponent>();
 
                     for (int j = 0; j < buttonComponents.Length; j++)
                     {
@@ -299,13 +307,15 @@ namespace SpriteX_Framework.FrameworkContents
         protected override void OnMouseMove(MouseMoveEventArgs e)
         {
             base.OnMouseMove(e);
-            
-            // Will determine whether button is being hovered on or not
-            for (int i = 0; i < world.gameObjects.Count; i++)
-            {
-                if (!world.gameObjects[i].isEnabled) continue;
 
-                ButtonComponent[] buttonComponents = world.gameObjects[i].GetComponents<ButtonComponent>();
+            // Will determine whether button is being hovered on or not
+            GameObject[] _gameObjects = new GameObject[world.gameObjects.Count];
+            world.gameObjects.Values.CopyTo(_gameObjects, 0);
+            foreach (GameObject gameObj in _gameObjects)
+            {
+                if (!gameObj.isEnabled) continue;
+
+                ButtonComponent[] buttonComponents = gameObj.GetComponents<ButtonComponent>();
 
                 for (int j = 0; j < buttonComponents.Length; j++)
                     buttonComponents[j].IsHovered = buttonComponents[j].buttonRect.ContainsInclusive(mouseScreenPos);

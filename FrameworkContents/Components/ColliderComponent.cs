@@ -37,7 +37,7 @@ namespace SpriteX_Framework.FrameworkContents.Components
             if (overlappingColliders.Count > 0) overlappingColliders.Clear();
 
             PhysicsComponent pc = parent.GetComponent<PhysicsComponent>();
-            foreach (GameObject obj in win.world.gameObjects)
+            foreach (GameObject obj in win.world.gameObjects.Values)
             {
                 if (obj == parent) continue;
                 PhysicsComponent pc2 = obj.GetComponent<PhysicsComponent>();

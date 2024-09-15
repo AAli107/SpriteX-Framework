@@ -8,7 +8,6 @@ namespace SpriteX_Framework.FrameworkContents
 {
     public class GameObject
     {
-        uint id;
         Vector2d position;
 
         private List<Component> components = new List<Component>();
@@ -45,7 +44,7 @@ namespace SpriteX_Framework.FrameworkContents
 
         public T[] GetComponents<T>() where T : Component
         {
-            List<T> comps = new List<T>();
+            List<T> comps = new();
             for (int i = 0; i < components.Count; i++)
             {
                 if (components[i].GetType() == typeof(T))
@@ -87,22 +86,6 @@ namespace SpriteX_Framework.FrameworkContents
         }
 
         /// <summary>
-        /// Sets ID of GameObject if world has
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="world"></param>
-        /// <returns></returns>
-        public bool SetID(uint id, World world)
-        {
-            if (!world.DoesGameObjectExist(id))
-            {
-                this.id = id;
-                return true;
-            }
-            return false;
-        }
-
-        /// <summary>
         /// Sets GameObject's Position
         /// </summary>
         /// <param name="position"></param>
@@ -112,15 +95,23 @@ namespace SpriteX_Framework.FrameworkContents
         }
 
         /// <summary>
-        /// Returns GameObject's ID
-        /// </summary>
-        /// <returns></returns>
-        public uint GetID() { return id; }
-
-        /// <summary>
         /// Returns GameObject's position
         /// </summary>
         /// <returns></returns>
         public Vector2d GetPosition() { return position; }
+
+        /// <summary>
+        /// Will try and get UUID of game object. It will work only when it is spawned in the world
+        /// </summary>
+        /// <returns></returns>
+        public string GetUUID()
+        {
+            foreach (var item in World.WorldInst.gameObjects)
+            {
+                if (item.Value.Equals(this))
+                    return item.Key;
+            }
+            return null;
+        }
     }
 }
