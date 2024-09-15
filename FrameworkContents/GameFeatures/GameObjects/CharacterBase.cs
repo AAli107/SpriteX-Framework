@@ -95,8 +95,9 @@ namespace SpriteX_Framework.FrameworkContents.GameFeatures.GameObjects
         /// <param name="hp"></param>
         public void SetHP(float hp)
         {
+            bool wasAlive = !IsDead;
             hitPoints = Numbers.ClampN(hp, 0, maxHitPoints); 
-            if (IsDead) DeathSequence(DamageType.None);
+            if (wasAlive && IsDead) DeathSequence(DamageType.None);
         }
 
         /// <summary>
@@ -163,9 +164,10 @@ namespace SpriteX_Framework.FrameworkContents.GameFeatures.GameObjects
         {
             if (!IsDead && !IsInvulnerable)
             {
+                bool wasAlive = !IsDead;
                 hitPoints = Numbers.ClampN(hitPoints - amount, 0, maxHitPoints);
                 this.iframes = iframes < 0 ? 0 : iframes;
-                if (IsDead) DeathSequence(damageType);
+                if (wasAlive && IsDead) DeathSequence(damageType);
                 return true;
             } else return false;
         }
