@@ -75,7 +75,7 @@ namespace SpriteX_Framework.FrameworkContents
 
         public GameObject SpawnEmptyGameObject(Vector2d position = default)
         {
-            GameObject gameObject = new GameObject();
+            GameObject gameObject = new();
             SpawnGameObject(gameObject, position);
             return gameObject;
         }
