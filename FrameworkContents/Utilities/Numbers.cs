@@ -125,5 +125,4 @@ namespace SpriteX_Framework.FrameworkContents.Utilities
             return a * (1 - alpha) + b * alpha;
         }
     }
-
 }
