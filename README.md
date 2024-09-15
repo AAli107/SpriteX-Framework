@@ -1,8 +1,44 @@
 # SpriteX Framework
-[test](#how-to-take-in-player-input)
+
 This is a 2D Game Framework. Go to [Releases](https://github.com/AAli107/SpriteX-Framework/releases) and select the latest release to download. Once the download is complete, extract the zip file then read the documentation below if you're new to SpriteX Framework.
 
 # Documentation
+## Doc Index
+- [Requirements](#requirements)
+	- [Recommended Hardware Requirements](#recommended-hardware-requirements)
+	- [Recommended Software Requirements](#recommended-software-requirements)
+	- [Recommended User Knowledge](#recommended-user-knowledge)
+- [Game Code Basics](#game-code-basics)
+	- [Navigating to the SampleLevel](#navigating-to-the-samplelevel)
+	- [A Look Around Inside SampleLevel](#a-look-around-inside-samplelevel)
+	- [How to take in Player Input](#how-to-take-in-player-input)
+	- [How to Create a new Level Script and switch to it](#how-to-create-a-new-level-script-and-switch-to-it)
+- [Rendering Graphics](#rendering-graphics)
+- [Camera](#camera)
+- [InitialGameWindowConfig](#initialgamewindowconfig)
+- [Game Objects](#game-objects)
+	- [Spawn a Game Object](#spawn-a-game-object)
+	- [Removing a Game Object](#removing-a-game-object)
+	- [Getting a Game Object / Check if Game Object Exists](#getting-a-game-object--check-if-game-object-exists)
+- [Components](#components)
+	- [Button Component](#button-component)
+	- [ColliderComponent](#collidercomponent)
+	- [PhysicsComponent](#physicscomponent)
+	- [RenderComponent](#rendercomponent)
+	- [ScriptComponent](#scriptcomponent)
+- [Character Base](#character-base)
+	- [Side Scroller Character](#side-scroller-character)
+	- [Top-Down Character](#top-down-character)
+- [Utilities](#utilities)
+	- [Numbers](#numbers)
+	- [Colors](#colors)
+	- [Enums](#enums)
+	- [Rand](#rand)
+	- [Vec2D](#vec2d)
+	- [Vec3D](#vec3d)
+- [MainWindow](#mainwindow)
+
+
 ## Requirements
 
 ### Recommended Hardware Requirements
