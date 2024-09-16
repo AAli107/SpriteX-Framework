@@ -39,6 +39,7 @@
         /// GraphicsUpdate is called once per frame to render graphics
         /// </summary>
         /// <param name="win"></param>
+        /// <param name="gfx"></param>
         public virtual void GraphicsUpdate(MainWindow win, gfx gfx) { }
         /// <summary>
         /// LevelEnd is called right before the currently running level gets switched
