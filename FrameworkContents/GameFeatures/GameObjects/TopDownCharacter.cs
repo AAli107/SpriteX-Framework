@@ -22,8 +22,7 @@ namespace SpriteX_Framework.FrameworkContents.GameFeatures.GameObjects
         /// <param name="speed"></param>
         public void MoveForward(float speed = 1f)
         {
-            if (pc != null)
-                pc.AddVelocity(ForwardDirection * speed);
+            pc?.AddVelocity(ForwardDirection * speed);
         }
 
         /// <summary>
@@ -32,8 +31,7 @@ namespace SpriteX_Framework.FrameworkContents.GameFeatures.GameObjects
         /// <param name="speed"></param>
         public void StrafeRight(float speed = 1f)
         {
-            if (pc != null)
-                pc.AddVelocity(RightDirection * speed);
+            pc?.AddVelocity(RightDirection * speed);
         }
 
         /// <summary>
