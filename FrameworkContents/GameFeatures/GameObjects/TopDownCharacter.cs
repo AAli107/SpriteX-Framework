@@ -1,5 +1,4 @@
-﻿using OpenTK.Mathematics;
-using SpriteX_Framework.FrameworkContents.Components;
+﻿using SpriteX_Framework.FrameworkContents.Components;
 
 namespace SpriteX_Framework.FrameworkContents.GameFeatures.GameObjects
 {
