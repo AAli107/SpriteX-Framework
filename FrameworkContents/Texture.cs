@@ -106,7 +106,7 @@ namespace SpriteX_Framework.FrameworkContents
         }
         private static Bitmap GetMissingBitmap()
         {
-            Bitmap image = new Bitmap(2, 2);
+            Bitmap image = new (2, 2);
             image.SetPixel(0, 0, Color.Magenta);
             image.SetPixel(1, 0, Color.Black);
             image.SetPixel(0, 1, Color.Black);
