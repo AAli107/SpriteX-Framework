@@ -49,7 +49,7 @@ namespace SpriteX_Framework.FrameworkContents
         {
             path = "";
             // Load the image using Bitmap
-            Bitmap image = new Bitmap(1, 1);
+            Bitmap image = new (1, 1);
             image.SetPixel(0, 0, Color.White);
 
             // Generate a new texture ID
@@ -74,7 +74,7 @@ namespace SpriteX_Framework.FrameworkContents
         {
             path = "";
             // Load the image using Bitmap
-            Bitmap image = new Bitmap(1, 1);
+            Bitmap image = new (1, 1);
             image.SetPixel(0, 0, Color.FromArgb((int)color.A * 255, (int)color.R * 255, (int)color.G * 255, (int)color.B * 255));
 
             // Generate a new texture ID
