@@ -10,7 +10,7 @@ namespace SpriteX_Framework.FrameworkContents.Components
         public gfx.DrawType drawType = gfx.DrawType.Filled;
         public Texture tex = Texture.GetPlainWhiteTexture();
         public Color4 color = Color4.White;
-        public float size = 1;
+        public object[] objects = null;
 
         public RenderComponent(GameObject parent) : base(parent) { }
 
@@ -26,7 +26,7 @@ namespace SpriteX_Framework.FrameworkContents.Components
                 v[i] = v[i] + parent.GetPosition();
             }
 
-            gfx.DrawShape(shape, v, color, tex, drawType, size, false);
+            gfx.DrawShape(shape, v, color, tex, drawType, objects, false);
         }
     }
 }
