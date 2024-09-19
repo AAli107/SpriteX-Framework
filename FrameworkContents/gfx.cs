@@ -256,9 +256,9 @@ namespace SpriteX_Framework.FrameworkContents
 
             if (drawType == DrawType.Outline) // Will draw the triangle as an outline
             {
-                DrawLine(a, b, color);
-                DrawLine(b, c, color);
-                DrawLine(c, a, color);
+                DrawLine(a, b, color, 1, isStatic);
+                DrawLine(b, c, color, 1, isStatic);
+                DrawLine(c, a, color, 1, isStatic);
                 return;
             }
             // Triangle verticies
@@ -347,10 +347,10 @@ namespace SpriteX_Framework.FrameworkContents
 
             if (drawType == DrawType.Outline) // Will draw the quad as an outline
             {
-                DrawLine(a, b, color);
-                DrawLine(b, c, color);
-                DrawLine(c, d, color);
-                DrawLine(d, a, color);
+                DrawLine(a, b, color, 1, isStatic);
+                DrawLine(b, c, color, 1, isStatic);
+                DrawLine(c, d, color, 1, isStatic);
+                DrawLine(d, a, color, 1, isStatic);
                 return;
             }
 
