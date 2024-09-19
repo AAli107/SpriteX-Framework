@@ -1,3 +1,4 @@
+
 # SpriteX Framework
 
 This is a 2D Game Framework. Go to [Releases](https://github.com/AAli107/SpriteX-Framework/releases) and select the latest release to download. Once the download is complete, extract the zip file then read the documentation below if you're new to SpriteX Framework.
@@ -98,9 +99,9 @@ As shown above, SampleLevel has three main parts, “LevelStart”, “GameUpdat
 
 ### How to take in Player Input
 Games without inputs aren't games! So in order to let the game know the player is pushing a button on the keyboard, we could write either of these methods below within if statements inside the `GameUpdate` method. Each one requires a parameter of type `OpenTK.Windowing.GraphicsLibraryFramework.Keys` to specify which key is pressed.
-- **win.IsKeyDown():** Returns a `bool` that is true when the specified key is being held down by the player.
-- **win.IsKeyPressed():** Returns a `bool` that is true when the specified key is pressed in the current frame, but is released in the previous frame.
-- **win.IsKeyReleased():** Returns a `bool` that is true when the specified key is not being held by the player in the current frame, but is pressed by the player in the previous frame.
+- `win.IsKeyDown()` Returns true when the key is being held down by the player.
+- `win.IsKeyPressed()` Returns true when the key is pressed in the current frame, but is released in the previous frame.
+- `win.IsKeyReleased()` Returns true when the key is not being held by the player in the current frame, but is pressed by the player in the previous frame.
 
 ### How to Create a new Level Script and switch to it
 SpriteX Frameworks comes with a SampleLevel script. SampleLevel is a subclass of `GameLevelScript`. All levels you want to make must extend from `GameLevelScript` class in order for it be counted as a "Level". So what you have to do is create a new class, and call it whatever you want. For this example, It's called "Level2", and it must extend from `GameLevelScript`. Here is how it should look like:
@@ -153,7 +154,7 @@ There are a lot of methods within `gfx` you can use to render stuff on the scree
 - `void DrawSingleChar(Vector2d pos, char character, Color4 color, float size = 1, bool isStatic = true)`: Draws a Single character on screen
 - `DrawText(Vector2d pos, object _object, Color4 color, float size = 1, bool isStatic = true)`: Draws Text on screen
 - `DrawText(Vector2d pos, string text, Color4 color, float size = 1, bool isStatic = true)`: Draws Text on screen
-- `void DrawShape(Shape shape, Vector2d[] pos, Color4 color, Texture texture, DrawType drawType = DrawType.Filled, float size = 1, bool isStatic = false)`: Allows you to draw shapes depending on the `shape` parameter you give it
+- `DrawShape(Shape shape, Vector2d[] pos, Color4 color, Texture texture, DrawType drawType = DrawType.Filled, object[] obj = null, bool isStatic = false)`: Allows you to draw shapes depending on the `shape` parameter you give it
 
 The `isStatic` boolean parameter that each method has controls whether the rendered graphic is fixed to the camera view or not.
 
@@ -311,7 +312,7 @@ Render components have these attributes:
 - `gfx.DrawType drawType`: Used by some shapes to determine if the shape is filled or just outline.
 - `Texture tex`: Used by some shapes to determine the texture it will be using.
 - `Color4 color`: The color of the graphic/shape to be drawn.
-- `float size`: Used by the Line shape to determine its thickness.
+- `object[] objects`: Used to add extra information to some shapes like numbers or strings.
 ---
 
 ### ScriptComponent
