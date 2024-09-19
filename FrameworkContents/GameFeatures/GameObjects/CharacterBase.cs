@@ -48,7 +48,7 @@ namespace SpriteX_Framework.FrameworkContents.GameFeatures.GameObjects
         private void CharacterBase_Spawn(object sender, EventArgs e)
         {
             hitPoints = maxHitPoints;
-            if (sender == null)
+            if (sender != null)
                 spawnpoint = GetPosition();
         }
 
