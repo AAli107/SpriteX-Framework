@@ -45,7 +45,8 @@ namespace SpriteX_Framework.FrameworkContents
             Rect,
             Tri,
             Line,
-            Pixel
+            Pixel,
+            Text
         }
 
         /// <summary>
@@ -678,7 +679,7 @@ namespace SpriteX_Framework.FrameworkContents
             GL.DrawArrays(PrimitiveType.TriangleStrip, 0, 4);
         }
 
-        public void DrawShape(Shape shape, Vector2d[] pos, Color4 color, Texture texture, DrawType drawType = DrawType.Filled, float size = 1, bool isStatic = false)
+        public void DrawShape(Shape shape, Vector2d[] pos, Color4 color, Texture texture, DrawType drawType = DrawType.Filled, object[] obj = null, bool isStatic = false)
         {
             switch (shape)
             {
@@ -694,11 +695,15 @@ namespace SpriteX_Framework.FrameworkContents
                     DrawTri(pos[0], pos[1], pos[2], color, drawType, isStatic);
                     break;
                 case Shape.Line:
-                    DrawLine(pos[0], pos[1], color, size, isStatic);
+                    if (obj != null) DrawLine(pos[0], pos[1], color, obj == null ? 1 : (double)obj[0], isStatic);
                     break;
                 case Shape.Pixel:
                     DrawScaledPixel(pos[0], color, isStatic);
                     break;
+                case Shape.Text:
+                    if (obj != null) DrawText(pos[0], obj[0], color, obj == null ? 1 : (float)obj[1], isStatic);
+                    break;
+
             }
         }
     }
