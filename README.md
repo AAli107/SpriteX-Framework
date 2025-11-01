@@ -3,6 +3,16 @@
 
 This is a 2D Game Framework. Go to [Releases](https://github.com/AAli107/SpriteX-Framework/releases) and select the latest release to download. Once the download is complete, extract the zip file then read the documentation below if you're new to SpriteX Framework.
 
+# How to Contribute
+- Make a fork of the repository.
+- git clone your forked repo.
+- Make some changes.
+- Then open a Pull Request.
+## Pull Request Guidelines/Rules
+- Prioritize bug fixes over adding new features.
+- Every Pull request must add 1 feature. (do not make pull requests with a lot of new features, just separate them into multiple PRs)
+- PRs with bad coding practices in readability and performance will likely be closed if not resolved.
+
 # Documentation
 ## Doc Index
 - [Requirements](#requirements)
