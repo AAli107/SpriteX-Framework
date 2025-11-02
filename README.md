@@ -3,7 +3,9 @@
 
 This is a 2D Game Framework. Go to [Releases](https://github.com/AAli107/SpriteX-Framework/releases) and select the latest release to download. Once the download is complete, extract the zip file then read the documentation below if you're new to SpriteX Framework.
 
-# How to Contribute
+# Contribution
+Everyone is welcome to contribute to the project, please go ahead and submit your PRs! Make sure to the read the below text to either know how to contribute and to understand the PR guidelines/rules as reading the guidelines is important before opening a PR.
+## How to Contribute
 - Make a fork of the repository.
 - git clone your forked repo.
 - Make some changes.
